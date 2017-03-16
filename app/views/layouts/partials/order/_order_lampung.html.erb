@@ -1,0 +1,52 @@
+<li class="<%= 'active' if controller?('order/lampung') %>">
+  <a href="#lpg-order" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Lampung</span> </a>
+  <ul id="lpg-order" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      LAMPUNG
+    </li>
+    <li class="<%= 'active' if controller?('order/lampung/lampung_elites') %>">
+      <a href="#lpg-order-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      <ul id="lpg-order-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          ELITE
+        </li>
+        <li class="<%= 'active' if controller?('order/lampung/lampung_elites') && action?('order') %>">
+          <a href="/order/lampung/lampung_elites/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/lampung/lampung_serenity') %>">
+      <a href="#lpg-order-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      <ul id="lpg-order-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('order/lampung/lampung_serenity') && action?('order') %>">
+          <a href="/order/lampung/lampung_serenity/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/lampung/lampung_lady') %>">
+      <a href="#lpg-order-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      <ul id="lpg-order-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('order/lampung/lampung_lady') && action?('order') %>">
+          <a href="/order/lampung/lampung_lady/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/lampung/lampung_royal') %>">
+      <a href="#lpg-order-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      <ul id="lpg-order-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('order/lampung/lampung_royal') && action?('order') %>">
+          <a href="/order/lampung/lampung_royal/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>

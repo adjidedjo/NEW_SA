@@ -1,0 +1,57 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: dbmarketing
+  pool: 5
+  reconnect: true
+  username: root
+  password: royalabadi
+  host: 192.168.101.220
+  # host: 127.0.0.1
+  # port: 3307
+
+jdeoracle:
+  adapter: oracle_enhanced
+  username: JDEDBA
+  password: Royal2012
+  database: "(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=db.ras.co.id)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=orcl.ras.co.id)))"
+
+sqlserver:
+  adapter: sqlserver
+  encoding: utf8
+  reconnect: true
+  database: DBMarketing
+  pool: 5
+  username: sa
+  password: batosay*99
+  host: 192.168.100.6
+  port: 1433
+
+pos:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: point_of_sales_staging
+  pool: 5
+  reconnect: true
+  username: root
+  password: royalabadi
+  host: 192.168.101.220
+
+bcp:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: point_of_sales_bcp
+  pool: 5
+  reconnect: true
+  username: root
+  password: royalabadi
+  host: 192.168.101.220

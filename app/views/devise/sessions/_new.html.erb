@@ -1,0 +1,35 @@
+<div class="block-center mt-xl wd-xl">
+  <!-- START panel-->
+  <div class="panel panel-dark panel-flat">
+    <div class="panel-heading text-center">
+      <a href="#"> <img src="<%= image_path('angle/logo_sa.png') %>" alt="Image" class="block-center img-rounded" /> </a>
+    </div>
+    <div class="panel-body">
+      <p class="text-center pv">
+        SIGN IN TO CONTINUE.
+      </p>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: "mb-lg") do |f| %>
+      <div class="form-group has-feedback">
+        <%= f.text_field :username, required: true, autocomplete: "off", autofocus: true, class: "form-control", placeholder: "Enter Username" %>
+        <span class="fa fa-envelope form-control-feedback text-muted"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password" %>
+        <span class="fa fa-lock form-control-feedback text-muted"></span>
+      </div>
+      <div class="clearfix">
+        <div class="checkbox c-checkbox pull-left mt0">
+          <label>
+            <input type="checkbox" value="" name="remember" />
+            <span class="fa fa-check"></span>Remember Me</label>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-block btn-primary mt-lg">
+      Login
+    </button>
+    <% end %>
+  </div>
+</div>
+<!-- END panel-->
+</div>

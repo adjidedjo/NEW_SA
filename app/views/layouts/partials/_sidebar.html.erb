@@ -1,0 +1,157 @@
+<!-- START Sidebar (left)-->
+<div class="aside-inner">
+  <nav class="sidebar" data-sidebar-anyclick-close="">
+    <!-- START sidebar nav-->
+    <ul class="nav">
+      <!-- START user info-->
+      <li class="has-user-block">
+        <div id="user-block" class="collapse">
+          <div class="item user-block">
+            <!-- User picture-->
+            <div class="user-block-picture">
+              <div class="user-block-status">
+                <img src="<%= image_path('angle/user/02.jpg') %>" alt="Avatar" width="60" height="60" class="img-thumbnail img-circle" />
+                <div class="circle circle-success circle-lg"></div>
+              </div>
+            </div>
+            <!-- Name and Job-->
+            <div class="user-block-info">
+              <span class="user-block-name">Hello, <%= current_user.username %></span>
+              <span class="user-block-role"><%= current_user.position.upcase %></span>
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- END user info-->
+      <!-- SA Project-->
+      <li class="nav-heading"></li>
+      <li class="<%= 'active' if controller?('order') %>">
+        <a href="#order" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span>Order</span> </a>
+        <ul id="order" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Order
+          </li>
+          <li class="<%= 'active' if controller?('order') %>">
+            <a href="#retail_order" title="Retail Order" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail_order" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+              <%= render "layouts/partials/order/order_bandung" %>
+              <%= render "layouts/partials/order/order_cirebon" %>
+              <%= render "layouts/partials/order/order_bekasi" %>
+              <%= render "layouts/partials/order/order_tangerang" %>
+              <%= render "layouts/partials/order/order_semarang" %>
+              <%= render "layouts/partials/order/order_yogya" %>
+              <%= render "layouts/partials/order/order_surabaya" %>
+              <%= render "layouts/partials/order/order_bali" %>
+              <%= render "layouts/partials/order/order_makasar" %>
+              <%= render "layouts/partials/order/order_jember" %>
+              <%= render "layouts/partials/order/order_palembang" %>
+              <%= render "layouts/partials/order/order_lampung" %>
+              <%= render "layouts/partials/order/order_medan" %>
+              <%= render "layouts/partials/order/order_pekanbaru" %>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="<%= 'active' if controller?('penjualan') %>">
+        <a href="#penjualan" title="Penjualan" data-toggle="collapse"> <em class="fa fa-area-chart"></em> <span>Penjualan</span> </a>
+        <ul id="penjualan" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Penjualan
+          </li>
+          <li class="<%= 'active' if controller?('penjualan/nasional') %>">
+            <a href="#nasional" title="Direct" data-toggle="collapse"> <em class="icon-people"></em> <span>Nasional</span> </a>
+            <ul id="nasional" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Nasional
+              </li>
+            </ul>
+          </li>
+          <li class="<%= 'active' if controller?('penjualan') %>">
+            <a href="#retail" title="Penjualan" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+              <%= render "layouts/partials/sidebar_bandung" %>
+              <%= render "layouts/partials/sidebar_cirebon" %>
+              <%= render "layouts/partials/sidebar_bekasi" %>
+              <%= render "layouts/partials/sidebar_tangerang" %>
+              <%= render "layouts/partials/sidebar_semarang" %>
+              <%= render "layouts/partials/sidebar_yogya" %>
+              <%= render "layouts/partials/sidebar_surabaya" %>
+              <%= render "layouts/partials/sidebar_bali" %>
+              <%= render "layouts/partials/sidebar_makasar" %>
+              <%= render "layouts/partials/sidebar_jember" %>
+              <%= render "layouts/partials/sidebar_palembang" %>
+              <%= render "layouts/partials/sidebar_lampung" %>
+              <%= render "layouts/partials/sidebar_medan" %>
+              <%= render "layouts/partials/sidebar_pekanbaru" %>
+            </ul>
+          </li>
+          <li class="<%= 'active' if controller?('penjualan/direct') %>">
+            <a href="#direct" title="Direct" data-toggle="collapse"> <em class="icon-people"></em> <span>Direct</span> </a>
+            <ul id="direct" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Direct
+              </li>
+            </ul>
+          </li>
+          <li class="<%= 'active' if controller?('penjualan/project') %>">
+            <a href="#project" title="Project" data-toggle="collapse"> <em class="icon-people"></em> <span>Project</span> </a>
+            <ul id="project" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Project
+              </li>
+            </ul>
+          </li>
+          <li class="<%= 'active' if controller?('penjualan/modern') %>">
+            <a href="#modern" title="Modern" data-toggle="collapse"> <em class="icon-people"></em> <span>Modern</span> </a>
+            <ul id="modern" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Modern
+              </li>
+            </ul>
+          </li>
+          <li class="<%= 'active' if controller?('penjualan/uncategorized') %>">
+            <a href="#uncategorized" title="Uncategorized" data-toggle="collapse"> <em class="icon-people"></em> <span>Uncategorized</span> </a>
+            <ul id="uncategorized" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Uncategorized
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="<%= 'active' if controller?('stock') %>">
+        <a href="#stock" title="stock" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span>Stock</span> </a>
+        <ul id="stock" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Stock
+          </li>
+          <%= render "layouts/partials/stock_bandung" %>
+          <%= render "layouts/partials/stock_cirebon" %>
+          <%= render "layouts/partials/stock_bekasi" %>
+          <%= render "layouts/partials/stock_tangerang" %>
+          <%= render "layouts/partials/stock_semarang" %>
+          <%= render "layouts/partials/stock_yogya" %>
+          <%= render "layouts/partials/stock_surabaya" %>
+          <%= render "layouts/partials/stock_bali" %>
+          <%= render "layouts/partials/stock_makasar" %>
+          <%= render "layouts/partials/stock_jember" %>
+          <%= render "layouts/partials/stock_palembang" %>
+          <%= render "layouts/partials/stock_lampung" %>
+          <%= render "layouts/partials/stock_medan" %>
+          <%= render "layouts/partials/stock_pekanbaru" %>
+        </ul>
+      </li>
+
+      <!-- END SA Project-->
+      <!-- Iterates over all sidebar items-->
+    </ul>
+    <!-- END sidebar nav-->
+  </nav>
+</div>
+<!-- END Sidebar (left)-->

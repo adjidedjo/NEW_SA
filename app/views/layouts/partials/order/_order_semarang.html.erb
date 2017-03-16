@@ -1,0 +1,52 @@
+<li class="<%= 'active' if controller?('order/semarang') %>">
+  <a href="#smg-order" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Semarang</span> </a>
+  <ul id="smg-order" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      SEMARANG
+    </li>
+    <li class="<%= 'active' if controller?('order/semarang/semarang_elites') %>">
+      <a href="#smg-order-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      <ul id="smg-order-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          ELITE
+        </li>
+        <li class="<%= 'active' if controller?('order/semarang/semarang_elites') && action?('order') %>">
+          <a href="/order/semarang/semarang_elites/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/semarang/semarang_serenity') %>">
+      <a href="#smg-order-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      <ul id="smg-order-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('order/semarang/semarang_serenity') && action?('order') %>">
+          <a href="/order/semarang/semarang_serenity/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/semarang/semarang_lady') %>">
+      <a href="#smg-order-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      <ul id="smg-order-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('order/semarang/semarang_lady') && action?('order') %>">
+          <a href="/order/semarang/semarang_lady/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/semarang/semarang_royal') %>">
+      <a href="#smg-order-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      <ul id="smg-order-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('order/semarang/semarang_royal') && action?('order') %>">
+          <a href="/order/semarang/semarang_royal/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>

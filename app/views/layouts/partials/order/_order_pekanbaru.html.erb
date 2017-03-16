@@ -1,0 +1,52 @@
+<li class="<%= 'active' if controller?('order/pekanbaru') %>">
+  <a href="#pkb-order" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Pekanbaru</span> </a>
+  <ul id="pkb-order" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      PEKANBARU
+    </li>
+    <li class="<%= 'active' if controller?('order/pekanbaru/pekanbaru_elites') %>">
+      <a href="#pkb-order-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      <ul id="pkb-order-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          ELITE
+        </li>
+        <li class="<%= 'active' if controller?('order/pekanbaru/pekanbaru_elites') && action?('order') %>">
+          <a href="/order/pekanbaru/pekanbaru_elites/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/pekanbaru/pekanbaru_serenity') %>">
+      <a href="#pkb-order-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      <ul id="pkb-order-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('order/pekanbaru/pekanbaru_serenity') && action?('order') %>">
+          <a href="/order/pekanbaru/pekanbaru_serenity/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/pekanbaru/pekanbaru_lady') %>">
+      <a href="#pkb-order-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      <ul id="pkb-order-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('order/pekanbaru/pekanbaru_lady') && action?('order') %>">
+          <a href="/order/pekanbaru/pekanbaru_lady/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/pekanbaru/pekanbaru_royal') %>">
+      <a href="#pkb-order-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      <ul id="pkb-order-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('order/pekanbaru/pekanbaru_royal') && action?('order') %>">
+          <a href="/order/pekanbaru/pekanbaru_royal/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>

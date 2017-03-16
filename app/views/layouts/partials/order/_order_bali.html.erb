@@ -1,0 +1,52 @@
+<li class="<%= 'active' if controller?('order/bali') %>">
+  <a href="#bali-order" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Bali</span> </a>
+  <ul id="bali-order" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      BALI
+    </li>
+    <li class="<%= 'active' if controller?('order/bali/bali_elites') %>">
+      <a href="#bali-order-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      <ul id="bali-order-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          ELITE
+        </li>
+        <li class="<%= 'active' if controller?('order/bali/bali_elites') && action?('order') %>">
+          <a href="/order/bali/bali_elites/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/bali/bali_serenity') %>">
+      <a href="#bali-order-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      <ul id="bali-order-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('order/bali/bali_serenity') && action?('order') %>">
+          <a href="/order/bali/bali_serenity/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/bali/bali_lady') %>">
+      <a href="#bali-order-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      <ul id="bali-order-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('order/bali/bali_lady') && action?('order') %>">
+          <a href="/order/bali/bali_lady/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/bali/bali_royal') %>">
+      <a href="#bali-order-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      <ul id="bali-order-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('order/bali/bali_royal') && action?('order') %>">
+          <a href="/order/bali/bali_royal/order" title="Order"> <span>Order</span> </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>

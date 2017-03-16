@@ -1,0 +1,88 @@
+<li class="<%= 'active' if controller?('stock/lampung') %>">
+  <a href="#stock-lampung" title="Level 1" data-toggle="collapse"> <em class="fa fa-folder-o"></em> <span>Lampung</span> </a>
+  <ul id="stock-lampung" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Lampung
+    </li>
+    <li class="<%= 'active' if controller?('stock/lampung/stock_elite') %>">
+      <a href="#stock-lampung-elite" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Elite</span> </a>
+      <ul id="stock-lampung-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_elite') && action?('stock_normal') %>">
+          <a href="/stock/lampung/stock_elite/stock_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_elite') && action?('stock_clearence') %>">
+          <a href="/stock/lampung/stock_elite/stock_clearence" title="Clearence"> <span>Clearence</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_elite') && action?('stock_service') %>">
+          <a href="/stock/lampung/stock_elite/stock_service" title="Service"> <span>Service</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_elite') && action?('stock_display') %>">
+          <a href="/stock/lampung/stock_elite/stock_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('stock/lampung/stock_serenity') %>">
+      <a href="#stock-lampung-serenity" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Serenity</span> </a>
+      <ul id="stock-lampung-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_serenity') && action?('stock_normal') %>">
+          <a href="/stock/lampung/stock_serenity/stock_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_serenity') && action?('stock_clearence') %>">
+          <a href="/stock/lampung/stock_serenity/stock_clearence" title="Clearence"> <span>Clearence</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_serenity') && action?('stock_service') %>">
+          <a href="/stock/lampung/stock_serenity/stock_service" title="Service"> <span>Service</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_serenity') && action?('stock_display') %>">
+          <a href="/stock/lampung/stock_serenity/stock_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('stock/lampung/stock_lady') %>">
+      <a href="#stock-lampung-lady" title="Lady" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Lady</span> </a>
+      <ul id="stock-lampung-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_lady') && action?('stock_normal') %>">
+          <a href="/stock/lampung/stock_lady/stock_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_lady') && action?('stock_clearence') %>">
+          <a href="/stock/lampung/stock_lady/stock_clearence" title="Clearence"> <span>Clearence</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_lady') && action?('stock_service') %>">
+          <a href="/stock/lampung/stock_lady/stock_service" title="Service"> <span>Service</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_lady') && action?('stock_display') %>">
+          <a href="/stock/lampung/stock_lady/stock_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('stock/lampung/stock_royal') %>">
+      <a href="#stock-lampung-royal" title="Royal" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Royal</span> </a>
+      <ul id="stock-lampung-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_royal') && action?('stock_normal') %>">
+          <a href="/stock/lampung/stock_royal/stock_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_royal') && action?('stock_clearence') %>">
+          <a href="/stock/lampung/stock_royal/stock_clearence" title="Clearence"> <span>Clearence</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_royal') && action?('stock_service') %>">
+          <a href="/stock/lampung/stock_royal/stock_service" title="Service"> <span>Service</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/lampung/stock_royal') && action?('stock_display') %>">
+          <a href="/stock/lampung/stock_royal/stock_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
