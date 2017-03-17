@@ -2,6 +2,33 @@ class SalesOrder::Order < ActiveRecord::Base
   establish_connection "jdeoracle".to_sym
   self.table_name = "proddta.f4211" #sd
   #SDSRP1, SDSRP2, SDUORG
+  #HELD ORDRES TABLE (HO)
+  
+  def self.held_orders_by_approval(branch, brand)
+    self.find_by_sql("SELECT MAX(ho.hoan8) AS hohoan8, ho.hodoco, 
+    MAX(cust.abalph) AS shipto, MAX(cust1.abalph) AS salesman, MAX(ho.hotrdj) AS order_date 
+    FROM PRODDTA.F4209 ho
+    JOIN PRODDTA.F4211 so ON ho.hodoco = so.sddoco
+    JOIN PRODDTA.F0101 cust ON ho.hoshan = cust.aban8
+    JOIN PRODDTA.F40344 sls ON so.sdshan = sls.saan8
+    JOIN PRODDTA.F0101 cust1 ON cust1.aban8 = sls.saslsm
+    WHERE ho.hohcod LIKE '%XX%' AND so.sdsrp1 LIKE '%#{brand}%' AND ho.homcu LIKE '%#{branch}%' AND ho.hordc = ' ' 
+    AND sls.saexdj > '#{date_to_julian(Date.today.to_date)}' AND REGEXP_LIKE(so.sddcto,'SO|ZO')
+    AND so.sdnxtr LIKE '%#{525}%' AND cust.absic LIKE '%RET%' GROUP BY ho.hodoco")
+  end
+  
+  def self.held_orders_by_credit(branch, brand)
+    self.find_by_sql("SELECT MAX(ho.hoan8) AS hohoan8, ho.hodoco, 
+    MAX(cust.abalph) AS shipto, MAX(cust1.abalph) AS salesman, MAX(ho.hotrdj) AS order_date 
+    FROM PRODDTA.F4209 ho
+    JOIN PRODDTA.F4211 so ON ho.hodoco = so.sddoco
+    JOIN PRODDTA.F0101 cust ON ho.hoshan = cust.aban8
+    JOIN PRODDTA.F40344 sls ON so.sdshan = sls.saan8
+    JOIN PRODDTA.F0101 cust1 ON cust1.aban8 = sls.saslsm
+    WHERE ho.hohcod LIKE '%C1%' AND so.sdsrp1 LIKE '%#{brand}%' AND ho.homcu LIKE '%#{branch}%' AND ho.hordc = ' ' 
+    AND sls.saexdj > '#{date_to_julian(Date.today.to_date)}' AND REGEXP_LIKE(so.sddcto,'SO|ZO')
+    AND so.sdnxtr LIKE '%#{525}%' AND cust.absic LIKE '%RET%' GROUP BY ho.hodoco")
+  end
   
   def self.order_summary
   end

@@ -19,7 +19,7 @@ class Order::Bandung::BandungLadyController < ApplicationController
     "11011"
   end
   
-  def authorize_user
+  def authorize_users
     render template: "pages/notfound" unless general_manager(current_user) || nsm(current_user, "LADY") || 
     bm(current_user, 2, "LADY") || sales(current_user, 2, "LADY")
   end
