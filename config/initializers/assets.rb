@@ -8,3 +8,4 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( penjualan/* )
 Rails.application.config.assets.precompile += %w( stock/* )
 Rails.application.config.assets.precompile += %w( order/* )
+Rails.application.config.assets.precompile += %w( penjualan_salesman.js )
