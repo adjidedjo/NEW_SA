@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   root :to => 'pages#template'
 
   # view routes
+  # salesman
+  get 'penjualan_salesman/daily'
+  get 'penjualan_salesman/weekly'
+  get 'penjualan_salesman/monthly'
+  
   # Bandung
   get 'order/bandung/bandung_elites/order'
   get 'order/bandung/bandung_serenity/order'

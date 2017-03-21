@@ -19,4 +19,16 @@ module ApplicationHelper
   def julian_to_date(jd_date)
     Date.parse((jd_date+1900000).to_s, 'YYYYYDDD')
   end
+  
+  def coloring(val)
+    if val.nil?
+      ''
+    else
+      val >= 0 ? 'pos' : 'neg'
+    end
+  end
+  
+  def cpercent(val)
+    number_to_percentage(val, precision: 0)
+  end
 end

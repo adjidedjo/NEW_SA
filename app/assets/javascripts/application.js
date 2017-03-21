@@ -3,4 +3,7 @@
 //
 
 //--- Angle
+//= require penjualan_salesman
+//= require dashboard
+//= require tables
 //= require_tree ./angle/

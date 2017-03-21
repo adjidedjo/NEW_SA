@@ -6,8 +6,33 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   include PenjualanConcern
   include PenjualanDailyConcern
+  include PenjualanSalesmanConcern
   include OrderDailyConcern
-  helper_method :retail_weekly, :retail_monthly, :retail_daily, :order_daily
+  helper_method :retail_weekly, :retail_monthly, :retail_daily, :order_daily, 
+  :retail_salesman_daily, :retail_salesman_weekly, :retail_salesman_monthly
+  
+  def retail_salesman_monthly
+    monthly_product_sales
+    monthly_article_sales
+    monthly_customer_sales
+    monthly_city_sales
+  end
+  
+  def retail_salesman_weekly
+    weekly_product_sales
+    weekly_article_sales
+    weekly_customer_sales
+    weekly_city_sales
+  end
+  
+  def retail_salesman_daily
+    daily_product_sales
+    this_month_article_sales
+    this_month_customer_sales
+    this_month_city_sales
+    this_month_product_sales
+    this_week_product_sales
+  end
   
   def order_daily
     order_ready_to_ship
