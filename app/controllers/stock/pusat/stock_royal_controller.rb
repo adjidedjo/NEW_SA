@@ -1,4 +1,4 @@
-class Stock::Bandung::StockRoyalController < ApplicationController
+class Stock::Pusat::StockRoyalController < ApplicationController
   before_action :set_branch_plant, :initialize_brand
   
   def stock_normal
@@ -40,7 +40,7 @@ class Stock::Bandung::StockRoyalController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "11012"
+    @branch_plant = "11002"
     @branch = "BANDUNG"
   end
 end

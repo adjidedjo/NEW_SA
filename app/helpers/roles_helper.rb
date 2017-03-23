@@ -1,4 +1,12 @@
 module RolesHelper
+  def branch(user, branch)
+    unless user.branch1.nil? || user.branch2.nil?
+      user.branch1.to_i == branch || user.branch2.to_i == branch
+    else
+      return true
+    end 
+  end
+  
   def general_manager(user)
     user.position == "gm" || user.position == "admin"
   end

@@ -10,6 +10,24 @@ Rails.application.routes.draw do
   get 'penjualan_salesman/weekly'
   get 'penjualan_salesman/monthly'
   
+  #Pusat
+  get 'stock/pusat/stock_elite/stock_normal'
+  get 'stock/pusat/stock_elite/stock_clearence'
+  get 'stock/pusat/stock_elite/stock_service'
+  get 'stock/pusat/stock_elite/stock_display'
+  get 'stock/pusat/stock_serenity/stock_normal'
+  get 'stock/pusat/stock_serenity/stock_clearence'
+  get 'stock/pusat/stock_serenity/stock_service'
+  get 'stock/pusat/stock_serenity/stock_display'
+  get 'stock/pusat/stock_lady/stock_normal'
+  get 'stock/pusat/stock_lady/stock_clearence'
+  get 'stock/pusat/stock_lady/stock_service'
+  get 'stock/pusat/stock_lady/stock_display'
+  get 'stock/pusat/stock_royal/stock_normal'
+  get 'stock/pusat/stock_royal/stock_clearence'
+  get 'stock/pusat/stock_royal/stock_service'
+  get 'stock/pusat/stock_royal/stock_display'
+  
   # Bandung
   get 'order/bandung/bandung_elites/order'
   get 'order/bandung/bandung_serenity/order'
