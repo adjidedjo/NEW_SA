@@ -8,8 +8,7 @@ module RolesHelper
   end
   
   def bm(user, branch, brand)
-    user.position == "bm" && (user.brand1 == brand || user.brand2 == brand) && 
-    (user.branch1.to_i == branch || user.branch2.to_i == branch) 
+    user.position == "bm" && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
   end
   
   def sales(user, branch, brand)
