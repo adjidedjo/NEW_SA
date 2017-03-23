@@ -41,6 +41,6 @@ class Stock::Pusat::StockSerenityController < ApplicationController
   
   def set_branch_plant
     @branch_plant = "11001"
-    @branch = "BANDUNG"
+    @branch = "KANTOR PUSAT"
   end
 end
