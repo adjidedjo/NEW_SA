@@ -28,20 +28,37 @@ module PenjualanDailyConcern
     gon.qty_1 = qty_1.first.nil? ? 0 : qty_1.first.jumlah
   end
   
+  # DAILY REPORT
+  def daily_product
+    @sales_daily_product = Penjualan::SaleDaily.sales_daily_product(initialize_brach_id, initialize_brand)
+  end
+  
+  def this_week_product
+    @this_week_product = Penjualan::SaleDaily.this_week(initialize_brach_id, initialize_brand)
+  end
+  
+  def this_month_product
+    @this_month_product = Penjualan::SaleDaily.this_month(initialize_brach_id, initialize_brand)
+  end
+  
+  def this_month_city
+    @this_month_city = Penjualan::SaleDaily.this_month_city(initialize_brach_id, initialize_brand)
+  end
+  
+  def this_month_customer
+    @this_month_customer = Penjualan::SaleDaily.this_month_customer(initialize_brach_id, initialize_brand)
+  end
+  
+  def this_month_article
+    @this_month_article = Penjualan::SaleDaily.this_month_article(initialize_brach_id, initialize_brand)
+  end
+  
+  def this_month_salesman
+    @this_month_salesman = Penjualan::SaleDaily.this_month_salesman(initialize_brach_id, initialize_brand)
+  end
+  
   def daily_summary_data
     @daily_sum = Penjualan::SaleDaily.daily_summary(initialize_brach_id, initialize_brand)
-  end
-  
-  def product_daily
-    @daily_prod = Penjualan::SaleDaily.daily_product(initialize_brach_id, initialize_brand)
-  end
-  
-  def salesman_daily
-    @daily_salesman = Penjualan::SaleDaily.daily_salesman(initialize_brach_id, initialize_brand)
-  end
-  
-  def customer_daily
-    @daily_customer = Penjualan::SaleDaily.daily_customer(initialize_brach_id, initialize_brand)
   end
   
   def initialize_daily

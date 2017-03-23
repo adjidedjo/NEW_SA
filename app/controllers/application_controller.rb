@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   include PenjualanSalesmanConcern
   include OrderDailyConcern
   helper_method :retail_weekly, :retail_monthly, :retail_daily, :order_daily, 
-  :retail_salesman_daily, :retail_salesman_weekly, :retail_salesman_monthly
+  :retail_salesman_daily
   
   def retail_salesman_monthly
     monthly_product_sales
@@ -43,10 +43,13 @@ class ApplicationController < ActionController::Base
   
   def retail_daily
     daily_summary
-    product_daily
-    daily_summary_data
-    customer_daily
-    salesman_daily
+    daily_product
+    this_month_salesman
+    this_month_article
+    this_month_customer
+    this_month_city
+    this_month_product
+    this_week_product
   end
   
   def retail_weekly

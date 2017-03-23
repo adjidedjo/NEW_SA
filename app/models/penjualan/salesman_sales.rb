@@ -196,6 +196,8 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       ) as sub")
   end
   
+  ####################################
+  
   def self.sales_daily_product(sales)
     self.find_by_sql("SELECT COALESCE(kodejenis, 'Total') as kodejenis,
       SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN jumlah END) AS qty_1,

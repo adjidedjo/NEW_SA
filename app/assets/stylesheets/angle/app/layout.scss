@@ -73,7 +73,7 @@ html, body {
       padding-top: $navbar-hg * 2;
       height: 100%;
       width: $aside-wd;
-      overflow: auto;
+      overflow: hidden;
     }
 
     > .nav-floating {
