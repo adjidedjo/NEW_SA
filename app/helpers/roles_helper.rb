@@ -1,7 +1,7 @@
 module RolesHelper
   def branch(user, branch)
-    unless user.branch1.nil? || user.branch2.nil?
-      user.branch1.to_i == branch || user.branch2.to_i == branch
+    if user.branch1.present? || user.branch2.present?
+      return true if user.branch1.to_i == branch || user.branch2.to_i == branch
     else
       return true
     end 
