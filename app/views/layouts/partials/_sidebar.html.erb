@@ -46,6 +46,10 @@
                 <li class="sidebar-subnav-header">
                   Retail
                 </li>
+                <%= render "layouts/partials/sidebar_palembang" %>
+                <%= render "layouts/partials/sidebar_lampung" %>
+                <%= render "layouts/partials/sidebar_medan" %>
+                <%= render "layouts/partials/sidebar_pekanbaru" %>
                 <%= render "layouts/partials/sidebar_bandung" %>
                 <%= render "layouts/partials/sidebar_cirebon" %>
                 <%= render "layouts/partials/sidebar_bekasi" %>
@@ -56,10 +60,6 @@
                 <%= render "layouts/partials/sidebar_bali" %>
                 <%= render "layouts/partials/sidebar_makasar" %>
                 <%= render "layouts/partials/sidebar_jember" %>
-                <%= render "layouts/partials/sidebar_palembang" %>
-                <%= render "layouts/partials/sidebar_lampung" %>
-                <%= render "layouts/partials/sidebar_medan" %>
-                <%= render "layouts/partials/sidebar_pekanbaru" %>
               </ul>
             </li>
             <li class="<%= 'active' if controller?('penjualan/direct') %>">
