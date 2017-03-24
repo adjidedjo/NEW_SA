@@ -4,7 +4,7 @@ class Stock::ItemAvailability < ActiveRecord::Base
   
   def self.stock_report(branch, brand)
     self.find_by_sql("SELECT IA.liitm AS liitm, SUM(IA.lipqoh) AS lipqoh, SUM(IA.lihcom) AS lihcom, 
-    IM.imlitm, IM.imdsc1, IM.imdsc2, MAX(IB.ibsafe) FROM PRODDTA.F41021 IA 
+    IM.imlitm, IM.imdsc1, IM.imdsc2, MAX(IB.ibsafe) AS ibsafe FROM PRODDTA.F41021 IA 
     JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm
     JOIN PRODDTA.F4102 IB ON IM.imitm = IB.ibitm
     WHERE IB.ibmcu LIKE '%#{branch}' AND IA.limcu LIKE '%#{branch}' 
