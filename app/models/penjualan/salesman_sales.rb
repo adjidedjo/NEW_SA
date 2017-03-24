@@ -16,7 +16,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) val_2      
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}' 
       AND '#{1.month.ago.to_date.end_of_month}'
-      AND nopo = '#{sales.address_number}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
       GROUP BY namaartikel, lebar
       ) as sub")
@@ -43,7 +43,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) total_2    
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}' 
       AND '#{1.month.ago.to_date.end_of_month}'
-      AND nopo = '#{sales.address_number}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
       GROUP BY customer
       ) as sub")
@@ -70,7 +70,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) total_2    
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}' 
       AND '#{1.month.ago.to_date.end_of_month}'
-      AND nopo = '#{sales.address_number}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
       GROUP BY kota
       ) as sub")
@@ -91,7 +91,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) val_2 
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}' 
       AND '#{1.month.ago.to_date.end_of_month}'
-      AND nopo = '#{sales.address_number}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
       GROUP BY kodejenis WITH ROLLUP
       ) as sub")
@@ -205,7 +205,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN jumlah END) AS qty_2,
       SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN harganetto1 END) AS val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.day.ago.to_date}' 
-      AND '#{1.day.ago.to_date}' AND nopo = '#{sales.address_number}' AND
+      AND '#{1.day.ago.to_date}' AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
       GROUP BY kodejenis WITH ROLLUP")
   end
@@ -225,14 +225,14 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2      
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
       GROUP BY namaartikel, lebar
       ) as sub")
   end
   
   def self.this_month_customer(sales)
-    self.find_by_sql("SELECT customer, kodejenis, km, dv, hb, sa, sb, total_1, total_2,
+    self.find_by_sql("SELECT customer, kodejenis, km, dv, hb, sa, sb, kb, total_1, total_2,
     ROUND((((total_1 - total_2) / total_2) * 100), 0) AS percentage FROM
     (
       SELECT customer, kodejenis,
@@ -247,19 +247,21 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' AND kodejenis = 'SB' THEN jumlah END) sb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
+      AND '#{Date.yesterday}' AND kodejenis = 'KB' THEN jumlah END) kb,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' THEN harganetto1 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) total_2    
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
       GROUP BY customer
       ) as sub")
   end
   
   def self.this_month_city(sales)
-    self.find_by_sql("SELECT kota, kodejenis, km, dv, hb, sa, sb, total_1, total_2,
+    self.find_by_sql("SELECT kota, kodejenis, km, dv, hb, sa, sb, kb, total_1, total_2,
     ROUND((((total_1 - total_2) / total_2) * 100), 0) AS percentage FROM
     (
       SELECT kota, kodejenis,
@@ -274,12 +276,14 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' AND kodejenis = 'SB' THEN jumlah END) sb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
+      AND '#{Date.yesterday}' AND kodejenis = 'KB' THEN jumlah END) kb,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' THEN harganetto1 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) total_2    
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
       GROUP BY kota
       ) as sub")
@@ -300,7 +304,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2      
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
       GROUP BY kodejenis
       ) as sub")
@@ -321,7 +325,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_week}' THEN harganetto1 END) val_2      
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}' 
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
       GROUP BY kodejenis WITH ROLLUP
       ) as sub")
