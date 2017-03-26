@@ -123,7 +123,7 @@
         'paging':   false,  // Table pagination
         'ordering': true,  // Column ordering
         'info':     false,  // Bottom left status text
-        'responsive': true, // https://datatables.net/extensions/responsive/examples/
+        'responsive': false, // https://datatables.net/extensions/responsive/examples/
         'filter': false,
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
@@ -150,7 +150,7 @@
         'paging':   false,  // Table pagination
         'ordering': true,  // Column ordering
         'info':     false,  // Bottom left status text
-        'responsive': true, // https://datatables.net/extensions/responsive/examples/
+        'responsive': false, // https://datatables.net/extensions/responsive/examples/
         'filter': false,
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
@@ -177,7 +177,7 @@
         'paging':   false,  // Table pagination
         'ordering': true,  // Column ordering
         'info':     false,  // Bottom left status text
-        'responsive': true, // https://datatables.net/extensions/responsive/examples/
+        'responsive': false, // https://datatables.net/extensions/responsive/examples/
         'filter': false,
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
