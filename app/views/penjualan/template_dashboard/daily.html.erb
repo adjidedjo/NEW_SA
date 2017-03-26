@@ -42,8 +42,6 @@
                   <th>V_<%= 1.day.ago.to_date.strftime('%d') %></th>
                   <th>Q_<%= 2.day.ago.to_date.strftime('%d') %></th>
                   <th>V_<%= 2.day.ago.to_date.strftime('%d') %></th>
-                  <th>TAchieve</th>
-                  <th>Suggest</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,8 +52,6 @@
                   <td><%= currency(dp.val_1) %></td>
                   <td><%= dp.qty_2 %></td>
                   <td><%= currency(dp.val_2) %></td>
-                  <td>SOON</td>
-                  <td>SOON</td>
                 </tr>
                 <% end %>
               </tbody>
@@ -78,7 +74,6 @@
                   <th>Q_W(<%= 1.day.ago.to_date.last_week.cweek %>)</th>
                   <th>V_W(<%= 1.day.ago.to_date.last_week.cweek %>)</th>
                   <th>WoW</th>
-                  <th>TAchiev</th>
                 </tr>
               </thead>
               <tbody>
@@ -90,7 +85,6 @@
                   <td><%= dp.qty_2 %></td>
                   <td><%= currency(dp.val_2) %></td>
                   <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
-                  <td>SOON</td>
                 </tr>
                 <% end %>
               </tbody>
@@ -116,10 +110,8 @@
                   <th>Product</th>
                   <th><%= Date.yesterday.strftime('%b %y') %></th>
                   <th><%= Date.yesterday.strftime('%b %y') %></th>
-                  <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
-                  <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
                   <th>MoM</th>
-                  <th>TAchiev</th>
+                  <th>Target</th>
                   <th>RoT</th>
                 </tr>
               </thead>
@@ -129,11 +121,9 @@
                   <td><%= dp.kodejenis %></td>
                   <td><%= dp.qty_1 %></td>
                   <td><%= currency(dp.val_1) %></td>
-                  <td><%= dp.qty_2 %></td>
-                  <td><%= currency(dp.val_2) %></td>
                   <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
-                  <td>SOON</td>
-                  <td>SOON</td>
+                  <td class="<%= coloring_target(dp.target) %>"><%= dp.target.nil? ? 0 : cpercent(dp.target) %></td>
+                  <td><%= dp.rot.nil? ? 0 : (dp.rot < 0 ? 0 : dp.rot) %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -147,16 +137,14 @@
             Sales Report This Month by Salesman
           </div>
           <div class="panel-body">
-            <table id="table_without_filter1" class="table table-striped table-hover">
+            <table id="table_without_filter2" class="table table-striped table-hover">
               <thead>
                 <tr>
                   <th>Salesman</th>
                   <th><%= Date.yesterday.strftime('%b %y') %></th>
                   <th><%= Date.yesterday.strftime('%b %y') %></th>
-                  <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
-                  <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
                   <th>MoM</th>
-                  <th>TAchiev</th>
+                  <th>Target</th>
                   <th>RoT</th>
                 </tr>
               </thead>
@@ -166,11 +154,9 @@
                   <td><%= dp.salesman %></td>
                   <td><%= dp.qty_1 %></td>
                   <td><%= currency(dp.val_1) %></td>
-                  <td><%= dp.qty_2 %></td>
-                  <td><%= currency(dp.val_2) %></td>
                   <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
-                  <td>SOON</td>
-                  <td>SOON</td>
+                  <td class="<%= coloring_target(dp.target) %>"><%= dp.target.nil? ? 0 : cpercent(dp.target) %></td>
+                  <td><%= dp.rot.nil? ? 0 : (dp.rot < 0 ? 0 : dp.rot) %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -260,46 +246,46 @@
       </div>
       <!-- END content-->
     </div>
-    <div class="col-lg-12">
-      <!-- START content-->
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              Sales Report This Month by Article
-            </div>
-            <div class="panel-body">
-              <table id="stock-table" class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>Article</th>
-                    <th>Size</th>
-                    <th><%= Date.yesterday.strftime('%b %y') %></th>
-                    <th><%= Date.yesterday.strftime('%b %y') %></th>
-                    <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
-                    <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
-                    <th>MoM</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @this_month_article.each do |dp| %>
-                  <tr class="gradeX">
-                    <td><%= dp.namaartikel %></td>
-                    <td><%= dp.lebar %></td>
-                    <th><%= dp.qty_1 %></th>
-                    <th><%= currency(dp.val_1) %></th>
-                    <th><%= dp.qty_2 %></th>
-                    <th><%= currency(dp.val_2) %></th>
-                    <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
-                  </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
+  </div>
+  <div class="col-lg-12">
+    <!-- START content-->
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            Sales Report This Month by Article
+          </div>
+          <div class="panel-body">
+            <table id="stock-table" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Article</th>
+                  <th>Size</th>
+                  <th><%= Date.yesterday.strftime('%b %y') %></th>
+                  <th><%= Date.yesterday.strftime('%b %y') %></th>
+                  <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
+                  <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
+                  <th>MoM</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @this_month_article.each do |dp| %>
+                <tr class="gradeX">
+                  <td><%= dp.namaartikel %></td>
+                  <td><%= dp.lebar %></td>
+                  <th><%= dp.qty_1 %></th>
+                  <th><%= currency(dp.val_1) %></th>
+                  <th><%= dp.qty_2 %></th>
+                  <th><%= currency(dp.val_2) %></th>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-      <!-- END content-->
     </div>
+    <!-- END content-->
   </div>
 </div>

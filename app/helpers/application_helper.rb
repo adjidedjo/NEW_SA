@@ -23,8 +23,12 @@ module ApplicationHelper
   def coloring_target(val)
     if val.nil?
       ''
-    else
-      val >= 100 ? 'pos' : 'neg'
+    elsif val >= 0 && val < 60
+      'neg'
+    elsif val >= 60 && val < 80
+      'yel'
+    elsif val >= 80
+      'pos'
     end
   end
   

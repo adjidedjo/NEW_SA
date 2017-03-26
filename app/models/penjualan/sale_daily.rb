@@ -14,10 +14,12 @@ class Penjualan::SaleDaily < Penjualan::Sale
   end
 
   def self.this_month_salesman(branch, brand)
-    self.find_by_sql("SELECT salesman, qty_1, qty_2, val_1, val_2, 
-    ROUND((((val_1 - val_2) / val_2) * 100), 0) AS percentage FROM
+    self.find_by_sql("SELECT lc.salesman, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2, 
+    ROUND((((val_1 - val_2) / val_2) * 100), 0) AS percentage,
+    ROUND(((lc.qty_1/SUM(st.target)) * 100.0), 0) AS target,
+    (SUM(st.target)-lc.qty_1) AS rot FROM
     (
-      SELECT salesman,
+      SELECT salesman, nopo,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' THEN jumlah END) qty_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
@@ -29,9 +31,13 @@ class Penjualan::SaleDaily < Penjualan::Sale
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
       AND cabang_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
-      GROUP BY salesman
-      ) as sub")
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') 
+      GROUP BY nopo
+      ) as lc
+      INNER JOIN sales_targets st
+      ON st.address_number = lc.nopo AND st.brand = '#{brand}'
+      AND st.month = '#{Date.yesterday.month}' GROUP BY st.address_number
+      ")
   end
 
   def self.this_month_article(branch, brand)
@@ -110,8 +116,10 @@ class Penjualan::SaleDaily < Penjualan::Sale
   end
 
   def self.this_month(branch, brand)
-    self.find_by_sql("SELECT kodejenis, qty_1, qty_2, val_1, val_2, 
-    ROUND((((val_1 - val_2) / val_2) * 100), 0) AS percentage FROM
+    self.find_by_sql("SELECT lc.kodejenis, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2, 
+    ROUND((((lc.val_1 - lc.val_2) /lc. val_2) * 100), 0) AS percentage,
+    ROUND(((lc.qty_1/SUM(st.target)) * 100.0), 0) AS target,
+    (SUM(st.target)-lc.qty_1) AS rot FROM
     (
       SELECT kodejenis,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
@@ -127,7 +135,11 @@ class Penjualan::SaleDaily < Penjualan::Sale
       AND cabang_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
       GROUP BY kodejenis
-      ) as sub")
+      ) as lc
+      LEFT JOIN sales_targets AS st
+      ON lc.kodejenis = st.product AND st.brand = '#{brand}'
+      AND st.month = '#{Date.yesterday.month}' GROUP BY st.product
+      ")
   end
   
   def self.this_week(branch, brand)

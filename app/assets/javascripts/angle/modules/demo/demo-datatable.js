@@ -120,7 +120,34 @@
     });
 
     $('#table_without_filter1').dataTable({
-        'paging':   false,  // Table pagination
+        'paging':   true,  // Table pagination
+        'ordering': true,  // Column ordering
+        'info':     false,  // Bottom left status text
+        'responsive': false, // https://datatables.net/extensions/responsive/examples/
+        'filter': false,
+        // Text translation options
+        // Note the required keywords between underscores (e.g _MENU_)
+        oLanguage: {
+            sSearch:      'Search all columns:',
+            sLengthMenu:  '_MENU_ records per page',
+            info:         'Showing page _PAGE_ of _PAGES_',
+            zeroRecords:  'Nothing found - sorry',
+            infoEmpty:    'No records available',
+            infoFiltered: '(filtered from _MAX_ total records)'
+        },
+        // Datatable Buttons setup
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            {extend: 'copy',  className: 'btn-sm' },
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
+        ]
+    });
+
+    $('#table_without_filter2').dataTable({
+        'paging':   true,  // Table pagination
         'ordering': true,  // Column ordering
         'info':     false,  // Bottom left status text
         'responsive': false, // https://datatables.net/extensions/responsive/examples/
