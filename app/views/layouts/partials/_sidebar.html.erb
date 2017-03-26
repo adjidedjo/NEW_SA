@@ -26,6 +26,36 @@
       <li class="nav-heading"></li>
       <!-- SA Project except sales-->
       <% if current_user.position != 'sales' %>
+      <li class="<%= 'active' if controller?('order') %>">
+        <a href="#order" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Order</b></span> </a>
+        <ul id="order" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Order
+          </li>
+          <li class="<%= 'active' if controller?('order') %>">
+            <a href="#retail_order" title="Retail Order" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail_order" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+              <%= render "layouts/partials/order/order_bandung" if branch(current_user, 2) %>
+              <%= render "layouts/partials/order/order_cirebon" if branch(current_user, 9) %>
+              <%= render "layouts/partials/order/order_bekasi" if branch(current_user, 3) %>
+              <%= render "layouts/partials/order/order_tangerang" if branch(current_user, 23) %>
+              <%= render "layouts/partials/order/order_semarang" if branch(current_user, 8) %>
+              <%= render "layouts/partials/order/order_yogya" if branch(current_user, 10) %>
+              <%= render "layouts/partials/order/order_surabaya" if branch(current_user, 7) %>
+              <%= render "layouts/partials/order/order_bali" if branch(current_user, 4) %>
+              <%= render "layouts/partials/order/order_makasar" if branch(current_user, 19) %>
+              <%= render "layouts/partials/order/order_jember" if branch(current_user, 22) %>
+              <%= render "layouts/partials/order/order_palembang" if branch(current_user, 11) %>
+              <%= render "layouts/partials/order/order_lampung" if branch(current_user, 13) %>
+              <%= render "layouts/partials/order/order_medan" if branch(current_user, 5) %>
+              <%= render "layouts/partials/order/order_pekanbaru" if branch(current_user, 20) %>
+            </ul>
+          </li>
+        </ul>
+      </li>
       <li class="<%= 'active' if controller?('penjualan') %>">
         <a href="#penjualan" title="Penjualan" data-toggle="collapse"> <em class="fa fa-area-chart"></em> <span>Penjualan</span> </a>
         <ul id="penjualan" class="nav sidebar-subnav collapse">
