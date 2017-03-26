@@ -92,8 +92,6 @@
                   <th>Product</th>
                   <th><%= Date.yesterday.strftime('%b %y') %></th>
                   <th><%= Date.yesterday.strftime('%b %y') %></th>
-                  <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
-                  <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
                   <th>MoM</th>
                   <th>Target</th>
                   <th>RoT</th>
@@ -105,8 +103,6 @@
                   <td><%= dp.kodejenis %></td>
                   <td><%= dp.qty_1 %></td>
                   <td><%= currency(dp.val_1) %></td>
-                  <td><%= dp.qty_2 %></td>
-                  <td><%= currency(dp.val_2) %></td>
                   <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
                   <td class="<%= coloring_target(dp.target) %>"><%= dp.target.nil? ? 0 : cpercent(dp.target) %></td>
                   <td><%= dp.rot.nil? ? 0 : (dp.rot < 0 ? 0 : dp.rot) %></td>
@@ -214,8 +210,6 @@
                   <th>Size</th>
                   <th><%= Date.yesterday.strftime('%b %y') %></th>
                   <th><%= Date.yesterday.strftime('%b %y') %></th>
-                  <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
-                  <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
                   <th>MoM</th>
                 </tr>
               </thead>
@@ -226,8 +220,6 @@
                   <td><%= dp.lebar %></td>
                   <th><%= dp.qty_1 %></th>
                   <th><%= currency(dp.val_1) %></th>
-                  <th><%= dp.qty_2 %></th>
-                  <th><%= currency(dp.val_2) %></th>
                   <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
                 </tr>
                 <% end %>
