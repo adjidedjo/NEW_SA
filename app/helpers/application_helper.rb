@@ -20,6 +20,14 @@ module ApplicationHelper
     Date.parse((jd_date+1900000).to_s, 'YYYYYDDD')
   end
   
+  def coloring_target(val)
+    if val.nil?
+      ''
+    else
+      val >= 100 ? 'pos' : 'neg'
+    end
+  end
+  
   def coloring(val)
     if val.nil?
       ''

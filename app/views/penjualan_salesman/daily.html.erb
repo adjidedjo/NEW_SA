@@ -22,8 +22,7 @@
                   <th>V_<%= 1.day.ago.to_date.strftime('%d') %></th>
                   <th>Q_<%= 2.day.ago.to_date.strftime('%d') %></th>
                   <th>V_<%= 2.day.ago.to_date.strftime('%d') %></th>
-                  <th>TAchieve</th>
-                  <th>Suggest</th>
+                  <th>Target</th>
                 </tr>
               </thead>
               <tbody>
@@ -34,8 +33,7 @@
                   <td><%= currency(dp.val_1) %></td>
                   <td><%= dp.qty_2 %></td>
                   <td><%= currency(dp.val_2) %></td>
-                  <td>SOON</td>
-                  <td>SOON</td>
+                  <td class="<%= coloring(dp.target) %>"><%= dp.target.nil? ? 0 : cpercent(dp.target) %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -58,7 +56,6 @@
                   <th>Q_W(<%= 1.day.ago.to_date.last_week.cweek %>)</th>
                   <th>V_W(<%= 1.day.ago.to_date.last_week.cweek %>)</th>
                   <th>WoW</th>
-                  <th>TAchiev</th>
                 </tr>
               </thead>
               <tbody>
@@ -70,7 +67,6 @@
                   <td><%= dp.qty_2 %></td>
                   <td><%= currency(dp.val_2) %></td>
                   <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
-                  <td>SOON</td>
                 </tr>
                 <% end %>
               </tbody>
@@ -99,7 +95,7 @@
                   <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
                   <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
                   <th>MoM</th>
-                  <th>TAchiev</th>
+                  <th>Target</th>
                   <th>RoT</th>
                 </tr>
               </thead>
@@ -112,8 +108,8 @@
                   <td><%= dp.qty_2 %></td>
                   <td><%= currency(dp.val_2) %></td>
                   <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
-                  <td>SOON</td>
-                  <td>SOON</td>
+                  <td class="<%= coloring_target(dp.target) %>"><%= dp.target.nil? ? 0 : cpercent(dp.target) %></td>
+                  <td><%= dp.rot.nil? ? 0 : (dp.rot < 0 ? 0 : dp.rot) %></td>
                 </tr>
                 <% end %>
               </tbody>
