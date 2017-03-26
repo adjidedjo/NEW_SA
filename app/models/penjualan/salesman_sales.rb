@@ -200,7 +200,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
   
   def self.sales_daily_product(sales)
     self.find_by_sql("SELECT COALESCE(lc.kodejenis, 'Total') as kodejenis, lc.qty_1, lc.qty_2, 
-    lc.val_1, lc.val_2, ROUND(((lc.qty_1/ROUND((st.target/24), 0)) * 100), 0) AS target FROM
+    lc.val_1, lc.val_2, ROUND(((lc.qty_1/ROUND(((SUM(st.target))/24), 0)) * 100), 0) AS target FROM
       (
         SELECT kodejenis,
         SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN jumlah END) AS qty_1,
@@ -215,6 +215,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       ) AS lc
       LEFT JOIN sales_targets AS st
       ON lc.kodejenis = st.product AND st.user_id = '#{sales.id}'
+      AND st.month = '#{1.day.ago.to_date.month}' GROUP BY st.product
       ")
   end
 
@@ -319,10 +320,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
   end
 
   def self.this_month(sales)
-    self.find_by_sql("SELECT lc.kodejenis, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2, 
-    ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
-    ROUND(((lc.qty_1/st.target) * 100.0), 0) AS target,
-    (st.target-lc.qty_1) AS rot FROM
+    self.find_by_sql("SELECT COALESCE(lc.kodejenis, 'Total') as kodejenis, lc.qty_1, lc.qty_2, 
+    lc.val_1, lc.val_2, ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
+    ROUND(((lc.qty_1/SUM(st.target)) * 100.0), 0) AS target,
+    (SUM(st.target)-lc.qty_1) AS rot FROM
     (
       SELECT kodejenis,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
@@ -337,9 +338,11 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
-      GROUP BY kodejenis
+      GROUP BY kodejenis WITH ROLLUP
       ) as lc
       LEFT JOIN sales_targets AS st
-      ON lc.kodejenis = st.product AND st.user_id = '#{sales.id}'")
+      ON lc.kodejenis = st.product AND st.user_id = '#{sales.id}'
+      AND st.month = '#{1.day.ago.to_date.month}' GROUP BY st.product
+      ")
   end
 end
