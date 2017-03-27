@@ -1,6 +1,32 @@
 class Penjualan::SaleDaily < Penjualan::Sale
   self.table_name = "tblaporancabang"
   
+  def self.revenue_this_month(branch, brand)
+    self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue,
+    ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
+    ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage FROM
+    (
+      SELECT cabang_id,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
+      AND '#{Date.yesterday}' THEN harganetto1 END) val_1,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
+      AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2      
+      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
+      AND '#{Date.yesterday}'
+      AND cabang_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      GROUP BY jenisbrgdisc
+    ) as lc
+      LEFT JOIN 
+      (
+        SELECT SUM(harganetto1) AS revenue, cabang_id FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_year.beginning_of_month}' 
+        AND '#{Date.yesterday.last_year}' AND jenisbrgdisc = '#{brand}' AND cabang_id = '#{branch}' AND
+        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+        GROUP BY jenisbrgdisc
+      ) AS ly ON lc.cabang_id = '#{branch}'
+    ")
+  end
+  
   def self.sales_daily_product(branch, brand)
     self.find_by_sql("SELECT COALESCE(kodejenis, 'Total') as kodejenis,
       SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN jumlah END) AS qty_1,

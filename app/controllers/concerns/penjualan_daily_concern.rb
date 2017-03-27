@@ -29,6 +29,10 @@ module PenjualanDailyConcern
   end
   
   # DAILY REPORT
+  def revenue_this_month
+    @sales_revenue_this_month = Penjualan::SaleDaily.revenue_this_month(initialize_brach_id, initialize_brand)
+  end
+  
   def daily_product
     @sales_daily_product = Penjualan::SaleDaily.sales_daily_product(initialize_brach_id, initialize_brand)
   end
