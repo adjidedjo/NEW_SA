@@ -33,12 +33,7 @@
     var datav2 = [{
       "label": gon.brand,
       "color": "#768294",
-      "data": [
-        [gon.four_month_ago_date, gon.four_month_ago],
-        [gon.three_month_ago_date, gon.three_month_ago],
-        [gon.two_month_ago_date, gon.two_month_ago],
-        [gon.last_month_date, gon.last_month_ago],
-      ]
+      "data": gon.summaries
     }];
 
     var options = {
@@ -205,6 +200,94 @@
         ["Oct", 20]
       ]
     }];
+    
+    var data_elite = [{
+      "label": "Sales",
+      "color": "#51bff2",
+      "data": gon.summaries
+    }];
+    
+    var data_serenity = [{
+      "label": "Sales",
+      "color": "#51bff2",
+      "data": gon.summaries
+    }];
+    
+    var data_lady = [{
+      "label": "Sales",
+      "color": "#51bff2",
+      "data": gon.summaries
+    }];
+    
+    var data_royal = [{
+      "label": "Sales",
+      "color": "#51bff2",
+      "data": gon.summaries
+    }];
+    
+    var options_royal = {
+                    series: {
+                        bars: {
+                            align: 'center',
+                            lineWidth: 0,
+                            show: true,
+                            barWidth: 0.6,
+                            fill: 0.9
+                        }
+                    },
+                    grid: {
+                        borderColor: '#eee',
+                        borderWidth: 1,
+                        hoverable: true,
+                        backgroundColor: '#fcfcfc'
+                    },
+                    tooltip: true,
+                    tooltipOpts: {
+                        content: function (label, x, y) { return x + ' : ' + y; }
+                    },
+                    xaxis: {
+                        tickColor: '#fcfcfc',
+                        mode: 'categories'
+                    },
+                    yaxis: {
+                        // position: 'right' or 'left'
+                        ticks: [[2000, "2M"], [4000, "4M"], [6000, "6M"], [8000, "8M"], [10000, "10M"], [12000, "12M"]],
+                        tickColor: '#eee'
+                    },
+                    shadowSize: 0
+                };
+    
+    var options_lady = {
+                    series: {
+                        bars: {
+                            align: 'center',
+                            lineWidth: 0,
+                            show: true,
+                            barWidth: 0.6,
+                            fill: 0.9
+                        }
+                    },
+                    grid: {
+                        borderColor: '#eee',
+                        borderWidth: 1,
+                        hoverable: true,
+                        backgroundColor: '#fcfcfc'
+                    },
+                    tooltip: true,
+                    tooltipOpts: {
+                        content: function (label, x, y) { return x + ' : ' + y; }
+                    },
+                    xaxis: {
+                        tickColor: '#fcfcfc',
+                        mode: 'categories'
+                    },
+                    yaxis: {
+                        // position: 'right' or 'left'
+                        ticks: [[500, "500"], [1000, "1M"], [1500, "1,5M"], [2000, "2M"]],
+                        tickColor: '#eee'
+                    },
+                    shadowSize: 0
+                };
 
     var options = {
                     series: {
@@ -232,6 +315,8 @@
                     },
                     yaxis: {
                         // position: 'right' or 'left'
+                        ticks: [[500, "500"], [1000, "1M"], [1500, "1,5M"], [2000, "2M"], [2500, "2,5M"], 
+                          [3000, "3M"], [3500, "3,5M"]],
                         tickColor: '#eee'
                     },
                     shadowSize: 0
@@ -240,6 +325,22 @@
     var chart = $('.chart-bar');
     if(chart.length)
       $.plot(chart, data, options);
+
+    var chart = $('.chart-bar-ELITE');
+    if(chart.length)
+      $.plot(chart, data_elite, options);
+
+    var chart = $('.chart-bar-LADY');
+    if(chart.length)
+      $.plot(chart, data_lady, options_lady);
+
+    var chart = $('.chart-bar-SERENITY');
+    if(chart.length)
+      $.plot(chart, data_serenity, options);
+
+    var chart = $('.chart-bar-ROYAL');
+    if(chart.length)
+      $.plot(chart, data_royal, options_royal);
 
   });
 

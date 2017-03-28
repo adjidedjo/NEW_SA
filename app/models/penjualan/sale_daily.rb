@@ -164,7 +164,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       ) as lc
       LEFT JOIN sales_targets AS st
       ON lc.kodejenis = st.product AND st.brand = '#{brand}'
-      AND st.month = '#{Date.yesterday.month}' GROUP BY st.product
+      AND st.month = '#{Date.yesterday.month}' AND st.year = '#{Date.yesterday.last_month.year}' GROUP BY st.product
       ")
   end
   

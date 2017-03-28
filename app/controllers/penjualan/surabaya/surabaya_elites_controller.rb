@@ -26,8 +26,6 @@ class Penjualan::Surabaya::SurabayaElitesController < ApplicationController
   def monthly
     gon.brand = initialize_brand
     gon.max = 800
-    @customer_summary = Penjualan::Sale.customer_summary_monthly(initialize_brach_id, initialize_brand)
-    @most_item =  Penjualan::Sale.most_items_ordered_monthly(initialize_brach_id, initialize_brand)
     @branch = "SURABAYA"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/monthly"

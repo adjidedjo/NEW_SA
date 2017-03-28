@@ -65,14 +65,12 @@ class ApplicationController < ActionController::Base
   end
 
   def retail_monthly
+    monthly_article_summary
+    monthly_customer_summary
+    revenue_last_month
+    monthly_summaries
     last_month_city_summary
-    last_month_summary_brand
-    two_month_ago_summary_brand
-    three_month_ago_summary_brand
-    four_month_ago_summary_brand
-    all_months_reports
     this_month_product_summary
-    monthly_channel
   end
 
   def dashboard

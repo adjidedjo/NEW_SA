@@ -1,44 +1,32 @@
 module PenjualanConcern
+  include ApplicationHelper
   extend ActiveSupport::Concern
 
   ########## MONTHLY
+  
+  def monthly_article_summary
+    @last_month_article = Penjualan::Sale.monthly_article_summary(initialize_brach_id, initialize_brand)
+  end
+  
+  def monthly_customer_summary
+    @last_month_customer = Penjualan::Sale.monthly_customer_summary(initialize_brach_id, initialize_brand)
+  end
+  
+  def revenue_last_month
+    @sales_revenue_last_month = Penjualan::SaleDaily.revenue_last_month(initialize_brach_id, initialize_brand)
+  end
+  
+  def monthly_summaries
+    summaries = Penjualan::Sale.monthly_summaries(initialize_brach_id, initialize_brand)
+    gon.summaries = summaries.map { |u| [Date::MONTHNAMES[u.fiscal_month], (u.jumlah/1000000)] }.to_a
+  end
+  
   def last_month_city_summary
     @city_month_sum = Penjualan::Sale.monthly_city_summary(initialize_brach_id, initialize_brand)
   end
   
   def this_month_product_summary
     @product_month_summary = Penjualan::Sale.monthly_product_summary(initialize_brach_id, initialize_brand)
-  end
-
-  def last_month_summary_brand
-    @brand_month_ago = Penjualan::Sale.a_month_ago(initialize_brach_id, initialize_brand)
-    gon.last_month_date = 1.month.ago.strftime("%B %y")
-    gon.last_month_ago = @brand_month_ago.empty? ? 0 : @brand_month_ago[0]['jumlah']
-  end
-
-  def two_month_ago_summary_brand
-    @brand_2_month_ago = Penjualan::Sale.two_month_ago(initialize_brach_id, initialize_brand)
-    gon.two_month_ago_date = 2.month.ago.strftime("%B %y")
-    gon.two_month_ago = @brand_2_month_ago.empty? ? 0 : @brand_2_month_ago[0]['jumlah']
-  end
-
-  def three_month_ago_summary_brand
-    @brand_3_month_ago = Penjualan::Sale.three_month_ago(initialize_brach_id, initialize_brand)
-    gon.three_month_ago_date = 3.month.ago.strftime("%B %y")
-    gon.three_month_ago = @brand_3_month_ago.empty? ? 0 : @brand_3_month_ago[0]['jumlah']
-  end
-
-  def four_month_ago_summary_brand
-    @brand_4_month_ago = Penjualan::Sale.four_month_ago(initialize_brach_id, initialize_brand)
-    gon.four_month_ago_date = 4.month.ago.strftime("%B %y")
-    gon.four_month_ago = @brand_4_month_ago.empty? ? 0 : @brand_4_month_ago[0]['jumlah']
-  end
-  
-  def all_months_reports
-    @all_month_brand = @brand_month_ago
-    @all_month_brand << @brand_2_month_ago.first
-    @all_month_brand << @brand_3_month_ago.first
-    @all_month_brand << @brand_4_month_ago.first
   end
   ########## END MONTHLY
 
