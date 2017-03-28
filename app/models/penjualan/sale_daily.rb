@@ -88,7 +88,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
   end
   
   def self.this_month_customer(branch, brand)
-    self.find_by_sql("SELECT customer, kodejenis, km, dv, hb, sa, sb, total_1, total_2,
+    self.find_by_sql("SELECT customer, kodejenis, km, dv, hb, sa, sb, kb, total_1, total_2,
     ROUND((((total_1 - total_2) / total_2) * 100), 0) AS percentage FROM
     (
       SELECT customer, kodejenis,
@@ -103,6 +103,8 @@ class Penjualan::SaleDaily < Penjualan::Sale
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' AND kodejenis = 'SB' THEN jumlah END) sb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
+      AND '#{Date.yesterday}' AND kodejenis = 'KB' THEN jumlah END) kb,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' THEN harganetto1 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) total_2    
@@ -115,7 +117,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
   end
   
   def self.this_month_city(branch, brand)
-    self.find_by_sql("SELECT kota, kodejenis, km, dv, hb, sa, sb, total_1, total_2,
+    self.find_by_sql("SELECT kota, kodejenis, km, dv, hb, sa, sb, kb, total_1, total_2,
     ROUND((((total_1 - total_2) / total_2) * 100), 0) AS percentage FROM
     (
       SELECT kota, kodejenis,
@@ -129,6 +131,8 @@ class Penjualan::SaleDaily < Penjualan::Sale
       AND '#{Date.yesterday}' AND kodejenis = 'SA' THEN jumlah END) sa,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' AND kodejenis = 'SB' THEN jumlah END) sb,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
+      AND '#{Date.yesterday}' AND kodejenis = 'KB' THEN jumlah END) kb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' THEN harganetto1 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
@@ -163,8 +167,10 @@ class Penjualan::SaleDaily < Penjualan::Sale
       GROUP BY kodejenis
       ) as lc
       LEFT JOIN sales_targets AS st
-      ON lc.kodejenis = st.product AND st.brand = '#{brand}'
-      AND st.month = '#{Date.yesterday.month}' AND st.year = '#{Date.yesterday.last_month.year}' GROUP BY st.product
+      ON lc.kodejenis = st.product AND (st.brand = '#{brand}' OR st.brand IS NULL) AND 
+      (st.branch = '#{branch}' OR st.branch IS NULL)
+      AND (st.month = '#{Date.yesterday.month}' OR st.month IS NULL) 
+      AND (st.year = '#{Date.yesterday.year}' OR st.year IS NULL) GROUP BY st.product
       ")
   end
   

@@ -23,7 +23,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
   end
   
   def self.last_month_customer(sales)
-    self.find_by_sql("SELECT customer, kodejenis, km, dv, hb, sa, sb, total_1, total_2,
+    self.find_by_sql("SELECT customer, kodejenis, km, dv, hb, sa, sb, kb, total_1, total_2,
     ROUND((((total_1 - total_2) / total_2) * 100), 0) AS percentage FROM
     (
       SELECT customer, kodejenis,
@@ -38,6 +38,8 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}' AND kodejenis = 'SB' THEN jumlah END) sb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
+      AND '#{1.month.ago.to_date.end_of_month}' AND kodejenis = 'KB' THEN jumlah END) kb,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}' THEN harganetto1 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
       AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) total_2    
@@ -50,7 +52,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
   end
   
   def self.last_month_city(sales)
-    self.find_by_sql("SELECT kota, kodejenis, km, dv, hb, sa, sb, total_1, total_2,
+    self.find_by_sql("SELECT kota, kodejenis, km, dv, hb, sa, sb, kb, total_1, total_2,
     ROUND((((total_1 - total_2) / total_2) * 100), 0) AS percentage FROM
     (
       SELECT kota, kodejenis,
@@ -64,6 +66,8 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{1.month.ago.to_date.end_of_month}' AND kodejenis = 'SA' THEN jumlah END) sa,
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}' AND kodejenis = 'SB' THEN jumlah END) sb,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
+      AND '#{1.month.ago.to_date.end_of_month}' AND kodejenis = 'KB' THEN jumlah END) kb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}' THEN harganetto1 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
@@ -341,8 +345,9 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       GROUP BY kodejenis WITH ROLLUP
       ) as lc
       LEFT JOIN sales_targets AS st
-      ON lc.kodejenis = st.product AND st.user_id = '#{sales.id}'
-      AND st.month = '#{1.day.ago.to_date.month}' GROUP BY st.product
+      ON lc.kodejenis = st.product AND (st.user_id = '#{sales.id}' OR st.user_id IS NULL)
+      AND (st.month = '#{1.day.ago.to_date.month}' OR st.month IS NULL) 
+      AND (st.year = '#{1.day.ago.to_date.year}' OR st.year IS NULL) GROUP BY st.product
       ")
   end
 end

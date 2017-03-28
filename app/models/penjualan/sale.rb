@@ -111,8 +111,10 @@ class Penjualan::Sale < ActiveRecord::Base
       GROUP BY kodejenis
       ) as lc
       LEFT JOIN sales_targets AS st
-      ON lc.kodejenis = st.product AND st.brand = '#{brand}' AND st.branch = '#{branch}'
-      AND st.month = '#{Date.yesterday.last_month.month}' AND st.year = '#{Date.yesterday.last_month.year}' GROUP BY st.product
+      ON lc.kodejenis = st.product AND (st.brand = '#{brand}' OR st.brand IS NULL) AND 
+      (st.branch = '#{branch}' OR st.branch IS NULL)
+      AND (st.month = '#{Date.yesterday.last_month.month}' OR st.month IS NULL) 
+      AND (st.year = '#{Date.yesterday.last_month.year}' OR st.year IS NULL) GROUP BY st.product
       ")
   end
 
