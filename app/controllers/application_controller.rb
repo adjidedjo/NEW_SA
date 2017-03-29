@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
   end
   
   def retail_daily
+    otd
     revenue_this_month
     daily_summary
     daily_product

@@ -1,6 +1,26 @@
 class Penjualan::SaleDaily < Penjualan::Sale
   self.table_name = "tblaporancabang"
   
+  def self.on_time_delivery(branch, brand)
+    self.find_by_sql("SELECT ((variance1/total_so) * 100) AS ontime, ((variance2/total_so) * 100) AS late, 
+    ((variance3/total_so) * 100) AS superlate, total_so FROM
+    (
+      SELECT diskon5,
+      COUNT(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
+      AND '#{Date.yesterday}' AND diskon5 <= 3 THEN diskon5 END) variance1,
+      COUNT(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
+      AND '#{Date.yesterday}' AND diskon5 BETWEEN 4 AND 7 THEN diskon5 END) variance2,
+      COUNT(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
+      AND '#{Date.yesterday}' AND diskon5 > 7 THEN diskon5 END) variance3,
+      COUNT(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
+      AND '#{Date.yesterday}' THEN diskon5 END) total_so
+      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}' 
+      AND '#{Date.yesterday}'
+      AND cabang_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB')
+      ) as sub")
+  end
+  
   def self.revenue_this_month(branch, brand)
     self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,

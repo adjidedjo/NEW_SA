@@ -648,27 +648,18 @@
 (function(window, document, $, undefined){
 
   $(function(){
-
-    var data = [{
-      "label": "jQuery",
-      "color": "#4acab4",
-      "data": 30
-    }, {
-      "label": "CSS",
-      "color": "#ffea88",
-      "data": 40
-    }, {
-      "label": "LESS",
-      "color": "#ff8153",
-      "data": 90
-    }, {
-      "label": "SASS",
-      "color": "#878bb6",
-      "data": 75
-    }, {
-      "label": "Jade",
+    var data = [ {
+      "label": "ON TIME",
       "color": "#b2d767",
-      "data": 120
+      "data": gon.ontime
+    }, {
+      "label": "LATE",
+      "color": "#ffea88",
+      "data": gon.late
+    }, {
+      "label": "VERY LATE",
+      "color": "red",
+      "data": gon.superlate
     }];
 
     var options = {

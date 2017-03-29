@@ -7,6 +7,14 @@ module PenjualanDailyConcern
     end
   end
   
+  def otd
+    @otd = Penjualan::SaleDaily.on_time_delivery(initialize_brach_id, initialize_brand)
+    @brand_name = initialize_brand
+    gon.ontime = @otd.first.ontime.to_i
+    gon.late = @otd.first.late.to_i
+    gon.superlate = @otd.first.superlate.to_i
+  end
+  
   def daily_summary
     @daily_sum = Penjualan::SaleDaily.daily_summary(initialize_brach_id, initialize_brand)
     gon.day_5 = @five_day_ago.strftime("%Y/%m/%d")
