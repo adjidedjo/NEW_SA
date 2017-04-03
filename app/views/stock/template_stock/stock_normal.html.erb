@@ -19,9 +19,6 @@
                   <th>Descriptions</th>
                   <th class="sort-numeric">Available</th>
                   <th class="sort-numeric">OnHand</th>
-                  <% if current_user.position != 'sales' %>
-                  <th class="sort-numeric">Safety</th>
-                  <% end %>
                 </tr>
               </thead>
               <tbody>
@@ -30,9 +27,6 @@
                   <td><%= cs.imdsc1.strip %> <%= cs.imdsc2 %></td>
                   <td><%= (cs.lipqoh - cs.lihcom)/10000 %></td>
                   <td><%= cs.lipqoh/10000 %></td>
-                  <% if current_user.position != 'sales' %>
-                    <td><%= cs.ibsafe/10000 %></td>
-                  <% end %>
                 </tr>
                 <% end %>
               </tbody>
