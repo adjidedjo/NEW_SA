@@ -3,27 +3,27 @@ module PenjualanSalesmanConcern
   
   # DAILY SALESMAN REPORT
   def daily_product_sales
-    @sales_daily_product = Penjualan::SalesmanSales.sales_daily_product(@current_user)
+    @sales_daily_product = Penjualan::SalesmanSales.sales_daily_product(@current_user, @brand)
   end
   
   def this_week_product_sales
-    @this_week_product = Penjualan::SalesmanSales.this_week(@current_user)
+    @this_week_product = Penjualan::SalesmanSales.this_week(@current_user, @brand)
   end
   
   def this_month_product_sales
-    @this_month_product = Penjualan::SalesmanSales.this_month(@current_user)
+    @this_month_product = Penjualan::SalesmanSales.this_month(@current_user, @brand)
   end
   
   def this_month_city_sales
-    @this_month_city = Penjualan::SalesmanSales.this_month_city(@current_user)
+    @this_month_city = Penjualan::SalesmanSales.this_month_city(@current_user, @brand)
   end
   
   def this_month_customer_sales
-    @this_month_customer = Penjualan::SalesmanSales.this_month_customer(@current_user)
+    @this_month_customer = Penjualan::SalesmanSales.this_month_customer(@current_user, @brand)
   end
   
   def this_month_article_sales
-    @this_month_article = Penjualan::SalesmanSales.this_month_article(@current_user)
+    @this_month_article = Penjualan::SalesmanSales.this_month_article(@current_user, @brand)
   end
   
   # WEEKLY SALESMAN REPORT

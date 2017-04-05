@@ -23,4 +23,8 @@ module RolesHelper
     user.position == "sales" && (user.brand1 == brand || user.brand2 == brand) && 
     (user.branch1 == branch || user.branch2 == branch) 
   end
+  
+  def sales_page(user, brand)
+    user.position == "sales" && (user.brand1 == brand || user.brand2 == brand)
+  end
 end

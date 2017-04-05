@@ -6,7 +6,10 @@ Rails.application.routes.draw do
 
   # view routes
   # salesman
-  get 'penjualan_salesman/daily'
+  get 'penjualan_salesman/elite'
+  get 'penjualan_salesman/lady'
+  get 'penjualan_salesman/serenity'
+  get 'penjualan_salesman/royal'
   get 'penjualan_salesman/weekly'
   get 'penjualan_salesman/monthly'
   
