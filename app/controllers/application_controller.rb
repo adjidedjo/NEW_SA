@@ -9,7 +9,25 @@ class ApplicationController < ActionController::Base
   include PenjualanSalesmanConcern
   include OrderDailyConcern
   helper_method :retail_weekly, :retail_monthly, :retail_daily, :order_daily, 
-  :retail_salesman_daily
+  :retail_salesman_daily, :retail_sales_stock_rate, :retail_sales_through,
+  :retail_nasional_weekly, :retail_nasional_monthly
+  
+  def retail_nasional_monthly
+    retail_nasional_monthly_conc
+  end
+  
+  def retail_nasional_weekly
+    retail_nasional_weekly_conc
+    retail_nasional_weekly_branch_conc
+  end
+  
+  def retail_sales_stock_rate
+    sales_stock_rate
+  end
+  
+  def retail_sales_through
+    sales_through
+  end
   
   def retail_salesman_monthly
     monthly_product_sales
@@ -66,6 +84,8 @@ class ApplicationController < ActionController::Base
   end
 
   def retail_monthly
+    otd
+    monthly_salesman_summary
     monthly_article_summary
     monthly_customer_summary
     revenue_last_month

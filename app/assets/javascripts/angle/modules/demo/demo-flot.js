@@ -29,6 +29,52 @@
         [gon.last_week_date, gon.last_week_ago],
       ]
     }];
+    
+    var weeknas = [{
+      "label": gon.brand,
+      "color": "#768294",
+      "data": gon.summaries
+    }];
+
+    var options_weeknas = {
+      series: {
+          lines: {
+              show: false
+          },
+          points: {
+              show: true,
+              radius: 4
+          },
+          splines: {
+              show: true,
+              tension: 0.4,
+              lineWidth: 1,
+              fill: 0.5
+          }
+      },
+      grid: {
+          borderColor: '#eee',
+          borderWidth: 1,
+          hoverable: true,
+          backgroundColor: '#fcfcfc'
+      },
+      tooltip: true,
+      tooltipOpts: {
+          content: function (label, x, y) { return x + ' : ' + y; }
+      },
+      xaxis: {
+          tickColor: '#fcfcfc',
+          mode: 'categories'
+      },
+      yaxis: {
+          tickColor: '#eee',
+          //position: 'right' or 'left',
+          tickFormatter: function (v) {
+              return v/* + ' visitors'*/;
+          }
+      },
+      shadowSize: 0
+    };
 
     var datav2 = [{
       "label": gon.brand,
@@ -97,6 +143,10 @@
     var chartv3 = $('.chart-splinev3');
     if(chartv3.length)
       $.plot(chartv3, datav3, options);
+    
+    var chartweek_nas = $('.chart-spline-weeknas');
+    if(chartweek_nas.length)
+      $.plot(chartweek_nas, weeknas, options_weeknas);
 
   });
 
@@ -633,10 +683,56 @@
                     },
                     shadowSize: 0
                 };
+                
+    var data_monthly = [{
+        "label": "Sales",
+        "color": "#5ab1ef",
+        "data": gon.summaries
+    }, {
+        "label": "Target",
+        "color": "#f5994e",
+        "data": gon.target
+    }];
+
+    var options_monthly = {
+                    series: {
+                        lines: {
+                            show: true,
+                            fill: 0.01
+                        },
+                        points: {
+                            show: true,
+                            radius: 4
+                        }
+                    },
+                    grid: {
+                        borderColor: '#eee',
+                        borderWidth: 1,
+                        hoverable: true,
+                        backgroundColor: '#fcfcfc'
+                    },
+                    tooltip: true,
+                    tooltipOpts: {
+                        content: function (label, x, y) { return x + ' : ' + y; }
+                    },
+                    xaxis: {
+                        tickColor: '#eee',
+                        mode: 'categories'
+                    },
+                    yaxis: {
+                        // position: 'right' or 'left'
+                        tickColor: '#eee'
+                    },
+                    shadowSize: 0
+                };
 
     var chart = $('.chart-line');
     if(chart.length)
       $.plot(chart, data, options);
+      
+    var chart_monthly = $('.chart-line-monthly');
+    if(chart_monthly.length)
+      $.plot(chart_monthly, data_monthly, options_monthly);
 
   });
 

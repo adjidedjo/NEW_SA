@@ -1,0 +1,64 @@
+<li class="<%= 'active' if controller?('penjualan/nasional') %>">
+  <a href="#nasional" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Nasional</span> </a>
+  <ul id="nasional" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      NASIONAL
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/nasional/nasional_elites') %>">
+      <a href="#nasional-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      <ul id="nasional-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          ELITE
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/nasional/nasional_elites') && action?('weekly') %>">
+          <a href="/penjualan/nasional/nasional_elites/weekly" title="Mingguan"> <span>Mingguan</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/nasional/nasional_elites') && action?('monthly') %>">
+          <a href="/penjualan/nasional/nasional_elites/monthly" title="Bulanan"> <span>Bulanan</span> </a>
+        </li>        
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/nasional/nasional_serenity') %>">
+      <a href="#nasional-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      <ul id="nasional-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/nasional/nasional_serenity') && action?('weekly') %>">
+          <a href="/penjualan/nasional/nasional_serenity/weekly" title="Mingguan"> <span>Mingguan</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/nasional/nasional_serenity') && action?('monthly') %>">
+          <a href="/penjualan/nasional/nasional_serenity/monthly" title="Bulanan"> <span>Bulanan</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/nasional/nasional_lady') %>">
+      <a href="#nasional-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      <ul id="nasional-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/nasional/nasional_lady') && action?('weekly') %>">
+          <a href="/penjualan/nasional/nasional_lady/weekly" title="Mingguan"> <span>Mingguan</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/nasional/nasional_lady') && action?('monthly') %>">
+          <a href="/penjualan/nasional/nasional_lady/monthly" title="Bulanan"> <span>Bulanan</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/nasional/nasional_royal') %>">
+      <a href="#nasional-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      <ul id="nasional-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/nasional/nasional_royal') && action?('weekly') %>">
+          <a href="/penjualan/nasional/nasional_royal/weekly" title="Mingguan"> <span>Mingguan</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/nasional/nasional_royal') && action?('monthly') %>">
+          <a href="/penjualan/nasional/nasional_royal/monthly" title="Bulanan"> <span>Bulanan</span> </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>

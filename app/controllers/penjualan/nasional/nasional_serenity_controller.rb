@@ -1,24 +1,9 @@
-class Penjualan::Bandung::BandungElitesController < ApplicationController
+class Penjualan::Bandung::BandungSerenityController < ApplicationController
   include RolesHelper
   before_action :initialize_brand, :initialize_brach_id, :authorize_user
   before_action :retail_weekly, only: :weekly
   before_action :retail_monthly, only: :monthly
   before_action :retail_daily, only: :daily
-  before_action :retail_sales_through, only: :sales_through
-  before_action :retail_sales_stock_rate, only: :sales_stock_rate
-  
-  def sales_stock_rate
-    @branch = "BANDUNG"
-    @brand_name = initialize_brand
-    render template: "penjualan/template_dashboard/sales_stock_rate"
-    
-  end
-  
-  def sales_through
-    @branch = "BANDUNG"
-    @brand_name = initialize_brand
-    render template: "penjualan/template_dashboard/sales_through"
-  end
   
   def daily
     gon.brand = initialize_brand
@@ -30,28 +15,28 @@ class Penjualan::Bandung::BandungElitesController < ApplicationController
   
   def weekly
     gon.brand = initialize_brand
-    gon.max = 500
+    gon.max = 800
     @customer_summary = Penjualan::Sale.customer_summary(initialize_brach_id, initialize_brand)
     @most_item =  Penjualan::Sale.most_items_ordered_weekly(initialize_brach_id, initialize_brand)
     @branch = "BANDUNG"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/weekly"
   end
-
+  
   def monthly
     gon.brand = initialize_brand
-    gon.max = 2000
+    gon.max = 5000
     @branch = "BANDUNG"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/monthly"
   end
-
+  
   private
-
+  
   def initialize_brand
-    "ELITE"
+    "SERENITY"
   end
-
+  
   def initialize_brach_id
     2
   end

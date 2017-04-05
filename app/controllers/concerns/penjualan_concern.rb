@@ -3,6 +3,29 @@ module PenjualanConcern
   extend ActiveSupport::Concern
 
   ########## MONTHLY
+  def retail_nasional_monthly_conc
+    Penjualan::Sale::retail_nasional_monthly(initialize_brand)
+  end
+  
+  def sales_stock_rate
+    Penjualan::Sale.sales_stock_rate(initialize_brach_id, initialize_brand)
+  end
+  
+  def sales_through
+    Penjualan::Sale.sales_through(initialize_brach_id, initialize_brand)
+  end
+  
+  def otd
+    @otd = Penjualan::Sale.on_time_delivery(initialize_brach_id, initialize_brand)
+    @brand_name = initialize_brand
+    gon.ontime = @otd.first.ontime.to_i
+    gon.late = @otd.first.late.to_i
+    gon.superlate = @otd.first.superlate.to_i
+  end
+  
+  def monthly_salesman_summary
+    @last_month_salesman = Penjualan::Sale.monthly_salesman_summary(initialize_brach_id, initialize_brand)
+  end
   
   def monthly_article_summary
     @last_month_article = Penjualan::Sale.monthly_article_summary(initialize_brach_id, initialize_brand)
@@ -18,7 +41,9 @@ module PenjualanConcern
   
   def monthly_summaries
     summaries = Penjualan::Sale.monthly_summaries(initialize_brach_id, initialize_brand)
-    gon.summaries = summaries.map { |u| [Date::MONTHNAMES[u.fiscal_month], (u.jumlah/1000000)] }.to_a
+    target_sum = Penjualan::Sale.target_monthly_summaries(initialize_brach_id, initialize_brand)
+    gon.summaries = summaries.map { |u| [Date::ABBR_MONTHNAMES[u.fiscal_month], (u.jumlah)] }.to_a
+    gon.target = target_sum.map { |u| [Date::ABBR_MONTHNAMES[u.month], (u.jumlah)] }.to_a
   end
   
   def last_month_city_summary
@@ -31,6 +56,15 @@ module PenjualanConcern
   ########## END MONTHLY
 
   ########## WEEKLY
+  def retail_nasional_weekly_branch_conc
+    @ret_nas_weekbranch =  Penjualan::Sale::retail_nasional_weekly_branch(initialize_brand)
+  end
+  
+  def retail_nasional_weekly_conc
+    summaries =  Penjualan::Sale::retail_nasional_weekly(initialize_brand)
+    gon.summaries = summaries.map { |u| [u.weekly_name, (u.val/1000000)] }.to_a
+  end
+  
   def this_week_city_summary
     @city_week_sum = Penjualan::Sale.weekly_city_summary(initialize_brach_id, initialize_brand)
   end

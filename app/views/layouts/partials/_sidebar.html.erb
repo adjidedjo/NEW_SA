@@ -62,20 +62,13 @@
           <li class="sidebar-subnav-header">
             Penjualan
           </li>
-          <li class="<%= 'active' if controller?('penjualan/nasional') %>">
-            <a href="#nasional" title="Direct" data-toggle="collapse"> <em class="icon-people"></em> <span>Nasional</span> </a>
-            <ul id="nasional" class="nav sidebar-subnav collapse">
-              <li class="sidebar-subnav-header">
-                Nasional
-              </li>
-            </ul>
-          </li>
           <li class="<%= 'active' if controller?('penjualan') %>">
             <a href="#retail" title="Penjualan" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
             <ul id="retail" class="nav sidebar-subnav collapse">
               <li class="sidebar-subnav-header">
                 Retail
               </li>
+              <%= render "layouts/partials/sidebar_nasional" %>
               <%= render "layouts/partials/sidebar_bandung" if branch(current_user, 2) %>
               <%= render "layouts/partials/sidebar_cirebon" if branch(current_user, 9) %>
               <%= render "layouts/partials/sidebar_bekasi" if branch(current_user, 3) %>
