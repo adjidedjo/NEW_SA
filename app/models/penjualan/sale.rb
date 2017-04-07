@@ -2,8 +2,57 @@ class Penjualan::Sale < ActiveRecord::Base
   self.table_name = "tblaporancabang"
   ########## START MONTHLY
   
+  def self.retail_nasional_monthly_product(brand)
+    self.find_by_sql("SELECT lc.kodejenis, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2, 
+    ROUND((((lc.val_1 - lc.val_2) /lc. val_2) * 100), 0) AS percentage,
+    ROUND(((lc.qty_1/SUM(st.target)) * 100.0), 0) AS target FROM
+    (
+      SELECT kodejenis,
+      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.month}' THEN jumlah END) qty_1,
+      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.month}' THEN harganetto1 END) val_1,
+      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.last_month.month}' THEN jumlah END) qty_2,
+      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.last_month.month}' THEN harganetto1 END) val_2      
+      FROM tblaporancabang WHERE fiscal_month BETWEEN '#{Date.yesterday.last_month.last_month.month}' 
+      AND '#{Date.yesterday.last_month.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.last_month.year}' 
+      AND '#{Date.yesterday.last_month.year}' AND jenisbrgdisc = '#{brand}' AND
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') 
+      GROUP BY kodejenis
+      ) as lc
+      LEFT JOIN sales_targets AS st
+      ON lc.kodejenis = st.product AND (st.brand = '#{brand}' OR st.brand IS NULL)
+      AND (st.month = '#{Date.yesterday.last_month.month}' OR st.month IS NULL) 
+      AND (st.year = '#{Date.yesterday.last_month.year}' OR st.year IS NULL) GROUP BY st.product
+      ")
+  end
+  
+  def self.retail_nasional_monthly_branch(brand)
+    self.find_by_sql("SELECT lc.harga, cb.cabang AS branch FROM (
+    SELECT SUM(harganetto1) AS harga, cabang_id FROM tblaporancabang 
+    WHERE fiscal_month = '#{Date.yesterday.last_month.month}' 
+    AND fiscal_year = '#{Date.yesterday.last_month.year}'
+    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-' 
+    AND kodejenis IN ('KM', 'DV', 'HB', 'KB')
+    AND cabang_id NOT IN (1,50)
+    GROUP BY cabang_id) AS lc
+    LEFT JOIN tbidcabang AS cb ON lc.cabang_id = cb.id
+    ")
+  end
+  
+  def self.target_retail_nasional_monthly(brand)
+    self.find_by_sql("SELECT SUM(target) AS jumlah, month FROM sales_targets 
+    WHERE branch = '#{branch}' AND month BETWEEN '#{1.month.ago.beginning_of_year.month}' 
+    AND '#{Date.yesterday.last_month.month}' AND year = '#{1.month.ago.beginning_of_year.year}'
+    AND brand = '#{brand}' 
+    GROUP BY month, branch")
+  end
+  
   def self.retail_nasional_monthly(brand)
-    
+    self.find_by_sql("SELECT SUM(harganetto1) AS harga, fiscal_month FROM tblaporancabang 
+    WHERE fiscal_month BETWEEN '#{1.month.ago.beginning_of_year.month}' 
+    AND '#{Date.yesterday.last_month.month}' AND fiscal_year = '#{1.month.ago.beginning_of_year.year}'
+    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-' 
+    AND kodejenis IN ('KM', 'DV', 'HB', 'KB') 
+    GROUP BY fiscal_month")
   end
   
   def self.sales_stock_rate(branch, brand)

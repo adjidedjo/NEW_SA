@@ -3,8 +3,20 @@ module PenjualanConcern
   extend ActiveSupport::Concern
 
   ########## MONTHLY
+  def retail_nasional_monthly_product_conc
+    @product_monthnas_summary = Penjualan::Sale.retail_nasional_monthly_product(initialize_brand)
+  end
+  
   def retail_nasional_monthly_conc
-    Penjualan::Sale::retail_nasional_monthly(initialize_brand)
+    summaries = Penjualan::Sale::retail_nasional_monthly(initialize_brand)
+    # target_sum = Penjualan::Sale::target_retail_nasional_monthly(initialize_brand)
+    gon.summaries = summaries.map { |u| [Date::ABBR_MONTHNAMES[u.fiscal_month], (u.harga/10000000)] }.to_a
+    # gon.target = target_sum.map { |u| [Date::ABBR_MONTHNAMES[u.month], (u.jumlah)] }.to_a
+  end
+  
+  def retail_nasional_monthly_branch_conc
+    summaries = Penjualan::Sale::retail_nasional_monthly_branch(initialize_brand)
+    gon.summaries_branch = summaries.map { |u| [u.branch.gsub(/Cabang/,''), (u.harga/10000000)] }.to_a
   end
   
   def sales_stock_rate

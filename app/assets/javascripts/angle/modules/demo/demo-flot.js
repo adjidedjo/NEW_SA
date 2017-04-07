@@ -693,6 +693,12 @@
         "color": "#f5994e",
         "data": gon.target
     }];
+    
+    var data_monthlynas = [{
+        "label": "Sales",
+        "color": "#5ab1ef",
+        "data": gon.summaries_branch
+    }];
 
     var options_monthly = {
                     series: {
@@ -733,6 +739,10 @@
     var chart_monthly = $('.chart-line-monthly');
     if(chart_monthly.length)
       $.plot(chart_monthly, data_monthly, options_monthly);
+      
+    var chart_monthly_nasional = $('.chart-line-monthlynas');
+    if(chart_monthly_nasional.length)
+      $.plot(chart_monthly_nasional, data_monthlynas, options_monthly);
 
   });
 

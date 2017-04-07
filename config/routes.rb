@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   root :to => 'pages#template'
 
   # view routes
+  
+  # Sales Productivity
+  resources :sales_productivities
+  
   # salesman
   get 'penjualan_salesman/elite'
   get 'penjualan_salesman/lady'

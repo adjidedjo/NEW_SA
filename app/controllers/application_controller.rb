@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   :retail_nasional_weekly, :retail_nasional_monthly
   
   def retail_nasional_monthly
+    retail_nasional_monthly_product_conc
+    retail_nasional_monthly_branch_conc
     retail_nasional_monthly_conc
   end
   
