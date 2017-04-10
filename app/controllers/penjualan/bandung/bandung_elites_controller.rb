@@ -8,10 +8,10 @@ class Penjualan::Bandung::BandungElitesController < ApplicationController
   before_action :retail_sales_stock_rate, only: :sales_stock_rate
   
   def sales_stock_rate
+    gon.brand = initialize_brand
     @branch = "BANDUNG"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/sales_stock_rate"
-    
   end
   
   def sales_through

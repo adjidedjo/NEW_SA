@@ -19,10 +19,6 @@ module PenjualanConcern
     gon.summaries_branch = summaries.map { |u| [u.branch.gsub(/Cabang/,''), (u.harga/10000000)] }.to_a
   end
   
-  def sales_stock_rate
-    Penjualan::Sale.sales_stock_rate(initialize_brach_id, initialize_brand)
-  end
-  
   def sales_through
     Penjualan::Sale.sales_through(initialize_brach_id, initialize_brand)
   end
@@ -68,6 +64,16 @@ module PenjualanConcern
   ########## END MONTHLY
 
   ########## WEEKLY
+  
+  def sales_stock_rate_conc
+    sumssr = Penjualan::SalesStockRate.sales_stock_rate_weekly_summary(initialize_brach_id, initialize_brand)
+    gon.sumssr = sumssr.map { |u| [u.weekly_name, u.ssr] }.to_a
+  end
+  
+  def sales_stock_rate_product_conc
+    @ssr_product = Penjualan::SalesStockRate.sales_stock_rate_weekly_product(initialize_brach_id, initialize_brand)
+  end
+  
   def retail_nasional_weekly_branch_conc
     @ret_nas_weekbranch =  Penjualan::Sale::retail_nasional_weekly_branch(initialize_brand)
   end

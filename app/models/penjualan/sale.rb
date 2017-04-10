@@ -55,10 +55,6 @@ class Penjualan::Sale < ActiveRecord::Base
     GROUP BY fiscal_month")
   end
   
-  def self.sales_stock_rate(branch, brand)
-    
-  end
-  
   def self.sales_through(branch, brand)
     
   end

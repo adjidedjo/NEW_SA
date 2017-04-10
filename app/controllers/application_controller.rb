@@ -24,7 +24,8 @@ class ApplicationController < ActionController::Base
   end
   
   def retail_sales_stock_rate
-    sales_stock_rate
+    sales_stock_rate_product_conc
+    sales_stock_rate_conc
   end
   
   def retail_sales_through

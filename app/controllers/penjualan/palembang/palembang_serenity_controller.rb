@@ -4,6 +4,21 @@ class Penjualan::Palembang::PalembangSerenityController < ApplicationController
   before_action :retail_weekly, only: :weekly
   before_action :retail_monthly, only: :monthly
   before_action :retail_daily, only: :daily
+  before_action :retail_sales_through, only: :sales_through
+  before_action :retail_sales_stock_rate, only: :sales_stock_rate
+  
+  def sales_stock_rate
+    gon.brand = initialize_brand
+    @branch = "PALEMBANG"
+    @brand_name = initialize_brand
+    render template: "penjualan/template_dashboard/sales_stock_rate"
+  end
+  
+  def sales_through
+    @branch = "PALEMBANG"
+    @brand_name = initialize_brand
+    render template: "penjualan/template_dashboard/sales_through"
+  end
   
   def daily
     gon.brand = initialize_brand

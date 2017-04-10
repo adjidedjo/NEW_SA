@@ -35,6 +35,12 @@
       "color": "#768294",
       "data": gon.summaries
     }];
+    
+    var weekssr = [{
+      "label": gon.brand,
+      "color": "#768294",
+      "data": gon.sumssr
+    }];
 
     var options_weeknas = {
       series: {
@@ -147,6 +153,10 @@
     var chartweek_nas = $('.chart-spline-weeknas');
     if(chartweek_nas.length)
       $.plot(chartweek_nas, weeknas, options_weeknas);
+    
+    var chartweek_ssr = $('.chart-ssr');
+    if(chartweek_ssr.length)
+      $.plot(chartweek_ssr, weekssr, options_weeknas);
 
   });
 
