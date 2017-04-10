@@ -173,7 +173,7 @@ class Penjualan::Sale < ActiveRecord::Base
       FROM tblaporancabang WHERE fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' 
       AND '#{Date.yesterday.last_month.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.last_month.year}' 
       AND '#{Date.yesterday.last_month.year}' AND cabang_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') 
       GROUP BY jenisbrgdisc
     ) as lc
       LEFT JOIN 
@@ -181,7 +181,7 @@ class Penjualan::Sale < ActiveRecord::Base
         SELECT SUM(harganetto1) AS revenue, cabang_id FROM tblaporancabang WHERE 
         fiscal_month = '#{Date.yesterday.last_month.last_year.month}' AND fiscal_year = '#{Date.yesterday.last_month.last_year.year}' 
         AND jenisbrgdisc = '#{brand}' AND cabang_id = '#{branch}' AND
-        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') 
         GROUP BY jenisbrgdisc
       ) AS ly ON lc.cabang_id = '#{branch}'
       LEFT JOIN
@@ -190,7 +190,8 @@ class Penjualan::Sale < ActiveRecord::Base
         SUM(CASE WHEN month = '#{Date.yesterday.last_month.month}' THEN target END) month_target,
         SUM(CASE WHEN month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND 
         '#{Date.yesterday.end_of_year.month}' THEN target END) year_target 
-        FROM sales_targets WHERE 
+        FROM sales_targets WHERE
+        branch = '#{branch}' AND 
         (brand = '#{brand}' OR brand IS NULL)
         AND month BETWEEN '#{Date.yesterday.beginning_of_year.month}' AND
         '#{Date.yesterday.end_of_year.month}' 
