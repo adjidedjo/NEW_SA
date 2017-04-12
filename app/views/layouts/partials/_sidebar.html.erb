@@ -172,26 +172,6 @@
           </li>
         </ul>
       </li>
-      <li class="<%= 'active' if controller?('sales_productivities') %>">
-        <a href="#productivities" title="Sales Productivities" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Success Rate</b></span> </a>
-        <ul id="productivities" class="nav sidebar-subnav collapse">
-          <li class="sidebar-subnav-header">
-            Success Rate
-          </li>
-          <li class="<%= 'active' if controller?('sales_productivities') && action?('index') %>">
-            <a href="/sales_productivities" title="Index"> <span>Elite</span> </a>
-          </li>
-          <li class="<%= 'active' if controller?('sales_productivities') && action?('lady') %>">
-            <a href="/penjualan_salesman/lady" title="Lady"> <span>Lady</span> </a>
-          </li>
-          <li class="<%= 'active' if controller?('sales_productivities') && action?('serenity') %>">
-            <a href="/penjualan_salesman/serenity" title="Serenity"> <span>Serenity</span> </a>
-          </li>
-          <li class="<%= 'active' if controller?('sales_productivities') && action?('royal') %>">
-            <a href="/penjualan_salesman/royal" title="Royal"> <span>Royal</span> </a>
-          </li>
-        </ul>
-      </li>
       <% end %>
       <li class="<%= 'active' if controller?('stock') %>">
         <a href="#stock" title="stock" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Stock</b></span> </a>
