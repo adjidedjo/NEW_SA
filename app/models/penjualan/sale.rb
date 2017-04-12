@@ -173,7 +173,7 @@ class Penjualan::Sale < ActiveRecord::Base
       FROM tblaporancabang WHERE fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' 
       AND '#{Date.yesterday.last_month.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.last_month.year}' 
       AND '#{Date.yesterday.last_month.year}' AND cabang_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB') 
       GROUP BY jenisbrgdisc
     ) as lc
       LEFT JOIN 
@@ -181,7 +181,7 @@ class Penjualan::Sale < ActiveRecord::Base
         SELECT SUM(harganetto1) AS revenue, cabang_id FROM tblaporancabang WHERE 
         fiscal_month = '#{Date.yesterday.last_month.last_year.month}' AND fiscal_year = '#{Date.yesterday.last_month.last_year.year}' 
         AND jenisbrgdisc = '#{brand}' AND cabang_id = '#{branch}' AND
-        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') 
+        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB') 
         GROUP BY jenisbrgdisc
       ) AS ly ON lc.cabang_id = '#{branch}'
       LEFT JOIN
