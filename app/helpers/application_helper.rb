@@ -1,5 +1,14 @@
 module ApplicationHelper
   include RolesHelper
+  
+  def find_sales(sales)
+    User.find(sales)
+  end
+  
+  def find_brand(brand)
+    SalesProductivity.find_by_sql("SELECT jde_brand FROM tbbjmerk WHERE id = '#{brand}'").first
+  end
+  
   def currency(price)
     number_to_currency(price, :precision => 0, :unit => "", :delimiter => ".")
   end

@@ -1,0 +1,128 @@
+<div class="row">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      Form Success Rate
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <%= form_for(@sales_productivity, {:class => "form-horizontal"}) do |f| %>
+        <% if @sales_productivity.errors.any? %>
+        <div id="error_explanation">
+          <h4>Not Saved. Click <%= link_to "this", new_sales_productivity_path %> for a new productivity
+          or fill correctly Form Below </h4>
+
+          <ul>
+            <% @sales_productivity.errors.full_messages.each do |msg| %>
+            <li>
+              <%= msg %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+        <% if f.object.salesmen_id.nil? %>
+        <fieldset>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">NAMA</label>
+            <div class="col-lg-10">
+              <%= f.select "salesmen_id", options_for_select(@salesman.map {|a| [a.name, a.user_id]}), class: 'form-control' %>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">BRAND</label>
+            <div class="col-lg-10">
+              <%= f.select "brand_id", options_for_select(@brand.map {|a| [a.jde_brand, a.id]}), class: 'form-control m-b' %>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div class="form-group mb">
+            <label class="col-sm-2 control-label mb">DATE</label>
+            <div class="col-sm-5">
+              <div id="datetimepicker1" class="input-group date">
+              <%= f.text_field "date", class: 'form-control m-b' %>
+                <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <% else %>
+        <fieldset>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">NAMA</label>
+            <div class="col-lg-10">
+              <%= f.text_field "salesmen_id", value: @salesman.nama, disabled: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">BRAND</label>
+            <div class="col-lg-10">
+              <%= f.text_field "brand_id", value: @brand.first.jde_brand, disabled: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">DATE</label>
+            <div class="col-lg-10">
+              <%= f.text_field "date", value: f.object.created_at.strftime("%d %B %Y"), disabled: true, class: 'form-control' %>
+            </div>
+          </div>
+        </fieldset>
+        <% end %>
+
+        <div class="col-sm-6">
+
+          <fieldset>
+            <div class="form-group">
+              <label class="col-sm-5 control-label">PLAN NEW VISIT CUSTOMER</label>
+              <div class="col-sm-5">
+                <%= f.number_field :npvnc, class: "form-control" %>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <div class="form-group">
+              <label class="col-sm-5 control-label">VISIT CUSTOMER</label>
+              <div class="col-sm-5">
+                <%= f.number_field :nvc, class: "form-control" %>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <div class="form-group">
+              <label class="col-sm-5 control-label">CLOSE DEAL VISIT</label>
+              <div class="col-sm-5">
+                <%= f.number_field :ncdv, class: "form-control" %>
+              </div>
+            </div>
+          </fieldset>
+
+        </div>
+        <div class="col-sm-6">
+          <fieldset>
+            <div class="form-group">
+              <label class="col-sm-5 control-label">CALL CUSTOMER</label>
+              <div class="col-sm-5">
+                <%= f.number_field :ncc, class: "form-control" %>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <div class="form-group">
+              <label class="col-sm-5 control-label">CLOSE DEAL CALL</label>
+              <div class="col-sm-5">
+                <%= f.number_field :ncdc, class: "form-control" %>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <%= f.submit f.object.new_record? ? "CREATE" : "UPDATE", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

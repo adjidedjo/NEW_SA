@@ -1,0 +1,51 @@
+<div class="row-fluid">
+  <div class="span10">
+    <%= form_tag report_graph_sales_productivities_path, :method => 'get', :class => "form-inline" do %>
+    <label style="font-size: 13px;">CABANG: </label>
+    <%= select_tag 'branch', options_for_select(access_by_province(current_user), params[:branch]) %>
+    <label style="font-size: 13px;">BRAND: </label>
+    <%= select_tag 'brand', options_for_select(access_by_brand(current_user.user_brand), params[:brand]) %>
+    <label style="font-size: 13px;">BULAN: </label>
+    <%= select_tag 'month', options_for_select(month, (params[:month].blank? ? Date.today.month : params[:month]))  %>
+    <label style="font-size: 13px;">TAHUN: </label>
+    <%= select_year(Date.today, :start_year => Date.today.next_year.year, :end_year => 2010) %>
+    <button type="submit" class="btn btn-primary">
+      <%= params[:brand_scb].blank? ? 'Search' : 'Refine Search' %>
+    </button>
+    <% end %>
+  </div>
+</div>
+<br />
+<%= high_chart("average_call_day", @sales) if params.present? %>
+<br />
+
+  <div class="table-responsive">
+    <table id="report_success_rate" class="table table-bordered table-striped table-highlight">
+      <thead>
+        <tr>
+          <th style="width: auto;">Salesman</th>
+          <th style="width: auto;">BRAND</th>
+          <th style="width: auto;">TANGGAL</th>
+          <th style="width: auto;">AVERAGE VISIT DAY</th>
+          <th>SUCCESS RATE VISIT</th>
+          <th>AVERAGE ORDER DEAL</th>
+          <th>AVERAGE CALL DAY</th>
+        </tr>
+      </thead>
+      <tfoot></tfoot>
+      <tbody>
+        <% @sales_report.each do |sm| %>
+          <tr>
+            <td><%= find_sales(sm.salesmen_id).nama %></td>
+            <td><%= find_brand(sm.brand_id).jde_brand %></td>
+            <td><%= sm.created_at.strftime("%d %B %Y") %></td>
+            <td><%= sm.average_visit_day %></td>
+            <td><%= sm.success_rate_visit %></td>
+            <td><%= sm.average_order_deal %></td>
+            <td><%= sm.average_call_day %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

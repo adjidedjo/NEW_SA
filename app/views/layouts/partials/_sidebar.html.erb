@@ -56,7 +56,7 @@
         </ul>
       </li>
       <li class="<%= 'active' if controller?('penjualan') %>">
-        <a href="#penjualan" title="Penjualan" data-toggle="collapse"> <em class="fa fa-area-chart"></em> <span><b>Penjualan</b></span> </a>
+        <a href="#penjualan" title="Penjualan" data-toggle="collapse"> <em class="fa fa-area-chart"></em> <span><b>Sales</b></span> </a>
         <ul id="penjualan" class="nav sidebar-subnav collapse">
           <li class="sidebar-subnav-header">
             Penjualan
@@ -67,7 +67,7 @@
               <li class="sidebar-subnav-header">
                 Retail
               </li>
-              <%= render "layouts/partials/sidebar_nasional" %>
+              <%= render "layouts/partials/sidebar_nasional" if branch(current_user, nil) %>
               <%= render "layouts/partials/sidebar_bandung" if branch(current_user, 2) %>
               <%= render "layouts/partials/sidebar_cirebon" if branch(current_user, 9) %>
               <%= render "layouts/partials/sidebar_bekasi" if branch(current_user, 3) %>
@@ -192,6 +192,19 @@
           <%= render "layouts/partials/stock_pekanbaru" %>
         </ul>
       </li>
+      <% if current_user.position == 'admin sales'%>
+        <li class="<%= 'active' if controller?('sales_productivities') %>">
+          <a href="#success" title="success" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Success Rate</b></span> </a>
+          <ul id="success" class="nav sidebar-subnav collapse">
+            <li class="sidebar-subnav-header">
+              Stock
+            </li>
+            <li class="<%= 'active' if controller?('sales_productivities') && action?('index') %>">
+              <a href="/sales_productivities/" title="Daily"> <span>Success Rate</span> </a>
+            </li>
+          </ul>
+        </li>
+      <% end %>
       <li>
         <%= link_to "Change your password", edit_user_registration_path %>
       </li>

@@ -8,15 +8,15 @@ module RolesHelper
   end
   
   def general_manager(user)
-    user.position == "gm" || user.position == "admin"
+    user.position == "gm" || user.position == "owner" || user.position == "admin" || user.position == "marketing pusat" || user.position == "admin marketing"
   end
   
   def nsm(user, brand)
-    user.position == "nsm" && user.brand1 == brand
+    (user.position == "nsm" || user.position == "sales support") && user.brand1 == brand
   end
   
   def bm(user, branch, brand)
-    user.position == "bm" && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
+    (user.position == "bm" || user.position == "admin sales") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
   end
   
   def sales(user, branch, brand)

@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   get 'penjualan/bandung/bandung_elites/daily'
   get 'penjualan/bandung/bandung_elites/sales_through'
   get 'penjualan/bandung/bandung_elites/sales_stock_rate'
+  get 'penjualan/bandung/bandung_elites/success_rate'
   get 'penjualan/bandung/bandung_serenity/weekly'
   get 'penjualan/bandung/bandung_serenity/daily'
   get 'penjualan/bandung/bandung_serenity/monthly'

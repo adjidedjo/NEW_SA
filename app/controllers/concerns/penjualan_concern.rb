@@ -3,6 +3,10 @@ module PenjualanConcern
   extend ActiveSupport::Concern
 
   ########## MONTHLY
+  def retail_success_rate_conc
+    @success_rate_monthly = Penjualan::SalesProductivity.retail_success_rate(initialize_brach_id, initialize_brand)
+  end
+  
   def retail_nasional_monthly_product_conc
     @product_monthnas_summary = Penjualan::Sale.retail_nasional_monthly_product(initialize_brand)
   end

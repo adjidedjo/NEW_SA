@@ -10,7 +10,11 @@ class ApplicationController < ActionController::Base
   include OrderDailyConcern
   helper_method :retail_weekly, :retail_monthly, :retail_daily, :order_daily, 
   :retail_salesman_daily, :retail_sales_stock_rate, :retail_sales_through,
-  :retail_nasional_weekly, :retail_nasional_monthly
+  :retail_nasional_weekly, :retail_nasional_monthly, :retail_success_rate
+  
+  def retail_success_rate
+    retail_success_rate_conc
+  end
   
   def retail_nasional_monthly
     retail_nasional_monthly_product_conc
