@@ -22,9 +22,11 @@ class Penjualan::SaleDaily < Penjualan::Sale
   end
   
   def self.revenue_this_month(branch, brand)
-    self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue,
+    self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.v_last_year,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
-    ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage FROM
+    ROUND((((lc.val_1 - ly.v_last_year) / ly.v_last_year) * 100), 0) AS y_percentage,
+    target_val,
+    ROUND(((lc.val_1 / tv.target_val) * 100), 0) AS t_percentage FROM
     (
       SELECT cabang_id,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
@@ -39,11 +41,17 @@ class Penjualan::SaleDaily < Penjualan::Sale
     ) as lc
       LEFT JOIN 
       (
-        SELECT SUM(harganetto1) AS revenue, cabang_id FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_year.beginning_of_month}' 
+        SELECT SUM(harganetto1) AS v_last_year, cabang_id FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_year.beginning_of_month}' 
         AND '#{Date.yesterday.last_year}' AND jenisbrgdisc = '#{brand}' AND cabang_id = '#{branch}' AND
         tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
         GROUP BY jenisbrgdisc
       ) AS ly ON lc.cabang_id = '#{branch}'
+      LEFT JOIN 
+      (
+        SELECT SUM(target) AS target_val, branch FROM sales_target_values WHERE month = '#{Date.yesterday.month}' 
+        AND year = '#{Date.yesterday.year}' AND brand = '#{brand}' AND branch = '#{branch}' 
+        GROUP BY branch, brand
+      ) AS tv ON lc.cabang_id = '#{branch}'
     ")
   end
   

@@ -158,15 +158,15 @@ class Penjualan::Sale < ActiveRecord::Base
   end
   
   def self.revenue_last_month(branch, brand)
-    self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue,
+    self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue, st.month_target,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
     ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage,
-    ROUND(((lc.qty_1/SUM(st.month_target)) * 100.0), 0) AS t_percentage,
+    ROUND(((lc.val_1 / SUM(st.month_target)) * 100.0), 0) AS t_percentage,
     ROUND(((lc.y_qty / SUM(st.year_target)) * 100), 0) AS ty_percentage FROM
     (
       SELECT cabang_id,
       SUM(CASE WHEN fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND 
-        '#{Date.yesterday.last_month.month}' THEN jumlah AND kodejenis IN ('KM', 'DV', 'HB', 'KB') END) y_qty,
+        '#{Date.yesterday.last_month.month}'  AND kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) y_qty,
       SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.month}' THEN jumlah END) qty_1,
       SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.month}' THEN harganetto1 END) val_1,
       SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.last_month.month}' THEN harganetto1 END) val_2      
@@ -190,7 +190,7 @@ class Penjualan::Sale < ActiveRecord::Base
         SUM(CASE WHEN month = '#{Date.yesterday.last_month.month}' THEN target END) month_target,
         SUM(CASE WHEN month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND 
         '#{Date.yesterday.end_of_year.month}' THEN target END) year_target 
-        FROM sales_targets WHERE
+        FROM sales_target_values WHERE
         branch = '#{branch}' AND 
         (brand = '#{brand}' OR brand IS NULL)
         AND month BETWEEN '#{Date.yesterday.beginning_of_year.month}' AND

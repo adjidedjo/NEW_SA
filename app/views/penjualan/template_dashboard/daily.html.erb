@@ -28,7 +28,7 @@
   <div class="col-lg-12">
     <!-- START content-->
     <div class="row">
-      <div class="col-lg-6 col-lg-offset-3">
+      <div class="col-lg-7 col-lg-offset-3">
         <div class="panel panel-warning">
           <div class="panel-heading" style="text-align: center">
             Total Revenue <%= Date.yesterday.strftime("%B %Y") %>
@@ -42,6 +42,8 @@
                   <th>Change</th>
                   <th><%= Date.yesterday.last_year.strftime('%b %y') %></th>
                   <th>YoY</th>
+                  <th>Target Val</th>
+                  <th>Acv</th>
                 </tr>
               </thead>
               <tbody>
@@ -50,8 +52,10 @@
                   <td><%= currency(dp.val_1) %></td>
                   <td><%= currency(dp.val_2) %></td>
                   <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
-                  <td><%= currency(dp.revenue) %></td>
+                  <td><%= currency(dp.v_last_year) %></td>
                   <td class="<%= coloring(dp.y_percentage) %>"><%= dp.y_percentage.nil? ? 0 : cpercent(dp.y_percentage) %></td>
+                  <td><%= currency(dp.target_val) %></td>
+                  <td class="<%= coloring(dp.t_percentage) %>"><%= dp.t_percentage.nil? ? 0 : cpercent(dp.t_percentage) %></td>
                 </tr>
                 <% end %>
               </tbody>
