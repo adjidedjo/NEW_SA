@@ -3,7 +3,7 @@ module PenjualanSalesmanConcern
   
   # DAILY SALESMAN REPORT
   def revenue_this_month_sales
-    @sales_revenue_this_month = Penjualan::SalesmanSales.revenue_this_month(@current_user, @brand)
+    @sales_revenue_this_month = Penjualan::SalesmanSales.revenue_this_month_sales(@current_user, @brand)
   end
   
   def daily_product_sales
