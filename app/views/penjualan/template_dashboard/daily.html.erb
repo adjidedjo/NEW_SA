@@ -80,10 +80,10 @@
               <thead>
                 <tr>
                   <th>Product</th>
-                  <th>Q_<%= 1.day.ago.to_date.strftime('%d') %></th>
-                  <th>V_<%= 1.day.ago.to_date.strftime('%d') %></th>
-                  <th>Q_<%= 2.day.ago.to_date.strftime('%d') %></th>
-                  <th>V_<%= 2.day.ago.to_date.strftime('%d') %></th>
+                  <th>DAY <%= 1.day.ago.to_date.strftime('%d') %></th>
+                  <th>DAY <%= 1.day.ago.to_date.strftime('%d') %></th>
+                  <th>DAY <%= 2.day.ago.to_date.strftime('%d') %></th>
+                  <th>DAY <%= 2.day.ago.to_date.strftime('%d') %></th>
                 </tr>
               </thead>
               <tbody>
@@ -111,10 +111,10 @@
               <thead>
                 <tr>
                   <th>Customer</th>
-                  <th>Q_W(<%= 1.day.ago.to_date.cweek %>)</th>
-                  <th>V_W(<%= 1.day.ago.to_date.cweek %>)</th>
-                  <th>Q_W(<%= 1.day.ago.to_date.last_week.cweek %>)</th>
-                  <th>V_W(<%= 1.day.ago.to_date.last_week.cweek %>)</th>
+                  <th>WEEK (<%= 1.day.ago.to_date.cweek %>)</th>
+                  <th>WEEK (<%= 1.day.ago.to_date.cweek %>)</th>
+                  <th>WEEK (<%= 1.day.ago.to_date.last_week.cweek %>)</th>
+                  <th>WEEK (<%= 1.day.ago.to_date.last_week.cweek %>)</th>
                   <th>WoW</th>
                 </tr>
               </thead>
