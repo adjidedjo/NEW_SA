@@ -51,6 +51,7 @@ class ApplicationController < ActionController::Base
   end
   
   def retail_salesman_daily
+    revenue_this_month_sales
     daily_product_sales
     this_month_article_sales
     this_month_customer_sales

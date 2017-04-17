@@ -2,6 +2,10 @@ module PenjualanSalesmanConcern
   extend ActiveSupport::Concern
   
   # DAILY SALESMAN REPORT
+  def revenue_this_month_sales
+    @sales_revenue_this_month = Penjualan::SalesmanSales.revenue_this_month(@current_user, @brand)
+  end
+  
   def daily_product_sales
     @sales_daily_product = Penjualan::SalesmanSales.sales_daily_product(@current_user, @brand)
   end
