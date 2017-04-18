@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   
   def retail_success_rate
     retail_success_rate_conc
+    retail_productivity_conc
   end
   
   def retail_nasional_monthly

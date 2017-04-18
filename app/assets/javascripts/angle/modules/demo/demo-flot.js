@@ -4,7 +4,6 @@
   
   
   $(function(){
-    // alert(gon.qty_2);
     
     var data_daily = [{
       "label": gon.brand,
@@ -40,6 +39,12 @@
       "label": gon.brand,
       "color": "#768294",
       "data": gon.sumssr
+    }];
+    
+    var data_productivity = [{
+      "label": gon.brand,
+      "color": "#768294",
+      "data": gon.productivity
     }];
 
     var options_weeknas = {
@@ -157,6 +162,10 @@
     var chartweek_ssr = $('.chart-ssr');
     if(chartweek_ssr.length)
       $.plot(chartweek_ssr, weekssr, options_weeknas);
+    
+    var productivity = $('.chart-productivity');
+    if(productivity.length)
+      $.plot(productivity, data_productivity, options_weeknas);
 
   });
 

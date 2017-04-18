@@ -1,9 +1,92 @@
-<div class="abs-center">
-   <div class="text-center mv-lg">
-      <h1 class="mb-lg"><sup><em class="fa fa-cog fa-2x text-muted fa-spin text-info"></em></sup>
-         <em class="fa fa-cog fa-5x text-muted fa-spin text-purple"></em>
-         <em class="fa fa-cog fa-lg text-muted fa-spin text-success"></em>
-      </h1>
-      <div class="text-bold text-lg mb-lg">COOMING SOON</div>
-   </div>
+<div class="content-heading">
+
+</div>
+<!-- START widgets box-->
+<!-- END widgets box-->
+<div class="row">
+  <!-- START dashboard main content-->
+  <div class="col-lg-12">
+    <!-- START chart-->
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- START widget-->
+        <div id="panelChart9" class="panel panel-default panel-demo">
+          <div class="panel-heading">
+            <div class="panel-title" style="text-align: center">
+              SALES PRODUCTIVITY <%= 1.month.ago.strftime("%B %Y") %> REPORT for <%= @branch %> BRANCH STATISTIC
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="chart-productivity flot-chart"></div>
+          </div>
+        </div>
+        <!-- END widget-->
+      </div>
+    </div>
+    <!-- END chart-->
+  </div>
+  <div class="col-lg-12">
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            SUCCESS RATE <%= 1.month.ago.strftime("%B %Y") %> REPORT for <%= @branch %> BRANCH
+          </div>
+          <div class="panel-body">
+            <table id="datatable_product" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>NAMA</th>
+                  <th>AVG VISIT PER DAY</th>
+                  <th>SUCCESS RATE VISIT</th>
+                  <th>AVG ORDER PER DEAL</th>
+                  <th>AVG CALL PER DAY</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @sales.each do |cws| %>
+                <tr class="gradeX">
+                  <td><%= cws.nama_sales %></td>
+                  <td><%= precision(cws.average_visit_day) %></td>
+                  <td><%= cws.success_rate_visit %></td>
+                  <td><%= precision(cws.average_order_deal) %></td>
+                  <td><%= precision(cws.average_call_day) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            SALES PRODUCTIVITY <%= 1.month.ago.strftime("%B %Y") %> REPORT for <%= @branch %> BRANCH
+          </div>
+          <div class="panel-body">
+            <table id="datatable_customer" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>QTY Mattras</th>
+                  <th>Entry Salesman</th>
+                  <th>Productivity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @sales_prod.each do |cws| %>
+                <tr class="gradeX">
+                  <td><%= cws.tanggalsj.strftime('%d %B %Y') %></td>
+                  <td><%= cws.jumlah %></td>
+                  <td><%= cws.entry %></td>
+                  <td><%= cws.prod %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,6 +1,10 @@
 module ApplicationHelper
   include RolesHelper
   
+  def monthly_range
+    Date.yesterday.last_month.beginning_of_month.to_date..Date.yesterday.last_month.end_of_month.to_date
+  end
+  
   def find_sales(sales)
     User.find(sales)
   end
@@ -11,6 +15,10 @@ module ApplicationHelper
   
   def currency(price)
     number_to_currency(price, :precision => 0, :unit => "", :delimiter => ".")
+  end
+  
+  def precision(avg)
+    number_with_precision(avg, precision: 2)
   end
   
   def controller?(*controller)

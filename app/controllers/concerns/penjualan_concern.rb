@@ -3,8 +3,13 @@ module PenjualanConcern
   extend ActiveSupport::Concern
 
   ########## MONTHLY
+  def retail_productivity_conc
+    @sales_prod = SalesProductivity.retail_productivity(initialize_brach_id, initialize_brand)
+    gon.productivity = @sales_prod.map { |u| [u.tanggalsj.strftime('%d/%m'), u.prod] }.to_a
+  end
+  
   def retail_success_rate_conc
-    @success_rate_monthly = Penjualan::SalesProductivity.retail_success_rate(initialize_brach_id, initialize_brand)
+    @sales = SalesProductivityReport.report(initialize_brach_id, initialize_brand)
   end
   
   def retail_nasional_monthly_product_conc
