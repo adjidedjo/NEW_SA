@@ -10,7 +10,7 @@ class Penjualan::Bandung::BandungElitesController < ApplicationController
   
   def success_rate
     gon.brand = initialize_brand
-    @branch = "LAMPUNG"
+    @branch = "BANDUNG"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/success_rate"
   end
