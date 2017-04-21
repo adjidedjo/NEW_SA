@@ -105,13 +105,13 @@ class Penjualan::Sale < ActiveRecord::Base
       FROM tblaporancabang WHERE fiscal_month BETWEEN '#{2.month.ago.yesterday.month}' 
       AND '#{Date.yesterday.last_month.month}' AND fiscal_year BETWEEN '#{2.month.ago.yesterday.year}' 
       AND '#{Date.yesterday.last_month.year}' AND cabang_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB')  AND nopo != '-'
       GROUP BY nopo
       ) as lc
-      INNER JOIN sales_targets st
-      ON st.address_number = lc.nopo AND st.brand = '#{brand}' AND st.branch = '#{branch}'
+      LEFT JOIN sales_targets st
+      ON (st.address_number = lc.nopo) AND st.brand = '#{brand}'
       AND st.month = '#{Date.yesterday.last_month.month}' AND st.year = '#{Date.yesterday.last_month.year}' 
-      GROUP BY st.address_number
+      GROUP BY lc.nopo
       ")
   end
   

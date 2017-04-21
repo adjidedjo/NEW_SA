@@ -69,7 +69,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
 
   def self.this_month_salesman(branch, brand)
     self.find_by_sql("SELECT lc.salesman, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2, 
-    ROUND((((val_1 - val_2) / val_2) * 100), 0) AS percentage,
+    ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
     ROUND(((lc.qty_1/SUM(st.target)) * 100.0), 0) AS target,
     (SUM(st.target)-lc.qty_1) AS rot FROM
     (
@@ -85,12 +85,13 @@ class Penjualan::SaleDaily < Penjualan::Sale
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
       AND cabang_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') AND nopo != '-'
       GROUP BY nopo
       ) as lc
-      INNER JOIN sales_targets st
-      ON st.address_number = lc.nopo AND st.brand = '#{brand}'
-      AND st.month = '#{Date.yesterday.month}' GROUP BY st.address_number
+      LEFT JOIN sales_targets st
+      ON (st.address_number = lc.nopo) AND st.brand = '#{brand}'
+      AND st.month = '#{Date.yesterday.month}' 
+      AND st.year = '#{Date.yesterday.year}' GROUP BY lc.nopo
       ")
   end
 
