@@ -30,7 +30,7 @@ class Penjualan::Bandung::BandungSerenityController < ApplicationController
   
   def daily
     gon.brand = initialize_brand
-    gon.max = 150
+    gon.max = 200
     @branch = "BANDUNG"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/daily"
