@@ -3,6 +3,15 @@ class Penjualan::Nasional::NasionalElitesController < ApplicationController
   before_action :initialize_brand, :authorize_user
   before_action :retail_nasional_weekly, only: :weekly
   before_action :retail_nasional_monthly, only: :monthly
+  before_action :retail_nasional_this_month, only: :daily
+
+  def daily
+    gon.brand = initialize_brand
+    gon.max = 2000
+    @branch = "NASIONAL"
+    @brand_name = initialize_brand
+    render template: "penjualan/template_dashboard/retail_nasional_daily"
+  end
   
   def weekly
     gon.brand = initialize_brand

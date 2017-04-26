@@ -391,6 +391,43 @@
                     },
                     shadowSize: 0
                 };
+    
+    var data_monthlynas = [{
+        "label": "Sales",
+        "color": "#0000CD",
+        "data": gon.summaries_branch
+    }];
+
+    var options_monthly = {
+                    series: {
+                        bars: {
+                            align: 'center',
+                            lineWidth: 0,
+                            show: true,
+                            barWidth: 0.6,
+                            fill: 0.9
+                        }
+                    },
+                    grid: {
+                        borderColor: '#eee',
+                        borderWidth: 1,
+                        hoverable: true,
+                        backgroundColor: '#fcfcfc'
+                    },
+                    tooltip: true,
+                    tooltipOpts: {
+                        content: function (label, x, y) { return x + ' : ' + y; }
+                    },
+                    xaxis: {
+                        tickColor: '#fcfcfc',
+                        mode: 'categories'
+                    },
+                    yaxis: {
+                        // position: 'right' or 'left'
+                        tickColor: '#eee'
+                    },
+                    shadowSize: 0
+                };
 
     var chart = $('.chart-bar');
     if(chart.length)
@@ -411,6 +448,10 @@
     var chart = $('.chart-bar-ROYAL');
     if(chart.length)
       $.plot(chart, data_royal, options_royal);
+      
+    var chart_monthly_nasional = $('.chart-bar-monthlynas');
+    if(chart_monthly_nasional.length)
+      $.plot(chart_monthly_nasional, data_monthlynas, options_monthly);
 
   });
 

@@ -18,12 +18,16 @@ Rails.application.routes.draw do
   get 'penjualan_salesman/monthly'
   
   #Nasional
+  get 'penjualan/nasional/nasional_elites/daily'
   get 'penjualan/nasional/nasional_elites/weekly'
   get 'penjualan/nasional/nasional_elites/monthly'
+  get 'penjualan/nasional/nasional_lady/daily'
   get 'penjualan/nasional/nasional_lady/weekly'
   get 'penjualan/nasional/nasional_lady/monthly'
+  get 'penjualan/nasional/nasional_serenity/daily'
   get 'penjualan/nasional/nasional_serenity/weekly'
   get 'penjualan/nasional/nasional_serenity/monthly'
+  get 'penjualan/nasional/nasional_royal/daily'
   get 'penjualan/nasional/nasional_royal/weekly'
   get 'penjualan/nasional/nasional_royal/monthly'
   
@@ -91,6 +95,11 @@ Rails.application.routes.draw do
   get 'stock/bandung/stock_royal/stock_clearence'
   get 'stock/bandung/stock_royal/stock_service'
   get 'stock/bandung/stock_royal/stock_display'
+  get 'account_receivables/bandung/elite_ar/uncollectable_ar'
+  get 'account_receivables/bandung/elite_ar/collectable_ar'
+  get 'account_receivables/bandung/serenity_ar/uncollectable_ar'
+  get 'account_receivables/bandung/lady_ar/uncollectable_ar'
+  get 'account_receivables/bandung/royal_ar/uncollectable_ar'
   # Cirebon
   get 'order/cirebon/cirebon_elites/order'
   get 'order/cirebon/cirebon_serenity/order'

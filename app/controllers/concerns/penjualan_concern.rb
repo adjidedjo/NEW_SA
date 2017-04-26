@@ -3,6 +3,23 @@ module PenjualanConcern
   extend ActiveSupport::Concern
 
   ########## MONTHLY
+  
+  def retail_nasional_this_month_branches_conc
+    @branches_monthnas_summary = Penjualan::Sale.retail_nasional_this_month_branches(initialize_brand)
+  end
+  
+  def retail_nasional_this_month_conc
+    summaries = Penjualan::Sale::retail_nasional_this_month(initialize_brand)
+    # target_sum = Penjualan::Sale::target_retail_nasional_monthly(initialize_brand)
+    gon.summaries = summaries.map { |u| [Date::ABBR_MONTHNAMES[u.fiscal_month], (u.harga/10000000)] }.to_a
+    # gon.target = target_sum.map { |u| [Date::ABBR_MONTHNAMES[u.month], (u.jumlah)] }.to_a
+  end
+  
+  def retail_nasional_this_month_branch_conc
+    summaries = Penjualan::Sale::retail_nasional_this_month_branch(initialize_brand)
+    gon.summaries_branch = summaries.map { |u| [u.branch.gsub(/Cabang/,''), (u.harga/10000000)] }.to_a
+  end
+  
   def retail_productivity_conc
     @sales_prod = SalesProductivity.retail_productivity(initialize_brach_id, initialize_brand)
     gon.productivity = @sales_prod.map { |u| [u.tanggalsj.strftime('%d/%m'), u.prod] }.to_a
@@ -12,8 +29,8 @@ module PenjualanConcern
     @sales = SalesProductivityReport.report(initialize_brach_id, initialize_brand)
   end
   
-  def retail_nasional_monthly_product_conc
-    @product_monthnas_summary = Penjualan::Sale.retail_nasional_monthly_product(initialize_brand)
+  def retail_nasional_monthly_branches_conc
+    @branches_monthnas_summary = Penjualan::Sale.retail_nasional_monthly_branches(initialize_brand)
   end
   
   def retail_nasional_monthly_conc

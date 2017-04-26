@@ -8,9 +8,28 @@ class ApplicationController < ActionController::Base
   include PenjualanDailyConcern
   include PenjualanSalesmanConcern
   include OrderDailyConcern
+  include ArConcern
   helper_method :retail_weekly, :retail_monthly, :retail_daily, :order_daily, 
   :retail_salesman_daily, :retail_sales_stock_rate, :retail_sales_through,
-  :retail_nasional_weekly, :retail_nasional_monthly, :retail_success_rate
+  :retail_nasional_weekly, :retail_nasional_monthly, :retail_success_rate,
+  :retail_uncollectable_ar, :retail_collectable_ar, :retail_nasional_this_month
+  
+  def retail_nasional_this_month
+    retail_nasional_this_month_branches_conc
+    retail_nasional_this_month_branch_conc
+    retail_nasional_this_month_conc
+  end
+  
+  def retail_collectable_ar
+    retail_collectable_ar_conc
+  end
+  
+  def retail_uncollectable_ar
+    retail_uncollectable_ar10_conc
+    retail_uncollectable_ar20_conc
+    retail_uncollectable_ar31_conc
+    retail_uncollectable_ar100_conc
+  end
   
   def retail_success_rate
     retail_success_rate_conc
@@ -18,7 +37,7 @@ class ApplicationController < ActionController::Base
   end
   
   def retail_nasional_monthly
-    retail_nasional_monthly_product_conc
+    retail_nasional_monthly_branches_conc
     retail_nasional_monthly_branch_conc
     retail_nasional_monthly_conc
   end
