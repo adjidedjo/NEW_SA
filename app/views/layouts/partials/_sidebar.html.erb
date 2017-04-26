@@ -117,6 +117,23 @@
           </li>
         </ul>
       </li>
+      <li class="<%= 'active' if controller?('account_receivables') %>">
+        <a href="#ar" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>A/R</b></span> </a>
+        <ul id="ar" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            A/R
+          </li>
+          <li class="<%= 'active' if controller?('account_receivables') %>">
+            <a href="#retail_ar" title="Retail AR" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail_ar" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+              <%= render "layouts/partials/ar/ar_bandung" if branch(current_user, 2) %>
+            </ul>
+          </li>
+        </ul>
+      </li>
 
       <!-- END SA Project-->
       <% else %>
