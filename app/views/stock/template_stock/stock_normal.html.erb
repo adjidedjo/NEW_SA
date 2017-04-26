@@ -22,6 +22,7 @@
                   <th class="sort-numeric">OnHand</th>
                   <% if current_user.position != 'sales' %>
                     <th class="sort-numeric">Safety</th>
+                    <th class="sort-numeric">Prod</th>
                   <% end %>
                 </tr>
               </thead>
@@ -33,6 +34,7 @@
                   <td><%= cs.onhand %></td>
                   <% if current_user.position != 'sales' %>
                     <td><%= cs.buffer %></td>
+                    <td><%= cs.item_number[0..1] %></td>
                   <% end %>
                 </tr>
                 <% end %>
