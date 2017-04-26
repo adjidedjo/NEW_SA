@@ -20,6 +20,9 @@
                   <th>Descriptions</th>
                   <th class="sort-numeric">Available</th>
                   <th class="sort-numeric">OnHand</th>
+                  <% if current_user.position != 'sales' %>
+                    <th class="sort-numeric">Safety</th>
+                  <% end %>
                 </tr>
               </thead>
               <tbody>
@@ -28,6 +31,9 @@
                   <td><%= cs.description %></td>
                   <td><%= cs.available %></td>
                   <td><%= cs.onhand %></td>
+                  <% if current_user.position != 'sales' %>
+                    <td><%= cs.buffer %></td>
+                  <% end %>
                 </tr>
                 <% end %>
               </tbody>
