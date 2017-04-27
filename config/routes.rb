@@ -98,8 +98,11 @@ Rails.application.routes.draw do
   get 'account_receivables/bandung/elite_ar/uncollectable_ar'
   get 'account_receivables/bandung/elite_ar/collectable_ar'
   get 'account_receivables/bandung/serenity_ar/uncollectable_ar'
+  get 'account_receivables/bandung/serenity_ar/collectable_ar'
   get 'account_receivables/bandung/lady_ar/uncollectable_ar'
+  get 'account_receivables/bandung/lady_ar/collectable_ar'
   get 'account_receivables/bandung/royal_ar/uncollectable_ar'
+  get 'account_receivables/bandung/royal_ar/collectable_ar'
   # Cirebon
   get 'order/cirebon/cirebon_elites/order'
   get 'order/cirebon/cirebon_serenity/order'

@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   def retail_nasional_this_month
     retail_nasional_this_month_branches_conc
     retail_nasional_this_month_branch_conc
-    retail_nasional_this_month_conc
+    # retail_nasional_this_month_conc
   end
   
   def retail_collectable_ar
