@@ -1,32 +1,9 @@
 <div class="content-heading">
-  Dashboard NASIONAL <%= @brand_name %> From <b><%= Date.yesterday.last_month.beginning_of_year.strftime('%B') %></b> To 
-  <b><%= Date.yesterday.last_month.strftime('%B %Y') %></b>
+  Dashboard NASIONAL <%= @brand_name %> From <b><%= Date.yesterday.last_month.beginning_of_year.strftime('%B') %></b> To <b><%= Date.yesterday.last_month.strftime('%B %Y') %></b>
 </div>
 <!-- START widgets box-->
 <!-- END widgets box-->
 <div class="row">
-  <!-- START dashboard main content-->
-  <div class="col-lg-12">
-    <!-- START chart-->
-    <div class="row">
-      <div class="col-lg-12">
-        <!-- START widget-->
-        <div id="panelChart9" class="panel panel-default panel-demo">
-          <div class="panel-heading">
-            <div class="panel-title" style="text-align: center">
-              Nasional <%= @brand_name %> Monthly sales statistics
-              <br />
-              (x10.000.000)
-            </div>
-          </div>
-          <div class="panel-body">
-            <div class="chart-line-monthly flot-chart"></div>
-          </div>
-        </div>
-        <!-- END widget-->
-      </div>
-    </div>
-  </div>
   <!-- START dashboard main content-->
   <div class="col-lg-12">
     <!-- START chart-->
@@ -56,6 +33,49 @@
         <div class="panel panel-warning">
           <div class="panel-heading" style="text-align: center">
             Total Revenue <%= Date.yesterday.last_month.strftime("%B %Y") %>
+          </div>
+          <div class="panel-body">
+            <table id="datatable1" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th><%= Date.yesterday.last_month.strftime('%b %y') %></th>
+                  <th><%= 2.month.ago.strftime('%b %y') %></th>
+                  <th>Change</th>
+                  <th><%= Date.yesterday.last_month.last_year.strftime('%b %y') %></th>
+                  <th>YoY</th>
+                  <th>Target Amount</th>
+                  <th>Target <%= Date.yesterday.last_month.strftime('%b %y') %></th>
+                  <th>Target to Year</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @monthnasi_summary.each do |dp| %>
+                <tr class="gradeX">
+                  <td><%= currency(dp.val_1) %></td>
+                  <td><%= currency(dp.val_2) %></td>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
+                  <td><%= currency(dp.revenue) %></td>
+                  <td class="<%= coloring(dp.y_percentage) %>"><%= dp.y_percentage.nil? ? 0 : cpercent(dp.y_percentage) %></td>
+                  <td><%= currency(dp.month_target) %></td>
+                  <td class="<%= coloring(dp.t_percentage) %>"><%= dp.t_percentage.nil? ? 0 : cpercent(dp.t_percentage) %></td>
+                  <td><%= dp.ty_percentage.nil? ? 0 : cpercent(dp.ty_percentage) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END content-->
+  </div>
+  <div class="col-lg-12">
+    <!-- START content-->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+          <div class="panel-heading" style="text-align: center">
+            Total Revenue <%= Date.yesterday.last_month.strftime("%B %Y") %> By Branches
           </div>
           <div class="panel-body">
             <table id="table-revenue" class="table table-striped table-hover">

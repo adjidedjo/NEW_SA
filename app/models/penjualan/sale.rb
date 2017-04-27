@@ -1,6 +1,52 @@
 class Penjualan::Sale < ActiveRecord::Base
   self.table_name = "tblaporancabang"
   ########## START MONTHLY
+  def self.retail_nasional_monthly_total(brand)
+    self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue, st.month_target,
+    ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
+    ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage,
+    ROUND(((lc.val1_1 / st.month_target) * 100.0), 0) AS t_percentage,
+    ROUND(((lc.y_qty / st.year_target) * 100), 0) AS ty_percentage FROM
+    (
+      SELECT jenisbrgdisc,
+      SUM(CASE WHEN fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
+        '#{Date.yesterday.month}' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) y_qty,
+      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.month}' THEN jumlah END) qty_1,
+      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.month}' THEN harganetto1 END) val_1,
+      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.month}' AND
+        kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) val1_1,
+      SUM(CASE WHEN fiscal_month = '#{2.month.ago.month}' THEN harganetto1 END) val_2
+      FROM tblaporancabang WHERE fiscal_month BETWEEN '#{Date.yesterday.last_month.beginning_of_year.to_date.month}'
+      AND '#{Date.yesterday.last_month.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.beginning_of_year.to_date.year}'
+      AND '#{Date.yesterday.last_month.year}' AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND cabang_id != 50 AND
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+      GROUP BY jenisbrgdisc
+    ) as lc
+    LEFT JOIN
+      (
+        SELECT SUM(harganetto1) AS revenue, jenisbrgdisc FROM tblaporancabang WHERE
+        fiscal_month = '#{Date.yesterday.last_month.last_year.month}' AND
+        fiscal_year = '#{Date.yesterday.last_month.last_year.year}'
+        AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND
+        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+        GROUP BY jenisbrgdisc
+      ) AS ly ON lc.jenisbrgdisc = ly.jenisbrgdisc
+    LEFT JOIN
+      (
+        SELECT branch, brand,
+        SUM(CASE WHEN month = '#{Date.yesterday.last_month.month}' THEN target END) month_target,
+        SUM(CASE WHEN month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
+        '#{Date.yesterday.last_month.end_of_year.month}' THEN target END) year_target
+        FROM sales_target_values WHERE
+        brand = '#{brand}' AND
+        month BETWEEN '#{Date.yesterday.last_month.beginning_of_year.month}' AND
+        '#{Date.yesterday.last_month.end_of_year.month}'
+        AND year BETWEEN '#{Date.yesterday.last_month.beginning_of_year.year}' AND
+        '#{Date.yesterday.last_month.end_of_year.year}' GROUP BY brand
+      ) AS st ON lc.jenisbrgdisc = st.brand
+    ")
+  end
+
   def self.retail_nasional_this_month_total(brand)
     self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue, st.month_target,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
