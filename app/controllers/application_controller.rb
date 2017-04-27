@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   def retail_nasional_monthly
     retail_nasional_monthly_branches_conc
     retail_nasional_monthly_branch_conc
-    retail_nasional_monthly_conc
+    # retail_nasional_monthly_conc
   end
   
   def retail_nasional_weekly
