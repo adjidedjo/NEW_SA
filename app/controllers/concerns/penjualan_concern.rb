@@ -6,6 +6,7 @@ module PenjualanConcern
   
   def retail_nasional_this_month_branches_conc
     @branches_monthnas_summary = Penjualan::Sale.retail_nasional_this_month_branches(initialize_brand)
+    @monthnas_summary = Penjualan::Sale.retail_nasional_this_month_total(initialize_brand)
   end
   
   def retail_nasional_this_month_conc
