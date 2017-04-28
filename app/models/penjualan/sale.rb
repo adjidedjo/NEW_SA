@@ -93,13 +93,13 @@ class Penjualan::Sale < ActiveRecord::Base
   end
 
   def self.retail_nasional_this_month_branches(brand)
-    self.find_by_sql("SELECT st.Cabang AS cabang, lc.val_1, lc.val_2, ly.revenue, st.month_target,
+    self.find_by_sql("SELECT st.area AS cabang, lc.val_1, lc.val_2, ly.revenue, st.month_target,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
     ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage,
     ROUND(((lc.val1_1 / st.month_target) * 100.0), 0) AS t_percentage,
     ROUND(((lc.y_qty / st.year_target) * 100), 0) AS ty_percentage FROM
     (
-      SELECT cabang_id, jenisbrgdisc,
+      SELECT area_id, jenisbrgdisc,
       SUM(CASE WHEN fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
         '#{Date.yesterday.month}' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) y_qty,
       SUM(CASE WHEN fiscal_month = '#{Date.yesterday.month}' THEN jumlah END) qty_1,
@@ -111,16 +111,16 @@ class Penjualan::Sale < ActiveRecord::Base
       AND '#{Date.yesterday.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.year}'
       AND '#{Date.yesterday.year}' AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND cabang_id != 50 AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
-      GROUP BY jenisbrgdisc, cabang_id
+      GROUP BY jenisbrgdisc, area_id
     ) as lc
     LEFT JOIN
       (
-        SELECT SUM(harganetto1) AS revenue, cabang_id FROM tblaporancabang WHERE
+        SELECT SUM(harganetto1) AS revenue, area_id FROM tblaporancabang WHERE
         fiscal_month = '#{Date.yesterday.last_year.month}' AND fiscal_year = '#{Date.yesterday.last_year.year}'
         AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND
         tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
-        GROUP BY jenisbrgdisc, cabang_id
-      ) AS ly ON lc.cabang_id = ly.cabang_id
+        GROUP BY jenisbrgdisc, area_id
+      ) AS ly ON lc.area_id = ly.area_id
     LEFT JOIN
       (
         SELECT branch, brand,
@@ -133,22 +133,22 @@ class Penjualan::Sale < ActiveRecord::Base
         '#{Date.yesterday.end_of_year.month}'
         AND year BETWEEN '#{Date.yesterday.beginning_of_year.year}' AND
         '#{Date.yesterday.end_of_year.year}' GROUP BY branch
-      ) AS st ON lc.cabang_id = st.branch
-    LEFT JOIN tbidcabang AS st
-      ON lc.cabang_id = st.id
+      ) AS st ON lc.area_id = st.branch
+    LEFT JOIN areas AS st
+      ON lc.area_id = st.id
     ")
   end
 
   def self.retail_nasional_this_month_branch(brand)
-    self.find_by_sql("SELECT lc.harga, cb.cabang AS branch FROM (
-    SELECT SUM(harganetto1) AS harga, cabang_id FROM tblaporancabang
+    self.find_by_sql("SELECT lc.harga, cb.area AS branch FROM (
+    SELECT SUM(harganetto1) AS harga, area_id FROM tblaporancabang
     WHERE fiscal_month = '#{Date.yesterday.month}'
     AND fiscal_year = '#{Date.yesterday.year}'
     AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-'
     AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
     AND cabang_id NOT IN (1,50)
-    GROUP BY cabang_id) AS lc
-    LEFT JOIN tbidcabang AS cb ON lc.cabang_id = cb.id
+    GROUP BY area_id) AS lc
+    LEFT JOIN areas AS cb ON lc.area_id = cb.id
     ")
   end
 
@@ -170,13 +170,13 @@ class Penjualan::Sale < ActiveRecord::Base
   end
 
   def self.retail_nasional_monthly_branches(brand)
-    self.find_by_sql("SELECT st.Cabang as cabang, lc.val_1, lc.val_2, ly.revenue, st.month_target,
+    self.find_by_sql("SELECT st.area as cabang, lc.val_1, lc.val_2, ly.revenue, st.month_target,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
     ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage,
     ROUND(((lc.val1_1 / st.month_target) * 100.0), 0) AS t_percentage,
     ROUND(((lc.y_qty / st.year_target) * 100), 0) AS ty_percentage FROM
     (
-      SELECT cabang_id, jenisbrgdisc,
+      SELECT area_id, jenisbrgdisc,
       SUM(CASE WHEN fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
         '#{Date.yesterday.last_month.month}' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) y_qty,
       SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.month}' THEN jumlah END) qty_1,
@@ -188,16 +188,16 @@ class Penjualan::Sale < ActiveRecord::Base
       AND '#{Date.yesterday.last_month.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.last_month.year}'
       AND '#{Date.yesterday.last_month.year}' AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND cabang_id != 50 AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
-      GROUP BY jenisbrgdisc, cabang_id
+      GROUP BY jenisbrgdisc, area_id
     ) as lc
     LEFT JOIN
       (
-        SELECT SUM(harganetto1) AS revenue, cabang_id FROM tblaporancabang WHERE
+        SELECT SUM(harganetto1) AS revenue, area_id FROM tblaporancabang WHERE
         fiscal_month = '#{Date.yesterday.last_month.last_year.month}' AND fiscal_year = '#{Date.yesterday.last_month.last_year.year}'
         AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND
         tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
-        GROUP BY jenisbrgdisc, cabang_id
-      ) AS ly ON lc.cabang_id = ly.cabang_id
+        GROUP BY jenisbrgdisc, area_id
+      ) AS ly ON lc.area_id = ly.area_id
     LEFT JOIN
       (
         SELECT branch, brand,
@@ -210,22 +210,22 @@ class Penjualan::Sale < ActiveRecord::Base
         '#{Date.yesterday.end_of_year.month}'
         AND year BETWEEN '#{Date.yesterday.beginning_of_year.year}' AND
         '#{Date.yesterday.end_of_year.year}' GROUP BY branch
-      ) AS st ON lc.cabang_id = st.branch
-    LEFT JOIN tbidcabang AS st
-      ON lc.cabang_id = st.id
+      ) AS st ON lc.area_id = st.branch
+    LEFT JOIN areas AS st
+      ON lc.area_id = st.id
     ")
   end
 
   def self.retail_nasional_monthly_branch(brand)
-    self.find_by_sql("SELECT lc.harga, cb.cabang AS branch FROM (
-    SELECT SUM(harganetto1) AS harga, cabang_id FROM tblaporancabang
+    self.find_by_sql("SELECT lc.harga, cb.area AS branch FROM (
+    SELECT SUM(harganetto1) AS harga, area_id FROM tblaporancabang
     WHERE fiscal_month = '#{Date.yesterday.last_month.month}'
     AND fiscal_year = '#{Date.yesterday.last_month.year}'
     AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-'
     AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
     AND cabang_id NOT IN (1,50)
-    GROUP BY cabang_id) AS lc
-    LEFT JOIN tbidcabang AS cb ON lc.cabang_id = cb.id
+    GROUP BY area_id) AS lc
+    LEFT JOIN areas AS cb ON lc.area_id = cb.id
     ")
   end
 
@@ -440,13 +440,13 @@ class Penjualan::Sale < ActiveRecord::Base
 
   ########## MOST ITEMS
   def self.most_items_ordered_weekly(branch, brand)
-    beginning_of_week = 1.week.ago.to_date.beginning_of_week.to_date
+    beginning_of_week = 4.weeks.ago.to_date.beginning_of_week.to_date
     end_of_week = 1.week.ago.to_date.end_of_week.to_date
-    self.find_by_sql("SELECT namaartikel, lebar, ordered, value FROM (
-    SELECT kodejenis, namaartikel, lebar, SUM(jumlah) AS ordered, SUM(harganetto1) AS value FROM tblaporancabang
+    self.find_by_sql("SELECT namaartikel, ordered, value FROM (
+    SELECT kodejenis, namaartikel, SUM(jumlah) AS ordered, SUM(harganetto1) AS value FROM tblaporancabang
     WHERE cabang_id = '#{branch}' AND tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}'
     AND tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') AND jenisbrgdisc = '#{brand}' GROUP BY namaartikel) totals
-    GROUP BY namaartikel, lebar ORDER BY ordered DESC LIMIT 10")
+    GROUP BY namaartikel ORDER BY ordered DESC LIMIT 10")
   end
 
   def self.most_items_ordered_monthly(branch, brand)

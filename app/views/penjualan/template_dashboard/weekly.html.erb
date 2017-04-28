@@ -167,7 +167,6 @@
               <thead>
                 <tr>
                   <th>Article</th>
-                  <th>Size</th>
                   <th>Qty</th>
                   <th>Value</th>
                 </tr>
@@ -176,7 +175,6 @@
                 <% @most_item.each do |cws| %>
                 <tr class="gradeX">
                   <td><%= cws.namaartikel %></td>
-                  <td><%= cws.lebar %></td>
                   <td><%= cws.ordered %></td>
                   <td><%= currency(cws.value) %></td>
                 </tr>
