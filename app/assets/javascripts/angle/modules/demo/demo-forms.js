@@ -39,8 +39,8 @@
         // -----------------------------------
 
         if ($.fn.datetimepicker) {
-
-            $('#datetimepicker1').datetimepicker({
+            var d = new Date();
+            $('#datepicker1').datetimepicker({
                 icons : {
                     time : 'fa fa-clock-o',
                     date : 'fa fa-calendar',
@@ -51,8 +51,10 @@
                     today : 'fa fa-crosshairs',
                     clear : 'fa fa-trash'
                 },
-               format : 'DD//MM/YYYY'
-            });
+               format : 'DD/MM/YYYY',
+               minDate: d.setDate(d.getDate()-2),
+               maxDate: new Date()
+            }).attr('readonly', 'true');
             // only time
             $('#datetimepicker2').datetimepicker({
                 format : 'LT'

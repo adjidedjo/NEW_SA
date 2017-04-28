@@ -40,7 +40,6 @@ class SalesProductivitiesController < ApplicationController
   def edit
     @sales_productivity = SalesProductivity.find(params[:id])
     @salesman = User.find(@sales_productivity.salesmen_id)
-    @brand = SalesProductivity.find_by_sql("SELECT jde_brand FROM tbbjmerk WHERE id = '#{@sales_productivity.brand_id}'")
   end
 
   # POST /sales_productivities
@@ -54,7 +53,7 @@ class SalesProductivitiesController < ApplicationController
 
     respond_to do |format|
       if @sales_productivity.save
-        format.html { redirect_to new_sales_productivity_path, notice: 'Sales productivity was successfully created.' }
+        format.html { redirect_to sales_productivities_path, notice: 'Sales productivity was successfully created.' }
         format.json { render json: @sales_productivity, status: :created, location: @sales_productivity }
       else
         @salesman = Salesman.where(id: params[:sales_productivity]["salesmen_id"])
@@ -101,7 +100,7 @@ class SalesProductivitiesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def sales_productivity_params
-    params.require(:sales_productivity).permit(:id, :date, :salesmen_id, :branch_id, :brand_id,
+    params.require(:sales_productivity).permit(:id, :date, :salesmen_id, :branch_id, :brand,
       :npvnc, :nvc, :ncdv, :ncc, :ncdc)
   end
 end

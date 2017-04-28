@@ -26,7 +26,7 @@
               <% @sales_productivities.each do |sm| %>
               <tr>
                 <td><%= find_sales(sm.salesmen_id).nama %></td>
-                <td><%= find_brand(sm.brand_id).jde_brand %></td>
+                <td><%= sm.brand %></td>
                 <td><%= sm.created_at.strftime("%d %B %Y") %></td>
                 <td class="editable_<%= sm.id %>_npvnc"> <%= best_in_place sm, :npvnc, as: :input , activator: ".editable_#{sm.id}_npvnc", path: sales_productivities_path %> </td>
                 <td class="editable_<%= sm.id %>_nvc"> <%= best_in_place sm, :nvc, as: :input , activator: ".editable_#{sm.id}_nvc", path: sales_productivities_path %> </td>

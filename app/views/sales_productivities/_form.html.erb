@@ -33,7 +33,7 @@
           <div class="form-group">
             <label class="col-lg-2 control-label">BRAND</label>
             <div class="col-lg-10">
-              <%= f.select "brand", options_for_select(@brand.map {|a| [a.jde_brand, a.id]}), class: 'form-control m-b' %>
+              <%= f.select "brand", options_for_select(@brand.map {|a| [a.jde_brand, a.jde_brand]}), class: 'form-control m-b' %>
             </div>
           </div>
         </fieldset>
@@ -41,8 +41,8 @@
           <div class="form-group mb">
             <label class="col-sm-2 control-label mb">DATE</label>
             <div class="col-sm-5">
-              <div id="datetimepicker1" class="input-group date">
-              <%= f.text_field "date", class: 'form-control m-b' %>
+              <div id="datepicker1" class="input-group date">
+                <%= f.text_field "date", class: 'form-control' %>
                 <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
               </div>
             </div>
@@ -59,7 +59,7 @@
           <div class="form-group">
             <label class="col-lg-2 control-label">BRAND</label>
             <div class="col-lg-10">
-              <%= f.text_field "brand", value: @brand.first.jde_brand, disabled: true, class: 'form-control' %>
+              <%= f.text_field "brand", value: f.object.brand, disabled: true, class: 'form-control' %>
             </div>
           </div>
           <div class="form-group">
@@ -121,6 +121,8 @@
           </fieldset>
         </div>
         <%= f.submit f.object.new_record? ? "CREATE" : "UPDATE", class: "btn btn-primary" %>
+        <%= button_to "DELETE", sales_productivities_path(:id => f.object.id),
+                    method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
         <% end %>
       </div>
     </div>
