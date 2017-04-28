@@ -1,4 +1,4 @@
-class AccountReceivables::Bandung::SerenityArController < ApplicationController
+class AccountReceivables::Yogya::LadyArController < ApplicationController
   include RolesHelper
   before_action :initialize_brand, :initialize_brach_id, :authorize_user, :branch_name
   before_action :retail_uncollectable_ar, only: :uncollectable_ar
@@ -21,15 +21,15 @@ class AccountReceivables::Bandung::SerenityArController < ApplicationController
   private
   
   def branch_name
-    "BANDUNG"
+    "Yogya"
   end
 
   def initialize_brand
-    "SERENITY"
+    "LADY"
   end
 
   def initialize_brach_id
-    2
+    10
   end
   
   def authorize_user

@@ -1,0 +1,64 @@
+<li class="<%= 'active' if controller?('account_receivables/pekanbaru') %>">
+  <a href="#ar_pekanbaru" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Pekanbaru</span> </a>
+  <ul id="ar_pekanbaru" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      BANDUNG
+    </li>
+    <li class="<%= 'active' if controller?('account_receivables/pekanbaru/elite_ar') %>">
+      <a href="#ar_pekanbaru-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      <ul id="ar_pekanbaru-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          ELITE
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/pekanbaru/elite_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/pekanbaru/elite_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/pekanbaru/elite_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/pekanbaru/elite_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('account_receivables/pekanbaru/serenity_ar') %>">
+      <a href="#ar_pekanbaru-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      <ul id="ar_pekanbaru-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/pekanbaru/serenity_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/pekanbaru/serenity_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/pekanbaru/serenity_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/pekanbaru/serenity_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/pekanbaru/lady_ar') %>">
+      <a href="#ar_pekanbaru-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      <ul id="ar_pekanbaru-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/pekanbaru/lady_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/pekanbaru/lady_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/pekanbaru/lady_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/pekanbaru/lady_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('account_receivables/pekanbaru/royal_ar') %>">
+      <a href="#ar_pekanbaru-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      <ul id="ar_pekanbaru-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/pekanbaru/royal_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/pekanbaru/royal_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/pekanbaru/royal_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/pekanbaru/royal_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>

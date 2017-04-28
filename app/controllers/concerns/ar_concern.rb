@@ -4,6 +4,7 @@ module ArConcern
   
   def retail_collectable_ar_conc
     @u_ar = AccountReceivable.find_collectable(initialize_brand, initialize_brach_id)
+    @u_percentage = AccountReceivable.find_collectable_percentage(initialize_brand, initialize_brach_id)
   end
   
   def retail_uncollectable_ar10_conc

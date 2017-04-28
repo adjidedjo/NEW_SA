@@ -1,0 +1,64 @@
+<li class="<%= 'active' if controller?('account_receivables/lampung') %>">
+  <a href="#ar_lampung" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Lampung</span> </a>
+  <ul id="ar_lampung" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      BANDUNG
+    </li>
+    <li class="<%= 'active' if controller?('account_receivables/lampung/elite_ar') %>">
+      <a href="#ar_lampung-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      <ul id="ar_lampung-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          ELITE
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/lampung/elite_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/lampung/elite_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/lampung/elite_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/lampung/elite_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('account_receivables/lampung/serenity_ar') %>">
+      <a href="#ar_lampung-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      <ul id="ar_lampung-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/lampung/serenity_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/lampung/serenity_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/lampung/serenity_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/lampung/serenity_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/lampung/lady_ar') %>">
+      <a href="#ar_lampung-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      <ul id="ar_lampung-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/lampung/lady_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/lampung/lady_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/lampung/lady_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/lampung/lady_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('account_receivables/lampung/royal_ar') %>">
+      <a href="#ar_lampung-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      <ul id="ar_lampung-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/lampung/royal_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/lampung/royal_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/lampung/royal_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/lampung/royal_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>

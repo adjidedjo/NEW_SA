@@ -1,0 +1,64 @@
+<li class="<%= 'active' if controller?('account_receivables/semarang') %>">
+  <a href="#ar_semarang" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Semarang</span> </a>
+  <ul id="ar_semarang" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      BANDUNG
+    </li>
+    <li class="<%= 'active' if controller?('account_receivables/semarang/elite_ar') %>">
+      <a href="#ar_semarang-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      <ul id="ar_semarang-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          ELITE
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/semarang/elite_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/semarang/elite_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/semarang/elite_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/semarang/elite_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('account_receivables/semarang/serenity_ar') %>">
+      <a href="#ar_semarang-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      <ul id="ar_semarang-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/semarang/serenity_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/semarang/serenity_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/semarang/serenity_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/semarang/serenity_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/semarang/lady_ar') %>">
+      <a href="#ar_semarang-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      <ul id="ar_semarang-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/semarang/lady_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/semarang/lady_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/semarang/lady_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/semarang/lady_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('account_receivables/semarang/royal_ar') %>">
+      <a href="#ar_semarang-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      <ul id="ar_semarang-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/semarang/royal_ar') && action?('uncollectable_ar') %>">
+          <a href="/account_receivables/semarang/royal_ar/uncollectable_ar" title="Uncollectable"> <span>Uncollectable</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('account_receivables/semarang/royal_ar') && action?('collectable_ar') %>">
+          <a href="/account_receivables/semarang/royal_ar/collectable_ar" title="Collectable"> <span>Collectable</span> </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
