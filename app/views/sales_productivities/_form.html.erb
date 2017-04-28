@@ -33,7 +33,7 @@
           <div class="form-group">
             <label class="col-lg-2 control-label">BRAND</label>
             <div class="col-lg-10">
-              <%= f.select "brand_id", options_for_select(@brand.map {|a| [a.jde_brand, a.id]}), class: 'form-control m-b' %>
+              <%= f.select "brand", options_for_select(@brand.map {|a| [a.jde_brand, a.id]}), class: 'form-control m-b' %>
             </div>
           </div>
         </fieldset>
@@ -59,7 +59,7 @@
           <div class="form-group">
             <label class="col-lg-2 control-label">BRAND</label>
             <div class="col-lg-10">
-              <%= f.text_field "brand_id", value: @brand.first.jde_brand, disabled: true, class: 'form-control' %>
+              <%= f.text_field "brand", value: @brand.first.jde_brand, disabled: true, class: 'form-control' %>
             </div>
           </div>
           <div class="form-group">
