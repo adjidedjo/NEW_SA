@@ -440,13 +440,24 @@ class Penjualan::Sale < ActiveRecord::Base
 
   ########## MOST ITEMS
   def self.most_items_ordered_weekly(branch, brand)
-    beginning_of_week = 4.weeks.ago.to_date.beginning_of_week.to_date
-    end_of_week = 1.week.ago.to_date.end_of_week.to_date
-    self.find_by_sql("SELECT namaartikel, ordered, value FROM (
-    SELECT kodejenis, namaartikel, SUM(jumlah) AS ordered, SUM(harganetto1) AS value FROM tblaporancabang
-    WHERE cabang_id = '#{branch}' AND tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}'
-    AND tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') AND jenisbrgdisc = '#{brand}' GROUP BY namaartikel) totals
-    GROUP BY namaartikel ORDER BY ordered DESC LIMIT 10")
+    self.find_by_sql("SELECT lc.namaartikel AS article, lc.qty_4, lc.val_4, lc.qty_3, lc.val_3,
+    lc.qty_2, lc.val_2, lc.qty_1, lc.val_1 FROM
+    (
+      SELECT namaartikel,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{4.weeks.ago.beginning_of_week.to_date}' AND '#{4.weeks.ago.end_of_week.to_date}' THEN jumlah END) qty_4,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{4.weeks.ago.beginning_of_week.to_date}' AND '#{4.weeks.ago.end_of_week.to_date}' THEN harganetto1 END) val_4,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{3.weeks.ago.beginning_of_week.to_date}' AND '#{3.weeks.ago.end_of_week.to_date}' THEN jumlah END) qty_3,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{3.weeks.ago.beginning_of_week.to_date}' AND '#{3.weeks.ago.end_of_week.to_date}' THEN harganetto1 END) val_3,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{2.weeks.ago.beginning_of_week.to_date}' AND '#{2.weeks.ago.end_of_week.to_date}' THEN jumlah END) qty_2,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{2.weeks.ago.beginning_of_week.to_date}' AND '#{2.weeks.ago.end_of_week.to_date}' THEN harganetto1 END) val_2,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.beginning_of_week.to_date}' AND '#{1.week.ago.end_of_week.to_date}' THEN jumlah END) qty_1,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.beginning_of_week.to_date}' AND '#{1.week.ago.end_of_week.to_date}' THEN harganetto1 END) val_1,
+      SUM(CASE WHEN tanggalsj BETWEEN '#{4.weeks.ago.beginning_of_week.to_date}' AND '#{1.week.ago.end_of_week.to_date}' THEN jumlah END) most
+      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{4.weeks.ago.to_date}' AND
+      '#{1.week.ago.end_of_week.to_date}' AND jenisbrgdisc = '#{brand}' AND cabang_id = '#{branch}' AND
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'KB')
+      GROUP BY namaartikel ORDER BY most DESC LIMIT 10
+      ) as lc")
   end
 
   def self.most_items_ordered_monthly(branch, brand)
