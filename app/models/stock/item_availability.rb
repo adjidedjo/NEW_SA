@@ -3,8 +3,8 @@ class Stock::ItemAvailability < ActiveRecord::Base
   self.table_name = "stocks" #sd
   
   def self.stock_report(branch, brand)
-    self.find_by_sql("SELECT onhand, available, buffer, description, item_number, updated_at FROM stocks WHERE 
-    branch = '#{branch}' AND brand = '#{brand}'")
+    self.find_by_sql("SELECT onhand, available, buffer, description, item_number, updated_at FROM stocks 
+    WHERE branch = '#{branch}' AND brand = '#{brand}' AND onhand !=0 ")
   end
     
 end
