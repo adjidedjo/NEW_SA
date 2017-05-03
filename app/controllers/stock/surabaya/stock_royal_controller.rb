@@ -9,10 +9,10 @@ class Stock::Surabaya::StockRoyalController < ApplicationController
   end
   
   def stock_display
-    @stock = Stock::ItemAvailability.stock_report(@branch_plant + "D", "R")
+    @stock = Stock::ItemAvailability.stock_display_report(@branch_plant + "D", "R")
     @brand = initialize_brand
     @state = "DISPLAY"
-    render template: "stock/template_stock/stock_normal"
+    render template: "stock/template_stock/stock_display_report"
   end
   
   def stock_clearence
