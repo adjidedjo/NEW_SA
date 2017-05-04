@@ -19,7 +19,7 @@ class Penjualan::Sale < ActiveRecord::Base
       FROM tblaporancabang WHERE fiscal_month BETWEEN '#{Date.yesterday.last_month.beginning_of_year.to_date.month}'
       AND '#{Date.yesterday.last_month.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.beginning_of_year.to_date.year}'
       AND '#{Date.yesterday.last_month.year}' AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND cabang_id != 50 AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' AND area_id IS NOT NULL AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
       GROUP BY jenisbrgdisc
     ) as lc
     LEFT JOIN
@@ -29,7 +29,7 @@ class Penjualan::Sale < ActiveRecord::Base
         fiscal_year = '#{Date.yesterday.last_month.last_year.year}'
         AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND
         tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
-        GROUP BY jenisbrgdisc
+        AND area_id IS NOT NULL GROUP BY jenisbrgdisc
       ) AS ly ON lc.jenisbrgdisc = ly.jenisbrgdisc
     LEFT JOIN
       (
@@ -65,7 +65,7 @@ class Penjualan::Sale < ActiveRecord::Base
       FROM tblaporancabang WHERE fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}'
       AND '#{Date.yesterday.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.year}'
       AND '#{Date.yesterday.year}' AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND cabang_id != 50 AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' AND area_id IS NOT NULL AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
       GROUP BY jenisbrgdisc
     ) as lc
     LEFT JOIN
@@ -74,7 +74,7 @@ class Penjualan::Sale < ActiveRecord::Base
         fiscal_month = '#{Date.yesterday.last_year.month}' AND fiscal_year = '#{Date.yesterday.last_year.year}'
         AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND
         tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
-        GROUP BY jenisbrgdisc
+        AND area_id IS NOT NULL GROUP BY jenisbrgdisc
       ) AS ly ON lc.jenisbrgdisc = ly.jenisbrgdisc
     LEFT JOIN
       (
@@ -111,7 +111,7 @@ class Penjualan::Sale < ActiveRecord::Base
       AND '#{Date.yesterday.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.year}'
       AND '#{Date.yesterday.year}' AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND cabang_id != 50 AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
-      GROUP BY jenisbrgdisc, area_id
+      AND area_id IS NOT NULL GROUP BY jenisbrgdisc, area_id
     ) as lc
     LEFT JOIN
       (
@@ -119,7 +119,7 @@ class Penjualan::Sale < ActiveRecord::Base
         fiscal_month = '#{Date.yesterday.last_year.month}' AND fiscal_year = '#{Date.yesterday.last_year.year}'
         AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND
         tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
-        GROUP BY jenisbrgdisc, area_id
+        GROUP BY jenisbrgdisc, area_id AND area_id IS NOT NULL
       ) AS ly ON lc.area_id = ly.area_id
     LEFT JOIN
       (
@@ -146,7 +146,7 @@ class Penjualan::Sale < ActiveRecord::Base
     AND fiscal_year = '#{Date.yesterday.year}'
     AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-'
     AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
-    AND cabang_id NOT IN (1,50)
+    AND cabang_id NOT IN (1,50) AND area_id IS NOT NULL
     GROUP BY area_id) AS lc
     LEFT JOIN areas AS cb ON lc.area_id = cb.id
     ")
@@ -156,7 +156,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT SUM(target) AS jumlah, month FROM sales_targets
     WHERE branch = '#{branch}' AND month BETWEEN '#{1.month.ago.beginning_of_year.month}'
     AND '#{Date.yesterday.month}' AND year = '#{1.month.ago.beginning_of_year.year}'
-    AND brand = '#{brand}'
+    AND brand = '#{brand}' AND area_id IS NOT NULL
     GROUP BY month, branch")
   end
 
@@ -164,7 +164,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT SUM(harganetto1) AS harga, fiscal_month FROM tblaporancabang
     WHERE fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.month}'
     AND '#{Date.yesterday.month}' AND fiscal_year = '#{Date.yesterday.beginning_of_year.year}'
-    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-'
+    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-' AND area_id IS NOT NULL
     AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
     GROUP BY fiscal_month")
   end
@@ -187,7 +187,7 @@ class Penjualan::Sale < ActiveRecord::Base
       FROM tblaporancabang WHERE fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}'
       AND '#{Date.yesterday.last_month.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.last_month.year}'
       AND '#{Date.yesterday.last_month.year}' AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND cabang_id != 50 AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB') AND area_id IS NOT NULL
       GROUP BY jenisbrgdisc, area_id
     ) as lc
     LEFT JOIN
@@ -195,7 +195,7 @@ class Penjualan::Sale < ActiveRecord::Base
         SELECT SUM(harganetto1) AS revenue, area_id FROM tblaporancabang WHERE
         fiscal_month = '#{Date.yesterday.last_month.last_year.month}' AND fiscal_year = '#{Date.yesterday.last_month.last_year.year}'
         AND jenisbrgdisc = '#{brand}' AND cabang_id != 1 AND
-        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB') AND area_id IS NOT NULL
         GROUP BY jenisbrgdisc, area_id
       ) AS ly ON lc.area_id = ly.area_id
     LEFT JOIN
@@ -223,7 +223,7 @@ class Penjualan::Sale < ActiveRecord::Base
     AND fiscal_year = '#{Date.yesterday.last_month.year}'
     AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-'
     AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
-    AND cabang_id NOT IN (1,50)
+    AND cabang_id NOT IN (1,50) AND area_id IS NOT NULL
     GROUP BY area_id) AS lc
     LEFT JOIN areas AS cb ON lc.area_id = cb.id
     ")
