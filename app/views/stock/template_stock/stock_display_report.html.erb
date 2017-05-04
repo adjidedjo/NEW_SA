@@ -22,7 +22,7 @@
                   <th class="sort-numeric">OnHand</th>
                   <% if current_user.position != 'sales' %>
                     <th class="sort-numeric">Location</th>
-                    <th class="sort-numeric">Prod</th>
+                    <th class="sort-numeric">Age</th>
                   <% end %>
                 </tr>
               </thead>
@@ -34,7 +34,7 @@
                   <td><%= cs.onhand %></td>
                   <% if current_user.position != 'sales' %>
                     <td><%= cs.customer %></td>
-                    <td><%= cs.item_number[0..1] %></td>
+                    <td><%= time_ago_in_words(cs.age.days.ago) %></td>
                   <% end %>
                 </tr>
                 <% end %>
