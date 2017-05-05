@@ -34,7 +34,7 @@
                   <td><%= cs.onhand %></td>
                   <% if current_user.position != 'sales' %>
                     <td><%= cs.customer %></td>
-                    <td><%= time_ago_in_words(cs.age.days.ago) %></td>
+                    <td><%= (cs.age == 0 || cs.age.nil?) ? cs.age : time_ago_in_words(cs.age.days.ago) %></td>
                   <% end %>
                 </tr>
                 <% end %>
