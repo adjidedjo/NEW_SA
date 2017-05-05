@@ -28,6 +28,12 @@ class Stock::Bandung::StockRoyalController < ApplicationController
     @state = "DISPLAY"
     render template: "stock/template_stock/stock_normal"
   end
+
+  def stock_recap
+    @recap_stock = Stock::ItemAvailability.recap_stock_report(@branch_plant, "R")
+    @brand = initialize_brand
+    render template: "stock/template_stock/recap_stock"
+  end
   
   private
   
@@ -40,7 +46,7 @@ class Stock::Bandung::StockRoyalController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "11012"
+    @branch_plant = "11002"
     @branch = "BANDUNG"
   end
 end

@@ -1,6 +1,20 @@
 module ApplicationHelper
   include RolesHelper
   
+  def checking_status(status)
+    if status == 'D'
+      'Display'
+    elsif status == 'N'
+      'Normal'
+    elsif status == 'C'
+      'Clearance'
+    elsif status == 'S'
+      'Service'
+    elsif status == 'TOTAL'
+      'TOTAL'
+    end
+  end
+  
   def monthly_range
     Date.yesterday.last_month.beginning_of_month.to_date..Date.yesterday.last_month.end_of_month.to_date
   end

@@ -11,5 +11,19 @@ class Stock::ItemAvailability < ActiveRecord::Base
     find_by_sql("SELECT onhand, available, description, item_number, customer, age, updated_at FROM display_stocks 
     WHERE branch = '#{branch}' AND brand = '#{brand}' AND onhand > 0 GROUP BY item_number, customer")
   end
+  
+  def self.recap_stock_report(branch, brand)
+    self.find_by_sql("SELECT product, status, COALESCE(status, 'TOTAL') AS status,
+      SUM(CASE WHEN product = 'KM' THEN onhand END) AS km,
+      SUM(CASE WHEN product = 'DV' THEN onhand END) AS dv,
+      SUM(CASE WHEN product = 'HB' THEN onhand END) AS hb,
+      SUM(CASE WHEN product = 'SA' THEN onhand END) AS sa,
+      SUM(CASE WHEN product = 'SB' THEN onhand END) AS sb,
+      SUM(CASE WHEN product = 'ST' THEN onhand END) AS st,
+      SUM(CASE WHEN product = 'KB' THEN onhand END) AS kb
+      FROM stocks
+      WHERE branch LIKE '#{branch}%' AND brand = '#{brand}' AND onhand > 0 
+      AND status IN ('N','S','D','C') GROUP BY status WITH ROLLUP")
+  end
     
 end

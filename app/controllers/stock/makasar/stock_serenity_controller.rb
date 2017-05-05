@@ -28,6 +28,12 @@ class Stock::Makasar::StockSerenityController < ApplicationController
     @state = "DISPLAY"
     render template: "stock/template_stock/stock_normal"
   end
+
+  def stock_recap
+    @recap_stock = Stock::ItemAvailability.recap_stock_report(@branch_plant, "S")
+    @brand = initialize_brand
+    render template: "stock/template_stock/recap_stock"
+  end
   
   private
   
