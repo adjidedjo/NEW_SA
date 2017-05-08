@@ -10,6 +10,7 @@ class Stock::Bekasi::StockEliteController < ApplicationController
   
   def stock_display
     @stock = Stock::ItemAvailability.stock_display_report(@branch_plant + "D", "E")
+    @recap_display_stock = Stock::ItemAvailability.recap_display_stock_report(@branch_plant, "E")
     @brand = initialize_brand
     @state = "DISPLAY"
     render template: "stock/template_stock/stock_display_report"
