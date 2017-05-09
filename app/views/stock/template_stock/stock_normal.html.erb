@@ -11,7 +11,7 @@
         <div class="panel panel-info">
           <div class="panel-heading" style="text-align: center">
             Stock  
-            <b>LAST UPDATE: <%= Time.now.strftime("%d %B %Y") %> <%= (DateTime.now - 30.minutes).beginning_of_hour.strftime('%H:%M') %></b> 
+            <b>LAST UPDATE: <%= (Time.now - 15.minutes).strftime('%H:%M') %></b> 
           </div>
           <div class="panel-body">
             <table id="stock-table" class="table table-striped table-hover">
