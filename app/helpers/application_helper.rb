@@ -28,7 +28,7 @@ module ApplicationHelper
   end
   
   def currency(price)
-    number_to_currency(price, :precision => 0, :unit => "", :delimiter => ".")
+    number_to_currency(price, :precision => 0, :unit => "", :delimiter => ",")
   end
   
   def precision(avg)
