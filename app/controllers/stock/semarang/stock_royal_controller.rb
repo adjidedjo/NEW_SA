@@ -19,7 +19,7 @@ class Stock::Semarang::StockRoyalController < ApplicationController
   def stock_clearence
     @stock = Stock::ItemAvailability.stock_report(@branch_plant + "C", "R")
     @brand = initialize_brand
-    @state = "CLEARENCE"
+    @state = "CLEARANCE"
     render template: "stock/template_stock/stock_normal"
   end
   
