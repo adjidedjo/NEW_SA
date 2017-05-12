@@ -1,0 +1,20 @@
+<li class="<%= 'active' if controller?('base_prices/fourth_regional_base_prices') %>">
+  <a href="#bp-fourth" title="Regional 4" data-toggle="collapse"> <em class="fa fa-folder-o"></em> <span>Regional 4</span> </a>
+  <ul id="bp-fourth" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Regional 4
+    </li>
+    <li class="<%= 'active' if controller?('base_prices/fourth_regional_base_prices') && action?('base_price_mattress') %>">
+      <a href="/base_prices/fourth_regional_base_prices/base_price_mattress" title="Recap"> <span>Mattress</span></a>
+    </li>
+    <li class="<%= 'active' if controller?('base_prices/fourth_regional_base_prices') && action?('base_price_divan') %>">
+      <a href="/base_prices/fourth_regional_base_prices/base_price_divan" title="Recap"> <span>Divan & Headboard</span></a>
+    </li>
+    <li class="<%= 'active' if controller?('base_prices/fourth_regional_base_prices') && action?('base_price_sorong') %>">
+      <a href="/base_prices/fourth_regional_base_prices/base_price_sorong" title="Recap"> <span>Sorong</span></a>
+    </li>
+    <li class="<%= 'active' if controller?('base_prices/fourth_regional_base_prices') && action?('base_price_foam') %>">
+      <a href="/base_prices/fourth_regional_base_prices/base_price_foam" title="Recap"> <span>Foam Mattress</span></a>
+    </li>
+  </ul>
+</li>

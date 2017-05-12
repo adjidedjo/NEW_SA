@@ -9,6 +9,15 @@ Rails.application.routes.draw do
   # Sales Productivity
   resources :sales_productivities
   
+  # base price
+  get 'base_prices/first_regional_base_prices/base_price_mattress'
+  get 'base_prices/first_regional_base_prices/base_price_divan'
+  get 'base_prices/first_regional_base_prices/base_price_sorong'
+  get 'base_prices/first_regional_base_prices/base_price_foam'
+  get 'base_prices/second_regional_base_prices/base_price_mattress'
+  get 'base_prices/third_regional_base_prices/base_price_mattress'
+  get 'base_prices/fourth_regional_base_prices/base_price_mattress'
+  
   # salesman
   get 'penjualan_salesman/elite'
   get 'penjualan_salesman/lady'
@@ -340,6 +349,7 @@ Rails.application.routes.draw do
   get 'account_receivables/surabaya/royal_ar/uncollectable_ar'
   get 'account_receivables/surabaya/royal_ar/collectable_ar'
   # Bali
+  get 'base_prices/bali/bali_base_prices/base_price_mattress'
   get 'order/bali/bali_elites/order'
   get 'order/bali/bali_serenity/order'
   get 'order/bali/bali_lady/order'

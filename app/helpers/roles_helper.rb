@@ -7,6 +7,14 @@ module RolesHelper
     end 
   end
   
+  def reg1(user, num)
+    if user.regional == num
+      return true
+    elsif user.regional == nil
+      return true
+    end  
+  end
+  
   def general_manager(user)
     user.position == "gm" || user.position == "owner" || user.position == "admin" || user.position == "marketing pusat" || user.position == "admin marketing"
   end
