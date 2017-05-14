@@ -20,7 +20,7 @@ class Penjualan::Makasar::MakasarCustomersController < ApplicationController
   end
 
   def initialize_branch_id
-    2
+    19
   end
 
   def authorize_user
