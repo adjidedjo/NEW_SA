@@ -18,7 +18,7 @@
         </li>
         <li class="<%= 'active' if controller?('penjualan/nasional/nasional_elites') && action?('monthly') %>">
           <a href="/penjualan/nasional/nasional_elites/monthly" title="Monthly"> <span><%= Date.yesterday.last_month.strftime('%B %Y') %></span> </a>
-        </li>        
+        </li>
       </ul>
     </li>
     <li class="<%= 'active' if controller?('penjualan/nasional/nasional_serenity') %>">
@@ -71,6 +71,9 @@
           <a href="/penjualan/nasional/nasional_royal/monthly" title="Monthly"> <span><%= Date.yesterday.last_month.strftime('%B %Y') %></span> </a>
         </li>
       </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/nasional/nasional_customers') && action?('national_customer') %>">
+      <a href="/penjualan/nasional/nasional_customers/national_customer" title="Customer"> <em class="icon-people"></em> <span>National Customer</span> </a>
     </li>
   </ul>
 </li>
