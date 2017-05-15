@@ -8,7 +8,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
     target_val,
     ROUND(((lc.val_1 / tv.target_val) * 100), 0) AS t_percentage FROM
     (
-      SELECT cabang_id, nopo,
+      SELECT area_id, nopo,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' THEN harganetto1 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
@@ -21,7 +21,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
     ) as lc
       LEFT JOIN 
       (
-        SELECT SUM(harganetto1) AS v_last_year, cabang_id, nopo FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_year.beginning_of_month}' 
+        SELECT SUM(harganetto1) AS v_last_year, area_id, nopo FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_year.beginning_of_month}' 
         AND '#{Date.yesterday.last_year}' AND jenisbrgdisc = '#{brand}' AND nopo = '#{sales.address_number}' AND
         tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
         GROUP BY jenisbrgdisc

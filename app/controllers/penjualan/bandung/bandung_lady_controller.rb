@@ -10,20 +10,20 @@ class Penjualan::Bandung::BandungLadyController < ApplicationController
   
   def success_rate
     gon.brand = initialize_brand
-    @branch = "BANDUNG"
+    @branch = "JAWA BARAT"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/success_rate"
   end
   
   def sales_stock_rate
     gon.brand = initialize_brand
-    @branch = "BANDUNG"
+    @branch = "JAWA BARAT"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/sales_stock_rate"
   end
   
   def sales_through
-    @branch = "BANDUNG"
+    @branch = "JAWA BARAT"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/sales_through"
   end
@@ -31,7 +31,7 @@ class Penjualan::Bandung::BandungLadyController < ApplicationController
   def daily
     gon.brand = initialize_brand
     gon.max = 150
-    @branch = "BANDUNG"
+    @branch = "JAWA BARAT"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/daily"
   end
@@ -41,7 +41,7 @@ class Penjualan::Bandung::BandungLadyController < ApplicationController
     gon.max = 100
     @customer_summary = Penjualan::Sale.customer_summary(initialize_brach_id, initialize_brand)
     @most_item =  Penjualan::Sale.most_items_ordered_weekly(initialize_brach_id, initialize_brand)
-    @branch = "BANDUNG"
+    @branch = "JAWA BARAT"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/weekly"
   end
@@ -49,7 +49,7 @@ class Penjualan::Bandung::BandungLadyController < ApplicationController
   def monthly
     gon.brand = initialize_brand
     gon.max = 500
-    @branch = "BANDUNG"
+    @branch = "JAWA BARAT"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/monthly"
   end

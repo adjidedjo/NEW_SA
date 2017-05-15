@@ -10,14 +10,14 @@ class Penjualan::Customer < Penjualan::Sale
       ) new_cus
       LEFT JOIN
       (
-        SELECT kode_customer, cabang_id, SUM(harganetto1) AS first_month, fiscal_month, fiscal_year
-        FROM tblaporancabang WHERE cabang_id != 1 AND cabang_id != 50 AND
+        SELECT kode_customer, area_id, SUM(harganetto1) AS first_month, fiscal_month, fiscal_year
+        FROM tblaporancabang WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
         GROUP BY kode_customer, fiscal_month, fiscal_year
       ) lc ON new_cus.address_number = lc.kode_customer AND lc.fiscal_month = MONTH(new_cus.last_order_date)
         AND lc.fiscal_year = YEAR(new_cus.last_order_date)
       LEFT JOIN tbidcabang AS st
-        ON lc.cabang_id = st.id
+        ON lc.area_id = st.id
     ")
   end
 
@@ -34,30 +34,30 @@ class Penjualan::Customer < Penjualan::Sale
       ) new_cus
       LEFT JOIN
       (
-        SELECT kode_customer, cabang_id, SUM(harganetto1) AS first_month, fiscal_month, fiscal_year
-        FROM tblaporancabang WHERE cabang_id != 1 AND cabang_id != 50 AND
+        SELECT kode_customer, area_id, SUM(harganetto1) AS first_month, fiscal_month, fiscal_year
+        FROM tblaporancabang WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
         GROUP BY kode_customer, fiscal_month, fiscal_year
       ) lc ON new_cus.address_number = lc.kode_customer AND lc.fiscal_month = MONTH(new_cus.opened_date)
         AND lc.fiscal_year = YEAR(new_cus.opened_date)
       LEFT JOIN
       (
-        SELECT kode_customer, cabang_id, SUM(harganetto1) AS second_month, fiscal_month, fiscal_year
-        FROM tblaporancabang WHERE cabang_id != 1 AND cabang_id != 50 AND
+        SELECT kode_customer, area_id, SUM(harganetto1) AS second_month, fiscal_month, fiscal_year
+        FROM tblaporancabang WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
         GROUP BY kode_customer, fiscal_month, fiscal_year
       ) lc1 ON new_cus.address_number = lc1.kode_customer AND lc1.fiscal_month = MONTH(new_cus.opened_date + INTERVAL 1 MONTH)
         AND lc1.fiscal_year = YEAR(new_cus.opened_date)
       LEFT JOIN
       (
-        SELECT kode_customer, cabang_id, SUM(harganetto1) AS third_month, fiscal_month, fiscal_year
-        FROM tblaporancabang WHERE cabang_id != 1 AND cabang_id != 50 AND
+        SELECT kode_customer, area_id, SUM(harganetto1) AS third_month, fiscal_month, fiscal_year
+        FROM tblaporancabang WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
         GROUP BY kode_customer, fiscal_month, fiscal_year
       ) lc2 ON new_cus.address_number = lc2.kode_customer AND lc2.fiscal_month = MONTH(new_cus.opened_date + INTERVAL 2 MONTH)
         AND lc2.fiscal_year = YEAR(new_cus.opened_date)
       LEFT JOIN tbidcabang AS st
-      ON lc.cabang_id = st.id OR lc1.cabang_id = st.id OR lc2.cabang_id = st.id
+      ON lc.area_id = st.id OR lc1.area_id = st.id OR lc2.area_id = st.id
     ")
   end
 
@@ -100,8 +100,8 @@ class Penjualan::Customer < Penjualan::Sale
       SUM(CASE WHEN jenisbrgdisc = 'ROYAL' THEN harganetto1 END) royal
       FROM tblaporancabang WHERE fiscal_month = '#{month}'
       AND fiscal_year = '#{year}'
-      AND cabang_id != 1 AND cabang_id != 50
-      AND cabang_id = '#{branch}'AND
+      AND area_id != 1 AND area_id != 50
+      AND area_id = '#{branch}'AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB')
       GROUP BY kode_customer
     ")

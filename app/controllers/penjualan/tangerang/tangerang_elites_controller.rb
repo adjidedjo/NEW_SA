@@ -10,20 +10,20 @@ class Penjualan::Tangerang::TangerangElitesController < ApplicationController
   
   def success_rate
     gon.brand = initialize_brand
-    @branch = "TANGERANG"
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/success_rate"
   end
   
   def sales_stock_rate
     gon.brand = initialize_brand
-    @branch = "TANGERANG"
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/sales_stock_rate"
   end
   
   def sales_through
-    @branch = "TANGERANG"
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/sales_through"
   end
@@ -31,7 +31,7 @@ class Penjualan::Tangerang::TangerangElitesController < ApplicationController
   def daily
     gon.brand = initialize_brand
     gon.max = 100
-    @branch = "TANGERANG"
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/daily"
   end
@@ -39,9 +39,9 @@ class Penjualan::Tangerang::TangerangElitesController < ApplicationController
   def weekly
     gon.brand = initialize_brand
     gon.max = 500
-    @customer_summary = Penjualan::Sale.customer_summary(23, initialize_brand)
-    @most_item = Penjualan::Sale.most_items_ordered_weekly(23, initialize_brand)
-    @branch = "TANGERANG"
+    @customer_summary = Penjualan::Sale.customer_summary(initialize_brach_id, initialize_brand)
+    @most_item = Penjualan::Sale.most_items_ordered_weekly(initialize_brach_id, initialize_brand)
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/weekly"
   end
@@ -49,7 +49,7 @@ class Penjualan::Tangerang::TangerangElitesController < ApplicationController
   def monthly
     gon.brand = initialize_brand
     gon.max = 2000
-    @branch = "TANGERANG"
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/monthly"
   end
@@ -61,7 +61,7 @@ class Penjualan::Tangerang::TangerangElitesController < ApplicationController
   end
   
   def initialize_brach_id
-    23
+    3
   end
   
   def authorize_user
