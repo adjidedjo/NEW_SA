@@ -63,6 +63,28 @@ Rails.application.routes.draw do
   get 'stock/pusat/stock_royal/stock_service'
   get 'stock/pusat/stock_royal/stock_display'
   
+  #Bestari
+  get 'stock/bestari/stock_elite/stock_recap'
+  get 'stock/bestari/stock_elite/stock_normal'
+  get 'stock/bestari/stock_elite/stock_clearence'
+  get 'stock/bestari/stock_elite/stock_service'
+  get 'stock/bestari/stock_elite/stock_display'
+  get 'stock/bestari/stock_serenity/stock_recap'
+  get 'stock/bestari/stock_serenity/stock_normal'
+  get 'stock/bestari/stock_serenity/stock_clearence'
+  get 'stock/bestari/stock_serenity/stock_service'
+  get 'stock/bestari/stock_serenity/stock_display'
+  get 'stock/bestari/stock_lady/stock_recap'
+  get 'stock/bestari/stock_lady/stock_normal'
+  get 'stock/bestari/stock_lady/stock_clearence'
+  get 'stock/bestari/stock_lady/stock_service'
+  get 'stock/bestari/stock_lady/stock_display'
+  get 'stock/bestari/stock_royal/stock_recap'
+  get 'stock/bestari/stock_royal/stock_normal'
+  get 'stock/bestari/stock_royal/stock_clearence'
+  get 'stock/bestari/stock_royal/stock_service'
+  get 'stock/bestari/stock_royal/stock_display'
+  
   # Bandung
   get 'order/bandung/bandung_elites/order'
   get 'order/bandung/bandung_serenity/order'
