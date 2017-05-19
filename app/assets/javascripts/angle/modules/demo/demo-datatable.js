@@ -188,6 +188,7 @@
             { type: 'num-fmt' },
             { type: 'num-fmt' },
             { type: 'num-fmt' },
+            { type: 'num-fmt' },
             { type: 'num-fmt' }
         ],
         oLanguage: {

@@ -47,23 +47,24 @@ class Penjualan::Sale < ActiveRecord::Base
     ")
   end
 
-  def self.retail_nasional_this_month_total(brand)
-    self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue, st.month_target,
+  def self.retail_nasional_this_month_total(date, brand)
+    self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue, st.month_target, st.year_target,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
     ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage,
     ROUND(((lc.val1_1 / st.month_target) * 100.0), 0) AS t_percentage,
     ROUND(((lc.y_qty / st.year_target) * 100), 0) AS ty_percentage FROM
     (
       SELECT jenisbrgdisc,
-      SUM(CASE WHEN fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
-        '#{Date.yesterday.month}' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) y_qty,
-      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.month}' THEN jumlah END) qty_1,
-      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.month}' THEN harganetto1 END) val_1,
-      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.month}' AND
+      SUM(CASE WHEN fiscal_month BETWEEN '#{date.yesterday.beginning_of_year.to_date.month}' AND
+        '#{date.yesterday.month}' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) y_qty,
+      SUM(CASE WHEN fiscal_month = '#{date.yesterday.month}' THEN jumlah END) qty_1,
+      SUM(CASE WHEN fiscal_month = '#{date.yesterday.month}' THEN harganetto1 END) val_1,
+      SUM(CASE WHEN fiscal_month = '#{date.yesterday.month}' AND
         kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) val1_1,
-      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}'
-      AND '#{Date.yesterday.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.year}'
+      SUM(CASE WHEN tanggalsj BETWEEN '#{date.yesterday.last_month.beginning_of_month}' AND
+        '#{date.yesterday.last_month}' THEN harganetto1 END) val_2
+      FROM tblaporancabang WHERE fiscal_month BETWEEN '#{date.yesterday.beginning_of_year.to_date.month}'
+      AND '#{date.yesterday.month}' AND fiscal_year BETWEEN '#{date.yesterday.last_month.year}'
       AND '#{Date.yesterday.year}' AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND area_id != 50 AND
       tipecust = 'RETAIL' AND bonus = '-' AND area_id IS NOT NULL AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
       GROUP BY jenisbrgdisc
@@ -92,23 +93,24 @@ class Penjualan::Sale < ActiveRecord::Base
     ")
   end
 
-  def self.retail_nasional_this_month_branches(brand)
-    self.find_by_sql("SELECT st.area AS cabang, lc.val_1, lc.val_2, ly.revenue, st.month_target,
+  def self.retail_nasional_this_month_branches(date, brand)
+    self.find_by_sql("SELECT st.area AS cabang, lc.val_1, lc.val_2, ly.revenue, st.month_target, st.year_target,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
     ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage,
     ROUND(((lc.val1_1 / st.month_target) * 100.0), 0) AS t_percentage,
     ROUND(((lc.y_qty / st.year_target) * 100), 0) AS ty_percentage FROM
     (
       SELECT area_id, jenisbrgdisc,
-      SUM(CASE WHEN fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
-        '#{Date.yesterday.month}' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) y_qty,
-      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.month}' THEN jumlah END) qty_1,
-      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.month}' THEN harganetto1 END) val_1,
-      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.month}' AND
+      SUM(CASE WHEN fiscal_month BETWEEN '#{date.yesterday.beginning_of_year.to_date.month}' AND
+        '#{date.yesterday.month}' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) y_qty,
+      SUM(CASE WHEN fiscal_month = '#{date.yesterday.month}' THEN jumlah END) qty_1,
+      SUM(CASE WHEN fiscal_month = '#{date.yesterday.month}' THEN harganetto1 END) val_1,
+      SUM(CASE WHEN fiscal_month = '#{date.yesterday.month}' AND
         kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) val1_1,
-      SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}'
-      AND '#{Date.yesterday.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.year}'
+      SUM(CASE WHEN tanggalsj BETWEEN '#{date.yesterday.last_month.beginning_of_month}' AND
+        '#{date.yesterday.last_month}' THEN harganetto1 END) val_2
+      FROM tblaporancabang WHERE fiscal_month BETWEEN '#{date.yesterday.beginning_of_year.to_date.month}'
+      AND '#{date.yesterday.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.year}'
       AND '#{Date.yesterday.year}' AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND area_id != 50 AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
       AND area_id IS NOT NULL GROUP BY jenisbrgdisc, area_id
@@ -116,34 +118,35 @@ class Penjualan::Sale < ActiveRecord::Base
     LEFT JOIN
       (
         SELECT SUM(harganetto1) AS revenue, area_id FROM tblaporancabang WHERE
-        fiscal_month = '#{Date.yesterday.last_year.month}' AND fiscal_year = '#{Date.yesterday.last_year.year}'
-        AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND
-        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
-        GROUP BY jenisbrgdisc, area_id AND area_id IS NOT NULL
+        fiscal_month = '#{date.yesterday.last_year.month}' AND fiscal_year = '#{date.yesterday.last_year.year}'
+        AND jenisbrgdisc = '#{brand}' AND area_id NOT IN (1,50) AND
+        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')  
+        AND area_id IS NOT NULL
+        GROUP BY jenisbrgdisc, area_id
       ) AS ly ON lc.area_id = ly.area_id
     LEFT JOIN
       (
         SELECT branch, brand,
-        SUM(CASE WHEN month = '#{Date.yesterday.month}' THEN target END) month_target,
-        SUM(CASE WHEN month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
-        '#{Date.yesterday.end_of_year.month}' THEN target END) year_target
+        SUM(CASE WHEN month = '#{date.yesterday.month}' THEN target END) month_target,
+        SUM(CASE WHEN month BETWEEN '#{date.yesterday.beginning_of_year.to_date.month}' AND
+        '#{date.yesterday.end_of_year.month}' THEN target END) year_target
         FROM sales_target_values WHERE
         brand = '#{brand}' AND
-        month BETWEEN '#{Date.yesterday.beginning_of_year.month}' AND
-        '#{Date.yesterday.end_of_year.month}'
-        AND year BETWEEN '#{Date.yesterday.beginning_of_year.year}' AND
-        '#{Date.yesterday.end_of_year.year}' GROUP BY branch
+        month BETWEEN '#{date.yesterday.beginning_of_year.month}' AND
+        '#{date.yesterday.end_of_year.month}'
+        AND year BETWEEN '#{date.yesterday.beginning_of_year.year}' AND
+        '#{date.yesterday.end_of_year.year}' GROUP BY branch
       ) AS st ON lc.area_id = st.branch
     LEFT JOIN areas AS st
       ON lc.area_id = st.id
     ")
   end
 
-  def self.retail_nasional_this_month_branch(brand)
+  def self.retail_nasional_this_month_branch(date, brand)
     self.find_by_sql("SELECT lc.harga, cb.area AS branch FROM (
     SELECT SUM(harganetto1) AS harga, area_id FROM tblaporancabang
-    WHERE fiscal_month = '#{Date.yesterday.month}'
-    AND fiscal_year = '#{Date.yesterday.year}'
+    WHERE fiscal_month = '#{date.yesterday.month}'
+    AND fiscal_year = '#{date.yesterday.year}'
     AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-'
     AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
     AND area_id NOT IN (1,50) AND area_id IS NOT NULL
@@ -162,8 +165,8 @@ class Penjualan::Sale < ActiveRecord::Base
 
   def self.retail_nasional_this_month(brand)
     self.find_by_sql("SELECT SUM(harganetto1) AS harga, fiscal_month FROM tblaporancabang
-    WHERE fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.month}'
-    AND '#{Date.yesterday.month}' AND fiscal_year = '#{Date.yesterday.beginning_of_year.year}'
+    WHERE fiscal_month BETWEEN '#{date.beginning_of_year.month}'
+    AND '#{date.month}' AND fiscal_year = '#{date.beginning_of_year.year}'
     AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-' AND area_id IS NOT NULL
     AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
     GROUP BY fiscal_month")

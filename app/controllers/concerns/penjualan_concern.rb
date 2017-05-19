@@ -5,19 +5,19 @@ module PenjualanConcern
   ########## MONTHLY
   
   def retail_nasional_this_month_branches_conc
-    @branches_monthnas_summary = Penjualan::Sale.retail_nasional_this_month_branches(initialize_brand)
-    @monthnas_summary = Penjualan::Sale.retail_nasional_this_month_total(initialize_brand)
+    @branches_monthnas_summary = Penjualan::Sale.retail_nasional_this_month_branches(@date, initialize_brand)
+    @monthnas_summary = Penjualan::Sale.retail_nasional_this_month_total(@date, initialize_brand)
   end
   
   def retail_nasional_this_month_conc
-    summaries = Penjualan::Sale::retail_nasional_this_month(initialize_brand)
+    summaries = Penjualan::Sale::retail_nasional_this_month(@date, initialize_brand)
     # target_sum = Penjualan::Sale::target_retail_nasional_monthly(initialize_brand)
     gon.summaries = summaries.map { |u| [Date::ABBR_MONTHNAMES[u.fiscal_month], (u.harga/10000000)] }.to_a
     # gon.target = target_sum.map { |u| [Date::ABBR_MONTHNAMES[u.month], (u.jumlah)] }.to_a
   end
   
   def retail_nasional_this_month_branch_conc
-    summaries = Penjualan::Sale::retail_nasional_this_month_branch(initialize_brand)
+    summaries = Penjualan::Sale::retail_nasional_this_month_branch(@date, initialize_brand)
     gon.summaries_branch = summaries.map { |u| [u.branch.gsub(/Cabang/,''), (u.harga/10000000)] }.to_a
   end
   

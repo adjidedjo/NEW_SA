@@ -1,6 +1,6 @@
 class Penjualan::Nasional::NasionalRoyalController < ApplicationController
   include RolesHelper
-  before_action :initialize_brand, :authorize_user
+  before_action :initialize_brand, :authorize_user, :checking_params
   before_action :retail_nasional_weekly, only: :weekly
   before_action :retail_nasional_monthly, only: :monthly
   before_action :retail_nasional_this_month, only: :daily
@@ -31,6 +31,16 @@ class Penjualan::Nasional::NasionalRoyalController < ApplicationController
   end
 
   private
+
+  def checking_params
+    if params[:date].nil?
+      date = '1/'+Date.yesterday.month.to_s+'/'+Date.yesterday.year.to_s
+      @date = (date.to_date + Date.today.strftime('%d').to_i) - 1
+    else
+      date = '1/'+params[:date][:month].to_s+'/'+params[:date][:year].to_s
+      @date = (date.to_date + Date.today.strftime('%d').to_i) - 1
+    end
+  end
 
   def initialize_brand
     "ROYAL"
