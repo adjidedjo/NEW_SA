@@ -11,6 +11,16 @@ class Penjualan::Bali::BaliCustomersController < ApplicationController
 
   def checking_params
     if params[:date].nil?
+      date = '1/'+Date.yesterday.month.to_s+'/'+Date.yesterday.year.to_s
+      @date = (date.to_date + Date.today.strftime('%d').to_i) - 1
+    else
+      date = '1/'+params[:date][:month].to_s+'/'+params[:date][:year].to_s
+      @date = (date.to_date + Date.today.strftime('%d').to_i) - 1
+    end
+  end
+
+  def checking_params
+    if params[:date].nil?
       @month = Date.yesterday.month
       @year = Date.yesterday.year
     else

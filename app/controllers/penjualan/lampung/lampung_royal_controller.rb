@@ -1,6 +1,6 @@
 class Penjualan::Lampung::LampungRoyalController < ApplicationController
   include RolesHelper
-  before_action :initialize_brand, :initialize_brach_id, :authorize_user
+  before_action :initialize_brand, :initialize_brach_id, :authorize_user, :checking_params
   before_action :retail_weekly, only: :weekly
   before_action :retail_monthly, only: :monthly
   before_action :retail_daily, only: :daily
@@ -55,6 +55,16 @@ class Penjualan::Lampung::LampungRoyalController < ApplicationController
   end
   
   private
+
+  def checking_params
+    if params[:date].nil?
+      date = '1/'+Date.yesterday.month.to_s+'/'+Date.yesterday.year.to_s
+      @date = (date.to_date + Date.today.strftime('%d').to_i) - 1
+    else
+      date = '1/'+params[:date][:month].to_s+'/'+params[:date][:year].to_s
+      @date = (date.to_date + Date.today.strftime('%d').to_i) - 1
+    end
+  end
   
   def initialize_brand
     "ROYAL"

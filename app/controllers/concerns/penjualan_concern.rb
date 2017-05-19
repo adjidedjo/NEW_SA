@@ -52,7 +52,7 @@ module PenjualanConcern
   end
   
   def otd
-    @otd = Penjualan::Sale.on_time_delivery(initialize_brach_id, initialize_brand)
+    @otd = Penjualan::Sale.on_time_delivery(@date, initialize_brach_id, initialize_brand)
     @brand_name = initialize_brand
     gon.ontime = @otd.first.ontime.to_i
     gon.late = @otd.first.late.to_i
@@ -60,19 +60,19 @@ module PenjualanConcern
   end
   
   def monthly_salesman_summary
-    @last_month_salesman = Penjualan::Sale.monthly_salesman_summary(initialize_brach_id, initialize_brand)
+    @last_month_salesman = Penjualan::Sale.monthly_salesman_summary(@date, initialize_brach_id, initialize_brand)
   end
   
   def monthly_article_summary
-    @last_month_article = Penjualan::Sale.monthly_article_summary(initialize_brach_id, initialize_brand)
+    @last_month_article = Penjualan::Sale.monthly_article_summary(@date, initialize_brach_id, initialize_brand)
   end
   
   def monthly_customer_summary
-    @last_month_customer = Penjualan::Sale.monthly_customer_summary(initialize_brach_id, initialize_brand)
+    @last_month_customer = Penjualan::Sale.monthly_customer_summary(@date, initialize_brach_id, initialize_brand)
   end
   
   def revenue_last_month
-    @sales_revenue_last_month = Penjualan::SaleDaily.revenue_last_month(initialize_brach_id, initialize_brand)
+    @sales_revenue_last_month = Penjualan::SaleDaily.revenue_last_month(@date, initialize_brach_id, initialize_brand)
   end
   
   def monthly_summaries
@@ -83,11 +83,11 @@ module PenjualanConcern
   end
   
   def last_month_city_summary
-    @city_month_sum = Penjualan::Sale.monthly_city_summary(initialize_brach_id, initialize_brand)
+    @city_month_sum = Penjualan::Sale.monthly_city_summary(@date, initialize_brach_id, initialize_brand)
   end
   
   def this_month_product_summary
-    @product_month_summary = Penjualan::Sale.monthly_product_summary(initialize_brach_id, initialize_brand)
+    @product_month_summary = Penjualan::Sale.monthly_product_summary(@date, initialize_brach_id, initialize_brand)
   end
   ########## END MONTHLY
 
