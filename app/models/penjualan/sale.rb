@@ -2,10 +2,10 @@ class Penjualan::Sale < ActiveRecord::Base
   self.table_name = "tblaporancabang"
   ########## START MONTHLY
   def self.retail_nasional_this_month_products(date, brand)
-    self.find_by_sql("SELECT lc.namaartikel, lc.jabar, lc.jakarta, lc.jakarta, lc.bali, lc.medan,
+    self.find_by_sql("SELECT lc.kodejenis, lc.namaartikel, lc.jabar, lc.jakarta, lc.jakarta, lc.bali, lc.medan,
     lc.jatim, lc.semarang, lc.cirebon, lc.yogya, lc.palembang, lc.lampung, lc.makasar, lc.pekanbaru  FROM
     (
-      SELECT kodeartikel, namaartikel,
+      SELECT kodeartikel, namaartikel, kodejenis,
       SUM(CASE WHEN area_id = 2 THEN jumlah END) jabar,
       SUM(CASE WHEN area_id = 3 THEN jumlah END) jakarta,
       SUM(CASE WHEN area_id = 4 THEN jumlah END) bali,
@@ -21,7 +21,7 @@ class Penjualan::Sale < ActiveRecord::Base
       FROM tblaporancabang WHERE fiscal_month = '#{date.yesterday.month}' AND
       fiscal_year = '#{date.yesterday.year}' AND jenisbrgdisc = '#{brand}' AND
       area_id NOT IN (1,50) AND tipecust = 'RETAIL' AND bonus = '-' AND
-      area_id IS NOT NULL AND kodejenis IN ('KM', 'KB')
+      area_id IS NOT NULL
       GROUP BY kodeartikel
     ) as lc
     LEFT JOIN

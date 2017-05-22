@@ -148,6 +148,7 @@
               <thead>
                 <tr>
                   <th>Product</th>
+                  <th>Name</th>
                   <th>Medan</th>
                   <th>Palembang</th>
                   <th>Pekanbaru</th>
@@ -162,9 +163,15 @@
                   <th>Makasar</th>
                 </tr>
               </thead>
+              <tfoot>
+                <tr>
+                  <th>Name</th>
+                </tr>
+              </tfoot>
               <tbody>
                 <% @products_monthnas_summary.each do |dp| %>
                 <tr class="gradeX">
+                  <td><%= dp.kodejenis %></td>
                   <td><%= dp.namaartikel %></td>
                   <td><%= dp.medan %></td>
                   <td><%= dp.palembang %></td>
