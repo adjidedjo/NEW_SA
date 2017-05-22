@@ -1,6 +1,40 @@
 class Penjualan::Sale < ActiveRecord::Base
   self.table_name = "tblaporancabang"
   ########## START MONTHLY
+  def self.retail_nasional_this_month_products(date, brand)
+    self.find_by_sql("SELECT lc.namaartikel, lc.jabar, lc.jakarta, lc.jakarta, lc.bali, lc.medan,
+    lc.jatim, lc.semarang, lc.cirebon, lc.yogya, lc.palembang, lc.lampung, lc.makasar, lc.pekanbaru  FROM
+    (
+      SELECT kodeartikel, namaartikel,
+      SUM(CASE WHEN area_id = 2 THEN jumlah END) jabar,
+      SUM(CASE WHEN area_id = 3 THEN jumlah END) jakarta,
+      SUM(CASE WHEN area_id = 4 THEN jumlah END) bali,
+      SUM(CASE WHEN area_id = 5 THEN jumlah END) medan,
+      SUM(CASE WHEN area_id = 7 THEN jumlah END) jatim,
+      SUM(CASE WHEN area_id = 8 THEN jumlah END) semarang,
+      SUM(CASE WHEN area_id = 9 THEN jumlah END) cirebon,
+      SUM(CASE WHEN area_id = 10 THEN jumlah END) yogya,
+      SUM(CASE WHEN area_id = 11 THEN jumlah END) palembang,
+      SUM(CASE WHEN area_id = 13 THEN jumlah END) lampung,
+      SUM(CASE WHEN area_id = 19 THEN jumlah END) makasar,
+      SUM(CASE WHEN area_id = 20 THEN jumlah END) pekanbaru
+      FROM tblaporancabang WHERE fiscal_month = '#{date.yesterday.month}' AND
+      fiscal_year = '#{date.yesterday.year}' AND jenisbrgdisc = '#{brand}' AND
+      area_id NOT IN (1,50) AND tipecust = 'RETAIL' AND bonus = '-' AND
+      area_id IS NOT NULL AND kodejenis IN ('KM', 'KB')
+      GROUP BY kodeartikel
+    ) as lc
+    LEFT JOIN
+      (
+        SELECT kodeartikel FROM tblaporancabang WHERE
+        tanggalsj = '#{date.yesterday.month}'
+        AND jenisbrgdisc = '#{brand}' AND area_id NOT IN (1,50) AND
+        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+        AND area_id IS NOT NULL GROUP BY kodeartikel
+      ) AS ly ON lc.kodeartikel = ly.kodeartikel
+    ")
+  end
+
   def self.retail_nasional_monthly_total(brand)
     self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue, st.month_target,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
