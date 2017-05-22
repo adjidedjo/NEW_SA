@@ -7,7 +7,7 @@
     Search by Month Form
   </div>
   <div class="panel-body">
-    <%= form_tag('/penjualan/nasional/nasional_elites/daily', {method: :get, :class => "form-inline"}) do %>
+    <%= form_tag('#{request.fullpath}', {method: :get, :class => "form-inline"}) do %>
     <div class="form-group">
       <%= select_month(params[:date].present? ? params[:date][:month].to_i : Date.today.month, {prompt: 'Choose month'}, class: "form-control") %>
     </div>
