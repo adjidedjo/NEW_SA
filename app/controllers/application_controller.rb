@@ -1,4 +1,5 @@
-class ApplicationController < ActionController::Base
+class 
+    @branch = "MEDAN" < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -12,7 +13,12 @@ class ApplicationController < ActionController::Base
   helper_method :retail_weekly, :retail_monthly, :retail_daily, :order_daily, 
   :retail_salesman_daily, :retail_sales_stock_rate, :retail_sales_through,
   :retail_nasional_weekly, :retail_nasional_monthly, :retail_success_rate,
-  :retail_uncollectable_ar, :retail_collectable_ar, :retail_nasional_this_month
+  :retail_uncollectable_ar, :retail_collectable_ar, :retail_nasional_this_month,
+  :retail_recap
+  
+  def retail_recap
+    retail_recap_conc
+  end
   
   def retail_nasional_this_month
     retail_nasional_this_month_branches_conc

@@ -1,6 +1,57 @@
 class Penjualan::Sale < ActiveRecord::Base
   self.table_name = "tblaporancabang"
   ########## START MONTHLY
+  def self.retail_recap_brand(date, branch)
+    self.find_by_sql("SELECT lc.jenisbrgdisc as brand, lc.val_1, lc.qty,
+    ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
+    ROUND((((lc.val_1 - ly.v_last_year) / ly.v_last_year) * 100), 0) AS y_percentage,
+    target_val, year_target,
+    ROUND(((lc.y_val / st.year_target) * 100), 0) AS ty_percentage,
+    ROUND(((lc.val_1 / st.target_val) * 100), 0) AS t_percentage FROM
+    (
+      SELECT area_id, jenisbrgdisc,
+      SUM(CASE WHEN fiscal_month BETWEEN '#{date.yesterday.beginning_of_year.to_date.month}' AND
+        '#{date.yesterday.month}' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) y_val,
+      SUM(CASE WHEN kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN jumlah END) qty,
+      SUM(CASE WHEN fiscal_month = '#{date.yesterday.month}'
+        AND fiscal_year = '#{date.yesterday.year}' AND
+        kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) val_1,
+      SUM(CASE WHEN fiscal_month = '#{date.yesterday.last_month.month}'
+        AND fiscal_year = '#{date.yesterday.last_month.year}' AND
+        kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) val_2
+      FROM tblaporancabang WHERE fiscal_month BETWEEN '#{date.yesterday.beginning_of_year.to_date.month}'
+      AND '#{date.yesterday.month}' AND fiscal_year BETWEEN '#{date.yesterday.beginning_of_year.to_date.year}'
+      AND '#{date.yesterday.year}' AND area_id NOT IN (1,50)
+      AND area_id = '#{branch}' AND jenisbrgdisc != '' AND
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+      GROUP BY jenisbrgdisc, area_id
+    ) as lc
+      LEFT JOIN
+      (
+        SELECT SUM(harganetto1) AS v_last_year, area_id, jenisbrgdisc FROM tblaporancabang WHERE
+        fiscal_month = '#{Date.yesterday.last_year.month}' AND
+        fiscal_year = '#{Date.yesterday.last_year.year}'
+        AND area_id != 1 AND area_id = '#{branch}' AND
+        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+        AND jenisbrgdisc IS NOT NULL
+        GROUP BY jenisbrgdisc, area_id
+      ) AS ly ON lc.area_id = '#{branch}' AND lc.jenisbrgdisc = ly.jenisbrgdisc
+      LEFT JOIN
+      (
+        SELECT branch, brand,
+        SUM(CASE WHEN month = '#{date.yesterday.month}' AND year = '#{date.yesterday.year}'
+          THEN target END) target_val,
+        SUM(CASE WHEN month BETWEEN '#{date.yesterday.beginning_of_year.to_date.month}' AND
+        '#{date.yesterday.end_of_year.month}' THEN target END) year_target
+        FROM sales_target_values WHERE
+        branch = '#{branch}'
+        AND month BETWEEN '#{date.yesterday.beginning_of_year.month}' AND
+        '#{date.yesterday.end_of_year.month}'
+        AND (year = '#{date.yesterday.year}' OR year IS NULL) GROUP BY branch, brand
+      ) AS st ON lc.area_id = st.branch AND lc.jenisbrgdisc = st.brand
+    ")
+  end
+
   def self.retail_nasional_this_month_products(date, brand)
     self.find_by_sql("SELECT lc.kodejenis, lc.namaartikel, lc.jabar, lc.jakarta, lc.jakarta, lc.bali, lc.medan,
     lc.jatim, lc.semarang, lc.cirebon, lc.yogya, lc.palembang, lc.lampung, lc.makasar, lc.pekanbaru  FROM
@@ -98,7 +149,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{date.yesterday.last_month.beginning_of_month}' AND
         '#{date.yesterday.last_month}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE fiscal_month BETWEEN '#{date.yesterday.beginning_of_year.to_date.month}'
-      AND '#{date.yesterday.month}' AND fiscal_year BETWEEN '#{date.yesterday.last_month.year}'
+      AND '#{date.yesterday.month}' AND fiscal_year BETWEEN '#{date.yesterday.beginning_of_year.to_date.year}'
       AND '#{date.yesterday.year}' AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND area_id != 50 AND
       tipecust = 'RETAIL' AND bonus = '-' AND area_id IS NOT NULL AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
       GROUP BY jenisbrgdisc

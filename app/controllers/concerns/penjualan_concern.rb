@@ -4,6 +4,10 @@ module PenjualanConcern
 
   ########## MONTHLY
   
+  def retail_recap_conc
+    @branch_by_brands = Penjualan::Sale.retail_recap_brand(@date, initialize_brach_id)
+  end
+  
   def retail_nasional_this_month_branches_conc
     @products_monthnas_summary = Penjualan::Sale.retail_nasional_this_month_products(@date, initialize_brand)
     @branches_monthnas_summary = Penjualan::Sale.retail_nasional_this_month_branches(@date, initialize_brand)

@@ -7,7 +7,7 @@
     Search by Month Form
   </div>
   <div class="panel-body">
-    <%= form_tag('#{request.fullpath}', {method: :get, :class => "form-inline"}) do %>
+    <%= form_tag(request.fullpath, {method: :get, :class => "form-inline"}) do %>
     <div class="form-group">
       <%= select_month(params[:date].present? ? params[:date][:month].to_i : Date.today.month, {prompt: 'Choose month'}, class: "form-control") %>
     </div>
@@ -75,7 +75,7 @@
                   <td class="<%= coloring(dp.y_percentage) %>"><%= dp.y_percentage.nil? ? 0 : cpercent(dp.y_percentage) %></td>
                   <td><%= currency(dp.month_target) %></td>
                   <td class="<%= coloring(dp.t_percentage) %>"><%= dp.t_percentage.nil? ? 0 : cpercent(dp.t_percentage) %></td>
-                  <td><%= dp.ty_percentage.nil? ? 0 : cpercent(dp.ty_percentage) %></td>
+                  <td class="<%= coloring(dp.ty_percentage) %>"><%= dp.ty_percentage.nil? ? 0 : cpercent(dp.ty_percentage) %></td>
                 </tr>
                 <% end %>
               </tbody>
