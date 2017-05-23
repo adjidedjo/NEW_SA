@@ -10,6 +10,9 @@
         <li class="sidebar-subnav-header">
           Elite
         </li>
+        <li class="<%= 'active' if controller?('penjualan/cirebon/cirebon_elites') && action?('recap') %>">
+          <a href="/penjualan/cirebon/cirebon_elites/recap" title="Daily"> <span>Recap All Brand</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('penjualan/cirebon/cirebon_elites') && action?('daily') %>">
           <a href="/penjualan/cirebon/cirebon_elites/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -35,6 +38,9 @@
       <ul id="cirebon-serenity" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Serenity
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/cirebon/cirebon_serenity') && action?('recap') %>">
+          <a href="/penjualan/cirebon/cirebon_serenity/recap" title="Daily"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/cirebon/cirebon_serenity') && action?('daily') %>">
           <a href="/penjualan/cirebon/cirebon_serenity/daily" title="Daily"> <span>Daily</span> </a>
@@ -62,6 +68,9 @@
         <li class="sidebar-subnav-header">
           Lady
         </li>
+        <li class="<%= 'active' if controller?('penjualan/cirebon/cirebon_lady') && action?('recap') %>">
+          <a href="/penjualan/cirebon/cirebon_lady/recap" title="Daily"> <span>Recap All Brand</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('penjualan/cirebon/cirebon_lady') && action?('daily') %>">
           <a href="/penjualan/cirebon/cirebon_lady/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -87,6 +96,9 @@
       <ul id="cirebon-royal" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Royal
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/cirebon/cirebon_royal') && action?('recap') %>">
+          <a href="/penjualan/cirebon/cirebon_royal/recap" title="Daily"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/cirebon/cirebon_royal') && action?('daily') %>">
           <a href="/penjualan/cirebon/cirebon_royal/daily" title="Daily"> <span>Daily</span> </a>

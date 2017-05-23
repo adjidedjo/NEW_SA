@@ -10,6 +10,9 @@
         <li class="sidebar-subnav-header">
           Elite
         </li>
+        <li class="<%= 'active' if controller?('penjualan/makasar/makasar_elites') && action?('recap') %>">
+          <a href="/penjualan/makasar/makasar_elites/recap" title="Recap"> <span>Recap All Brand</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('penjualan/makasar/makasar_elites') && action?('daily') %>">
           <a href="/penjualan/makasar/makasar_elites/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -38,8 +41,11 @@
         <li class="sidebar-subnav-header">
           Serenity
         </li>
+        <li class="<%= 'active' if controller?('penjualan/makasar/makasar_lady') && action?('recap') %>">
+          <a href="/penjualan/makasar/makasar_lady/recap" title="Recap"> <span>Recap All Brand</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('penjualan/makasar/makasar_serenity') && action?('daily') %>">
-          <a href="/penjualan/makasar/makasar_serenity/daily" title="Daily"> <span>Daily</span> </a>
+          <a href="/penjualan/makasar/makasar_lady/daily" title="Daily"> <span>Daily</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/makasar/makasar_serenity') && action?('weekly') %>">
           <a href="/penjualan/makasar/makasar_serenity/weekly" title="Weekly"> <span>Weekly</span> </a>
@@ -65,6 +71,9 @@
       <ul id="makasar-lady" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Lady
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/makasar/makasar_lady') && action?('recap') %>">
+          <a href="/penjualan/makasar/makasar_lady/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/makasar/makasar_lady') && action?('daily') %>">
           <a href="/penjualan/makasar/makasar_lady/daily" title="Daily"> <span>Daily</span> </a>
@@ -93,6 +102,9 @@
       <ul id="makasar-royal" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Royal
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/makasar/makasar_royal') && action?('recap') %>">
+          <a href="/penjualan/makasar/makasar_royal/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/makasar/makasar_royal') && action?('daily') %>">
           <a href="/penjualan/makasar/makasar_royal/daily" title="Daily"> <span>Daily</span> </a>

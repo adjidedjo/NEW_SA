@@ -10,6 +10,9 @@
         <li class="sidebar-subnav-header">
           ELITE
         </li>
+        <li class="<%= 'active' if controller?('penjualan/bali/bali_elites') && action?('recap') %>">
+          <a href="/penjualan/bali/bali_elites/recap" title="Daily"> <span>Recap All Brand</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('penjualan/bandung/bandung_elites') && action?('daily') %>">
           <a href="/penjualan/bandung/bandung_elites/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -37,6 +40,9 @@
       <ul id="bandung-serenity" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Serenity
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/bandung/bandung_serenity') && action?('recap') %>">
+          <a href="/penjualan/bandung/bandung_serenity/recap" title="Daily"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/bandung/bandung_serenity') && action?('daily') %>">
           <a href="/penjualan/bandung/bandung_serenity/daily" title="Daily"> <span>Daily</span> </a>
@@ -66,6 +72,9 @@
         <li class="sidebar-subnav-header">
           Lady
         </li>
+        <li class="<%= 'active' if controller?('penjualan/bandung/bandung_lady') && action?('recap') %>">
+          <a href="/penjualan/bandung/bandung_lady/recap" title="Daily"> <span>Recap All Brand</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('penjualan/bandung/bandung_lady') && action?('daily') %>">
           <a href="/penjualan/bandung/bandung_lady/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -93,6 +102,9 @@
       <ul id="bandung-royal" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Royal
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/bandung/bandung_royal') && action?('recap') %>">
+          <a href="/penjualan/bandung/bandung_royal/daily" title="Daily"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/bandung/bandung_royal') && action?('daily') %>">
           <a href="/penjualan/bandung/bandung_royal/daily" title="Daily"> <span>Daily</span> </a>

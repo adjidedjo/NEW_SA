@@ -10,6 +10,9 @@
         <li class="sidebar-subnav-header">
           ELITE
         </li>
+        <li class="<%= 'active' if controller?('penjualan/medan/medan_elites') && action?('recap') %>">
+          <a href="/penjualan/medan/medan_elites/recap" title="Recap"> <span>Recap All Brand</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('penjualan/medan/medan_elites') && action?('daily') %>">
           <a href="/penjualan/medan/medan_elites/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -37,6 +40,9 @@
       <ul id="medan-serenity" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Serenity
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/medan/medan_serenity') && action?('recap') %>">
+          <a href="/penjualan/medan/medan_serenity/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/medan/medan_serenity') && action?('daily') %>">
           <a href="/penjualan/medan/medan_serenity/daily" title="Daily"> <span>Daily</span> </a>
@@ -66,6 +72,9 @@
         <li class="sidebar-subnav-header">
           Lady
         </li>
+        <li class="<%= 'active' if controller?('penjualan/medan/medan_lady') && action?('recap') %>">
+          <a href="/penjualan/medan/medan_lady/recap" title="Recap"> <span>Recap All Brand</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('penjualan/medan/medan_lady') && action?('daily') %>">
           <a href="/penjualan/medan/medan_lady/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -93,6 +102,9 @@
       <ul id="medan-royal" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Royal
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/medan/medan_royal') && action?('recap') %>">
+          <a href="/penjualan/medan/medan_royal/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/medan/medan_royal') && action?('daily') %>">
           <a href="/penjualan/medan/medan_royal/daily" title="Daily"> <span>Daily</span> </a>
