@@ -4,14 +4,17 @@
     <li class="sidebar-subnav-header">
       PEKANBARU
     </li>
+    <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_customers') && action?('customer') %>">
+      <a href="/penjualan/pekanbaru/pekanbaru_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_recaps') && action?('recap') %>">
+      <a href="/penjualan/pekanbaru/pekanbaru_recaps/recap" title="Recap"> <em class="icon-people"></em> <span>Recap</span></a>
+    </li>
     <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_elites') %>">
       <a href="#pekanbaru-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
       <ul id="pekanbaru-elite" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           ELITE
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_elites') && action?('recap') %>">
-          <a href="/penjualan/pekanbaru/pekanbaru_elites/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_elites') && action?('daily') %>">
           <a href="/penjualan/pekanbaru/pekanbaru_elites/daily" title="Daily"> <span>Daily</span> </a>
@@ -41,9 +44,6 @@
         <li class="sidebar-subnav-header">
           Serenity
         </li>
-        <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_serenity') && action?('recap') %>">
-          <a href="/penjualan/pekanbaru/pekanbaru_serenity/recap" title="Recap"> <span>Recap All Brand</span> </a>
-        </li>
         <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_serenity') && action?('daily') %>">
           <a href="/penjualan/pekanbaru/pekanbaru_serenity/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -71,9 +71,6 @@
       <ul id="pekanbaru-lady" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Lady
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_lady') && action?('recap') %>">
-          <a href="/penjualan/pekanbaru/pekanbaru_lady/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_lady') && action?('daily') %>">
           <a href="/penjualan/pekanbaru/pekanbaru_lady/daily" title="Daily"> <span>Daily</span> </a>
@@ -103,9 +100,6 @@
         <li class="sidebar-subnav-header">
           Royal
         </li>
-        <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_royal') && action?('recap') %>">
-          <a href="/penjualan/pekanbaru/pekanbaru_royal/recap" title="Recap"> <span>Recap All Brand</span> </a>
-        </li>
         <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_royal') && action?('daily') %>">
           <a href="/penjualan/pekanbaru/pekanbaru_royal/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -127,9 +121,6 @@
                </li>-->
        
       </ul>
-    </li>
-    <li class="<%= 'active' if controller?('penjualan/pekanbaru/pekanbaru_customers') && action?('customer') %>">
-      <a href="/penjualan/pekanbaru/pekanbaru_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
     </li>
   </ul>
 </li>

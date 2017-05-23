@@ -4,14 +4,17 @@
     <li class="sidebar-subnav-header">
       Palembang
     </li>
+    <li class="<%= 'active' if controller?('penjualan/palembang/palembang_customers') && action?('customer') %>">
+      <a href="/penjualan/palembang/palembang_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/palembang/palembang_recaps') && action?('recap') %>">
+      <a href="/penjualan/palembang/palembang_recaps/recap" title="Recap"> <em class="icon-people"></em> <span>Recap</span></a>
+    </li>
     <li class="<%= 'active' if controller?('penjualan/palembang/palembang_elites') %>">
       <a href="#palembang-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
       <ul id="palembang-elite" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Elite
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/palembang/palembang_elites') && action?('recap') %>">
-          <a href="/penjualan/palembang/palembang_elites/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/palembang/palembang_elites') && action?('daily') %>">
           <a href="/penjualan/palembang/palembang_elites/daily" title="Daily"> <span>Daily</span> </a>
@@ -41,9 +44,6 @@
         <li class="sidebar-subnav-header">
           Serenity
         </li>
-        <li class="<%= 'active' if controller?('penjualan/palembang/palembang_serenity') && action?('recap') %>">
-          <a href="/penjualan/palembang/palembang_serenity/recap" title="Recap"> <span>Recap All Brand</span> </a>
-        </li>
         <li class="<%= 'active' if controller?('penjualan/palembang/palembang_serenity') && action?('daily') %>">
           <a href="/penjualan/palembang/palembang_serenity/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -71,9 +71,6 @@
       <ul id="palembang-lady" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Lady
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/palembang/palembang_lady') && action?('recap') %>">
-          <a href="/penjualan/palembang/palembang_lady/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/palembang/palembang_lady') && action?('daily') %>">
           <a href="/penjualan/palembang/palembang_lady/daily" title="Daily"> <span>Daily</span> </a>
@@ -103,9 +100,6 @@
         <li class="sidebar-subnav-header">
           Royal
         </li>
-        <li class="<%= 'active' if controller?('penjualan/palembang/palembang_royal') && action?('recap') %>">
-          <a href="/penjualan/palembang/palembang_royal/recap" title="Recap"> <span>Recap All Brand</span> </a>
-        </li>
         <li class="<%= 'active' if controller?('penjualan/palembang/palembang_royal') && action?('daily') %>">
           <a href="/penjualan/palembang/palembang_royal/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -127,9 +121,6 @@
                 </li>-->
         
       </ul>
-    </li>
-    <li class="<%= 'active' if controller?('penjualan/palembang/palembang_customers') && action?('customer') %>">
-      <a href="/penjualan/palembang/palembang_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
     </li>
   </ul>
 </li>

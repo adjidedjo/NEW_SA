@@ -7,14 +7,6 @@ class Penjualan::Lampung::LampungElitesController < ApplicationController
   before_action :retail_sales_through, only: :sales_through
   before_action :retail_sales_stock_rate, only: :sales_stock_rate
   before_action :retail_success_rate, only: :success_rate
-  before_action :retail_recap, only: :recap
-
-  def recap
-    gon.brand = initialize_brand
-    @branch = "LAMPUNG"
-    @brand_name = initialize_brand
-    render template: "penjualan/template_dashboard/recap_branch"
-  end
   
   def success_rate
     gon.brand = initialize_brand

@@ -4,14 +4,17 @@
     <li class="sidebar-subnav-header">
       Jember
     </li>
+    <li class="<%= 'active' if controller?('penjualan/jember/jember_customers') && action?('customer') %>">
+      <a href="/penjualan/jember/jember_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/jember/jember_recaps') && action?('recap') %>">
+      <a href="/penjualan/jember/jember_recaps/recap" title="Recap"> <em class="icon-people"></em> <span>Recap</span></a>
+    </li>
     <li class="<%= 'active' if controller?('penjualan/jember/jember_elites') %>">
       <a href="#jember-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
       <ul id="jember-elite" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Elite
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/jember/jember_elites') && action?('recap') %>">
-          <a href="/penjualan/jember/jember_elites/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/jember/jember_elites') && action?('daily') %>">
           <a href="/penjualan/jember/jember_elites/daily" title="Daily"> <span>Harian</span> </a>
@@ -35,9 +38,6 @@
         <li class="sidebar-subnav-header">
           Serenity
         </li>
-        <li class="<%= 'active' if controller?('penjualan/jember/jember_serenity') && action?('recap') %>">
-          <a href="/penjualan/jember/jember_serenity/recap" title="Recap"> <span>Recap All Brand</span> </a>
-        </li>
         <li class="<%= 'active' if controller?('penjualan/jember/jember_serenity') && action?('daily') %>">
           <a href="/penjualan/jember/jember_serenity/daily" title="Daily"> <span>Harian</span> </a>
         </li>
@@ -59,9 +59,6 @@
       <ul id="jember-lady" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Lady
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/jember/jember_lady') && action?('recap') %>">
-          <a href="/penjualan/jember/jember_lady/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/jember/jember_lady') && action?('daily') %>">
           <a href="/penjualan/jember/jember_lady/daily" title="Daily"> <span>Harian</span> </a>
@@ -85,9 +82,6 @@
         <li class="sidebar-subnav-header">
           Royal
         </li>
-        <li class="<%= 'active' if controller?('penjualan/jember/jember_royal') && action?('recap') %>">
-          <a href="/penjualan/jember/jember_royal/recap" title="Recap"> <span>Recap All Brand</span> </a>
-        </li>
         <li class="<%= 'active' if controller?('penjualan/jember/jember_royal') && action?('daily') %>">
           <a href="/penjualan/jember/jember_royal/daily" title="Daily"> <span>Harian</span> </a>
         </li>
@@ -103,9 +97,6 @@
                 </li>-->
         
       </ul>
-    </li>
-    <li class="<%= 'active' if controller?('penjualan/jember/jember_customers') && action?('customer') %>">
-      <a href="/penjualan/jember/jember_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
     </li>
   </ul>
 </li>

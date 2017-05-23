@@ -4,14 +4,17 @@
     <li class="sidebar-subnav-header">
       Bali
     </li>
+    <li class="<%= 'active' if controller?('penjualan/bali/bali_customers') && action?('customer') %>">
+      <a href="/penjualan/bali/bali_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/bali/bali_recaps') && action?('recap') %>">
+      <a href="/penjualan/bali/bali_recaps/recap" title="Customer"> <em class="icon-people"></em> <span>Recap</span> </a>
+    </li>
     <li class="<%= 'active' if controller?('penjualan/bali/bali_elites') %>">
       <a href="#bali-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
       <ul id="bali-elite" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Elite
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/bali/bali_elites') && action?('recap') %>">
-          <a href="/penjualan/bali/bali_elites/recap" title="Daily"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/bali/bali_elites') && action?('daily') %>">
           <a href="/penjualan/bali/bali_elites/daily" title="Daily"> <span>Daily</span> </a>
@@ -30,9 +33,9 @@
         </li>
         <!--
         <li class="<%= 'active' if controller?('penjualan/bali/bali_elites') && action?('yearly') %>">
-                  <a href="/penjualan/bali/bali_elites" title="Tahunan"> <span>Tahunan</span> </a>
-                </li>-->
-        
+        <a href="/penjualan/bali/bali_elites" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
       </ul>
     </li>
     <li class="<%= 'active' if controller?('penjualan/bali/bali_serenity') %>">
@@ -40,9 +43,6 @@
       <ul id="bali-serenity" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Serenity
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/bali/bali_serenity') && action?('recap') %>">
-          <a href="/penjualan/bali/bali_serenity/recap" title="Daily"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/bali/bali_serenity') && action?('daily') %>">
           <a href="/penjualan/bali/bali_serenity/daily" title="Daily"> <span>Daily</span> </a>
@@ -61,9 +61,9 @@
         </li>
         <!--
         <li class="<%= 'active' if controller?('penjualan/bali/bali_serenity') && action?('yearly') %>">
-                  <a href="/penjualan/bali/serenity" title="Tahunan"> <span>Tahunan</span> </a>
-                </li>-->
-        
+        <a href="/penjualan/bali/serenity" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
       </ul>
     </li>
     <li class="<%= 'active' if controller?('penjualan/bali/bali_lady') %>">
@@ -71,9 +71,6 @@
       <ul id="bali-lady" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Lady
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/bali/bali_lady') && action?('recap') %>">
-          <a href="/penjualan/bali/bali_lady/recap" title="Daily"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/bali/bali_lady') && action?('daily') %>">
           <a href="/penjualan/bali/bali_lady/daily" title="Daily"> <span>Daily</span> </a>
@@ -92,9 +89,9 @@
         </li>
         <!--
         <li class="<%= 'active' if controller?('penjualan/bali/bali_lady') && action?('yearly') %>">
-                  <a href="/penjualan/bali/bali_lady" title="Tahunan"> <span>Tahunan</span> </a>
-                </li>-->
-        
+        <a href="/penjualan/bali/bali_lady" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
       </ul>
     </li>
     <li class="<%= 'active' if controller?('penjualan/bali/bali_royal') %>">
@@ -102,9 +99,6 @@
       <ul id="bali-royal" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Royal
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/bali/bali_royal') && action?('recap') %>">
-          <a href="/penjualan/bali/bali_royal/recap" title="Daily"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/bali/bali_royal') && action?('daily') %>">
           <a href="/penjualan/bali/bali_royal/daily" title="Daily"> <span>Daily</span> </a>
@@ -123,13 +117,10 @@
         </li>
         <!--
         <li class="<%= 'active' if controller?('penjualan/bali/royal') && action?('yearly') %>">
-                  <a href="/penjualan/bali/royal" title="Tahunan"> <span>Tahunan</span> </a>
-                </li>-->
-        
+        <a href="/penjualan/bali/royal" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
       </ul>
-    </li>
-    <li class="<%= 'active' if controller?('penjualan/bali/bali_customers') && action?('customer') %>">
-      <a href="/penjualan/bali/bali_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
     </li>
   </ul>
 </li>

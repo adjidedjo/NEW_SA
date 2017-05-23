@@ -4,14 +4,17 @@
     <li class="sidebar-subnav-header">
       Jawa Timur
     </li>
+    <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_customers') && action?('customer') %>">
+      <a href="/penjualan/surabaya/surabaya_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_recaps') && action?('recap') %>">
+      <a href="/penjualan/surabaya/surabaya_recaps/recap" title="Recap"> <em class="icon-people"></em> <span>Recap</span></a>
+    </li>
     <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_elites') %>">
       <a href="#surabaya-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
       <ul id="surabaya-elite" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Elite
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_elites') && action?('recap') %>">
-          <a href="/penjualan/surabaya/surabaya_elites/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_elites') && action?('daily') %>">
           <a href="/penjualan/surabaya/surabaya_elites/daily" title="Daily"> <span>Daily</span> </a>
@@ -39,9 +42,6 @@
         <li class="sidebar-subnav-header">
           Serenity
         </li>
-        <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_serenity') && action?('recap') %>">
-          <a href="/penjualan/surabaya/surabaya_serenity/recap" title="Recap"> <span>Recap All Brand</span> </a>
-        </li>
         <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_serenity') && action?('daily') %>">
           <a href="/penjualan/surabaya/surabaya_serenity/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -67,9 +67,6 @@
       <ul id="surabaya-lady" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Lady
-        </li>
-        <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_lady') && action?('recap') %>">
-          <a href="/penjualan/surabaya/surabaya_lady/recap" title="Recap"> <span>Recap All Brand</span> </a>
         </li>
         <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_lady') && action?('daily') %>">
           <a href="/penjualan/surabaya/surabaya_lady/daily" title="Daily"> <span>Daily</span> </a>
@@ -97,9 +94,6 @@
         <li class="sidebar-subnav-header">
           Royal
         </li>
-        <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_royal') && action?('recap') %>">
-          <a href="/penjualan/surabaya/surabaya_royal/recap" title="Recap"> <span>Recap All Brand</span> </a>
-        </li>
         <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_royal') && action?('daily') %>">
           <a href="/penjualan/surabaya/surabaya_royal/daily" title="Daily"> <span>Daily</span> </a>
         </li>
@@ -119,9 +113,6 @@
           <a href="/penjualan/surabaya/royal" title="Tahunan"> <span>Tahunan</span> </a>
         </li> -->
       </ul>
-    </li>
-    <li class="<%= 'active' if controller?('penjualan/surabaya/surabaya_customers') && action?('customer') %>">
-      <a href="/penjualan/surabaya/surabaya_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
     </li>
   </ul>
 </li>

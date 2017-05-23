@@ -7,31 +7,23 @@ class Penjualan::Bekasi::BekasiRoyalController < ApplicationController
   before_action :retail_sales_through, only: :sales_through
   before_action :retail_sales_stock_rate, only: :sales_stock_rate
   before_action :retail_success_rate, only: :success_rate
-  before_action :retail_recap, only: :recap
-
-  def recap
-    gon.brand = initialize_brand
-    @branch = "BEKASI"
-    @brand_name = initialize_brand
-    render template: "penjualan/template_dashboard/recap_branch"
-  end
   
   def success_rate
     gon.brand = initialize_brand
-    @branch = "BEKASI"
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/success_rate"
   end
   
   def sales_stock_rate
     gon.brand = initialize_brand
-    @branch = "BEKASI"
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/sales_stock_rate"
   end
   
   def sales_through
-    @branch = "BEKASI"
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/sales_through"
   end
@@ -39,7 +31,7 @@ class Penjualan::Bekasi::BekasiRoyalController < ApplicationController
   def daily
     gon.brand = initialize_brand
     gon.max = 200
-    @branch = "BEKASI"
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/daily"
   end
@@ -49,7 +41,7 @@ class Penjualan::Bekasi::BekasiRoyalController < ApplicationController
     gon.max = 800
     @customer_summary = Penjualan::Sale.customer_summary(initialize_brach_id, initialize_brand)
     @most_item =  Penjualan::Sale.most_items_ordered_weekly(initialize_brach_id, initialize_brand)
-    @branch = "BEKASI"
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/weekly"
   end
@@ -57,7 +49,7 @@ class Penjualan::Bekasi::BekasiRoyalController < ApplicationController
   def monthly
     gon.brand = initialize_brand
     gon.max = 3500
-    @branch = "BEKASI"
+    @branch = "Jakarta"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/monthly"
   end

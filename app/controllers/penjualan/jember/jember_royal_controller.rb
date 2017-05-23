@@ -4,14 +4,6 @@ class Penjualan::Jember::JemberRoyalController < ApplicationController
   before_action :retail_weekly, only: :weekly
   before_action :retail_monthly, only: :monthly
   before_action :retail_daily, only: :daily
-  before_action :retail_recap, only: :recap
-
-  def recap
-    gon.brand = initialize_brand
-    @branch = "JEMBER"
-    @brand_name = initialize_brand
-    render template: "penjualan/template_dashboard/recap_branch"
-  end
   
   def daily
     gon.brand = initialize_brand

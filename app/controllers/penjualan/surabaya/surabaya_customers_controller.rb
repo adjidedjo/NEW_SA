@@ -2,7 +2,7 @@ class Penjualan::Surabaya::SurabayaCustomersController < ApplicationController
   include RolesHelper
   before_action :authorize_user, :checking_params, :initialize_branch_id
   def customer
-    @branch = "Surabaya"
+    @branch = "Jawa Timur"
     @customer = Penjualan::Customer.reporting_customers(@month, @year, initialize_branch_id)
     render template: "penjualan/template_dashboard/customer"
   end
