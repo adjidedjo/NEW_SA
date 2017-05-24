@@ -16,3 +16,36 @@
 td.pos { color: green; }
 td.neg { color: red; }
 td.yel { color: #FF8C00; }
+
+td {
+  position: relative;
+  padding-left: 15px;
+}
+
+td.arrowUp:after {
+  content: '';
+  position: absolute;
+  top: 13px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 5px 10px 5px;
+  border-color: transparent transparent #00ff09 transparent;
+  line-height: 0px;
+  _border-color: #000000 #000000 #00ff09 #000000;
+  _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+}
+
+td.arrowDown:after {
+  border-width: 10px 5px 0 5px;
+  border-color: #ff0000 transparent transparent transparent;
+  line-height: 0px;
+  _border-color: #ff0000 #000000 #000000 #000000;
+  _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+  content: '';
+  position: absolute;
+  top: 13px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}

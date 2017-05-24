@@ -59,13 +59,13 @@
                   <td><%= currency(dp.val_4) %></td>
                   <td><%= dp.qty_3 %></td>
                   <td><%= currency(dp.val_3) %></td>
-                  <td class="<%= coloring(dp.chg_3) %>"><%= dp.chg_3.nil? ? 0 : cpercent(dp.chg_3) %></td>
+                  <td class="<%= coloring(dp.chg_3) %>"><%= dp.chg_3.nil? ? 0 : cpercent(dp.chg_3.abs) %></td>
                   <td><%= dp.qty_2 %></td>
                   <td><%= currency(dp.val_2) %></td>
-                  <td class="<%= coloring(dp.chg_2) %>"><%= dp.chg_2.nil? ? 0 : cpercent(dp.chg_2) %></td>
+                  <td class="<%= coloring(dp.chg_2) %>"><%= dp.chg_2.nil? ? 0 : cpercent(dp.chg_2.abs) %></td>
                   <td><%= dp.qty_1 %></td>
                   <td><%= currency(dp.val_1) %></td>
-                  <td class="<%= coloring(dp.chg_1) %>"><%= dp.chg_1.nil? ? 0 : cpercent(dp.chg_1) %></td>
+                  <td class="<%= coloring(dp.chg_1) %>"><%= dp.chg_1.nil? ? 0 : cpercent(dp.chg_1.abs) %></td>
                 </tr>
                 <% end %>
               </tbody>

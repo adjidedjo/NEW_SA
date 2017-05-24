@@ -52,12 +52,12 @@
                 <tr class="gradeX">
                   <td><%= currency(dp.val_1) %></td>
                   <td><%= currency(dp.val_2) %></td>
-                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
                   <td><%= currency(dp.v_last_year) %></td>
-                  <td class="<%= coloring(dp.y_percentage) %>"><%= dp.y_percentage.nil? ? 0 : cpercent(dp.y_percentage) %></td>
+                  <td class="<%= coloring(dp.y_percentage) %>"><%= dp.y_percentage.nil? ? 0 : cpercent(dp.y_percentage.abs) %></td>
                   <td><%= currency(dp.target_val) %></td>
-                  <td class="<%= coloring(dp.t_percentage) %>"><%= dp.t_percentage.nil? ? 0 : cpercent(dp.t_percentage) %></td>
-                  <td><%= dp.ty_percentage.nil? ? 0 : cpercent(dp.ty_percentage) %></td>
+                  <td class="<%= coloring(dp.t_percentage) %>"><%= dp.t_percentage.nil? ? 0 : cpercent(dp.t_percentage.abs) %></td>
+                  <td class="<%= coloring_target(dp.ty_percentage) %>"><%= dp.ty_percentage.nil? ? 0 : cpercent(dp.ty_percentage.abs) %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -128,7 +128,7 @@
                   <td><%= currency(dp.val_1) %></td>
                   <td><%= dp.qty_2 %></td>
                   <td><%= currency(dp.val_2) %></td>
-                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -165,7 +165,7 @@
                   <td><%= dp.kodejenis %></td>
                   <td><%= dp.qty_1 %></td>
                   <td><%= currency(dp.val_1) %></td>
-                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
                   <td class="<%= coloring_target(dp.target) %>"><%= dp.target.nil? ? 0 : cpercent(dp.target) %></td>
                   <td><%= dp.rot.nil? ? 0 : (dp.rot < 0 ? 0 : dp.rot) %></td>
                 </tr>
@@ -198,7 +198,7 @@
                   <td><%= dp.salesman %></td>
                   <td><%= dp.qty_1 %></td>
                   <td><%= currency(dp.val_1) %></td>
-                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
                   <td class="<%= coloring_target(dp.target) %>"><%= dp.target.nil? ? 0 : cpercent(dp.target) %></td>
                   <td><%= dp.rot.nil? ? 0 : (dp.rot < 0 ? 0 : dp.rot) %></td>
                 </tr>
@@ -245,7 +245,7 @@
                   <td><%= dp.sb %></td>
                   <td><%= dp.kb %></td>
                   <td><%= currency(dp.total_1) %></td>
-                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -284,7 +284,7 @@
                   <td><%= dp.sb %></td>
                   <td><%= dp.kb %></td>
                   <td><%= currency(dp.total_1) %></td>
-                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
                 </tr>
                 <% end %>
               </tbody>

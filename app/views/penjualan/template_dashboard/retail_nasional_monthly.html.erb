@@ -53,11 +53,11 @@
                 <tr class="gradeX">
                   <td><%= currency(dp.val_1) %></td>
                   <td><%= currency(dp.val_2) %></td>
-                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
                   <td><%= currency(dp.revenue) %></td>
-                  <td class="<%= coloring(dp.y_percentage) %>"><%= dp.y_percentage.nil? ? 0 : cpercent(dp.y_percentage) %></td>
+                  <td class="<%= coloring(dp.y_percentage) %>"><%= dp.y_percentage.nil? ? 0 : cpercent(dp.y_percentage.abs) %></td>
                   <td><%= currency(dp.month_target) %></td>
-                  <td class="<%= coloring(dp.t_percentage) %>"><%= dp.t_percentage.nil? ? 0 : cpercent(dp.t_percentage) %></td>
+                  <td class="<%= coloring(dp.t_percentage) %>"><%= dp.t_percentage.nil? ? 0 : cpercent(dp.t_percentage.abs) %></td>
                   <td><%= dp.ty_percentage.nil? ? 0 : cpercent(dp.ty_percentage) %></td>
                 </tr>
                 <% end %>

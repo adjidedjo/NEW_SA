@@ -50,11 +50,11 @@
                   <td><%= dp.brand %></td>
                   <td><%= currency(dp.qty) %></td>
                   <td><%= currency(dp.val_1) %></td>
-                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage) %></td>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
                   <td><%= currency(dp.target_val) %></td>
-                  <td class="<%= coloring(dp.t_percentage) %>"><%= dp.t_percentage.nil? ? 0 : cpercent(dp.t_percentage) %></td>
+                  <td class="<%= coloring_target(dp.t_percentage) %>"><%= dp.t_percentage.nil? ? 0 : cpercent(dp.t_percentage.abs) %></td>
                   <td><%= currency(dp.year_target) %></td>
-                  <td class="<%= coloring(dp.ty_percentage) %>"><%= dp.ty_percentage.nil? ? 0 : cpercent(dp.ty_percentage) %></td>
+                  <td class="<%= coloring_target(dp.ty_percentage) %>"><%= dp.ty_percentage.nil? ? 0 : cpercent(dp.ty_percentage) %></td>
                 </tr>
                 <% end %>
               </tbody>

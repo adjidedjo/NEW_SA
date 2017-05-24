@@ -63,11 +63,19 @@ module ApplicationHelper
     end
   end
   
+  def triangle(val)
+    if val.nil?
+      ''
+    else
+      val >= 0 ? 'triangle-up' : 'neg'
+    end
+  end
+  
   def coloring(val)
     if val.nil?
       ''
     else
-      val >= 0 ? 'pos' : 'neg'
+      val >= 0 ? 'arrowUp' : 'arrowDown'
     end
   end
   

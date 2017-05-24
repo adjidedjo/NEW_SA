@@ -6,4 +6,6 @@
 //= require penjualan_salesman
 //= require dashboard
 //= require tables
+//= require underscore
+//= require gmaps/google
 //= require_tree ./angle/
