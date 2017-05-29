@@ -6,14 +6,36 @@ Rails.application.routes.draw do
 
   # view routes
   
+  # market share
+  namespace :marketshare do
+    resources :brands
+    resources :brand_values
+  end
+  
   # Sales Productivity
   resources :sales_productivities
   
   # base price
+  get 'base_prices/first_regional_base_prices/elite'
+  get 'base_prices/first_regional_base_prices/lady'
+  get 'base_prices/first_regional_base_prices/serenity'
+  get 'base_prices/first_regional_base_prices/royal'
   get 'base_prices/first_regional_base_prices/base_price_mattress'
   get 'base_prices/first_regional_base_prices/base_price_divan'
   get 'base_prices/first_regional_base_prices/base_price_sorong'
   get 'base_prices/first_regional_base_prices/base_price_foam'
+  get 'base_prices/second_regional_base_prices/elite'
+  get 'base_prices/second_regional_base_prices/lady'
+  get 'base_prices/second_regional_base_prices/serenity'
+  get 'base_prices/second_regional_base_prices/royal'
+  get 'base_prices/third_regional_base_prices/elite'
+  get 'base_prices/third_regional_base_prices/lady'
+  get 'base_prices/third_regional_base_prices/serenity'
+  get 'base_prices/third_regional_base_prices/royal'
+  get 'base_prices/fourth_regional_base_prices/elite'
+  get 'base_prices/fourth_regional_base_prices/lady'
+  get 'base_prices/fourth_regional_base_prices/serenity'
+  get 'base_prices/fourth_regional_base_prices/royal'
   get 'base_prices/second_regional_base_prices/base_price_mattress'
   get 'base_prices/third_regional_base_prices/base_price_mattress'
   get 'base_prices/fourth_regional_base_prices/base_price_mattress'

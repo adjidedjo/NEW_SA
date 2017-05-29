@@ -1,0 +1,38 @@
+<h3>Lady Americana</h3>
+<!-- START carousel-->
+<div id="carousel-example-captions" data-ride="carousel" class="carousel slide">
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-captions" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-captions" data-slide-to="1"></li>
+    <li data-target="#carousel-example-captions" data-slide-to="2"></li>
+  </ol>
+  <div role="listbox" class="carousel-inner">
+    <div class="item active">
+      <%= image_tag("#{@brand_name} p1.jpg", alt: "lady americana") %>
+      <div class="carousel-caption">
+        <p>
+          Lady Americana.
+        </p>
+      </div>
+    </div>
+    <div class="item">
+      <%= image_tag("#{@brand_name} p2.jpg", alt: "lady americana") %>
+      <div class="carousel-caption">
+        <p>
+          Lady Americana.
+        </p>
+      </div>
+    </div>
+    <div class="item">
+      <%= image_tag("#{@brand_name} p3.jpg", alt: "lady americana") %>
+      <div class="carousel-caption">
+        <p>
+          Lady Americana.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a href="#carousel-example-captions" role="button" data-slide="prev" class="left carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Previous</span> </a>
+  <a href="#carousel-example-captions" role="button" data-slide="next" class="right carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span> </a>
+</div>
+<!-- END carousel-->
