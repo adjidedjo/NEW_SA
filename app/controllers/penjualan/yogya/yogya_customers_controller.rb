@@ -24,7 +24,8 @@ class Penjualan::Yogya::YogyaCustomersController < ApplicationController
   end
 
   def authorize_user
-    render template: "pages/notfound" unless general_manager(current_user)
+    render template: "pages/notfound" unless general_manager(current_user) || nsm(current_user, initialize_brand) || 
+    bm(current_user, initialize_brach_id, initialize_brand)
   end
   
   def customer_params

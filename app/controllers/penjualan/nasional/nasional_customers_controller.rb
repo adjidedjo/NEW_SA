@@ -14,7 +14,7 @@ class Penjualan::Nasional::NasionalCustomersController < ApplicationController
   private
 
   def authorize_user
-    render template: "pages/notfound" unless general_manager(current_user)
+    render template: "pages/notfound" unless general_manager(current_user) || nsm(current_user, initialize_brand)
   end
   
   def customer_params
