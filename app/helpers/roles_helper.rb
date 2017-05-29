@@ -19,6 +19,14 @@ module RolesHelper
     user.position == "gm" || user.position == "owner" || user.position == "admin" || user.position == "marketing pusat" || user.position == "admin marketing"
   end
   
+  def nsm_customers(user)
+    (user.position == "nsm" || user.position == "sales support")
+  end
+  
+  def bm_customers(user, branch)
+    (user.position == "bm" || user.position == "admin sales") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
+  end
+  
   def nsm(user, brand)
     (user.position == "nsm" || user.position == "sales support") && user.brand1 == brand
   end
