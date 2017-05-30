@@ -6,5 +6,4 @@
 //= require penjualan_salesman
 //= require dashboard
 //= require tables
-//= require jquery_ujs
 //= require_tree ./angle/
