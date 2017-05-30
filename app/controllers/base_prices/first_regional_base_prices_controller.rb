@@ -6,7 +6,7 @@ class BasePrices::FirstRegionalBasePricesController < ApplicationController
   def elite
     #elite
     @branch = initialize_brach_name
-    @brand_name = 'Elite_REG-1'
+    @brand_name = 'Elite_REG1'
     @region = 'REGIONAL 1'
     render template: "base_prices/template/catalog_elite_base_prices"
   end

@@ -8,7 +8,6 @@ class BasePrices::SecondRegionalBasePricesController < ApplicationController
     @branch = initialize_brach_name
     @brand_name = 'Elite_REG-2'
     @region = 'REGIONAL 2'
-    @bp = BasePrice.finding_bp_mattress(initialize_brach_id)
     render template: "base_prices/template/catalog_elite_base_prices"
   end
   
@@ -16,7 +15,6 @@ class BasePrices::SecondRegionalBasePricesController < ApplicationController
     #lady
     @branch = initialize_brach_name
     @brand_name = 'Lady'
-    @bp = BasePrice.finding_bp_divan(initialize_brach_id)
     render template: "base_prices/template/catalog_lady_base_prices"
   end
   
@@ -24,7 +22,6 @@ class BasePrices::SecondRegionalBasePricesController < ApplicationController
     #serenity
     @branch = initialize_brach_name
     @brand_name = 'Serenity'
-    @bp = BasePrice.finding_bp_sorong(initialize_brach_id)
     render template: "base_prices/template/catalog_serenity_base_prices"
   end
   
@@ -32,7 +29,6 @@ class BasePrices::SecondRegionalBasePricesController < ApplicationController
     #royal
     @branch = initialize_brach_name
     @brand_name = 'Royal'
-    @bp = BasePrice.finding_bp_foam(initialize_brach_id)
     render template: "base_prices/template/catalog_royal_base_prices"
   end
   
