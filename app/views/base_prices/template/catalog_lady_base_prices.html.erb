@@ -8,7 +8,7 @@
   </ol>
   <div role="listbox" class="carousel-inner">
     <div class="item active">
-      <%= image_tag("#{@brand_name} p1.jpg", alt: "lady americana") %>
+      <%= link_to image_tag("#{@brand_name} p1.jpg", alt: "lady americana"), image_path("#{@brand_name} p1.jpg") %>
       <div class="carousel-caption">
         <p>
           Lady Americana.
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="item">
-      <%= image_tag("#{@brand_name} p2.jpg", alt: "lady americana") %>
+      <%= link_to image_tag("#{@brand_name} p2.jpg", alt: "lady americana"), image_path("#{@brand_name} p2.jpg") %>
       <div class="carousel-caption">
         <p>
           Lady Americana.
@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="item">
-      <%= image_tag("#{@brand_name} p3.jpg", alt: "lady americana") %>
+      <%= link_to image_tag("#{@brand_name} p3.jpg", alt: "lady americana"), image_path("#{@brand_name} p3.jpg") %>
       <div class="carousel-caption">
         <p>
           Lady Americana.
