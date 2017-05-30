@@ -13,7 +13,7 @@
   </ol>
   <div role="listbox" class="carousel-inner">
     <div class="item active">
-      <%= link_to image_tag("#{@brand_name} p1.jpg", alt: "elite luxury series"), image_path("#{@brand_name} p1.jpg") %>
+      <%= image_tag("#{@brand_name} p1.jpg", alt: "elite luxury series") %>
       <div class="carousel-caption">
         <h3>LUXURY SERIES</h3>
         <p>
@@ -89,14 +89,3 @@
   <a href="#carousel-example-captions" role="button" data-slide="next" class="right carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span> </a>
 </div>
 <!-- END carousel-->
-
-<div id="popup"></div>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".popup_link").click(function(e) {
-            e.preventDefault();
-            $("#popup").html($('<img>').attr('src', this.href));
-        });
-    }); 
-</script>

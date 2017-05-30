@@ -4,6 +4,7 @@
 
 //--- Sparklines
 //= require sparkline/index
+
 //--- Datatables
 //= require datatables/media/js/jquery.dataTables.min
 //= require datatables-colvis/js/dataTables.colVis
