@@ -15,7 +15,7 @@ class Marketshare::BrandValue < ActiveRecord::Base
       month = ? AND area_id = ?", Date.yesterday.year, Date.yesterday.month, user.branch1).includes(:area, :brand)
   end
   
-  def self.admin_marketshare_index(user)
+  def self.admin_marketshare_index
     where("year = ? AND month = ?", Date.yesterday.year, Date.yesterday.month).includes(:area, :brand)
   end
 end
