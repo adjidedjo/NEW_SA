@@ -23,10 +23,10 @@
       <div class="col-lg-4">
         <fieldset>
           <div class="form-group">
-            <label class="col-sm-3 control-label">Customer</label>
+            <label class="col-sm-3 control-label">Area</label>
             <div class="col-sm-8">
-              <%= f.select(:customer_id, @customer.collect {|bt| [bt.name, bt.id]}, {include_blank: "Select customer"}, {'data-live-search'=>"true", :class => "selectpicker"}) %>
-              <span class="help-block m-b-none">Input brand.</span>
+              <%= f.select(:area_id, @areas.collect {|bt| [bt.area, bt.id]}, {include_blank: "Select area"}, {:class => "form-control m-b"}) %>
+              <span class="help-block m-b-none">Input area of a brand.</span>
             </div>
           </div>
         </fieldset>
@@ -45,10 +45,10 @@
       <div class="col-lg-4">
         <fieldset>
           <div class="form-group">
-            <label class="col-sm-3 control-label">Area</label>
+            <label class="col-sm-3 control-label">Customer</label>
             <div class="col-sm-8">
-              <%= f.select(:area_id, @areas.collect {|bt| [bt.area, bt.id]}, {include_blank: "Select area"}, {:class => "form-control m-b"}) %>
-              <span class="help-block m-b-none">Input area of a brand.</span>
+              <%= f.select(:customer_id, @customer.collect {|bt| [bt.name, bt.id]}, {include_blank: "Select customer"}, {'data-live-search'=>"true", :class => "selectpicker"}) %>
+              <span class="help-block m-b-none">Input brand.</span>
             </div>
           </div>
         </fieldset>
@@ -100,7 +100,7 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-    $('.selectpicker').selectpicker();
-  });
+    $(document).ready(function() {
+        $('.selectpicker').selectpicker();
+    }); 
 </script>

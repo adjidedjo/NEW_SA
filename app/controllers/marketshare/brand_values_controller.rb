@@ -31,7 +31,7 @@ class Marketshare::BrandValuesController < ApplicationController
 
     respond_to do |format|
       if @marketshare_brand_value.save
-        format.html { redirect_to marketshare_brand_values_path, notice: 'Brand value was successfully created.' }
+        format.html { redirect_to new_marketshare_brand_value_path, notice: 'Brand value was successfully created.' }
         format.json { render :show, status: :created, location: @marketshare_brand_value }
       else
         format.html { render :new }
