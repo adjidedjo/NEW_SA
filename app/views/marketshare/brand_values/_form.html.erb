@@ -1,0 +1,106 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Input Marketshare
+  </div>
+  <div class="panel-body">
+    <%= form_for(marketshare_brand_value, class: "form-horizontal") do |f| %>
+    <% if marketshare_brand_value.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        The form contains <%= pluralize(marketshare_brand_value.errors.count, "error") %>.
+      </div>
+      <ul>
+        <% marketshare_brand_value.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <div class="col-lg-12">
+      <div class="col-lg-4">
+        <fieldset>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Customer</label>
+            <div class="col-sm-8">
+              <%= f.select(:customer_id, @customer.collect {|bt| [bt.name, bt.id]}, {include_blank: "Select customer"}, {'data-live-search'=>"true", :class => "selectpicker"}) %>
+              <span class="help-block m-b-none">Input brand.</span>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col-lg-4">
+        <fieldset>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Brand</label>
+            <div class="col-sm-8">
+              <%= f.select(:brand_id, @brands.collect {|bt| [bt.name, bt.id]}, {include_blank: "Select type"}, {'data-live-search'=>"true", :class => "selectpicker"}) %>
+              <span class="help-block m-b-none">Input brand.</span>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col-lg-4">
+        <fieldset>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Area</label>
+            <div class="col-sm-8">
+              <%= f.select(:area_id, @areas.collect {|bt| [bt.area, bt.id]}, {include_blank: "Select area"}, {:class => "form-control m-b"}) %>
+              <span class="help-block m-b-none">Input area of a brand.</span>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="col-lg-12">
+      <div class="col-lg-4">
+        <fieldset>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Month</label>
+            <div class="col-sm-5">
+              <%= select_month(params[:date].present? ? params[:date][:month].to_i : Date.today.month, {prompt: 'Choose month'}, class: "form-control") %>
+              <span class="help-block m-b-none">Input area of a brand.</span>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col-lg-4">
+        <fieldset>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Year</label>
+            <div class="col-sm-5">
+              <%= select_year(Date.today, {start_year: 2017, end_year: Date.today.year, prompt: 'Choose year'}, {class: "form-control"}) %>
+              <span class="help-block m-b-none">Input area of a brand.</span>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col-lg-4">
+        <fieldset>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Amount *</label>
+            <div class="col-sm-8">
+              <%= f.text_field :amount, class: "form-control", required: true %>
+              <span class="help-block m-b-none">Input amount of a brand.</span>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Create Marketshare", class: 'btn btn-info' %>
+      <%= link_to 'Back', marketshare_brand_values_path, class: 'btn btn-warning' %>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.selectpicker').selectpicker();
+  });
+</script>

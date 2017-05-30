@@ -1,0 +1,58 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Brand Master
+  </div>
+  <div class="panel-body">
+    <%= form_for(marketshare_brand, class: "form-horizontal") do |f| %>
+    <% if marketshare_brand.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        The form contains <%= pluralize(marketshare_brand.errors.count, "error") %>.
+      </div>
+      <ul>
+        <% marketshare_brand.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+    
+    <fieldset>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Brand *</label>
+        <div class="col-sm-10">
+          <%= f.text_field :name, class: "form-control", required: true %>
+          <span class="help-block m-b-none">Input Brand as a parameter for marketshare.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="last-child">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Type Brand</label>
+        <div class="col-sm-10">
+          <%= f.select(:brand_type_id, @brand_types.collect {|bt| [bt.name, bt.id]}, {include_blank: "Select type"}, {:class => "form-control m-b"}) %>
+          <span class="help-block m-b-none">Type of brand.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Status</label>
+        <div class="col-sm-10">
+          <%= f.select(:external, [["External", 1], ["Internal", 0]], {include_blank: "Select status"}, {:class => "form-control m-b"}) %>
+          <span class="help-block m-b-none">Status of brand.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <%= f.submit "Create Brand", class: 'btn btn-info' %>
+      <%= link_to 'Back', marketshare_brands_path, class: 'btn btn-warning' %>
+    </div>
+    <% end %>
+  </div>
+</div>

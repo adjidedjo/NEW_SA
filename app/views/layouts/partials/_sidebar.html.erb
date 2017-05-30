@@ -70,7 +70,7 @@
         <a href="#penjualan" title="Penjualan" data-toggle="collapse"> <em class="fa fa-area-chart"></em> <span><b>Sales</b></span> </a>
         <ul id="penjualan" class="nav sidebar-subnav collapse">
           <li class="sidebar-subnav-header">
-            Penjualan
+            Sales
           </li>
           <li class="<%= 'active' if controller?('penjualan') %>">
             <a href="#retail" title="Penjualan" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
@@ -127,6 +127,20 @@
           </li>
         </ul>
       </li>
+      <li class="<%= 'active' if controller?('marketshare') %>">
+        <a href="#marketshare" title="marketshare" data-toggle="collapse"> <em class="fa fa-tasks"></em> <span><b>MarketShare</b></span> </a>
+        <ul id="marketshare" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            MarketShare
+          </li>
+          <li class="<%= 'active' if controller?('marketshare/brand_values') && action?('index') %>">
+            <a href="/marketshare/brand_values/" title="Elite"> <em class="fa fa-cubes"></em> <span><b>MarketShare</b></span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('marketshare/brands') && action?('index') %>">
+            <a href="/marketshare/brands/" title="Elite"> <em class="fa fa-tags"></em> <span><b>Competitor Brand</b></span> </a>
+          </li>
+        </ul>
+      </li>
       <!--
 
       <li class="<%= 'active' if controller?('account_receivables') %>">
@@ -163,7 +177,7 @@
       <!-- END SA Project-->
       <% else %>
       <li class="<%= 'active' if controller?('order') %>">
-        <a href="#order" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Order</b></span> </a>
+        <a href="#order" title="Order" data-toggle="collapse"> <em class="fa fa-share-square"></em> <span><b>Order</b></span> </a>
         <ul id="order" class="nav sidebar-subnav collapse">
           <li class="sidebar-subnav-header">
             Order
@@ -209,6 +223,9 @@
             <a href="/penjualan_salesman/royal" title="Royal"> <span>Royal</span> </a>
           </li>
         </ul>
+      </li>
+      <li class="<%= 'active' if controller?('marketshare/brand_values') && action?('index') %>">
+        <a href="/marketshare/brand_values/" title="Elite"> <em class="fa fa-cubes"></em> <span><b>MarketShare</b></span> </a>
       </li>
       <% end %>
       <li class="<%= 'active' if controller?('stock') %>">

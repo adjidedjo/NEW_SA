@@ -7,6 +7,13 @@
     <meta name="description" content="Bootstrap Admin App + Ruby on Rails">
     <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
     <title>Sales Analytic - Royal Abadi Sejahtera</title>
+    <!-- =============== VENDOR SCRIPTS ===============-->
+    <%= javascript_include_tag 'base' %>
+    <!-- =============== VIEW VENDOR SCRIPTS ===============-->
+    <%= javascript_include_tag params[:controller] %>
+    <!-- =============== APP SCRIPTS ===============-->
+    <%= javascript_include_tag 'application' %>
+    
     <%= Gon::Base.render_data(init: true) %>
     <!-- =============== VENDOR STYLES ===============-->
     <%= stylesheet_link_tag 'base' %>
@@ -19,40 +26,36 @@
 
   <body>
     <% if user_signed_in? %>
-      <div class="wrapper">
-        <!-- top navbar-->
-        <header class="topnavbar-wrapper">
-          <%= render partial: "layouts/partials/topnavbar" %>
-        </header>
-        <!-- sidebar-->
-        <aside class="aside">
-          <%= render partial: "layouts/partials/sidebar" %>
-        </aside>
-        <!-- offsidebar-->
-        <aside class="offsidebar hide">
-          <%= render partial: "layouts/partials/offsidebar" %>
-        </aside>
-        <!-- Main section-->
-        <section>
-          <!-- Page content-->
-          <div class="content-wrapper">
-            <%= yield %>
-          </div>
-        </section>
-        <!-- Page footer-->
-        <footer>
-          <%= render partial: "layouts/partials/footer" %>
-        </footer>
+    <div class="wrapper">
+      <!-- top navbar-->
+      <header class="topnavbar-wrapper">
+        <%= render partial: "layouts/partials/topnavbar" %>
+      </header>
+      <!-- sidebar-->
+      <aside class="aside">
+        <%= render partial: "layouts/partials/sidebar" %>
+      </aside>
+      <!-- offsidebar-->
+      <aside class="offsidebar hide">
+        <%= render partial: "layouts/partials/offsidebar" %>
+      </aside>
+      <!-- Main section-->
+      <section>
+        <!-- Page content-->
+        <div class="content-wrapper">
+
+          <%= flash_messages %>
+          <%= yield %>
+        </div>
+      </section>
+      <!-- Page footer-->
+      <footer>
+        <%= render partial: "layouts/partials/footer" %>
+      </footer>
       <% else %>
-        <%= render partial: "devise/sessions/new" %>
+      <%= render partial: "devise/sessions/new" %>
       <% end %>
     </div>
-    <!-- =============== VENDOR SCRIPTS ===============-->
-    <%= javascript_include_tag 'base' %>
-    <!-- =============== VIEW VENDOR SCRIPTS ===============-->
-    <%= javascript_include_tag params[:controller] %>
-    <!-- =============== APP SCRIPTS ===============-->
-    <%= javascript_include_tag 'application' %>
 
     <%= yield :body_area %>
 
