@@ -73,7 +73,7 @@ class Penjualan::Sale < ActiveRecord::Base
       fiscal_year = '#{date.yesterday.year}' AND jenisbrgdisc = '#{brand}' AND
       area_id NOT IN (1,50) AND tipecust = 'RETAIL' AND bonus = '-' AND
       area_id IS NOT NULL
-      GROUP BY kodeartikel
+      GROUP BY namaartikel
     ) as lc
     LEFT JOIN
       (
