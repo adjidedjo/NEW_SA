@@ -72,6 +72,9 @@
           <li class="sidebar-subnav-header">
             Sales
           </li>
+          <li class="<%= 'active' if controller?('penjualan/nasional/nasional_channels') && action?('all_channel') %>">
+            <a href="/penjualan/nasional/nasional_channels/all_channel" title="Channels"> <em class="icon-people"></em><span>National Channels</span> </a>
+          </li>
           <li class="<%= 'active' if controller?('penjualan') %>">
             <a href="#retail" title="Penjualan" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
             <ul id="retail" class="nav sidebar-subnav collapse">

@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   get 'penjualan_salesman/monthly'
   
   #Nasional
+  get 'penjualan/nasional/nasional_channels/all_channel'
   get 'penjualan/nasional/nasional_customers/national_customer'
   get 'penjualan/nasional/nasional_elites/daily'
   get 'penjualan/nasional/nasional_elites/weekly'
