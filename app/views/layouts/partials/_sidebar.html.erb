@@ -254,7 +254,7 @@
           <%= render "layouts/partials/stock_pekanbaru" %>
         </ul>
       </li>
-      <% if current_user.position == 'admin sales'%>
+      <% if current_user.position == 'admin sales' || current_user.position == 'admin' %>
       <li class="<%= 'active' if controller?('sales_productivities') %>">
         <a href="#success" title="success" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Success Rate</b></span> </a>
         <ul id="success" class="nav sidebar-subnav collapse">
