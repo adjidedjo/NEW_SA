@@ -32,7 +32,7 @@ module RolesHelper
   end
   
   def bm(user, branch, brand)
-    (user.position == "bm" || user.position == "admin sales") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
+    (user.position == "bm" || user.position == "admin sales" || user.position == "accounting") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
   end
   
   def sales(user, branch, brand)
