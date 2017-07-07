@@ -32,8 +32,6 @@ class ApplicationController < ActionController::Base
   def retail_uncollectable_ar
     retail_uncollectable_ar10_conc
     retail_uncollectable_ar20_conc
-    retail_uncollectable_ar31_conc
-    retail_uncollectable_ar100_conc
   end
   
   def retail_success_rate

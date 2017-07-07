@@ -15,12 +15,4 @@ module ArConcern
     @u_ar20 = AccountReceivable.find_uncollectable20(initialize_brand, initialize_brach_id)
   end
   
-  def retail_uncollectable_ar31_conc
-    @u_ar31 = AccountReceivable.find_uncollectable31(initialize_brand, initialize_brach_id)
-  end
-  
-  def retail_uncollectable_ar100_conc
-    @u_ar100 = AccountReceivable.find_uncollectable100(initialize_brand, initialize_brach_id)
-  end
-  
 end
