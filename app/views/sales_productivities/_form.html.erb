@@ -121,8 +121,10 @@
           </fieldset>
         </div>
         <%= f.submit f.object.new_record? ? "CREATE" : "UPDATE", class: "btn btn-primary" %>
+        <% unless f.object.new_record? %>
         <%= button_to "DELETE", sales_productivities_path(:id => f.object.id),
-                    method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+        method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+        <% end %>
         <% end %>
       </div>
     </div>
