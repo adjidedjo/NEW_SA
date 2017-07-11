@@ -13,7 +13,7 @@
         <div id="panelChart9" class="panel panel-default panel-demo">
           <div class="panel-heading">
             <div class="panel-title" style="text-align: center">
-              SALES PRODUCTIVITY <%= 1.month.ago.strftime("%B %Y") %> REPORT for <%= @branch %> BRANCH STATISTIC
+              SALES PRODUCTIVITY <%= Date.yesterday.strftime("%B %Y") %> REPORT for <%= @branch %> BRANCH STATISTIC
             </div>
           </div>
           <div class="panel-body">
@@ -30,7 +30,7 @@
       <div class="col-lg-7">
         <div class="panel panel-info">
           <div class="panel-heading">
-            SUCCESS RATE <%= 1.month.ago.strftime("%B %Y") %> REPORT for <%= @branch %> BRANCH
+            SUCCESS RATE <%= Date.yesterday.strftime("%B %Y") %> REPORT for <%= @branch %> BRANCH
           </div>
           <div class="panel-body">
             <table id="datatable_product" class="table table-striped table-hover">
@@ -61,7 +61,7 @@
       <div class="col-lg-5">
         <div class="panel panel-info">
           <div class="panel-heading">
-            SALES PRODUCTIVITY <%= 1.month.ago.strftime("%B %Y") %> REPORT for <%= @branch %> BRANCH
+            SALES PRODUCTIVITY <%= Date.yesterday.strftime("%B %Y") %> REPORT for <%= @branch %> BRANCH
           </div>
           <div class="panel-body">
             <table id="datatable_customer" class="table table-striped table-hover">
