@@ -27,7 +27,7 @@
               <tr>
                 <td><%= find_sales(sm.salesmen_id).nama %></td>
                 <td><%= sm.brand %></td>
-                <td><%= sm.created_at.strftime("%d %B %Y") %></td>
+                <td><%= sm.date.strftime("%d %B %Y") %></td>
                 <td class="editable_<%= sm.id %>_npvnc"> <%= best_in_place sm, :npvnc, as: :input , activator: ".editable_#{sm.id}_npvnc", path: sales_productivities_path %> </td>
                 <td class="editable_<%= sm.id %>_nvc"> <%= best_in_place sm, :nvc, as: :input , activator: ".editable_#{sm.id}_nvc", path: sales_productivities_path %> </td>
                 <td class="editable_<%= sm.id %>_ncdv"> <%= best_in_place sm, :ncdv, as: :input , activator: ".editable_#{sm.id}_ncdv ", path: sales_productivities_path %> </td>
