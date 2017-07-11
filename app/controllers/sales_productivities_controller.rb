@@ -4,7 +4,7 @@ class SalesProductivitiesController < ApplicationController
   # GET /sales_productivities.json
   def index
     @sales_productivities = SalesProductivity.where("DATE(date) >= ? AND branch_id = ?", 
-    3.days.ago, current_user.branch1)
+    5.days.ago, current_user.branch1)
 
     respond_to do |format|
       format.html # index.html.erb
