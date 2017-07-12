@@ -8,7 +8,7 @@ class SalesProductivityReport < ActiveRecord::Base
     ) AS spr
     LEFT JOIN
     (
-     SELECT id, nama FROM users
+     SELECT id, nama FROM salesmen
     ) AS usr ON usr.id = spr.salesmen_id")
   end
 end
