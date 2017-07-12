@@ -34,7 +34,7 @@ end
   end
   
   def find_sales(sales)
-    User.find(sales)
+    Salesman.find(sales)
   end
   
   def find_brand(brand)

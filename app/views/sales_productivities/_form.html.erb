@@ -25,7 +25,7 @@
           <div class="form-group">
             <label class="col-lg-2 control-label">NAMA</label>
             <div class="col-lg-10">
-              <%= f.select "salesmen_id", options_for_select(@salesman.map {|a| [a.name, a.user_id]}), class: 'form-control' %>
+              <%= f.select "salesmen_id", options_for_select(@salesman.map {|a| [a.nama, a.id]}), class: 'form-control' %>
             </div>
           </div>
         </fieldset>

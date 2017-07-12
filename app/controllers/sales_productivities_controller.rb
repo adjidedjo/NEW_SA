@@ -3,8 +3,9 @@ class SalesProductivitiesController < ApplicationController
   # GET /sales_productivities
   # GET /sales_productivities.json
   def index
-    @sales_productivities = SalesProductivity.where("DATE(date) >= ? AND branch_id = ?", 
-    5.days.ago, current_user.branch1)
+    @sales_productivities = current_user.branch1.present? ? SalesProductivity.where("DATE(date) >= ? AND branch_id = ?", 
+    5.days.ago, current_user.branch1) : SalesProductivity.where("DATE(date) >= ?", 
+    5.days.ago)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,7 +28,9 @@ class SalesProductivitiesController < ApplicationController
   # GET /sales_productivities/new.json
   def new
     @sales_productivity = SalesProductivity.new
-    @salesman = SalesProductivity.find_by_sql("SELECT name, user_id FROM sales_targets WHERE branch = '#{current_user.branch1}' GROUP BY name")
+    @salesman = current_user.branch1.present? ? 
+    SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen 
+    WHERE branch_id = '#{current_user.branch1}'") : SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen")
     @brand = SalesProductivity.find_by_sql("SELECT jde_brand, id FROM tbbjmerk")
 
     respond_to do |format|
@@ -47,7 +50,7 @@ class SalesProductivitiesController < ApplicationController
   def create
     @sales_productivity = SalesProductivity.new(sales_productivity_params)
     @sales_productivity.date = sales_productivity_params[:date].to_date
-    @sales_productivity.branch_id = User.find(sales_productivity_params[:salesmen_id]).branch1
+    @sales_productivity.branch_id = Salesman.find(sales_productivity_params[:salesmen_id]).branch_id
     @sales_productivity.month = sales_productivity_params[:date].to_date.month
     @sales_productivity.year = sales_productivity_params[:date].to_date.year
 
