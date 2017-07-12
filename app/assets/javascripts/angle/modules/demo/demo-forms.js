@@ -52,7 +52,7 @@
                     clear : 'fa fa-trash'
                 },
                format : 'DD/MM/YYYY',
-               minDate: d.setDate(d.getDate()-2),
+               // minDate: d.setDate(d.getDate()-2),
                maxDate: new Date()
             }).attr('readonly', 'true');
             // only time
