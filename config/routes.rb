@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :salesmen
   devise_for :users
   # defaults to dashboard
   root :to => 'pages#template'

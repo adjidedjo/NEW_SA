@@ -1,4 +1,23 @@
 class AccountReceivable < ActiveRecord::Base
+  def self.customer_collectable(date, brand, branch)
+    find_by_sql("SELECT ar.customer, ar.salesman, ar.open_amount, bd.bad_debt FROM
+      (
+        SELECT
+        SUM(CASE WHEN fiscal_month = '#{1.month.ago.month}' AND fiscal_year = '#{1.month.ago.year}' THEN open_amount END) open_amount,
+        customer, salesman, due_date, brand, branch FROM
+        account_receivables WHERE branch = '#{branch}' AND brand = '#{brand}'
+        GROUP BY customer, brand
+      ) AS ar
+      LEFT JOIN
+      (
+        SELECT
+        SUM(CASE WHEN fiscal_month < '#{1.month.ago.month}' AND fiscal_year = '#{2.month.ago.year}' THEN open_amount END) bad_debt,
+        customer, salesman, due_date, brand, branch FROM
+        account_receivables GROUP BY customer
+      ) AS bd ON bd.customer = ar.customer AND bd.brand = ar.brand AND bd.branch = ar.branch
+    ")
+  end
+
   def self.find_collectable_percentage(brand, branch)
     find_by_sql("
       SELECT ROUND(((ib.invoiced/st.sales_total)*100.0),2) AS percent, 'C New Monthly Collectable' AS description
@@ -102,22 +121,16 @@ class AccountReceivable < ActiveRecord::Base
   end
 
   def self.find_uncollectable10(brand, branch)
-    find_by_sql("SELECT customer, SUM(open_amount) AS open_amount, salesman FROM account_receivables WHERE branch = '#{branch}' AND brand = '#{brand}' AND
-    due_date BETWEEN '#{10.days.ago.to_date}' AND '#{1.days.ago.to_date}' AND pay_status != 'P' GROUP BY customer_number")
+    find_by_sql("SELECT customer, SUM(open_amount) AS open_amount, salesman, due_date FROM account_receivables WHERE
+    branch = '#{branch}' AND brand = '#{brand}' AND fiscal_month = '#{1.month.ago.month}' AND
+    fiscal_year = '#{1.month.ago.year}' AND open_amount != 0 AND
+    pay_status != 'P' GROUP BY customer_number")
   end
 
   def self.find_uncollectable20(brand, branch)
-    find_by_sql("SELECT customer, SUM(open_amount) AS open_amount, salesman FROM account_receivables WHERE branch = '#{branch}' AND brand = '#{brand}' AND
-    due_date BETWEEN '#{20.days.ago.to_date}' AND '#{11.days.ago.to_date}' AND pay_status != 'P' GROUP BY customer_number")
-  end
-
-  def self.find_uncollectable31(brand, branch)
-    find_by_sql("SELECT customer, SUM(open_amount) AS open_amount, salesman FROM account_receivables WHERE branch = '#{branch}' AND brand = '#{brand}' AND
-    due_date BETWEEN '#{31.days.ago.to_date}' AND '#{21.days.ago.to_date}' AND pay_status != 'P' GROUP BY customer_number")
-  end
-
-  def self.find_uncollectable100(brand, branch)
-    find_by_sql("SELECT customer, SUM(open_amount) AS open_amount, salesman FROM account_receivables WHERE branch = '#{branch}' AND brand = '#{brand}' AND
-    due_date < '#{31.days.ago.to_date}' AND pay_status != 'P' GROUP BY customer_number")
+    find_by_sql("SELECT customer, SUM(open_amount) AS open_amount, salesman, due_date FROM account_receivables WHERE
+    branch = '#{branch}' AND brand = '#{brand}' AND fiscal_month <= '#{2.month.ago.month}' AND
+    fiscal_year <= '#{2.month.ago.year}' AND open_amount != 0 AND
+    pay_status != 'P' GROUP BY customer_number")
   end
 end

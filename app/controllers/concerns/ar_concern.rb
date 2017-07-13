@@ -3,6 +3,7 @@ module ArConcern
   extend ActiveSupport::Concern
   
   def retail_collectable_ar_conc
+    @cus_ar = AccountReceivable.customer_collectable(@date, initialize_brand, initialize_brach_id)
     @u_ar = AccountReceivable.find_collectable(initialize_brand, initialize_brach_id)
     @u_percentage = AccountReceivable.find_collectable_percentage(initialize_brand, initialize_brach_id)
   end
