@@ -1,0 +1,157 @@
+<% if branch(current_user, 2) %>
+<li class="<%= 'active' if controller?('credit_limits/bandung') %>">
+  <a href="#crbandung" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Jawa Barat</span> </a>
+  <ul id="crbandung" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Jawa Barat
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/bandung/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/bandung/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+<% if branch(current_user, 9) %>
+<li class="<%= 'active' if controller?('credit_limits/cirebon') %>">
+  <a href="#crcirebon" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Cirebon</span> </a>
+  <ul id="crcirebon" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Cirebon
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/cirebon/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/cirebon/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+<% if branch(current_user, 3) %>
+<li class="<%= 'active' if controller?('credit_limits/bekasi') %>">
+  <a href="#crjakarta" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Jakarta</span> </a>
+  <ul id="crjakarta" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Jakarta
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/bekasi/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/bekasi/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+<% if branch(current_user, 8) %>
+<li class="<%= 'active' if controller?('credit_limits/semarang') %>">
+  <a href="#crsemarang" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Semarang</span> </a>
+  <ul id="crsemarang" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Semarang
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/semarang/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/semarang/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+<% if branch(current_user, 10) %>
+<li class="<%= 'active' if controller?('credit_limits/yogya') %>">
+  <a href="#cryogya" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Yogyakarta</span> </a>
+  <ul id="cryogya" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Yogyakarta
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/yogya/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/yogya/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+<% if branch(current_user, 7) %>
+<li class="<%= 'active' if controller?('credit_limits/surabaya') %>">
+  <a href="#crsurabaya" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Jawa Timur</span> </a>
+  <ul id="crsurabaya" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Jawa Timur
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/surabaya/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/surabaya/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+<% if branch(current_user, 4) %>
+<li class="<%= 'active' if controller?('credit_limits/bali') %>">
+  <a href="#crbali" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Bali</span> </a>
+  <ul id="crbali" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Bali
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/bali/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/bali/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+<% if branch(current_user, 19) %>
+<li class="<%= 'active' if controller?('credit_limits/makasar') %>">
+  <a href="#crmakasar" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Makasar</span> </a>
+  <ul id="crmakasar" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Makasar
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/makasar/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/makasar/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+<% if branch(current_user, 11) %>
+<li class="<%= 'active' if controller?('credit_limits/palembang') %>">
+  <a href="#crpalembang" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Palembang</span> </a>
+  <ul id="crpalembang" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Palembang
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/palembang/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/palembang/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+<% if branch(current_user, 13) %>
+<li class="<%= 'active' if controller?('credit_limits/lampung') %>">
+  <a href="#crlampung" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Lampung</span> </a>
+  <ul id="crlampung" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Lampung
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/lampung/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/lampung/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+<% if branch(current_user, 5) %>
+<li class="<%= 'active' if controller?('credit_limits/medan') %>">
+  <a href="#crmedan" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Medan</span> </a>
+  <ul id="crmedan" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Medan
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/medan/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/medan/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+<% if branch(current_user, 20) %>
+<li class="<%= 'active' if controller?('credit_limits/pekanbaru') %>">
+  <a href="#crpekanbaru" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Pekanbaru</span> </a>
+  <ul id="crpekanbaru" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Pekanbaru
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/pekanbaru/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/pekanbaru/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
+

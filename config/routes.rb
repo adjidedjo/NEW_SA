@@ -110,6 +110,8 @@ Rails.application.routes.draw do
   get 'stock/bestari/stock_royal/stock_display'
   
   # Bandung
+  get 'credit_limits/bandung/credit_checks/credit_checks'
+  
   get 'order/bandung/bandung_elites/order'
   get 'order/bandung/bandung_serenity/order'
   get 'order/bandung/bandung_lady/order'
@@ -170,6 +172,7 @@ Rails.application.routes.draw do
   get 'account_receivables/bandung/royal_ar/uncollectable_ar'
   get 'account_receivables/bandung/royal_ar/collectable_ar'
   # Cirebon
+  get 'credit_limits/cirebon/credit_checks/credit_checks'
   get 'order/cirebon/cirebon_elites/order'
   get 'order/cirebon/cirebon_serenity/order'
   get 'order/cirebon/cirebon_lady/order'
@@ -229,6 +232,7 @@ Rails.application.routes.draw do
   get 'account_receivables/cirebon/royal_ar/uncollectable_ar'
   get 'account_receivables/cirebon/royal_ar/collectable_ar'
   # Bekasi
+  get 'credit_limits/bekasi/credit_checks/credit_checks'
   get 'order/bekasi/bekasi_elites/order'
   get 'order/bekasi/bekasi_serenity/order'
   get 'order/bekasi/bekasi_lady/order'
@@ -288,6 +292,7 @@ Rails.application.routes.draw do
   get 'account_receivables/bekasi/royal_ar/uncollectable_ar'
   get 'account_receivables/bekasi/royal_ar/collectable_ar'
   # Tangerang
+  get 'credit_limits/tangerang/credit_checks/credit_checks'
   get 'order/tangerang/tangerang_elites/order'
   get 'order/tangerang/tangerang_serenity/order'
   get 'order/tangerang/tangerang_lady/order'
@@ -347,6 +352,7 @@ Rails.application.routes.draw do
   get 'account_receivables/tangerang/royal_ar/uncollectable_ar'
   get 'account_receivables/tangerang/royal_ar/collectable_ar'
   # Surabaya
+  get 'credit_limits/surabaya/credit_checks/credit_checks'
   get 'order/surabaya/surabaya_elites/order'
   get 'order/surabaya/surabaya_serenity/order'
   get 'order/surabaya/surabaya_lady/order'
@@ -406,6 +412,7 @@ Rails.application.routes.draw do
   get 'account_receivables/surabaya/royal_ar/uncollectable_ar'
   get 'account_receivables/surabaya/royal_ar/collectable_ar'
   # Bali
+  get 'credit_limits/bali/credit_checks/credit_checks'
   get 'order/bali/bali_elites/order'
   get 'order/bali/bali_serenity/order'
   get 'order/bali/bali_lady/order'
@@ -465,6 +472,7 @@ Rails.application.routes.draw do
   get 'account_receivables/bali/royal_ar/uncollectable_ar'
   get 'account_receivables/bali/royal_ar/collectable_ar'
   # Makasar
+  get 'credit_limits/makasar/credit_checks/credit_checks'
   get 'order/makasar/makasar_elites/order'
   get 'order/makasar/makasar_serenity/order'
   get 'order/makasar/makasar_lady/order'
@@ -524,6 +532,7 @@ Rails.application.routes.draw do
   get 'account_receivables/makasar/royal_ar/uncollectable_ar'
   get 'account_receivables/makasar/royal_ar/collectable_ar'
   # Jember
+  get 'credit_limits/jember/credit_checks/credit_checks'
   get 'order/jember/jember_elites/order'
   get 'order/jember/jember_serenity/order'
   get 'order/jember/jember_lady/order'
@@ -567,6 +576,7 @@ Rails.application.routes.draw do
   get 'stock/jember/stock_royal/stock_service'
   get 'stock/jember/stock_royal/stock_display'
   # Lampung
+  get 'credit_limits/lampung/credit_checks/credit_checks'
   get 'order/lampung/lampung_elites/order'
   get 'order/lampung/lampung_serenity/order'
   get 'order/lampung/lampung_lady/order'
@@ -626,6 +636,7 @@ Rails.application.routes.draw do
   get 'account_receivables/lampung/royal_ar/uncollectable_ar'
   get 'account_receivables/lampung/royal_ar/collectable_ar'
   # Palembang
+  get 'credit_limits/palembang/credit_checks/credit_checks'
   get 'order/palembang/palembang_elites/order'
   get 'order/palembang/palembang_serenity/order'
   get 'order/palembang/palembang_lady/order'
@@ -685,6 +696,7 @@ Rails.application.routes.draw do
   get 'account_receivables/palembang/royal_ar/uncollectable_ar'
   get 'account_receivables/palembang/royal_ar/collectable_ar'
   # Semarang
+  get 'credit_limits/semarang/credit_checks/credit_checks'
   get 'order/semarang/semarang_elites/order'
   get 'order/semarang/semarang_serenity/order'
   get 'order/semarang/semarang_lady/order'
@@ -744,6 +756,7 @@ Rails.application.routes.draw do
   get 'account_receivables/semarang/royal_ar/uncollectable_ar'
   get 'account_receivables/semarang/royal_ar/collectable_ar'
   # Yogyakarta
+  get 'credit_limits/yogya/credit_checks/credit_checks'
   get 'order/yogya/yogya_elites/order'
   get 'order/yogya/yogya_serenity/order'
   get 'order/yogya/yogya_lady/order'
@@ -803,6 +816,7 @@ Rails.application.routes.draw do
   get 'account_receivables/yogya/royal_ar/uncollectable_ar'
   get 'account_receivables/yogya/royal_ar/collectable_ar'
   # Medan
+  get 'credit_limits/medan/credit_checks/credit_checks'
   get 'order/medan/medan_elites/order'
   get 'order/medan/medan_serenity/order'
   get 'order/medan/medan_lady/order'
@@ -862,6 +876,7 @@ Rails.application.routes.draw do
   get 'account_receivables/medan/royal_ar/uncollectable_ar'
   get 'account_receivables/medan/royal_ar/collectable_ar'
   # Pekanbaru
+  get 'credit_limits/pekanbaru/credit_checks/credit_checks'
   get 'order/pekanbaru/pekanbaru_elites/order'
   get 'order/pekanbaru/pekanbaru_serenity/order'
   get 'order/pekanbaru/pekanbaru_lady/order'

@@ -1,0 +1,3 @@
+class CreditLimitsController < ApplicationController
+  
+end
