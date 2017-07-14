@@ -4,8 +4,8 @@ class SalesProductivitiesController < ApplicationController
   # GET /sales_productivities.json
   def index
     @sales_productivities = current_user.branch1.present? ? SalesProductivity.where("DATE(date) >= ? AND branch_id = ?", 
-    5.days.ago, current_user.branch1) : SalesProductivity.where("DATE(date) >= ?", 
-    5.days.ago)
+    Date.yesterday.beginning_of_month, current_user.branch1) : SalesProductivity.where("DATE(date) >= ?", 
+    Date.yesterday.beginning_of_month)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,7 +42,7 @@ class SalesProductivitiesController < ApplicationController
   # GET /sales_productivities/1/edit
   def edit
     @sales_productivity = SalesProductivity.find(params[:id])
-    @salesman = User.find(@sales_productivity.salesmen_id)
+    @salesman = Salesman.find(@sales_productivity.salesmen_id)
   end
 
   # POST /sales_productivities

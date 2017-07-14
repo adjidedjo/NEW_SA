@@ -28,11 +28,11 @@
                 <td><%= find_sales(sm.salesmen_id).nama %></td>
                 <td><%= sm.brand %></td>
                 <td><%= sm.date.strftime("%d %B %Y") %></td>
-                <td class="editable_<%= sm.id %>_npvnc"> <%= best_in_place sm, :npvnc, as: :input , activator: ".editable_#{sm.id}_npvnc", path: sales_productivities_path %> </td>
-                <td class="editable_<%= sm.id %>_nvc"> <%= best_in_place sm, :nvc, as: :input , activator: ".editable_#{sm.id}_nvc", path: sales_productivities_path %> </td>
-                <td class="editable_<%= sm.id %>_ncdv"> <%= best_in_place sm, :ncdv, as: :input , activator: ".editable_#{sm.id}_ncdv ", path: sales_productivities_path %> </td>
-                <td class="editable_<%= sm.id %>_ncc"> <%= best_in_place sm, :ncc, as: :input , activator: ".editable_#{sm.id}_ncc ", path: sales_productivities_path %> </td>
-                <td class="editable_<%= sm.id %>_ncdc"> <%= best_in_place sm, :ncdc, as: :input , activator: ".editable_#{sm.id}_ncdc ", path: sales_productivities_path %> </td>
+                <td><%= sm.npvnc %></td>
+                <td><%= sm.nvc %></td>
+                <td><%= sm.ncdv %></td>
+                <td><%= sm.ncc %></td>
+                <td><%= sm.ncdc %></td>
                 <td><%= link_to "EDIT", edit_sales_productivity_path(sm) %></td>
               </tr>
               <% end %>
