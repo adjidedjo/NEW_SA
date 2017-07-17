@@ -4,7 +4,7 @@ class CreditLimits::Surabaya::CreditChecksController < ApplicationController
   
   def credit_checks
     @credit_checks = CustomerLimit.find_by_sql("
-      SELECT * FROM customer_limits WHERE area_id = '#{initialize_brach_id}'
+      SELECT * FROM customer_limits WHERE area_id = '#{initialize_brach_id}' AND open_amount > 0 AND amount_due > 0
     ")
     @branch_name = Area.find(initialize_brach_id).area
     render template: "credit_limits/templates/credit_check"
