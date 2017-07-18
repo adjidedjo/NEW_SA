@@ -14,7 +14,7 @@
             Customer Credit Limit <b><%= Date.today.strftime('%d %B %Y')%></b>
           </div>
           <div class="panel-body">
-            <table id="held_orders" class="table table-striped table-hover">
+            <table id="credit_limits" class="table table-striped table-hover">
               <thead>
                 <tr>
                   <th>CO</th>
@@ -31,13 +31,13 @@
                 <% @credit_checks.each do |cc| %>
                 <tr class="gradeX">
                   <td><%= cc.co %></td>
-                  <td><%= cc.address_number %></td>
+                  <td><%= link_to cc.address_number, credit_limits_bandung_credit_checks_credit_details_path(customer_id: cc.address_number, co: cc.co) %></td>
                   <td><%= cc.name %></td>
                   <td><%= cc.city %></td>
-                  <td><%= currency(cc.limit.to_i) %></td>
+                  <td><%= currency(cc.credit_limit.to_i) %></td>
                   <td><%= currency(cc.open_amount.to_i) %></td>
                   <td><%= currency(cc.amount_due.to_i) %></td>
-                  <td><%= currency(cc.limit.to_i - (cc.amount_due.to_i + cc.open_amount.to_i)) %></td>
+                  <td><%= currency(cc.credit_limit.to_i - (cc.amount_due.to_i + cc.open_amount.to_i)) %></td>
                 </tr>
                 <% end %>
               </tbody>

@@ -1,7 +1,12 @@
 class CreditLimits::Bandung::CreditChecksController < ApplicationController
   include RolesHelper
   before_action :initialize_brand, :initialize_brach_id, :authorize_user
-  
+  def credit_details
+    @name = Customer.find_by_address_number(params[:customer_id])
+    @credit_details = CustomerLimit.details(params[:customer_id], params[:co])
+    render template: "credit_limits/templates/credit_details"
+  end
+
   def credit_checks
     @credit_checks = CustomerLimit.find_by_sql("
       SELECT * FROM customer_limits WHERE area_id = '#{initialize_brach_id}' AND open_amount > 0 AND amount_due > 0

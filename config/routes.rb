@@ -111,6 +111,7 @@ Rails.application.routes.draw do
   
   # Bandung
   get 'credit_limits/bandung/credit_checks/credit_checks'
+  get 'credit_limits/bandung/credit_checks/credit_details'
   
   get 'order/bandung/bandung_elites/order'
   get 'order/bandung/bandung_serenity/order'
