@@ -1,1 +1,0 @@
-json.partial! "marketshare_brand_values/marketshare_brand_value", marketshare_brand_value: @marketshare_brand_value

@@ -2,8 +2,7 @@ class Marketshare::BrandValue < ActiveRecord::Base
   belongs_to :brand
   belongs_to :area
   belongs_to :customer
-  
-  validates :brand_id, uniqueness: { scope: [:customer_id, :area_id, :month, :year],  message: " & Area is available" }
+  belongs_to :marketshare
   
   def self.sales_marketshare_index(user)
     where("year = ? AND month = ? 

@@ -55,6 +55,38 @@
                // minDate: d.setDate(d.getDate()-2),
                maxDate: new Date()
             }).attr('readonly', 'true');
+            // marketshare
+            $('#datems1').datetimepicker({
+                icons : {
+                    time : 'fa fa-clock-o',
+                    date : 'fa fa-calendar',
+                    up : 'fa fa-chevron-up',
+                    down : 'fa fa-chevron-down',
+                    previous : 'fa fa-chevron-left',
+                    next : 'fa fa-chevron-right',
+                    today : 'fa fa-crosshairs',
+                    clear : 'fa fa-trash'
+                },
+               format : 'DD/MM/YYYY',
+               // minDate: d.setDate(d.getDate()-2),
+               // maxDate: new Date()
+            }).attr('readonly', 'true');
+            // marketshare
+            $('#datems2').datetimepicker({
+                icons : {
+                    time : 'fa fa-clock-o',
+                    date : 'fa fa-calendar',
+                    up : 'fa fa-chevron-up',
+                    down : 'fa fa-chevron-down',
+                    previous : 'fa fa-chevron-left',
+                    next : 'fa fa-chevron-right',
+                    today : 'fa fa-crosshairs',
+                    clear : 'fa fa-trash'
+                },
+               format : 'DD/MM/YYYY',
+               // minDate: d.setDate(d.getDate()-2),
+               // maxDate: new Date()
+            }).attr('readonly', 'true');
             // only time
             $('#datetimepicker2').datetimepicker({
                 format : 'LT'

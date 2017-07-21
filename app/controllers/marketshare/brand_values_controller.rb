@@ -93,7 +93,7 @@ class Marketshare::BrandValuesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def marketshare_brand_value_params
-    params.fetch(:marketshare_brand_value, {}).permit(:customer_id, :brand_id, :area_id, :date,
+    params.fetch(:marketshare_brand_value, {}).permit(:customer_id, :brand_id, :date,
     :month, :year, :amount)
   end
 end

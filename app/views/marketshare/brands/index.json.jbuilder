@@ -1,1 +1,0 @@
-json.array! @marketshare_brands, partial: 'marketshare_brands/marketshare_brand', as: :marketshare_brand

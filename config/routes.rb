@@ -8,10 +8,7 @@ Rails.application.routes.draw do
   # view routes
   
   # market share
-  namespace :marketshare do
-    resources :brands
-    resources :brand_values
-  end
+  resources :marketshares
   
   # Sales Productivity
   resources :sales_productivities

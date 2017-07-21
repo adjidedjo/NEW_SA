@@ -1,0 +1,95 @@
+<%= form_for(marketshare) do |f| %>
+<% if marketshare.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(marketshare.errors.count, "error") %> prohibited this marketshare from being saved:</h2>
+
+  <ul>
+    <% marketshare.errors.full_messages.each do |message| %>
+    <li>
+      <%= message %>
+    </li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="col-lg-12">
+  <div class="col-lg-4 col-lg-offset-1">
+    <fieldset>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">Customer</label>
+        <div class="col-sm-8">
+          <%= f.select(:customer_id, @customer.collect {|bt| [bt.name, bt.id]}, {include_blank: "Select customer"}, {'data-live-search'=>"true", :class => "selectpicker"}) %>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="col-lg-4">
+    <fieldset>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">Kota</label>
+        <div class="col-sm-8">
+          <%= f.text_field :city %>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div class="col-lg-12">
+  <div class="col-lg-4 col-lg-offset-1">
+    <fieldset>
+      <div class="form-group">
+        <label class="col-lg-5 control-label">Tanggal Awal</label>
+        <div class="col-lg-7">
+          <div id="datems1" class="input-group date">
+            <%= f.text_field "start_date", class: 'form-control' %>
+            <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="col-lg-4">
+    <fieldset>
+      <div class="form-group">
+        <label class="col-sm-5 control-label">Tanggal Akhir</label>
+        <div class="col-sm-7">
+          <div id="datems2" class="input-group date">
+            <%= f.text_field "end_date", class: 'form-control' %>
+            <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div class="col-lg-12">
+  <div class="col-lg-4 col-lg-offset-3">
+    <table class='table'>
+      <thead>
+        <tr>
+          <th>Brand</th>
+          <th>Amount</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class='fields'>
+        <%= f.fields_for :brand_values do |builder| %>
+        <%= render 'brand_value', f: builder %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-lg-4 col-lg-offset-7">
+    <%= link_to_add_row('Add', f, :brand_values, class: 'btn btn-primary') %>
+  </div>
+</div>
+
+<div class="form-actions">
+  <%= f.button "Submit", class: 'btn btn-primary' %>
+
+</div>
+
+<% end %>

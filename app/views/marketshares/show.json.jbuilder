@@ -1,0 +1,1 @@
+json.partial! "marketshares/marketshare", marketshare: @marketshare

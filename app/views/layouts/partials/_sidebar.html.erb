@@ -38,6 +38,23 @@
         </ul>
       </li>
       <% if current_user.position != 'sales' %>
+      <li class="<%= 'active' if controller?('credit_limits') %>">
+        <a href="#cl" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Credit Limits</b></span> </a>
+        <ul id="cl" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Credit Limits
+          </li>
+          <li class="<%= 'active' if controller?('credit_limits') %>">
+            <a href="#retail_cl" title="Credit Limits" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail_cl" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+              <%= render "layouts/partials/sidebar_credit" %>
+            </ul>
+          </li>
+        </ul>
+      </li>
       <li class="<%= 'active' if controller?('order') %>">
         <a href="#order" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Order</b></span> </a>
         <ul id="order" class="nav sidebar-subnav collapse">
@@ -130,22 +147,6 @@
           </li>
         </ul>
       </li>
-      <!--
-      <li class="<%= 'active' if controller?('marketshare') %>">
-      <a href="#marketshare" title="marketshare" data-toggle="collapse"> <em class="fa fa-tasks"></em> <span><b>MarketShare</b></span> </a>
-      <ul id="marketshare" class="nav sidebar-subnav collapse">
-      <li class="sidebar-subnav-header">
-      MarketShare
-      </li>
-      <li class="<%= 'active' if controller?('marketshare/brand_values') && action?('index') %>">
-      <a href="/marketshare/brand_values/" title="Elite"> <em class="fa fa-cubes"></em> <span><b>MarketShare</b></span> </a>
-      </li>
-      <li class="<%= 'active' if controller?('marketshare/brands') && action?('index') %>">
-      <a href="/marketshare/brands/" title="Elite"> <em class="fa fa-tags"></em> <span><b>Competitor Brand</b></span> </a>
-      </li>
-      </ul>
-      </li>
-      -->
       <li class="<%= 'active' if controller?('account_receivables') %>">
         <a href="#ar" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Collectable AR</b></span> </a>
         <ul id="ar" class="nav sidebar-subnav collapse">
@@ -171,23 +172,6 @@
               <%= render "layouts/partials/ar/ar_lampung" if branch(current_user, 13) %>
               <%= render "layouts/partials/ar/ar_medan" if branch(current_user, 5) %>
               <%= render "layouts/partials/ar/ar_pekanbaru" if branch(current_user, 20) %>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="<%= 'active' if controller?('credit_limits') %>">
-        <a href="#cl" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Credit Limits</b></span> </a>
-        <ul id="cl" class="nav sidebar-subnav collapse">
-          <li class="sidebar-subnav-header">
-            Credit Limits
-          </li>
-          <li class="<%= 'active' if controller?('credit_limits') %>">
-            <a href="#retail_cl" title="Credit Limits" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
-            <ul id="retail_cl" class="nav sidebar-subnav collapse">
-              <li class="sidebar-subnav-header">
-                Retail
-              </li>
-              <%= render "layouts/partials/sidebar_credit" %>
             </ul>
           </li>
         </ul>
@@ -274,11 +258,22 @@
         <a href="#success" title="success" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Success Rate</b></span> </a>
         <ul id="success" class="nav sidebar-subnav collapse">
           <li class="sidebar-subnav-header">
-            Stock
+            Success Rate
           </li>
           <li class="<%= 'active' if controller?('sales_productivities') && action?('index') %>">
             <a href="/sales_productivities/" title="Daily"> <span>Success Rate</span> </a>
           </li>
+        </ul>
+      </li>
+      <li class="<%= 'active' if controller?('marketshares') %>">
+        <a href="#marketshare" title="marketshare" data-toggle="collapse"> <em class="fa fa-tasks"></em> <span><b>MarketShare</b></span> </a>
+        <ul id="marketshare" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+          MarketShare
+          </li>
+        <li class="<%= 'active' if controller?('marketshares/index') && action?('index') %>">
+          <a href="/marketshares/" title="Marketshare"> <em class="fa fa-cubes"></em> <span><b>MarketShares</b></span> </a>
+        </li>
         </ul>
       </li>
       <% end %>
