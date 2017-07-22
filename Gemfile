@@ -10,6 +10,8 @@ gem "activerecord-oracle_enhanced-adapter", "~> 1.7.0"
 gem 'ruby-oci8', '~> 2.2.2'
 gem 'best_in_place'
 gem 'gon'
+gem 'jquery-ui-rails'
+
 # and uncomment the following
 # gem 'pg'
 # gem 'thin'
