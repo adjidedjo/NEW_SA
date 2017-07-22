@@ -19,7 +19,7 @@
       <div class="form-group">
         <label class="col-sm-3 control-label">Customer</label>
         <div class="col-sm-8">
-          <%= f.select(:customer_id, @customer.collect {|bt| [bt.name, bt.id]}, {include_blank: "Select customer"}, {'data-live-search'=>"true", :class => "selectpicker"}) %>
+          <%= f.text_field :customer_name, data: { autocomplete_source: @customer.order(:name).map(&:name)} %>
         </div>
       </div>
     </fieldset>
@@ -42,7 +42,7 @@
       <div class="form-group">
         <label class="col-lg-5 control-label">Tanggal Awal</label>
         <div class="col-lg-7">
-          <div id="datems1" class="input-group date">
+          <div id="datetimepicker3" class="input-group date">
             <%= f.text_field "start_date", class: 'form-control' %>
             <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
           </div>
@@ -56,7 +56,7 @@
         <label class="col-sm-5 control-label">Tanggal Akhir</label>
         <div class="col-sm-7">
           <div id="datems2" class="input-group date">
-            <%= f.text_field "end_date", class: 'form-control' %>
+            <%= f.text_field "end_date", value: f.object.present? ? f.object.end_date : Date.today, class: 'form-control' %>
             <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
           </div>
         </div>

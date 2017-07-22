@@ -20,6 +20,7 @@ class MarketsharesController < ApplicationController
 
   # GET /marketshares/1/edit
   def edit
+    @marketshare.brand_values.new
   end
 
   # POST /marketshares
@@ -66,8 +67,7 @@ class MarketsharesController < ApplicationController
   private
 
   def find_brand
-    @period = Period.all
-    @customer = Customer.where(i_class: 'RET')
+    @customer = Customer.where("i_class = 'RET'").group(:name)
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -77,8 +77,9 @@ class MarketsharesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def marketshare_params
-    params.require(:marketshare).permit(:customer_id, :period_id, :city, :start_date, :end_date,
-    brand_values_attributes: [:id, :customer_id, :marketshare_id, :name, :start_date, :end_date, 
-      :amount, :period_id, :city, :_destroy])
+    params.require(:marketshare).permit(:name, :customer_name, :customer_id, :period_id, 
+    :city, :start_date, :end_date, :name,
+    brand_values_attributes: [:id, :marketshare_id, :name, :start_date, :end_date, 
+      :amount, :city, :_destroy])
   end
 end

@@ -22,7 +22,7 @@
               <tr>
                 <td><%= find_customer(marketshare.customer_id).name %></td>
                 <td><%= marketshare.city %></td>
-                <td><%= marketshare.start_date.strftime("%B") %> - <%= marketshare.end_date.strftime("%B") %></td>
+                <td><%= marketshare.start_date.to_date.strftime("%B") %> - <%= marketshare.end_date.to_date.strftime("%B") %></td>
                 <td><%= link_to 'Edit', edit_marketshare_path(marketshare), class: "mb-sm btn-xs btn btn-primary btn-outline" %></td>
               </tr>
               <% end %>

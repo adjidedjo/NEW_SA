@@ -6,6 +6,7 @@
 //= require penjualan_salesman
 //= require dashboard
 //= require tables
+//= require jquery-ui
 //= require jquery_ujs
 //= require bootstrap-select/dist/js/bootstrap-select.min
 //= require_tree ./angle/

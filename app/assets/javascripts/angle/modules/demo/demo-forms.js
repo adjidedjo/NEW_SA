@@ -67,7 +67,8 @@
                     today : 'fa fa-crosshairs',
                     clear : 'fa fa-trash'
                 },
-               format : 'DD/MM/YYYY',
+                viewMode : 'months',
+                format : 'MM/YYYY'
                // minDate: d.setDate(d.getDate()-2),
                // maxDate: new Date()
             }).attr('readonly', 'true');
@@ -83,7 +84,8 @@
                     today : 'fa fa-crosshairs',
                     clear : 'fa fa-trash'
                 },
-               format : 'DD/MM/YYYY',
+                viewMode : 'months',
+                format : 'MM/YYYY'
                // minDate: d.setDate(d.getDate()-2),
                // maxDate: new Date()
             }).attr('readonly', 'true');
@@ -93,7 +95,7 @@
             });
             // View mode
             $('#datetimepicker3').datetimepicker({
-                viewMode : 'years',
+                viewMode : 'months',
                 format : 'MM/YYYY'
             });
 

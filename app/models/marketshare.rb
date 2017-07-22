@@ -1,16 +1,24 @@
 class Marketshare < ApplicationRecord
   has_many :brand_values, dependent: :destroy
   accepts_nested_attributes_for :brand_values, reject_if: :all_blank, allow_destroy: true
+  belongs_to :customer
 
-  validates :customer_id, :start_date, :end_date, presence: true
+  validates :start_date, :end_date, presence: true
   validates :city, presence: true, on: :create
 
   before_save :upcase_fields
   
+  def customer_name
+    customer.try(:name)
+  end
+  
+  def customer_name=(name)
+    self.customer = Customer.where(name: name).first_or_create if name.present?
+  end
+  
   def upcase_fields
     self.brand_values.each do |bv|
-      bv.customer_id = self.customer_id
-      bv.period_id = self.period_id
+      bv.customer_name = self.customer_name
       bv.city = self.city.upcase!
       bv.start_date = self.start_date
       bv.end_date = self.end_date
