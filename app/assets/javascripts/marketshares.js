@@ -46,9 +46,29 @@
 //= require select2/dist/js/select2
 
 jQuery(function() {
-  return $('#marketshare_customer_name').autocomplete({
-    source: $('#marketshare_customer_name').data('autocomplete-source')
-  });
-});
 
+    $('form').on('click', '.remove_record', function(event) {
+        $(this).prev('input[type=hidden]').val('1');
+        $(this).closest('tr').hide();
+        return event.preventDefault();
+    });
+
+    $('form').on('click', '.add_fields', function(event) {
+        var regexp,
+            time;
+        time = new Date().getTime();
+        regexp = new RegExp($(this).data('id'), 'g');
+        $('.fields').append($(this).data('fields').replace(regexp, time));
+        $('#marketshare_marketshare_brands_attributes_' + time + '_name').autocomplete({
+            source : $('#marketshare_marketshare_brands_attributes_' + time + '_name').data('brand-source')
+        });
+        return event.preventDefault();
+
+        
+    });
+
+    return $('#marketshare_customer_name').autocomplete({
+        source : $('#marketshare_customer_name').data('autocomplete-source')
+    });
+});
 

@@ -15,19 +15,16 @@ class MarketsharesController < ApplicationController
   # GET /marketshares/new
   def new
     @marketshare = Marketshare.new
-    @marketshare.brand_values.new
   end
 
   # GET /marketshares/1/edit
   def edit
-    @marketshare.brand_values.new
   end
 
   # POST /marketshares
   # POST /marketshares.json
   def create
     @marketshare = Marketshare.new(marketshare_params)
-    @marketshare.area_id = current_user.branch1.nil? ? 0 : current_user.branch1
     
     respond_to do |format|
       if @marketshare.save
@@ -68,6 +65,7 @@ class MarketsharesController < ApplicationController
 
   def find_brand
     @customer = Customer.where("i_class = 'RET'").group(:name)
+    @brand = Brand.all
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -78,8 +76,8 @@ class MarketsharesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def marketshare_params
     params.require(:marketshare).permit(:name, :customer_name, :customer_id, :period_id, 
-    :city, :start_date, :end_date, :name,
-    brand_values_attributes: [:id, :marketshare_id, :name, :start_date, :end_date, 
+    :city, :start_date, :end_date, :area_id,
+    marketshare_brands_attributes: [:id, :name, :start_date, :end_date, 
       :amount, :city, :_destroy])
   end
 end

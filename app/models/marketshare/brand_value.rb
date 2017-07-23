@@ -1,8 +1,8 @@
 class Marketshare::BrandValue < ActiveRecord::Base
-  belongs_to :brand
-  belongs_to :area
-  belongs_to :customer
-  belongs_to :marketshare
+  belongs_to :brand, optional: true
+  belongs_to :area, optional: true
+  belongs_to :customer, optional: true
+  belongs_to :marketshare, optional: true
   
   def self.sales_marketshare_index(user)
     where("year = ? AND month = ? 

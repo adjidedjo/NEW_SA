@@ -76,14 +76,14 @@
         </tr>
       </thead>
       <tbody class='fields'>
-        <%= f.fields_for :brand_values do |builder| %>
-        <%= render 'brand_value', f: builder %>
+        <%= f.fields_for :marketshare_brands do |builder| %>
+        <%= render 'marketshare_brand', f: builder %>
         <% end %>
       </tbody>
     </table>
   </div>
   <div class="col-lg-4 col-lg-offset-7">
-    <%= link_to_add_row('Add', f, :brand_values, class: 'btn btn-primary') %>
+    <%= link_to_add_row('Add', f, :marketshare_brands, class: 'btn btn-primary') %>
   </div>
 </div>
 
