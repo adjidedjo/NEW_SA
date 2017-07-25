@@ -30,7 +30,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -53,7 +53,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -77,7 +77,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -101,7 +101,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -135,7 +135,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -165,7 +165,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -193,7 +193,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -216,7 +216,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -289,7 +289,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -376,7 +376,7 @@
         // Datatable Buttons setup
         dom: 'Bfrtip',
         buttons: [
-            'print', 'excel', 'csvHtml5'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -399,7 +399,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -422,7 +422,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -463,7 +463,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -486,7 +486,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -509,7 +509,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -556,7 +556,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
 
@@ -579,7 +579,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
 
@@ -602,7 +602,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
 
@@ -625,7 +625,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
 
@@ -648,7 +648,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -671,7 +671,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
     
@@ -693,7 +693,7 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'excel'
+            'print', 'csvHtml5'
         ]
     });
 
