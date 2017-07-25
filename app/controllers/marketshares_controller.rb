@@ -65,7 +65,8 @@ class MarketsharesController < ApplicationController
 
   def find_brand
     @customer = Customer.where("i_class = 'RET'").group(:name)
-    @brand = Brand.all
+    @ext_brand = Brand.where("external = 1").group(:name)
+    @int_brand = Brand.where("external = 0").group(:name)
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -76,7 +77,7 @@ class MarketsharesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def marketshare_params
     params.require(:marketshare).permit(:name, :customer_name, :customer_id, :period_id, 
-    :city, :start_date, :end_date, :area_id,
+    :city, :start_date, :end_date, :area_id, :brand,
     marketshare_brands_attributes: [:id, :name, :start_date, :end_date, 
       :amount, :city, :_destroy])
   end

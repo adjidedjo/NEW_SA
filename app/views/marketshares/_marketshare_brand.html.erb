@@ -1,5 +1,5 @@
 <tr>
-  <td><%= f.text_field :name, data: { brand_source: @brand.order(:name).map(&:name)} %></td>
+  <td><%= f.text_field :name, data: { brand_source: @ext_brand.order(:name).map(&:name)} %></td>
   <td><%= f.text_field :amount, label: false %></td>
   <td>
     <%= f.hidden_field :_destroy %>
