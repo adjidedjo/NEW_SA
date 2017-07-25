@@ -9,6 +9,7 @@
 //= require datatables/media/js/jquery.dataTables.min
 //= require datatables-colvis/js/dataTables.colVis
 //= require datatables/media/js/dataTables.bootstrap
+//= require jszip/jszip.min.js
 
 //--- Datatables Buttons
 //= require datatables-buttons/js/dataTables.buttons

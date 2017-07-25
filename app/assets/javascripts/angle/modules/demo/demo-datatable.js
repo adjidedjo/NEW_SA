@@ -376,11 +376,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            'print', 'csvHtml5',
-            {
-                extend: 'excelFlash',
-                filename: 'Stock Export'
-            }
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
