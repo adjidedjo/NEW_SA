@@ -374,7 +374,7 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: 'Bfrtip',
+        dom: '<"html5buttons"B>lTfgitp',
         buttons: [
             'print', 'csvHtml5'
         ]
