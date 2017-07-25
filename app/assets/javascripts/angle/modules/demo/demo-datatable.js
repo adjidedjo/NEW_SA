@@ -20,7 +20,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -28,10 +28,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -44,7 +43,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -52,10 +51,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -69,7 +67,7 @@
         // Note the required keywords between underscores (e.g _MENU_)
         
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -77,10 +75,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -94,7 +91,7 @@
         // Note the required keywords between underscores (e.g _MENU_)
         
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -102,10 +99,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -129,7 +125,7 @@
             null
         ],
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -137,10 +133,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -160,7 +155,7 @@
             { type: 'num-fmt' }
         ],
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -168,10 +163,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -189,7 +183,7 @@
             { type: 'num-fmt' }
         ],
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -197,10 +191,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -213,7 +206,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -221,10 +214,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -249,7 +241,7 @@
             { type: 'num-fmt' }
         ],
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -287,7 +279,7 @@
             } );
         },
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -295,10 +287,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -323,7 +314,7 @@
             { type: 'num-fmt' }
         ],
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -357,7 +348,7 @@
             { type: 'num-fmt' }
         ],
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -375,7 +366,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -383,10 +374,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -399,7 +389,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -407,10 +397,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -423,7 +412,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -431,10 +420,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -447,7 +435,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -465,7 +453,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -473,10 +461,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -489,7 +476,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -497,10 +484,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -513,7 +499,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -521,10 +507,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -537,7 +522,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -561,7 +546,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -569,10 +554,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
 
@@ -585,7 +569,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -593,10 +577,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
 
@@ -609,7 +592,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -617,10 +600,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
 
@@ -633,7 +615,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -641,10 +623,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
 
@@ -657,7 +638,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -665,10 +646,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -681,7 +661,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -689,10 +669,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
     
@@ -704,7 +683,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -712,10 +691,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>lTfgitp',
+        dom: '<"html5buttons"B>frtip',
         buttons: [
-            {extend: 'print', className: 'btn-sm' },
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
+            'print', 'excel'
         ]
     });
 
@@ -732,7 +710,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
@@ -762,7 +740,7 @@
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
         oLanguage: {
-            sSearch:      'Search all columns:',
+            sSearch:      'Search:',
             sLengthMenu:  '_MENU_ records per page',
             info:         'Showing page _PAGE_ of _PAGES_',
             zeroRecords:  'Nothing found - sorry',
