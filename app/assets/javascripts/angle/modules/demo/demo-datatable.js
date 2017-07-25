@@ -374,9 +374,9 @@
             infoFiltered: '(filtered from _MAX_ total records)'
         },
         // Datatable Buttons setup
-        dom: '<"html5buttons"B>frtip',
+        dom: 'Bfrtip',
         buttons: [
-            'print', 'excel'
+            'print', 'excel', 'csvHtml5'
         ]
     });
     
