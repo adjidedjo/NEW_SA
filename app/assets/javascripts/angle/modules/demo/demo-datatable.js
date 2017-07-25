@@ -30,9 +30,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -55,9 +54,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -81,9 +79,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -107,9 +104,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -143,9 +139,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -175,9 +170,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -205,9 +199,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -230,9 +223,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -305,9 +297,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -342,9 +333,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -395,9 +385,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -420,9 +409,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -445,9 +433,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -488,9 +475,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -513,8 +499,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -537,9 +523,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -562,9 +547,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -587,9 +571,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
 
@@ -612,9 +595,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
 
@@ -637,9 +619,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
 
@@ -662,8 +643,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
 
@@ -686,9 +667,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -711,8 +691,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
     
@@ -734,9 +714,8 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
-            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
-            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
-            {extend: 'print', className: 'btn-sm' }
+            {extend: 'print', className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'}
         ]
     });
 
