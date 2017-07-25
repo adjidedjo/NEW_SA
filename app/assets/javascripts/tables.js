@@ -10,6 +10,7 @@
 //= require datatables-colvis/js/dataTables.colVis
 //= require datatables/media/js/dataTables.bootstrap
 //= require jszip/jszip.min.js
+//= require pdfmake/pdfmake.min.js
 
 //--- Datatables Buttons
 //= require datatables-buttons/js/dataTables.buttons

@@ -30,7 +30,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -53,7 +56,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -77,7 +83,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -101,7 +110,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -135,7 +147,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -165,7 +180,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -193,7 +211,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -216,7 +237,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -289,7 +313,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -402,7 +429,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -425,7 +455,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -466,7 +499,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -489,7 +525,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -512,7 +551,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -559,7 +601,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
 
@@ -582,7 +627,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
 
@@ -605,7 +653,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
 
@@ -628,7 +679,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
 
@@ -651,7 +705,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -674,7 +731,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
     
@@ -696,7 +756,10 @@
         // Datatable Buttons setup
         dom: '<"html5buttons"B>frtip',
         buttons: [
-            'print', 'csvHtml5'
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
         ]
     });
 
