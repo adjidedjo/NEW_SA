@@ -8,6 +8,14 @@ class Penjualan::Tangerang::TangerangElitesController < ApplicationController
   before_action :retail_sales_stock_rate, only: :sales_stock_rate
   before_action :retail_success_rate, only: :success_rate
   
+  def marketshare
+    gon.marketshare = Marketshare.get_report(initialize_brand, initialize_brach_id)
+    gon.brand = initialize_brand
+    @branch = "Jakarta"
+    @brand_name = initialize_brand
+    render template: "penjualan/template_dashboard/marketshare"
+  end
+  
   def success_rate
     gon.brand = initialize_brand
     @branch = "Jakarta"

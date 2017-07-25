@@ -79,6 +79,6 @@ class MarketsharesController < ApplicationController
     params.require(:marketshare).permit(:name, :customer_name, :customer_id, :period_id, 
     :city, :start_date, :end_date, :area_id, :brand,
     marketshare_brands_attributes: [:id, :name, :start_date, :end_date, 
-      :amount, :city, :_destroy])
+      :amount, :city, :area_id, :internal_brand, :_destroy])
   end
 end

@@ -5,6 +5,14 @@ class Penjualan::Jember::JemberSerenityController < ApplicationController
   before_action :retail_monthly, only: :monthly
   before_action :retail_daily, only: :daily
   
+  def marketshare
+    gon.marketshare = Marketshare.get_report(initialize_brand, initialize_brach_id)
+    gon.brand = initialize_brand
+    @branch = "JEMBER"
+    @brand_name = initialize_brand
+    render template: "penjualan/template_dashboard/marketshare"
+  end
+  
   def daily
     gon.brand = initialize_brand
     gon.max = 100

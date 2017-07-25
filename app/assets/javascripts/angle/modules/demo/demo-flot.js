@@ -815,15 +815,15 @@
 
   $(function(){
     var data = [ {
-      "label": "ON TIME",
+      "label": "ON TIME (1-3 HARI)",
       "color": "#b2d767",
       "data": gon.ontime
     }, {
-      "label": "LATE",
+      "label": "LATE (4-7 HARI)",
       "color": "#ffea88",
       "data": gon.late
     }, {
-      "label": "VERY LATE",
+      "label": "VERY LATE (>= 7 HARI)",
       "color": "red",
       "data": gon.superlate
     }];
@@ -852,6 +852,49 @@
                 };
 
     var chart = $('.chart-pie');
+    if(chart.length)
+      $.plot(chart, data, options);
+
+  });
+
+})(window, document, window.jQuery);
+
+// CHART PIE MARKETSHARE
+// ----------------------------------- 
+(function(window, document, $, undefined){
+
+  $(function(){
+    var val;
+    var data = gon.marketshare;
+    var options = {
+        series: {
+            pie: {
+                show: true,
+                label: {
+                    show: true,
+                    radius: 180,
+                    formatter: function (label, series) {
+                        return '<div style="border:1px solid grey;font-size:8pt;text-align:center;padding:5px;color:white;">' +
+                        label + ' : ' +
+                        Math.round(series.percent) +
+                        '%</div>';
+                    },
+                    background: {
+                        opacity: 0.8,
+                        color: '#000'
+                    }
+                }
+            }
+        },
+        legend: {
+            show: false
+        },
+        grid: {
+            hoverable: true
+        }
+    };
+
+    var chart = $('#ms-pie');
     if(chart.length)
       $.plot(chart, data, options);
 
