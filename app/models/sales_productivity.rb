@@ -1,11 +1,10 @@
 class SalesProductivity < ActiveRecord::Base
-
   def self.retail_productivity(branch, brand)
     self.find_by_sql("SELECT lc.jumlah, lc.salesman, lc.tanggalsj, sp.entry, (lc.jumlah/(sp.entry*8)) AS prod FROM
     (
      SELECT SUM(jumlah) AS jumlah, salesman, tanggalsj FROM tblaporancabang WHERE
      tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month.to_date}' AND
-     '#{Date.yesterday.end_of_month.to_date}' AND kodejenis IN ('KM', 'KB') AND
+     '#{Date.yesterday.end_of_month.to_date}' AND kodejenis IN ('KM','DV','HB','KB') AND
      bonus = '-' AND cabang_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND tipecust = 'RETAIL'
      GROUP BY tanggalsj
     ) AS lc
@@ -36,7 +35,7 @@ class SalesProductivity < ActiveRecord::Base
      SELECT SUM(jumlah) AS jumlah, cabang_id, nopo FROM tblaporancabang WHERE fiscal_month = '#{Date.yesterday.last_month.month}'
      AND fiscal_year = '#{Date.yesterday.last_month.year}' AND jenisbrgdisc = '#{brand}' AND
      tipecust = 'RETAIL' AND bonus = '-' AND
-     kodejenis IN ('KM', 'KB') AND orty = 'SO'
+     kodejenis IN ('KM','DV','HB','KB') AND orty = 'SO'
     ) AS lc ON lc.nopo = sp.salesmen_id")
   end
 end
