@@ -27,7 +27,7 @@ class Penjualan::Tangerang::TangerangRecapsController < ApplicationController
   end
 
   def initialize_brach_id
-    2
+    3
   end
   
   def authorize_bm

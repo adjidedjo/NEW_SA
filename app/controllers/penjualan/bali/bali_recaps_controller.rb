@@ -27,7 +27,7 @@ class Penjualan::Bali::BaliRecapsController < ApplicationController
   end
 
   def initialize_brach_id
-    2
+    4
   end
   
   def authorize_bm

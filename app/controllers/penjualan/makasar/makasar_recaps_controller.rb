@@ -27,7 +27,7 @@ class Penjualan::Makasar::MakasarRecapsController < ApplicationController
   end
 
   def initialize_brach_id
-    2
+    19
   end
   
   def authorize_bm

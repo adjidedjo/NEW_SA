@@ -27,7 +27,7 @@ class Penjualan::Semarang::SemarangRecapsController < ApplicationController
   end
 
   def initialize_brach_id
-    2
+    8
   end
   
   def authorize_bm

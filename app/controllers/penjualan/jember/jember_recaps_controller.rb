@@ -27,7 +27,7 @@ class Penjualan::Jember::JemberRecapsController < ApplicationController
   end
 
   def initialize_brach_id
-    2
+    22
   end
   
   def authorize_bm

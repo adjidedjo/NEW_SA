@@ -27,7 +27,7 @@ class Penjualan::Pekanbaru::PekanbaruRecapsController < ApplicationController
   end
 
   def initialize_brach_id
-    2
+    20
   end
   
   def authorize_bm

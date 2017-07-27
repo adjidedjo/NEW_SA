@@ -27,7 +27,7 @@ class Penjualan::Cirebon::CirebonRecapsController < ApplicationController
   end
 
   def initialize_brach_id
-    2
+    9
   end
   
   def authorize_bm

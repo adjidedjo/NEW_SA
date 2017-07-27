@@ -27,7 +27,7 @@ class Penjualan::Medan::MedanRecapsController < ApplicationController
   end
 
   def initialize_brach_id
-    2
+    5
   end
   
   def authorize_bm
