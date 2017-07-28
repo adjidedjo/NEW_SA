@@ -102,7 +102,7 @@ class Penjualan::Customer < Penjualan::Sale
       AND fiscal_year = '#{year}'
       AND area_id != 1 AND area_id != 50
       AND area_id = '#{branch}'AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
       GROUP BY kode_customer
     ")
   end
