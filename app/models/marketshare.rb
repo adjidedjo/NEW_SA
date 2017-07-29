@@ -35,12 +35,41 @@ class Marketshare < ActiveRecord::Base
       WHERE ms.area_id = '#{user.branch1.nil? ? 0 : user.branch1}'")
   end
 
+  def self.get_area_potential(brand, branch)
+    find_by_sql("
+      SELECT ct.area, lp.w1, lp.w2, mt.potent FROM
+      (
+        SELECT kota AS area FROM tblaporancabang WHERE area_id = '#{branch}' AND
+        fiscal_month BETWEEN '#{1.month.ago.month}' AND '#{Date.today.month}' AND
+        fiscal_year BETWEEN '#{1.month.ago.year}' AND '#{Date.today.year}'
+        AND jenisbrgdisc = '#{brand}' AND tipecust = 'RETAIL' AND bonus = '-' AND
+        kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') AND kota != ' ' GROUP BY kota
+      ) AS ct
+      LEFT JOIN
+      (
+        SELECT kota AS area,
+        SUM(CASE WHEN week = '#{1.week.ago.to_date.cweek}' THEN harganetto2 END) AS w1,
+        SUM(CASE WHEN week = '#{Date.today.cweek}' THEN harganetto2 END) AS w2 FROM
+        tblaporancabang WHERE week BETWEEN '#{1.week.ago.to_date.cweek}' AND '#{Date.today.cweek}' AND
+        jenisbrgdisc LIKE '#{brand}' AND area_id = '#{branch}'
+        AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB') AND area_id NOT IN (1,50)
+        AND tipecust = 'RETAIL' GROUP BY kota
+      ) AS lp ON ct.area = lp.area
+      LEFT JOIN
+      (
+        SELECT SUM(amount) AS potent, city FROM marketshare_brands WHERE internal_brand = '#{brand}'
+        AND area_id = '#{branch}'
+      ) AS mt ON mt.city = ct.area
+    ")
+  end
+
   def self.get_report(brand, branch)
     a = []
-    t = find_by_sql("SELECT SUM(amount) as data, name FROM marketshare_brands WHERE area_id = 2 AND internal_brand = '#{brand}'
+    t = find_by_sql("SELECT SUM(amount) as data, name FROM marketshare_brands WHERE area_id = '#{branch}'
+    AND internal_brand = '#{brand}'
     GROUP BY internal_brand, name
     UNION
-    SELECT SUM(harganetto2) as data, jenisbrgdisc FROM tblaporancabang WHERE area_id = 2
+    SELECT SUM(harganetto2) as data, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}'
     AND jenisbrgdisc = '#{brand}' AND fiscal_month = '#{Date.yesterday.month}'
     AND fiscal_year = '#{Date.yesterday.year}'
     GROUP BY jenisbrgdisc")

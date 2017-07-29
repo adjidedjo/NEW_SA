@@ -9,6 +9,7 @@ class Penjualan::Yogya::YogyaRoyalController < ApplicationController
   before_action :retail_success_rate, only: :success_rate
   
   def marketshare
+    @area_potent = Marketshare.get_area_potential(initialize_brand, initialize_brach_id)
     gon.marketshare = Marketshare.get_report(initialize_brand, initialize_brach_id)
     gon.brand = initialize_brand
     @branch = "YOGYAKARTA"

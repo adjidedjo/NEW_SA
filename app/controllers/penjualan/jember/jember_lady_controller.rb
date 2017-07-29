@@ -6,6 +6,7 @@ class Penjualan::Jember::JemberLadyController < ApplicationController
   before_action :retail_daily, only: :daily
   
   def marketshare
+    @area_potent = Marketshare.get_area_potential(initialize_brand, initialize_brach_id)
     gon.marketshare = Marketshare.get_report(initialize_brand, initialize_brach_id)
     gon.brand = initialize_brand
     @branch = "JEMBER"

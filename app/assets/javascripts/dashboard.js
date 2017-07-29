@@ -17,6 +17,6 @@
 //--- Moment
 //= require moment/min/moment-with-locales.min
 //--- jQuery Vector map (only dashboard v3)
-//= require ika.jvectormap/jquery-jvectormap-1.2.2.min
-//= require ika.jvectormap/jquery-jvectormap-world-mill-en
-//= require ika.jvectormap/jquery-jvectormap-us-mill-en
+//= // require ika.jvectormap/jquery-jvectormap-1.2.2.min
+//= // require ika.jvectormap/jquery-jvectormap-world-mill-en
+//= // require ika.jvectormap/jquery-jvectormap-us-mill-en

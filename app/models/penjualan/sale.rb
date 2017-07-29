@@ -489,7 +489,7 @@ class Penjualan::Sale < ActiveRecord::Base
       ) as sub")
   end
 
-  def self. revenue_last_month(date, branch, brand)
+  def self.revenue_last_month(date, branch, brand)
     self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue, st.month_target,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
     ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage,
