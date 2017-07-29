@@ -37,7 +37,8 @@ class Marketshare < ActiveRecord::Base
 
   def self.get_area_potential(brand, branch)
     find_by_sql("
-      SELECT ct.area, lp.w1, lp.w2, mt.potent FROM
+      SELECT ct.area, lp.w1, lp.w2, mt.potent, ((lp.w2/mt.potent) * 100) AS market, 
+      (((lp.w2 - lp.w1) / lp.w1) * 100) as grow FROM
       (
         SELECT kota AS area FROM tblaporancabang WHERE area_id = '#{branch}' AND
         fiscal_month BETWEEN '#{1.month.ago.month}' AND '#{Date.today.month}' AND

@@ -34,6 +34,8 @@
                   <th>Last Week</th>
                   <th>This Week</th>
                   <th>Potential</th>
+                  <th>% Market</th>
+                  <th>% Grow</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,14 +45,17 @@
                   <td><%= currency(ap.w1) %></td>
                   <td><%= currency(ap.w2) %></td>
                   <td><%= currency(ap.potent.present? ? ap.potent/4 : 0) %></td>
+                  <td class="<%= coloring(ap.market) %>"><%= ap.market.nil? ? 0 : cpercent(ap.market.abs) %></td>
+                  <td class="<%= coloring(ap.grow) %>"><%= ap.grow.nil? ? 0 : cpercent(ap.grow.abs) %></td>
                 </tr>
                 <% end %>
               </tbody>
             </table>
           </div>
           <div class="panel-footer">
-            Last Week: <%= 1.week.ago.beginning_of_week.to_date.strftime('%d %B %Y') %> - <%= 1.week.ago.end_of_week.to_date.strftime('%d %B %Y') %><br />
-            This Week: <%= Date.today.beginning_of_week.to_date.strftime('%d %B %Y') %> - <%= Date.today.end_of_week.to_date.strftime('%d %B %Y') %> 
+            Last Week: <%= 1.week.ago.beginning_of_week.to_date.strftime('%d %B %Y') %> - <%= 1.week.ago.end_of_week.to_date.strftime('%d %B %Y') %>
+            <br />
+            This Week: <%= Date.today.beginning_of_week.to_date.strftime('%d %B %Y') %> - <%= Date.today.end_of_week.to_date.strftime('%d %B %Y') %>
           </div>
         </div>
       </div>
