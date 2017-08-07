@@ -1,11 +1,10 @@
 class SalesProductivitiesController < ApplicationController
-
   # GET /sales_productivities
   # GET /sales_productivities.json
   def index
-    @sales_productivities = current_user.branch1.present? ? SalesProductivity.where("DATE(date) >= ? AND branch_id = ?", 
-    Date.yesterday.beginning_of_month, current_user.branch1) : SalesProductivity.where("DATE(date) >= ?", 
-    Date.yesterday.beginning_of_month)
+    @sales_productivities = current_user.branch1.present? ? SalesProductivity.where("DATE(date) >= ? AND branch_id = ?",
+    Date.yesterday.last_month.to_date.beginning_of_month, current_user.branch1) : SalesProductivity.where("DATE(date) >= ?",
+    Date.yesterday.last_month.to_date.beginning_of_month)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -28,8 +27,8 @@ class SalesProductivitiesController < ApplicationController
   # GET /sales_productivities/new.json
   def new
     @sales_productivity = SalesProductivity.new
-    @salesman = current_user.branch1.present? ? 
-    SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen 
+    @salesman = current_user.branch1.present? ?
+    SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen
     WHERE branch_id = '#{current_user.branch1}'") : SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen")
     @brand = SalesProductivity.find_by_sql("SELECT jde_brand, id FROM tbbjmerk")
 
@@ -96,6 +95,7 @@ class SalesProductivitiesController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_acquittance
     @productivity = SalesProductivity.find(params[:id])
@@ -104,6 +104,6 @@ class SalesProductivitiesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def sales_productivity_params
     params.require(:sales_productivity).permit(:id, :date, :salesmen_id, :branch_id, :brand,
-      :npvnc, :nvc, :ncdv, :ncc, :ncdc)
+    :npvnc, :nvc, :ncdv, :ncc, :ncdc)
   end
 end
