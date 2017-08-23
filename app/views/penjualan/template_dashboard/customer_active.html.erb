@@ -24,7 +24,7 @@
                 <% @customer.each do |cus| %>
                 <tr class="gradeX">
                   <td><%= cus.brand %></td>
-                  <td><%= link_to cus.active, request.fullpath.to_s+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=0' %></td>
+                  <td><%= link_to cus.active, request.fullpath.to_s+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=1' %></td>
                   <td><%= link_to cus.inactive, request.fullpath.to_s+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=0' %></td>
                 </tr>
                 <% end %>
