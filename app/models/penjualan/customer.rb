@@ -1,4 +1,31 @@
 class Penjualan::Customer < Penjualan::Sale
+  def self.list_customers(branch, state, brand)
+    if state == 1
+      CustomerBrand.find_by_sql("
+        SELECT * FROM customer_brands WHERE
+        branch = '#{branch}' AND last_order > '#{3.months.ago.to_date}' AND brand = '#{brand}' AND
+        channel_group = 'RETAIL'
+      ")
+    else
+      CustomerBrand.find_by_sql("
+        SELECT * FROM customer_brands WHERE
+        branch = '#{branch}' AND last_order <= '#{3.months.ago.to_date}' AND brand = '#{brand}' AND
+        channel_group = 'RETAIL'
+      ")
+    end
+  end
+
+  def self.active_customers(branch)
+    CustomerBrand.find_by_sql("
+      SELECT brand,
+        COUNT(CASE WHEN last_order > '#{3.months.ago.to_date}' THEN id END) active,
+        COUNT(CASE WHEN last_order <= '#{3.months.ago.to_date}' THEN id END) inactive,
+        branch
+        FROM customer_brands WHERE branch = '#{branch}' AND
+        channel_group = 'RETAIL' AND brand != '' GROUP BY brand
+    ")
+  end
+
   def self.nasional_customers_last_order
     find_by_sql("
       SELECT new_cus.address_number, new_cus.name, new_cus.city, new_cus.opened_date, new_cus.last_order_date,

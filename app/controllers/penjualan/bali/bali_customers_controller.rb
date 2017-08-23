@@ -1,6 +1,15 @@
 class Penjualan::Bali::BaliCustomersController < ApplicationController
   include RolesHelper
   before_action :authorize_user, :checking_params, :initialize_branch_id
+  
+  def customer_active
+    @branch = "Bali"
+    @customer = Penjualan::Customer.active_customers(initialize_branch_id)
+    @list_customers = Penjualan::Customer.list_customers(params[:branch], params[:state],
+    params[:brand]) if params[:state].present? && params[:branch].present?
+    render template: "penjualan/template_dashboard/customer_active"     
+  end
+  
   def customer
     @branch = "Bali"
     @customer = Penjualan::Customer.reporting_customers(@month, @year, initialize_branch_id)
