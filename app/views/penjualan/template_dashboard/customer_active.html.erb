@@ -24,8 +24,8 @@
                 <% @customer.each do |cus| %>
                 <tr class="gradeX">
                   <td><%= cus.brand %></td>
-                  <td><%= link_to cus.active, request.fullpath.to_s+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=1' %></td>
-                  <td><%= link_to cus.inactive, request.fullpath.to_s+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=0' %></td>
+                  <td><%= link_to cus.active, '/penjualan/bandung/bandung_customers/customer_active'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=1' %></td>
+                  <td><%= link_to cus.inactive, '/penjualan/bandung/bandung_customers/customer_active'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=0' %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -46,6 +46,9 @@
                 <tr>
                   <th>Customer</th>
                   <th>Last Order</th>
+                  <th><%= params[:state] == '1' ? 3.month.ago.strftime('%B %y') : 6.month.ago.strftime('%B %y') %></th>
+                  <th><%= params[:state] == '1' ? 2.month.ago.strftime('%B %y') : 5.month.ago.strftime('%B %y') %></th>
+                  <th><%= params[:state] == '1' ? 1.month.ago.strftime('%B %y') : 4.month.ago.strftime('%B %y') %></th>
                 </tr>
               </thead>
               <tbody>
@@ -53,6 +56,9 @@
                 <tr class="gradeX">
                   <td><%= cus.customer %></td>
                   <td><%= cus.last_order.strftime('%d %B %Y') %></td>
+                  <td><%= currency(cus.three_month) %></td>
+                  <td><%= currency(cus.two_month) %></td>
+                  <td><%= currency(cus.last_month) %></td>
                 </tr>
                 <% end %>
               </tbody>

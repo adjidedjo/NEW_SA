@@ -1,16 +1,46 @@
 class Penjualan::Customer < Penjualan::Sale
   def self.list_customers(branch, state, brand)
-    if state == 1
+    if state == '0'
       CustomerBrand.find_by_sql("
-        SELECT * FROM customer_brands WHERE
-        branch = '#{branch}' AND last_order > '#{3.months.ago.to_date}' AND brand = '#{brand}' AND
-        channel_group = 'RETAIL'
+        SELECT cb.customer, cb.last_order, lc.last_month, lc.two_month, lc.three_month  FROM
+        (
+          SELECT * FROM customer_brands WHERE
+          branch = '#{branch}' AND last_order < '#{3.months.ago.to_date}' AND brand = '#{brand}' AND
+          channel_group = 'RETAIL'
+        ) as cb
+        LEFT JOIN
+          (
+            SELECT kode_customer,
+            SUM(CASE WHEN fiscal_month = '#{6.months.ago.to_date.month}' THEN harganetto1 END) three_month,
+            SUM(CASE WHEN fiscal_month = '#{5.months.ago.to_date.month}' THEN harganetto1 END) two_month,
+            SUM(CASE WHEN fiscal_month = '#{4.months.ago.to_date.month}' THEN harganetto1 END) last_month
+            FROM tblaporancabang WHERE fiscal_month BETWEEN '#{6.months.ago.to_date.month}'
+            AND '#{4.months.ago.to_date.month}' AND fiscal_year BETWEEN '#{6.months.ago.to_date.year}'
+            AND '#{4.months.ago.to_date.year}' AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND area_id != 50 AND
+            tipecust = 'RETAIL' AND bonus = '-' AND area_id IS NOT NULL
+            GROUP BY kode_customer
+          ) AS lc ON lc.kode_customer = cb.address_number
       ")
     else
       CustomerBrand.find_by_sql("
-        SELECT * FROM customer_brands WHERE
-        branch = '#{branch}' AND last_order <= '#{3.months.ago.to_date}' AND brand = '#{brand}' AND
-        channel_group = 'RETAIL'
+        SELECT cb.customer, cb.last_order, lc.last_month, lc.two_month, lc.three_month  FROM
+        (
+          SELECT * FROM customer_brands WHERE
+          branch = '#{branch}' AND last_order BETWEEN '#{3.months.ago.to_date}' AND '#{1.month.ago.to_date}' AND brand = '#{brand}' AND
+          channel_group = 'RETAIL'
+        ) as cb
+        LEFT JOIN
+          (
+            SELECT kode_customer,
+            SUM(CASE WHEN fiscal_month = '#{3.months.ago.to_date.month}' THEN harganetto1 END) three_month,
+            SUM(CASE WHEN fiscal_month = '#{2.months.ago.to_date.month}' THEN harganetto1 END) two_month,
+            SUM(CASE WHEN fiscal_month = '#{1.months.ago.to_date.month}' THEN harganetto1 END) last_month
+            FROM tblaporancabang WHERE fiscal_month BETWEEN '#{3.months.ago.to_date.month}'
+            AND '#{1.months.ago.to_date.month}' AND fiscal_year BETWEEN '#{3.months.ago.to_date.year}'
+            AND '#{1.months.ago.to_date.year}' AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND area_id != 50 AND
+            tipecust = 'RETAIL' AND bonus = '-' AND area_id IS NOT NULL
+            GROUP BY kode_customer
+          ) AS lc ON lc.kode_customer = cb.address_number
       ")
     end
   end
