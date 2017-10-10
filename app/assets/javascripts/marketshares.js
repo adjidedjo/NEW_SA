@@ -66,8 +66,12 @@ jQuery(function() {
 
         
     });
+    
+    $('#marketshare_city').autocomplete({
+        source : $('#marketshare_city').data('city-source')
+    });
 
-    return $('#marketshare_customer_name').autocomplete({
+    $('#marketshare_customer_name').autocomplete({
         source : $('#marketshare_customer_name').data('autocomplete-source')
     });
 });

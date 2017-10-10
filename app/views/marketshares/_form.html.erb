@@ -39,7 +39,7 @@
       <div class="form-group">
         <label class="col-sm-3 control-label">Wilayah</label>
         <div class="col-sm-8">
-          <%= f.text_field :city %>
+          <%= f.text_field :city, data: { city_source: @cities.order(:district).map(&:district)} %>
         </div>
       </div>
     </fieldset>

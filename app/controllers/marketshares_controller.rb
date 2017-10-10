@@ -65,6 +65,12 @@ class MarketsharesController < ApplicationController
 
   def find_brand
     @customer = Customer.where("i_class = 'RET'").group(:name)
+    @cities = 
+    if current_user.branch1.present?
+      IndonesiaCity.where("area_id = '#{current_user.branch1}'").group(:district)
+    else
+      IndonesiaCity.all.group(:district)
+    end
     @ext_brand = Brand.where("external = 1").group(:name)
     @int_brand = Brand.where("external = 0").group(:name)
   end
