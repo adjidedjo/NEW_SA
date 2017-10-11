@@ -40,11 +40,7 @@ class Marketshare < ActiveRecord::Base
       SELECT ct.area, lp.w1, lp.w2, mt.potent, ((lp.w2/mt.potent) * 100) AS market, 
       (((lp.w2 - lp.w1) / lp.w1) * 100) as grow FROM
       (
-        SELECT kota AS area FROM tblaporancabang WHERE area_id = '#{branch}' AND
-        fiscal_month BETWEEN '#{1.month.ago.month}' AND '#{Date.today.month}' AND
-        fiscal_year BETWEEN '#{1.month.ago.year}' AND '#{Date.today.year}'
-        AND jenisbrgdisc = '#{brand}' AND tipecust = 'RETAIL' AND bonus = '-' AND
-        kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') AND kota != ' ' GROUP BY kota
+        SELECT district AS area FROM indonesia_cities WHERE area_id = '#{branch}'
       ) AS ct
       LEFT JOIN
       (
