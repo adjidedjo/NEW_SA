@@ -8,17 +8,19 @@ class Marketshare < ActiveRecord::Base
 
   before_save :upcase_fields
   def upcase_fields
+    id = IndonesiaCity.find_by_city_and_district(self.city.split('|')[0].strip, self.city.split('|')[1].strip)
     self.marketshare_brands.each do |bv|
-      bv.area_id = self.area_id
+      bv.area_id = id.area_id
       bv.internal_brand = self.brand
       bv.customer_name = self.customer_name
-      bv.city = self.city.upcase!
+      bv.city = self.city.split('|')[1].strip
       bv.start_date = self.start_date
       bv.end_date = self.end_date
       bv.name.upcase!
       Brand.where(name: bv.name).first_or_create if bv.name.present?
     end
-    self.city.upcase!
+    self.city = self.city.split('|')[1].strip
+    self.area_id = id.area_id
   end
 
   def customer_name
@@ -37,7 +39,7 @@ class Marketshare < ActiveRecord::Base
 
   def self.get_area_potential(brand, branch)
     find_by_sql("
-      SELECT ct.siti, ct.area, lp.w1, lp.w2, mt.potent, ((lp.w2/mt.potent) * 100) AS market, 
+      SELECT ct.siti, ct.area, lp.w1, lp.w2, mt.potent, ((lp.w2/mt.potent) * 100) AS market,
       (((lp.w2 - lp.w1) / lp.w1) * 100) as grow FROM
       (
         SELECT city AS siti, district AS area FROM indonesia_cities WHERE area_id = '#{branch}'
@@ -55,7 +57,7 @@ class Marketshare < ActiveRecord::Base
       LEFT JOIN
       (
         SELECT SUM(amount) AS potent, city FROM marketshare_brands WHERE internal_brand = '#{brand}'
-        AND area_id = '#{branch}'
+        AND area_id = '#{branch}' GROUP BY city
       ) AS mt ON mt.city = ct.area
     ")
   end

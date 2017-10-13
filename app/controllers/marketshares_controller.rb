@@ -67,12 +67,16 @@ class MarketsharesController < ApplicationController
     @customer = Customer.where("i_class = 'RET'").group(:name)
     @cities = 
     if current_user.branch1.present?
-      IndonesiaCity.where("area_id = '#{current_user.branch1}'").group(:district)
+      IndonesiaCity.where("area_id = '#{current_user.branch1}'").group(:district).order(:district).map{|u| getCity(u.city, u.district).html_safe}
     else
-      IndonesiaCity.all.group(:district)
+      IndonesiaCity.all.group(:district).order(:district).map{|u| getCity(u.city, u.district).html_safe}
     end
     @ext_brand = Brand.where("external = 1").group(:name)
     @int_brand = Brand.where("external = 0").group(:name)
+  end
+  
+  def getCity(area, district)
+   area + " | " + district
   end
 
   # Use callbacks to share common setup or constraints between actions.
