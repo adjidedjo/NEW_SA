@@ -43,7 +43,7 @@ class Stock::Bali::StockRoyalController < ApplicationController
   end
   
   def initialize_brach_id
-    2
+    4
   end
   
   def set_branch_plant

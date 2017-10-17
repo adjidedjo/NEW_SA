@@ -4,6 +4,9 @@
     <li class="sidebar-subnav-header">
       Palembang
     </li>
+    <li class="<%= 'active' if controller?('stock/palembang/stock_capacities') && action?('capacity') %>">
+      <a href="/stock/palembang/stock_capacities/capacity" title="Recap"> <span>Capacity</span></a>
+    </li>
     <li class="<%= 'active' if controller?('stock/palembang/stock_elite') %>">
       <a href="#stock-palembang-elite" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Elite</span> </a>
       <ul id="stock-palembang-elite" class="nav sidebar-subnav collapse">

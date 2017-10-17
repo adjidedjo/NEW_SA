@@ -4,6 +4,9 @@
     <li class="sidebar-subnav-header">
       PUSAT
     </li>
+    <li class="<%= 'active' if controller?('stock/pusat/stock_capacities') && action?('capacity') %>">
+      <a href="/stock/pusat/stock_capacities/capacity" title="Recap"> <span>Capacity</span></a>
+    </li>
     <li class="<%= 'active' if controller?('stock/pusat/stock_elite') %>">
       <a href="#stock-pusat-elite" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Elite</span> </a>
       <ul id="stock-pusat-elite" class="nav sidebar-subnav collapse">

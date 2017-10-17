@@ -1,6 +1,6 @@
 class Stock::Bandung::StockEliteController < ApplicationController
   before_action :set_branch_plant, :initialize_brand
-  
+    
   def stock_normal
     @stock = Stock::ItemAvailability.stock_report(@branch_plant, "E")
     @brand = initialize_brand

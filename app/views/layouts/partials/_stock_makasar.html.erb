@@ -4,6 +4,9 @@
     <li class="sidebar-subnav-header">
       Makasar
     </li>
+    <li class="<%= 'active' if controller?('stock/makasar/stock_capacities') && action?('capacity') %>">
+      <a href="/stock/makasar/stock_capacities/capacity" title="Recap"> <span>Capacity</span></a>
+    </li>
     <li class="<%= 'active' if controller?('stock/makasar/stock_elite') %>">
       <a href="#stock-makasar-elite" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Elite</span> </a>
       <ul id="stock-makasar-elite" class="nav sidebar-subnav collapse">

@@ -2,6 +2,21 @@ class Stock::ItemAvailability < ActiveRecord::Base
   #establish_connection "jdeoracle".to_sym
   self.table_name = "stocks" #sd
   
+  def self.recap_cap_stock_report(mat, foam, caps)
+    self.find_by_sql("SELECT s.product, bc.capacity,
+      SUM(CASE WHEN s.brand = 'E' THEN s.onhand END) AS elite,
+      SUM(CASE WHEN s.brand = 'L' THEN s.onhand END) AS lady,
+      SUM(CASE WHEN s.brand = 'R' THEN s.onhand END) AS royal,
+      SUM(CASE WHEN s.brand = 'S' THEN s.onhand END) AS serenity
+      FROM stocks s
+      LEFT JOIN
+      (
+        SELECT * FROM branch_capacities
+      ) AS bc ON bc.branch = '#{caps}' AND bc.jenis = s.product
+      WHERE s.branch IN ('#{mat}', '#{foam}') AND s.onhand > 0 
+      AND s.status IN ('N') AND s.product IN ('KM','KB','DV','HB') GROUP BY s.product")
+  end
+  
   def self.stock_report(branch, brand)
     self.find_by_sql("SELECT onhand, available, buffer, description, item_number, updated_at FROM stocks 
     WHERE branch = '#{branch}' AND brand = '#{brand}' AND onhand > 0 ")

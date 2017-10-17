@@ -4,6 +4,9 @@
     <li class="sidebar-subnav-header">
       BESTARI MULIA
     </li>
+    <li class="<%= 'active' if controller?('stock/bestari/stock_capacities') && action?('capacity') %>">
+      <a href="/stock/bestari/stock_capacities/capacity" title="Recap"> <span>Capacity</span></a>
+    </li>
     <li class="<%= 'active' if controller?('stock/bestari/stock_elite') %>">
       <a href="#stock-bestari-elite" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Elite</span> </a>
       <ul id="stock-bestari-elite" class="nav sidebar-subnav collapse">
