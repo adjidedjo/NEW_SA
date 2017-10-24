@@ -32,7 +32,7 @@ module PenjualanConcern
   end
   
   def retail_success_rate_conc
-    @sales = SalesProductivityReport.report(initialize_brach_id, initialize_brand)
+    @sales = SalesProductivity.retail_success_rate(initialize_brach_id, initialize_brand)
   end
   
   def retail_nasional_monthly_branches_conc

@@ -1,0 +1,34 @@
+<div class="content-heading">
+  Master Forecast
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Import Master Forecasts
+  </div>
+  <div class="panel-body">
+    <%= form_tag(forecasts_import_path, {multipart: true, :class => "form-inline"}) do %>
+    <div class="form-group">
+      <%= file_field_tag :file %>
+    </div>
+    <%= submit_tag "Import", class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    RULES
+  </div>
+  <div class="panel-body">
+    <p>CSV file hanyalah satu-satunya file yang bisa diupload. 
+      Dibawah ini adalah kolom yang bisa diupload.</p>
+    <ul>
+      <li><strong>branch</strong></li>
+      <li><strong>month</strong></li>
+      <li><strong>year</strong></li>
+      <li><strong>item_number</strong></li>
+      <li><strong>quantity</strong></li>
+    </ul>
+  </div>
+</div>

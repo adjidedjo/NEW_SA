@@ -35,6 +35,10 @@ module RolesHelper
     (user.position == "bm" || user.position == "admin sales" || user.position == "accounting") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
   end
   
+  def report_all_brand(user)
+    user.position == "gm" || user.position == "owner" || user.position == "admin" || user.position == "nsm"
+  end
+  
   def sales(user, branch, brand)
     user.position == "sales" && (user.brand1 == brand || user.brand2 == brand) && 
     (user.branch1 == branch || user.branch2 == branch) 

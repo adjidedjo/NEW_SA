@@ -83,6 +83,19 @@
           </li>
         </ul>
       </li>
+      <% if current_user.position == 'admin' || current_user.position == 'nsm' || current_user.position == 'gm' %>
+      <li class="<%= 'active' if controller?('forecasts') %>">
+        <a href="#forcast" title="forecast" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Forecasts</b></span> </a>
+        <ul id="forcast" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Forecasts
+          </li>
+          <li class="<%= 'active' if controller?('forecasts') && action?('upload_forecast') %>">
+            <a href="/forecasts/upload_forecast" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Upload Master Forecast</b></span> </a>
+          </li>
+        </ul>
+      </li>
+      <% end %>
       <li class="<%= 'active' if controller?('penjualan') %>">
         <a href="#penjualan" title="Penjualan" data-toggle="collapse"> <em class="fa fa-area-chart"></em> <span><b>Sales</b></span> </a>
         <ul id="penjualan" class="nav sidebar-subnav collapse">
@@ -253,7 +266,7 @@
           <%= render "layouts/partials/stock_pekanbaru" %>
         </ul>
       </li>
-      <% if current_user.position == 'admin sales' || current_user.position == 'admin' %>
+      <% if current_user.position == 'admin sales' || current_user.position == 'admin' || current_user.position == 'gm' || current_user.position == 'nsm' %>
       <li class="<%= 'active' if controller?('sales_productivities') %>">
         <a href="#success" title="success" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Success Rate</b></span> </a>
         <ul id="success" class="nav sidebar-subnav collapse">
@@ -263,17 +276,20 @@
           <li class="<%= 'active' if controller?('sales_productivities') && action?('index') %>">
             <a href="/sales_productivities/" title="Daily"> <span>Success Rate</span> </a>
           </li>
+          <li class="<%= 'active' if controller?('rates') && action?('index') %>">
+            <a href="/rates/" title="rates"> <span>Report All Branches</span> </a>
+          </li>
         </ul>
       </li>
       <li class="<%= 'active' if controller?('marketshares') %>">
         <a href="#marketshare" title="marketshare" data-toggle="collapse"> <em class="fa fa-tasks"></em> <span><b>MarketShare</b></span> </a>
         <ul id="marketshare" class="nav sidebar-subnav collapse">
           <li class="sidebar-subnav-header">
-          MarketShare
+            MarketShare
           </li>
-        <li class="<%= 'active' if controller?('marketshares/index') && action?('index') %>">
-          <a href="/marketshares/" title="Marketshare"> <em class="fa fa-cubes"></em> <span><b>MarketShares</b></span> </a>
-        </li>
+          <li class="<%= 'active' if controller?('marketshares/index') && action?('index') %>">
+            <a href="/marketshares/" title="Marketshare"> <em class="fa fa-cubes"></em> <span><b>MarketShares</b></span> </a>
+          </li>
         </ul>
       </li>
       <% end %>

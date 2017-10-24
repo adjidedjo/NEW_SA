@@ -44,8 +44,8 @@
                 <tr class="gradeX">
                   <td><%= ap.siti %></td>
                   <td><%= ap.area %></td>
-                  <td><%= currency(ap.w1) %></td>
-                  <td><%= currency(ap.w2) %></td>
+                  <td><%= currency(ap.w1.nil? ? 0 : ap.w1) %></td>
+                  <td><%= currency(ap.w2.nil? ? 0 : ap.w2) %></td>
                   <td><%= currency(ap.potent.present? ? ap.potent/4 : 0) %></td>
                   <td class="<%= coloring(ap.market) %>"><%= ap.market.nil? ? 0 : cpercent(ap.market.abs) %></td>
                   <td class="<%= coloring(ap.grow) %>"><%= ap.grow.nil? ? 0 : cpercent(ap.grow.abs) %></td>

@@ -6,13 +6,20 @@ Rails.application.routes.draw do
   root :to => 'pages#template'
 
   # view routes
-  
+
   # market share
   resources :marketshares
-  
+
   # Sales Productivity
   resources :sales_productivities
+
+  # FORECAST
+  get 'forecasts/upload_forecast'
+  post 'forecasts/import'
   
+  #SUCCESS RATE ALL BRANCH
+  get 'rates/index'
+
   # base price
   get 'base_prices/first_regional_base_prices/elite'
   get 'base_prices/first_regional_base_prices/lady'
@@ -37,7 +44,7 @@ Rails.application.routes.draw do
   get 'base_prices/second_regional_base_prices/base_price_mattress'
   get 'base_prices/third_regional_base_prices/base_price_mattress'
   get 'base_prices/fourth_regional_base_prices/base_price_mattress'
-  
+
   # salesman
   get 'penjualan_salesman/elite'
   get 'penjualan_salesman/lady'
@@ -45,7 +52,7 @@ Rails.application.routes.draw do
   get 'penjualan_salesman/royal'
   get 'penjualan_salesman/weekly'
   get 'penjualan_salesman/monthly'
-  
+
   #Nasional
   get 'penjualan/nasional/nasional_channels/all_channel'
   get 'penjualan/nasional/nasional_customers/national_customer'
@@ -61,7 +68,7 @@ Rails.application.routes.draw do
   get 'penjualan/nasional/nasional_royal/daily'
   get 'penjualan/nasional/nasional_royal/weekly'
   get 'penjualan/nasional/nasional_royal/monthly'
-  
+
   #Pusat
   get 'stock/pusat/stock_capacities/capacity'
   get 'stock/pusat/stock_elite/stock_recap'
@@ -84,7 +91,7 @@ Rails.application.routes.draw do
   get 'stock/pusat/stock_royal/stock_clearence'
   get 'stock/pusat/stock_royal/stock_service'
   get 'stock/pusat/stock_royal/stock_display'
-  
+
   #Bestari
   get 'stock/bestari/stock_capacities/capacity'
   get 'stock/bestari/stock_elite/stock_recap'
@@ -107,12 +114,12 @@ Rails.application.routes.draw do
   get 'stock/bestari/stock_royal/stock_clearence'
   get 'stock/bestari/stock_royal/stock_service'
   get 'stock/bestari/stock_royal/stock_display'
-  
+
   # Bandung
-  
+
   get 'credit_limits/bandung/credit_checks/credit_checks'
   get 'credit_limits/bandung/credit_checks/credit_details'
-  
+
   get 'order/bandung/bandung_elites/order'
   get 'order/bandung/bandung_serenity/order'
   get 'order/bandung/bandung_lady/order'
