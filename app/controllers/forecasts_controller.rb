@@ -1,5 +1,10 @@
 class ForecastsController < ApplicationController
   
+  def report_forecasts_branches
+    @areas = Area.all
+    @acv_forecast = Forecast.calculation_forecasts(params[:date][:month], params[:date][:year], params[:areas])
+  end
+  
   def index
   end
 

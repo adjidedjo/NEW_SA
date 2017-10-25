@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   # FORECAST
   get 'forecasts/upload_forecast'
   post 'forecasts/import'
+  get 'forecasts/report_forecasts_branches'
   
   #SUCCESS RATE ALL BRANCH
   get 'rates/index'
