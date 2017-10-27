@@ -1,6 +1,6 @@
 class Forecast < ActiveRecord::Base
   def self.import(file)
-    spreadsheet = Roo::Spreadsheet.open(file.path)
+    spreadsheet = Roo::Spreadsheet.open(file.path, csv_options: {col_sep: ";"})
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
