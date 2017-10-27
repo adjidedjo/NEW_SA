@@ -4,7 +4,8 @@ class Forecast < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      forecast = find_by(item_number: row["item_number"], branch: row["branch"], month: row["month"], year: row["year"]) || new
+      forecast = find_by(brand: row["brand"], item_number: row["item_number"], branch: row["branch"], 
+      month: row["month"], year: row["year"]) || new
       if forecast["id"].nil?
       forecast.attributes = row.to_hash
       else
