@@ -8,18 +8,18 @@ class Marketshare < ActiveRecord::Base
 
   before_save :upcase_fields
   def upcase_fields
-    id = IndonesiaCity.find_by_city_and_district(self.city.split('|')[0].strip, self.city.split('|')[1].strip)
+    id = IndonesiaCity.find_by_city(self.city)
     self.marketshare_brands.each do |bv|
       bv.area_id = id.area_id
       bv.internal_brand = self.brand
       bv.customer_name = self.customer_name
-      bv.city = self.city.split('|')[1].strip
+      bv.city = id.name
       bv.start_date = self.start_date
       bv.end_date = self.end_date
       bv.name.upcase!
       Brand.where(name: bv.name).first_or_create if bv.name.present?
     end
-    self.city = self.city.split('|')[1].strip
+    self.city = id.name
     self.area_id = id.area_id
   end
 
@@ -39,17 +39,18 @@ class Marketshare < ActiveRecord::Base
 
   def self.get_area_potential(brand, branch)
     find_by_sql("
-      SELECT ct.siti, ct.area, lp.w1, lp.w2, mt.potent, ((lp.w2/mt.potent) * 100) AS market,
-      (((lp.w2 - lp.w1) / lp.w1) * 100) as grow FROM
+      SELECT ct.siti, ct.area, lp.w1, lp.w2, lp.w3, mt.potent, ((lp.w1/mt.potent) * 100) AS market,
+      (((lp.w2 - lp.w3) / lp.w3) * 100) as grow FROM
       (
-        SELECT city AS siti, district AS area FROM indonesia_cities WHERE area_id = '#{branch}'
+        SELECT city AS siti, name AS area FROM indonesia_cities WHERE area_id = '#{branch}'
       ) AS ct
       LEFT JOIN
       (
         SELECT kota AS area,
-        SUM(CASE WHEN week = '#{1.week.ago.to_date.cweek}' THEN harganetto2 END) AS w1,
-        SUM(CASE WHEN week = '#{Date.today.cweek}' THEN harganetto2 END) AS w2 FROM
-        tblaporancabang WHERE week BETWEEN '#{1.week.ago.to_date.cweek}' AND '#{Date.today.cweek}' AND
+        SUM(CASE WHEN week = '#{3.week.ago.to_date.cweek}' THEN harganetto2 END) AS w3,
+        SUM(CASE WHEN week = '#{2.week.ago.to_date.cweek}' THEN harganetto2 END) AS w2,
+        SUM(CASE WHEN week = '#{1.week.ago.to_date.cweek}' THEN harganetto2 END) AS w1 FROM
+        tblaporancabang WHERE week BETWEEN '#{3.week.ago.to_date.cweek}' AND '#{1.week.ago.to_date.cweek}' AND
         jenisbrgdisc LIKE '#{brand}' AND area_id = '#{branch}'
         AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB') AND area_id NOT IN (1,50)
         AND tipecust = 'RETAIL' GROUP BY kota
