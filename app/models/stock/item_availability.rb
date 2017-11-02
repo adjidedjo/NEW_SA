@@ -18,7 +18,7 @@ class Stock::ItemAvailability < ActiveRecord::Base
   end
   
   def self.stock_report(branch, brand)
-    self.find_by_sql("SELECT onhand, available, buffer, description, item_number, updated_at FROM stocks 
+    self.find_by_sql("SELECT brand, onhand, available, buffer, description, item_number, updated_at FROM stocks 
     WHERE branch = '#{branch}' AND brand = '#{brand}' AND onhand > 0 ")
   end
   
