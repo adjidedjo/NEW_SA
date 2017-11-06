@@ -1,4 +1,13 @@
 class Forecast < ActiveRecord::Base
+  
+  def self.update_master_forecast
+    self.all.each do |e|
+      item = ItemMaster.where(item_number: e.item_number).first
+      a = item.nil? ? 0 : item.segment1
+      e.update_attributes!(segment1: a)
+    end
+  end
+  
   def self.import(file)
     spreadsheet = Roo::Spreadsheet.open(file.path)
     header = spreadsheet.row(1)
@@ -7,7 +16,14 @@ class Forecast < ActiveRecord::Base
       forecast = find_by(brand: row["brand"], item_number: row["item_number"], branch: row["branch"], 
       month: row["month"], year: row["year"]) || new
       if forecast["id"].nil?
-      forecast.attributes = row.to_hash
+        item = ItemMaster.where(item_number: row["item_number"]).first
+        row["segment1"] = item.nil? ? 0 : item.segment1
+        row["segment2"] = item.nil? ? 0 : item.segment2
+        row["segment3"] = item.nil? ? 0 : item.segment3
+        row["segment2_name"] = item.nil? ? 0 : JdeUdc.artikel_udc(item.segment2)
+        row["segment3_name"] = item.nil? ? 0 : JdeUdc.kain_udc(item.segment3)
+        row["size"] = item.nil? ? 0 : item.segment6
+        forecast.attributes = row.to_hash
       else
         forecast["quantity"] = row["quantity"]
       end
@@ -15,23 +31,32 @@ class Forecast < ActiveRecord::Base
     end
   end
 
-  def self.calculation_forecasts(month, year, area)
+  def self.calculation_forecasts(month, year, area, brand)
     self.find_by_sql("
-      SELECT f.brand, f.month, f.year, lp.namabrg, a.area, f.branch,
-      f.item_number, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv FROM
+      SELECT f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
+      f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, s.onhand, ib.qty_buf FROM
       (
-        SELECT brand, branch, MONTH, YEAR, item_number, quantity FROM
+        SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name, 
+        segment3_name, size, quantity FROM
         forecasts WHERE branch = '#{area}' AND month = '#{month}'
-        AND year = '#{year}'
+        AND year = '#{year}' AND brand = '#{brand}'
       ) AS f
       LEFT JOIN
       (
         SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, area_id, fiscal_month, fiscal_year FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
-        ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')
+        ('KM', 'DV', 'HB', 'KB', 'SB', 'SA') AND orty IN ('SO', 'ZO')
         GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
       ) AS lp ON f.item_number = lp.kodebrg AND f.month = lp.fiscal_month AND f.year = lp.fiscal_year
         AND f.branch = lp.area_id
+      LEFT JOIN
+      (
+        SELECT onhand, item_number, area_id, short_item FROM stocks
+      ) AS s ON s.item_number = f.item_number AND s.area_id = f.branch
+      LEFT JOIN
+      (
+        SELECT quantity AS qty_buf, short_item, area FROM item_branches
+      ) AS ib ON s.short_item = ib.short_item AND s.area_id = ib.area
       LEFT JOIN
       (
         SELECT * FROM areas

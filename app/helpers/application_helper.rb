@@ -1,6 +1,18 @@
 module ApplicationHelper
   include RolesHelper
   
+  def eforecast(forecast,actual)
+    absolute = (actual - forecast).abs
+    val = (absolute.to_f/forecast.to_f)*100
+    return number_to_percentage(val, precision: 0)
+  end
+  
+  def aforecast(forecast,actual)
+    absolute = (actual - forecast).abs
+    val = 100 - (absolute.to_f/forecast.to_f)*100
+    return number_to_percentage(val, precision: 0)
+  end
+  
   def link_to_add_row(name, f, association, **args)
     new_object = f.object.send(association).klass.new
     id = new_object.object_id

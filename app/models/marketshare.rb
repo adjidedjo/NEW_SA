@@ -33,8 +33,12 @@ class Marketshare < ActiveRecord::Base
 
   def self.list_customers(user)
     user = User.find(user)
-    find_by_sql("SELECT ms.* FROM marketshares ms
-      WHERE ms.area_id = '#{user.branch1.nil? ? 0 : user.branch1}'")
+    if user.branch1.nil?
+      find_by_sql("SELECT ms.* FROM marketshares ms")
+    else
+      find_by_sql("SELECT ms.* FROM marketshares ms
+        WHERE '#{user.branch1.nil? ? 'ms.area_id >= 0' : user.branch1}'")
+    end
   end
 
   def self.get_area_potential(brand, branch)

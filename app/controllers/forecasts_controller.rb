@@ -2,7 +2,8 @@ class ForecastsController < ApplicationController
   
   def report_forecasts_branches
     @areas = Area.all
-    @acv_forecast = Forecast.calculation_forecasts(params[:date][:month], params[:date][:year], params[:areas]) if params[:date].present?
+    @brand = Brand.where(external: 0)
+    @acv_forecast = Forecast.calculation_forecasts(params[:date][:month], params[:date][:year], params[:areas], params[:brand]) if params[:date].present?
   end
   
   def index

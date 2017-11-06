@@ -12,6 +12,9 @@
       <%= select_tag "areas", options_from_collection_for_select(@areas, "id", "area"), {class: "form-control"} %>
     </div>
     <div class="form-group">
+      <%= select_tag "brand", options_from_collection_for_select(@brand, "name", "name"), {class: "form-control"} %>
+    </div>
+    <div class="form-group">
       <%= select_month(params[:date].present? ? params[:date][:month].to_i : Date.today.month, {prompt: 'Choose month'}, class: "form-control") %>
     </div>
     <div class="form-group">
@@ -37,15 +40,16 @@
               <table id="table-revenue-products" class="table table-striped table-hover">
                 <thead>
                   <tr>
-                    <th>Month</th>
-                    <th>Year</th>
-                    <th>Area</th>
-                    <th>Brand</th>
-                    <th>Item Number</th>
-                    <th>Description</th>
-                    <th>Forecast</th>
-                    <th>Sales</th>
-                    <th>Acv</th>
+                    <th style="text-align: center;">AREA</th>
+                    <th style="text-align: center;">TYPE</th>
+                    <th>DESCRIPTION</th>
+                    <th style="text-align: center;">SIZE</th>
+                    <th style="text-align: center;">FORECAST</th>
+                    <th style="text-align: center;">ACTUAL</th>
+                    <th style="text-align: center;">ERROR</th>
+                    <th style="text-align: center;">ACCURACY</th>
+                    <th style="text-align: center;">STOCK</th>
+                    <th style="text-align: center;">BUFFER</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -53,15 +57,16 @@
                 <tbody>
                   <% @acv_forecast.each do |fc| %>
                     <tr class="gradeX">
-                      <td><%= fc.month %></td>
-                      <td><%= fc.year %></td>
-                      <td><%= fc.area %></td>
-                      <td><%= fc.brand %></td>
-                      <td><%= fc.item_number %></td>
-                      <td><%= fc.namabrg %></td>
-                      <td><%= fc.quantity %></td>
-                      <td><%= fc.jumlah %></td>
-                      <td><%= fc.acv.nil? ? 0 : cpercent(fc.acv) %></td>
+                      <td style="text-align: center;"><%= fc.area %></td>
+                      <td style="text-align: center;"><%= fc.segment1 %></td>
+                      <td><%= fc.segment2_name %> <%= fc.segment3_name.strip %></td>
+                      <td style="text-align: center;"><%= fc.size %></td>
+                      <td style="text-align: center;"><%= fc.quantity %></td>
+                      <td style="text-align: center;"><%= fc.jumlah %></td>
+                      <td style="text-align: center;"><%= fc.acv.nil? ? 0 : eforecast(fc.quantity, fc.jumlah) %></td>
+                      <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.jumlah) %></td>
+                      <td style="text-align: center;"><%= fc.onhand %></td>
+                      <td style="text-align: center;"><%= fc.qty_buf %></td>
                     </tr>
                   <% end %>
                 </tbody>
