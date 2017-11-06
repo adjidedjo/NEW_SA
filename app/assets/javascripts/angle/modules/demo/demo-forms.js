@@ -40,6 +40,34 @@
 
         if ($.fn.datetimepicker) {
             var d = new Date();
+            $('#dateffore').datetimepicker({
+                icons : {
+                    time : 'fa fa-clock-o',
+                    date : 'fa fa-calendar',
+                    up : 'fa fa-chevron-up',
+                    down : 'fa fa-chevron-down',
+                    previous : 'fa fa-chevron-left',
+                    next : 'fa fa-chevron-right',
+                    today : 'fa fa-crosshairs',
+                    clear : 'fa fa-trash'
+                },
+                format : 'DD/MM/YYYY',
+                maxDate : new Date()
+            }).attr('readonly', 'true');
+            $('#datetfore').datetimepicker({
+                icons : {
+                    time : 'fa fa-clock-o',
+                    date : 'fa fa-calendar',
+                    up : 'fa fa-chevron-up',
+                    down : 'fa fa-chevron-down',
+                    previous : 'fa fa-chevron-left',
+                    next : 'fa fa-chevron-right',
+                    today : 'fa fa-crosshairs',
+                    clear : 'fa fa-trash'
+                },
+                format : 'DD/MM/YYYY',
+                maxDate : new Date()
+            }).attr('readonly', 'true');
             $('#datepicker1').datetimepicker({
                 icons : {
                     time : 'fa fa-clock-o',
@@ -51,9 +79,9 @@
                     today : 'fa fa-crosshairs',
                     clear : 'fa fa-trash'
                 },
-               format : 'DD/MM/YYYY',
-               // minDate: d.setDate(d.getDate()-2),
-               maxDate: new Date()
+                format : 'DD/MM/YYYY',
+                // minDate: d.setDate(d.getDate()-2),
+                maxDate : new Date()
             }).attr('readonly', 'true');
             // marketshare
             $('#datems1').datetimepicker({
@@ -69,8 +97,8 @@
                 },
                 viewMode : 'months',
                 format : 'MM/YYYY'
-               // minDate: d.setDate(d.getDate()-2),
-               // maxDate: new Date()
+                // minDate: d.setDate(d.getDate()-2),
+                // maxDate: new Date()
             }).attr('readonly', 'true');
             // marketshare
             $('#datems2').datetimepicker({
@@ -86,8 +114,8 @@
                 },
                 viewMode : 'months',
                 format : 'MM/YYYY'
-               // minDate: d.setDate(d.getDate()-2),
-               // maxDate: new Date()
+                // minDate: d.setDate(d.getDate()-2),
+                // maxDate: new Date()
             }).attr('readonly', 'true');
             // only time
             $('#datetimepicker2').datetimepicker({

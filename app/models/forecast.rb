@@ -31,23 +31,24 @@ class Forecast < ActiveRecord::Base
     end
   end
 
-  def self.calculation_forecasts(month, year, area, brand)
+  def self.calculation_forecasts(start_date, end_date, area, brand)
     self.find_by_sql("
       SELECT f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
       f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, s.onhand, ib.qty_buf FROM
       (
         SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name, 
         segment3_name, size, quantity FROM
-        forecasts WHERE branch = '#{area}' AND month = '#{month}'
-        AND year = '#{year}' AND brand = '#{brand}'
+        forecasts WHERE branch = '#{area}' AND month = '#{start_date.to_date.month}'
+        AND year = '#{start_date.to_date.year}' AND brand = '#{brand}'
       ) AS f
       LEFT JOIN
       (
         SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, area_id, fiscal_month, fiscal_year FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
-        ('KM', 'DV', 'HB', 'KB', 'SB', 'SA') AND orty IN ('SO', 'ZO')
+        ('KM', 'DV', 'HB', 'KB', 'SB', 'SA') AND orty IN ('SO', 'ZO') AND tanggalsj BETWEEN '#{start_date.to_date}'
+        AND '#{end_date.to_date}'
         GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
-      ) AS lp ON f.item_number = lp.kodebrg AND f.month = lp.fiscal_month AND f.year = lp.fiscal_year
+      ) AS lp ON f.item_number = lp.kodebrg
         AND f.branch = lp.area_id
       LEFT JOIN
       (
