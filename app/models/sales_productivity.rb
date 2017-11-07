@@ -24,7 +24,7 @@ class SalesProductivity < ActiveRecord::Base
 
   def self.retail_success_rate(branch, brand)
     self.find_by_sql("SELECT sp.count_sales, sp.salesmen_id, sp.npvnc, sp.nvc, sp.ncdv, sp.ncc, sp.ncdc,
-      usr.nama, lc.jumlah FROM
+      us.nama, lc.jumlah FROM
       (
         SELECT COUNT(salesmen_id) AS count_sales, salesmen_id, SUM(npvnc) AS npvnc, SUM(nvc) AS nvc, SUM(ncdv) AS ncdv, SUM(ncc) AS ncc, SUM(ncdc) AS ncdc
         FROM sales_productivities WHERE branch_id = '#{branch}' AND brand = '#{brand}' AND
@@ -34,24 +34,20 @@ class SalesProductivity < ActiveRecord::Base
       LEFT JOIN
       (
        SELECT id, nama, nik FROM salesmen
-      ) AS usr ON sp.salesmen_id = usr.id
-      LEFT JOIN
-      (
-       SELECT id, nama FROM salesmen
-      ) AS usr ON sp.salesmen_id = usr.id
+      ) AS us ON sp.salesmen_id = us.id
       LEFT JOIN
       (
        SELECT SUM(jumlah) AS jumlah, cabang_id, nopo FROM tblaporancabang WHERE fiscal_month = '#{Date.yesterday.month}'
        AND fiscal_year = '#{Date.yesterday.year}' AND jenisbrgdisc = '#{brand}' AND
        tipecust = 'RETAIL' AND bonus = '-' AND
        kodejenis IN ('KM','DV','HB','KB') AND orty = 'SO'
-      ) AS lc ON lc.nopo = usr.nik
+      ) AS lc ON lc.nopo = us.nik
     ")
   end
 
   def self.retail_success_rate_all_branch
     self.find_by_sql("SELECT sp.count_sales, sp.salesmen_id, sp.npvnc, sp.nvc, sp.ncdv, sp.ncc, sp.ncdc,
-      usr.nama, lc.jumlah, cb.Cabang, sp.brand FROM
+      us.nama, lc.jumlah, cb.Cabang, sp.brand FROM
       (
         SELECT COUNT(salesmen_id) AS count_sales, salesmen_id, SUM(npvnc) AS npvnc, SUM(nvc) AS nvc,
         SUM(ncdv) AS ncdv, SUM(ncc) AS ncc, SUM(ncdc) AS ncdc, brand, branch_id
@@ -61,7 +57,7 @@ class SalesProductivity < ActiveRecord::Base
       LEFT JOIN
       (
        SELECT id, nama, nik FROM salesmen
-      ) AS usr ON sp.salesmen_id = usr.id
+      ) AS us ON sp.salesmen_id = us.id
       LEFT JOIN
       (
         SELECT id, Cabang FROM tbidcabang
@@ -72,7 +68,7 @@ class SalesProductivity < ActiveRecord::Base
        AND fiscal_year = '#{Date.yesterday.year}' AND
        tipecust = 'RETAIL' AND bonus = '-' AND
        kodejenis IN ('KM','DV','HB','KB') AND orty = 'SO'
-      ) AS lc ON lc.nopo = usr.nik AND lc.jenisbrgdisc = sp.brand AND lc.cabang_id = sp.branch_id
+      ) AS lc ON lc.nopo = us.nik AND lc.jenisbrgdisc = sp.brand AND lc.cabang_id = sp.branch_id
     ")
   end
 
