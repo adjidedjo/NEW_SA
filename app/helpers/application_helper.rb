@@ -1,6 +1,10 @@
 module ApplicationHelper
   include RolesHelper
   
+  def find_branch(branch)
+    Branch.get_cabang(branch)
+  end
+  
   def eforecast(forecast,actual)
     absolute = (actual - forecast).abs
     val = (absolute.to_f/forecast.to_f)*100

@@ -10,13 +10,14 @@
           <table id="productivities" class="table table-striped table-hover">
             <thead>
               <tr>
-                <th style="width: auto;">NAME</th>
+                <th>NAME</th>
+                <th style="width: auto;">BRANCH</th>
                 <th style="width: auto;">BRAND</th>
                 <th style="width: auto;">DATE</th>
                 <th style="width: auto;">PLAN VISIT CUSTOMER</th>
                 <th>VISIT CUSTOMER</th>
                 <th>CLOSE DEAL VISIT</th>
-                <th>CALL CUSTUMER</th>
+                <th>CALL CUSTOMER</th>
                 <th>CLOSE DEAL CALL</th>
                 <th></th>
               </tr>
@@ -26,6 +27,7 @@
               <% @sales_productivities.each do |sm| %>
               <tr>
                 <td><%= find_sales(sm.salesmen_id).nama %></td>
+                <td><%= find_branch(sm.branch_id) %></td>
                 <td><%= sm.brand %></td>
                 <td><%= sm.date.strftime("%d %B %Y") %></td>
                 <td><%= sm.npvnc %></td>
@@ -39,7 +41,9 @@
             </tbody>
           </table>
         </div>
-        <div class="panel-footer">if you want to create a new one? click <%= link_to "here", new_sales_productivity_path, class: "mb-sm btn-xs btn btn-primary btn-outline" %></div>
+        <div class="panel-footer">
+          if you want to create a new one? click <%= link_to "here", new_sales_productivity_path, class: "mb-sm btn-xs btn btn-primary btn-outline" %>
+        </div>
       </div>
     </div>
   </div>

@@ -51,7 +51,7 @@ class SalesProductivity < ActiveRecord::Base
       (
         SELECT COUNT(salesmen_id) AS count_sales, salesmen_id, SUM(npvnc) AS npvnc, SUM(nvc) AS nvc,
         SUM(ncdv) AS ncdv, SUM(ncc) AS ncc, SUM(ncdc) AS ncdc, brand, branch_id
-        FROM sales_productivities WHERE month = '#{Date.yesterday.month}' AND year = '#{Date.yesterday.year}'
+        FROM sales_productivities WHERE month = 10 AND year = '#{Date.yesterday.year}'
         GROUP BY salesmen_id, branch_id, brand
       ) AS sp
       LEFT JOIN
@@ -76,7 +76,7 @@ class SalesProductivity < ActiveRecord::Base
     self.find_by_sql("SELECT cb.Cabang, lc.cabang_id, lc.jenisbrgdisc, lc.jumlah, lc.salesman, lc.tanggalsj, sp.salesmen, (lc.jumlah/(sp.salesmen*8)) AS prod FROM
     (
      SELECT cabang_id, jenisbrgdisc, SUM(jumlah) AS jumlah, salesman, tanggalsj FROM tblaporancabang WHERE
-     tanggalsj BETWEEN '#{1.week.ago.to_date}' AND
+     tanggalsj BETWEEN '#{1.months.ago.beginning_of_month.to_date}' AND
      '#{Date.yesterday.to_date}' AND kodejenis IN ('KM','DV','HB','KB') AND
      bonus = '-' AND tipecust = 'RETAIL'
      GROUP BY tanggalsj, cabang_id, jenisbrgdisc
