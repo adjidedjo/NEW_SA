@@ -279,9 +279,11 @@
           <li class="<%= 'active' if controller?('sales_productivities') && action?('index') %>">
             <a href="/sales_productivities/" title="Daily"> <span>Success Rate</span> </a>
           </li>
-          <li class="<%= 'active' if controller?('rates') && action?('index') %>">
-            <a href="/rates/index" title="rates"> <span>Report All Branches</span> </a>
-          </li>
+          <% if current_user.branch1.nil? %>
+            <li class="<%= 'active' if controller?('rates') && action?('index') %>">
+              <a href="/rates/index" title="rates"> <span>Report All Branches</span> </a>
+            </li>
+          <% end %>
         </ul>
       </li>
       <li class="<%= 'active' if controller?('marketshares') %>">

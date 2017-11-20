@@ -1,4 +1,51 @@
 class SalesProductivity < ActiveRecord::Base
+  def self.retail_success_rate_branch(branch, month, year)
+    self.find_by_sql("SELECT sp.count_sales, sp.salesmen_id, sp.npvnc, sp.nvc, sp.ncdv, sp.ncc, sp.ncdc,
+      us.nama, lc.jumlah, cb.Cabang, sp.brand FROM
+      (
+        SELECT COUNT(salesmen_id) AS count_sales, salesmen_id, SUM(npvnc) AS npvnc, SUM(nvc) AS nvc,
+        SUM(ncdv) AS ncdv, SUM(ncc) AS ncc, SUM(ncdc) AS ncdc, brand, branch_id
+        FROM sales_productivities WHERE month = '#{month}' AND year = '#{year}' AND branch_id = '#{branch}'
+        GROUP BY salesmen_id, brand
+      ) AS sp
+      LEFT JOIN
+      (
+       SELECT id, nama, nik FROM salesmen
+      ) AS us ON sp.salesmen_id = us.id
+      LEFT JOIN
+      (
+        SELECT id, Cabang FROM tbidcabang
+      ) AS cb ON sp.branch_id = cb.id
+      LEFT JOIN
+      (
+       SELECT SUM(jumlah) AS jumlah, cabang_id, nopo, jenisbrgdisc FROM tblaporancabang WHERE
+       fiscal_month = '#{month}' AND fiscal_year = '#{year}' AND
+       tipecust = 'RETAIL' AND bonus = '-' AND cabang_id = '#{branch}' AND
+       kodejenis IN ('KM','DV','HB','KB') AND orty = 'SO'
+      ) AS lc ON lc.nopo = us.nik AND lc.jenisbrgdisc = sp.brand AND lc.cabang_id = sp.branch_id
+    ")
+  end
+
+  def self.retail_productivity_branch(branch, month, year)
+    self.find_by_sql("SELECT cb.Cabang, lc.cabang_id, lc.jenisbrgdisc, lc.jumlah, lc.salesman, lc.tanggalsj, sp.salesmen, (lc.jumlah/(sp.salesmen*8)) AS prod FROM
+    (
+     SELECT cabang_id, jenisbrgdisc, SUM(jumlah) AS jumlah, salesman, tanggalsj FROM tblaporancabang WHERE
+     fiscal_month = '#{month}' AND fiscal_year = '#{year}' AND kodejenis IN ('KM','DV','HB','KB') AND
+     bonus = '-' AND tipecust = 'RETAIL' AND cabang_id = '#{branch}'
+     GROUP BY tanggalsj, jenisbrgdisc
+    ) AS lc
+    LEFT JOIN
+    (
+      SELECT COUNT(salesmen_id) AS salesmen, branch_id, brand,
+      date FROM sales_productivities GROUP BY brand, date
+    ) AS sp ON sp.date = lc.tanggalsj AND sp.branch_id = lc.cabang_id AND sp.brand = lc.jenisbrgdisc
+    LEFT JOIN
+    (
+      SELECT id, Cabang FROM tbidcabang
+    ) AS cb ON cb.id = lc.cabang_id
+    ")
+  end
+
   def self.retail_productivity(branch, brand)
     self.find_by_sql("SELECT cb.nama, lc.cabang_id, lc.jenisbrgdisc, lc.jumlah, lc.salesman,
     lc.tanggalsj, sp.salesmen, (lc.jumlah/(sp.salesmen*8)) AS prod FROM
