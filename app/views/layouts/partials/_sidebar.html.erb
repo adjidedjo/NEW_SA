@@ -93,8 +93,11 @@
           <li class="<%= 'active' if controller?('forecasts') && action?('upload_forecast') %>">
             <a href="/forecasts/upload_forecast" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Upload Master Forecast</b></span> </a>
           </li>
+          <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_items') %>">
+            <a href="/forecasts/report_forecasts_items" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report by Item</b></span> </a>
+          </li>
           <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_branches') %>">
-            <a href="/forecasts/report_forecasts_branches" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report Forecast</b></span> </a>
+            <a href="/forecasts/report_forecasts_branches" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report by Branch</b></span> </a>
           </li>
         </ul>
       </li>
