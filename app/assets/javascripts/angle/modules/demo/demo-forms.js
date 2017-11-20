@@ -51,8 +51,7 @@
                     today : 'fa fa-crosshairs',
                     clear : 'fa fa-trash'
                 },
-                format : 'DD/MM/YYYY',
-                maxDate : new Date()
+                format : 'YYYY-MM-DD'
             }).attr('readonly', 'true');
             $('#datetfore').datetimepicker({
                 icons : {
@@ -65,7 +64,7 @@
                     today : 'fa fa-crosshairs',
                     clear : 'fa fa-trash'
                 },
-                format : 'DD/MM/YYYY',
+                format : 'YYYY-MM-DD',
                 maxDate : new Date()
             }).attr('readonly', 'true');
             $('#datepicker1').datetimepicker({
