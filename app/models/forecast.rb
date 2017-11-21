@@ -33,27 +33,30 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts_by_branch(start_date, end_date, area)
     self.find_by_sql("
-      SELECT f.segment1, f.brand, f.month, f.year, a.area, f.branch, f.segment2_name, f.segment3_name,
-      f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv FROM
+      SELECT oa.brand, SUM(oa.quantity) AS quantity, SUM(oa.jumlah) AS jumlah, SUM(oa.acv) AS acv, SUM(oa.quantity) AS quantity FROM
       (
-        SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name, 
-        segment3_name, size, SUM(quantity) AS quantity FROM
-        forecasts WHERE branch = '#{area}' AND month = '#{start_date.to_date.month}'
-        AND year = '#{start_date.to_date.year}' GROUP BY brand
-      ) AS f
-      LEFT JOIN
-      (
-        SELECT SUM(jumlah) AS jumlah, jenisbrgdisc, area_id, fiscal_month, fiscal_year FROM
-        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
-        ('KM', 'DV', 'HB', 'KB', 'SB', 'SA') AND orty IN ('SO', 'ZO') AND tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}'
-        GROUP BY area_id, jenisbrgdisc, fiscal_month, fiscal_year
-      ) AS lp ON f.brand = lp.jenisbrgdisc
-        AND f.branch = lp.area_id
-      LEFT JOIN
-      (
-        SELECT * FROM areas
-      ) AS a ON f.branch = a.id
+            SELECT f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
+            f.size, f.quantity, lp.jumlah, ABS((lp.jumlah-f.quantity)) AS acv FROM
+            (
+              SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name, 
+              segment3_name, size, quantity FROM
+              forecasts WHERE branch = '#{area}' AND month = '#{end_date.to_date.month}'
+              AND year = '#{end_date.to_date.year}'
+            ) AS f
+            LEFT JOIN
+            (
+              SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, area_id, fiscal_month, fiscal_year FROM
+              tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+              ('KM', 'DV', 'HB', 'KB', 'SB', 'SA') AND orty IN ('SO', 'ZO') AND tanggalsj BETWEEN '#{start_date.to_date}'
+              AND '#{end_date.to_date}'
+              GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
+            ) AS lp ON f.item_number = lp.kodebrg
+              AND f.branch = lp.area_id
+            LEFT JOIN
+            (
+              SELECT * FROM areas
+            ) AS a ON f.branch = a.id
+      ) AS oa GROUP BY oa.brand
     ")
   end
 
