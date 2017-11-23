@@ -14,6 +14,7 @@
                 <th style="width: auto;">Nama</th>
                 <th style="width: auto;">Cabang</th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tfoot></tfoot>
@@ -24,6 +25,7 @@
                 <td><%= sm.nama %></td>
                 <td><%= find_area(sm.branch_id) %></td>
                 <td><%= link_to "EDIT", edit_salesman_path(sm) %></td>
+                <td><%= link_to "HAPUS", salesman_path(sm), method: :delete, data: { confirm: "Yakin?"} %></td>
               </tr>
               <% end %>
             </tbody>

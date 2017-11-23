@@ -17,7 +17,7 @@ class Marketshare < ActiveRecord::Base
       bv.start_date = self.start_date
       bv.end_date = self.end_date
       bv.name.upcase!
-      Brand.where(name: bv.name).first_or_create if bv.name.present?
+      #Brand.where(name: bv.name).first_or_create if bv.name.present?
     end
     self.city = id.name
     self.area_id = id.area_id
