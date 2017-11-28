@@ -67,7 +67,8 @@ class MarketsharesController < ApplicationController
     @customer = Customer.where("i_class = 'RET'").group(:name)
     @cities = 
     if current_user.branch1.present?
-      IndonesiaCity.where("area_id = '#{current_user.branch1}'").group(:city).order(:city).map{|u| getCity(u.city).html_safe}
+      IndonesiaCity.all.group(:city).order(:city).map{|u| getCity(u.city).html_safe}
+      # IndonesiaCity.where("area_id = '#{current_user.branch1}'").group(:city).order(:city).map{|u| getCity(u.city).html_safe}
     else
       IndonesiaCity.all.group(:city).order(:city).map{|u| getCity(u.city).html_safe}
     end
