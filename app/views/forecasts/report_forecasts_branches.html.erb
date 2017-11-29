@@ -53,6 +53,7 @@
                   <th style="text-align: center;">BRAND</th>
                   <th style="text-align: center;">FORECAST</th>
                   <th style="text-align: center;">ACTUAL</th>
+                  <th style="text-align: center;">ABS DEVIATION</th>
                   <th style="text-align: center;">ACCURACY</th>
                 </tr>
               </thead>
@@ -63,7 +64,8 @@
                   <td style="text-align: center;"><%= fc.brand %></td>
                   <td style="text-align: center;"><%= currency(fc.quantity) %></td>
                   <td style="text-align: center;"><%= currency(fc.jumlah) %></td>
-                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.jumlah) %></td>
+                  <td style="text-align: center;"><%= currency(fc.acv) %></td>
+                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.acv) %></td>
                 </tr>
                 <% end %>
               </tbody>
