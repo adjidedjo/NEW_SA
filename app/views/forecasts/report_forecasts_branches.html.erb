@@ -65,7 +65,7 @@
                   <td style="text-align: center;"><%= currency(fc.quantity) %></td>
                   <td style="text-align: center;"><%= currency(fc.jumlah) %></td>
                   <td style="text-align: center;"><%= currency(fc.acv) %></td>
-                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.acv) %></td>
+                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : branch_forcast(fc.quantity, fc.acv) %></td>
                 </tr>
                 <% end %>
               </tbody>
