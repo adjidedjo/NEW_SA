@@ -33,10 +33,10 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts_by_branch(start_date, end_date, area)
     self.find_by_sql("
-      SELECT oa.brand, SUM(oa.quantity) AS quantity, SUM(oa.jumlah) AS jumlah, SUM(oa.acv) AS acv, SUM(oa.quantity) AS quantity FROM
+      SELECT oa.brand, SUM(oa.quantity) AS quantity, SUM(oa.jumlah) AS jumlah, SUM(oa.acv) AS acv FROM
       (
             SELECT f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
-            f.size, f.quantity, lp.jumlah, ABS((lp.jumlah-f.quantity)) AS acv FROM
+            f.size, f.quantity, lp.jumlah, ABS((IFNULL(lp.jumlah,0)-IFNULL(f.quantity,0))) AS acv FROM
             (
               SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name, 
               segment3_name, size, quantity FROM
