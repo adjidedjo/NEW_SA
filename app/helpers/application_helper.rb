@@ -5,6 +5,11 @@ module ApplicationHelper
     Branch.get_cabang(branch)
   end
   
+  def branch_forcast(forecast,actual)
+    val = 100 - (actual.to_f/forecast.to_f)*100
+    return number_to_percentage(val, precision: 0)
+  end
+  
   def eforecast(forecast,actual)
     absolute = (actual - forecast).abs
     val = (absolute.to_f/forecast.to_f)*100
