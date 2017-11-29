@@ -60,7 +60,6 @@
                   <th style="text-align: center;">SIZE</th>
                   <th style="text-align: center;">FORECAST</th>
                   <th style="text-align: center;">ACTUAL</th>
-                  <th style="text-align: center;">ERROR</th>
                   <th style="text-align: center;">ACCURACY</th>
                   <th style="text-align: center;">STOCK</th>
                   <th style="text-align: center;">BUFFER</th>
@@ -75,9 +74,8 @@
                   <td><%= fc.segment2_name %> <%= fc.segment3_name.strip %></td>
                   <td style="text-align: center;"><%= fc.size %></td>
                   <td style="text-align: center;"><%= fc.quantity %></td>
-                  <td style="text-align: center;"><%= fc.jumlah %></td>
-                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : eforecast(fc.quantity, fc.jumlah) %></td>
-                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.jumlah) %></td>
+                  <td style="text-align: center;"><%= fc.jumlah.nil? ? 0 : fc.jumlah %></td>
+                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.jumlah.nil? ? 0 : fc.jumlah) %></td>
                   <td style="text-align: center;"><%= fc.onhand %></td>
                   <td style="text-align: center;"><%= fc.qty_buf %></td>
                 </tr>
