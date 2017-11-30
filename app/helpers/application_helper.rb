@@ -6,7 +6,7 @@ module ApplicationHelper
   end
   
   def branch_forcast(forecast,actual)
-    val = (((actual.to_f/forecast.to_f)*100) > 100) ? (100 - (actual.to_f/forecast.to_f)*100) : ((100 - (actual.to_f/forecast.to_f)*100)).abs
+    val = (((actual.to_f/forecast.to_f)*100) > 100) ? 0 : ((100 - (actual.to_f/forecast.to_f)*100)).abs
     return number_to_percentage(val, precision: 0)
   end
   
@@ -17,7 +17,6 @@ module ApplicationHelper
   end
   
   def aforecast(forecast,actual)
-    raise actual.inspect if actual.nil?
     absolute = (actual - forecast).abs
     val = 100 - (absolute.to_f/forecast.to_f)*100
     (((absolute.to_f/forecast.to_f)*100) > 100) ? (100 - (absolute.to_f/forecast.to_f)*100) : ((100 - (absolute.to_f/forecast.to_f)*100)).abs
