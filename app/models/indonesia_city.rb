@@ -1,4 +1,6 @@
 class IndonesiaCity < ActiveRecord::Base
+  validates :name, :area_id, presence: true
+  
   after_destroy :destroy_marketshare
   
   def destroy_marketshare
