@@ -313,6 +313,17 @@
           </li>
         </ul>
       </li>
+      <li class="<%= 'active' if controller?('indonesia_cities') %>">
+        <a href="#city" title="city" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>City</b></span> </a>
+        <ul id="city" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            City
+          </li>
+          <li class="<%= 'active' if controller?('indonesia_cities') && action?('index') %>">
+            <a href="/indonesia_cities/" title="Daily"> <span>CIty</span> </a>
+          </li>
+        </ul>
+      </li>
       <% end %>
       <li>
         <%= link_to "Change your password", edit_user_registration_path %>
