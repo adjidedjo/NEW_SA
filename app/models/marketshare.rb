@@ -5,10 +5,17 @@ class Marketshare < ActiveRecord::Base
 
   validates :start_date, :end_date, presence: true
   validates :city, presence: true, on: :create
+  validate :checking_city, on: :create
+  
+  def checking_city
+    id = IndonesiaCity.find_by_city(self.city)
+    return errors.add(:city, "Kota yang anda pilih tidak terdaftar") if id.nil?
+  end
 
   before_save :upcase_fields
   def upcase_fields
     id = IndonesiaCity.find_by_city(self.city)
+    internal_brand = Brand.find_by_name(self.brand)
     self.marketshare_brands.each do |bv|
       bv.area_id = id.area_id
       bv.internal_brand = self.brand
@@ -17,7 +24,8 @@ class Marketshare < ActiveRecord::Base
       bv.start_date = self.start_date
       bv.end_date = self.end_date
       bv.name.upcase!
-      #Brand.where(name: bv.name).first_or_create if bv.name.present?
+      new_brand = Brand.where(name: bv.name).first
+      Brand.create!(name: bv.name, brand_type_id: internal_brand.brand_type_id, external: 1) if new_brand.nil?
     end
     self.city = id.name
     self.area_id = id.area_id
