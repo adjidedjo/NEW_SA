@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :indonesia_cities
   resources :salesmen
   devise_for :users
   # defaults to dashboard
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
   post 'forecasts/import'
   get 'forecasts/report_forecasts_branches'
   get 'forecasts/report_forecasts_items'
+  get 'sales_form/sales_form'
   
   #SUCCESS RATE ALL BRANCH
   get 'rates/index'

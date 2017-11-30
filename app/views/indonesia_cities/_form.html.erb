@@ -1,0 +1,35 @@
+<%= form_for(indonesia_city) do |f| %>
+  <% if indonesia_city.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(indonesia_city.errors.count, "error") %> prohibited this indonesia_city from being saved:</h2>
+
+      <ul>
+      <% indonesia_city.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <fieldset>
+    <div class="form-group">
+      <label class="col-lg-2 control-label">WILAYAH</label>
+      <div class="col-lg-10">
+        <%= f.text_field "name", class: 'form-control' %>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div class="form-group">
+      <label class="col-lg-2 control-label">BRANCH</label>
+      <div class="col-lg-10">
+        <%= f.select "area_id", options_for_select(@area.map {|a| [a.area, a.jde_id]}), class: 'form-control m-b' %>
+      </div>
+    </div>
+  </fieldset>
+  
+  <div class="actions">
+    <%= f.submit f.object.new_record? ? "CREATE" : "UPDATE", class: "btn btn-primary" %>
+    <%= link_to 'Back', indonesia_cities_path %>
+  </div>
+<% end %>

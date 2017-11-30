@@ -1,0 +1,1 @@
+json.partial! "indonesia_cities/indonesia_city", indonesia_city: @indonesia_city

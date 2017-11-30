@@ -1,0 +1,1 @@
+json.array! @indonesia_cities, partial: 'indonesia_cities/indonesia_city', as: :indonesia_city

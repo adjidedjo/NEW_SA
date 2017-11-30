@@ -1,0 +1,2 @@
+module IndonesiaCitiesHelper
+end
