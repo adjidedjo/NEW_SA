@@ -15,7 +15,7 @@ class Forecast < ActiveRecord::Base
       row = Hash[[header, spreadsheet.row(i)].transpose]
       forecast = find_by(brand: row["brand"], item_number: row["item_number"], branch: row["branch"], 
       month: row["month"], year: row["year"]) || new
-      if forecast.nil?
+      if forecast.id.nil?
         item = ItemMaster.where(item_number: row["item_number"]).first
         row["segment1"] = item.nil? ? 0 : item.segment1
         row["segment2"] = item.nil? ? 0 : item.segment2
