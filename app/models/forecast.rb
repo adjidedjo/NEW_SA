@@ -13,16 +13,17 @@ class Forecast < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      forecast = find_by(brand: row["brand"], item_number: row["item_number"], branch: row["branch"], 
+      forecast = find_by(brand: row["brand"], item_number: row["item_number"].strip, branch: row["branch"], 
       month: row["month"], year: row["year"]) || new
       if forecast.id.nil?
-        item = ItemMaster.where(item_number: row["item_number"]).first
-        row["segment1"] = item.nil? ? 0 : item.segment1
-        row["segment2"] = item.nil? ? 0 : item.segment2
-        row["segment3"] = item.nil? ? 0 : item.segment3
-        row["segment2_name"] = item.nil? ? 0 : JdeUdc.artikel_udc(item.segment2)
-        row["segment3_name"] = item.nil? ? 0 : JdeUdc.kain_udc(item.segment3)
-        row["size"] = item.nil? ? 0 : item.segment6
+        item = JdeItemMaster.get_desc_forecast(row["item_number"])
+        row["segment1"] = item.nil? ? 0 : item.imseg1.strip
+        row["segment2"] = item.nil? ? 0 : item.imseg2.strip
+        row["segment3"] = item.nil? ? 0 : item.imseg3.strip
+        row["segment2_name"] = item.nil? ? 0 : JdeUdc.artikel_udc(item.imseg2.strip)
+        row["segment3_name"] = item.nil? ? 0 : JdeUdc.kain_udc(item.imseg3.strip)
+        row["size"] = item.nil? ? 0 : item.imseg6.strip
+        row["description"] = item.nil? ? 'UNLISTED ITEM NUMBER' : (item.imdsc1.strip + ' ' + item.imdsc2.strip)
         forecast.attributes = row.to_hash
       else
         forecast["quantity"] = row["quantity"]
