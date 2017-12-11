@@ -76,7 +76,7 @@ class SalesProductivitiesController < ApplicationController
     @sales_productivity = SalesProductivity.find(params[:id])
 
     respond_to do |format|
-      if @sales_productivity.update_attributes(params[:sales_productivity])
+      if @sales_productivity.update(sales_productivity_params)
         format.html { redirect_to sales_productivities_path, notice: 'Sales productivity was successfully updated.' }
         format.json { head :ok }
       else
