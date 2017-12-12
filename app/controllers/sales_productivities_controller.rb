@@ -2,11 +2,11 @@ class SalesProductivitiesController < ApplicationController
   # GET /sales_productivities
   # GET /sales_productivities.json
   def index
-    @sales_productivities = current_user.branch1.present? ? SalesProductivity.where("DATE(date) >= ? AND branch_id = ?",
-    Date.yesterday.last_month.to_date.beginning_of_month, current_user.branch1) : SalesProductivity.where("DATE(date) >= ?",
-    Date.yesterday.last_month.to_date.beginning_of_month)
-    month = params[:date].nil? ? Date.yesterday.month : params[:date][:month]
-    year = params[:date].nil? ? Date.yesterday.year : params[:date][:year]
+    month = params[:date].nil? ? Date.today.month : params[:date][:month]
+    year = params[:date].nil? ? Date.today.year : params[:date][:year]
+    @sales_productivities = current_user.branch1.present? ? SalesProductivity.where("MONTH(date) = ? AND YEAR(date) = ? AND branch_id = ?",
+    month, year, current_user.branch1) : SalesProductivity.where("MONTH(date) = ? AND YEAR(date) = ?",
+    month, year)
     @sales = SalesProductivity.retail_success_rate_branch(current_user.branch1, month, year)
     @sales_prod = SalesProductivity.retail_productivity_branch(current_user.branch1, month, year)
 
