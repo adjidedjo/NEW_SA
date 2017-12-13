@@ -33,7 +33,7 @@ class SalesProductivitiesController < ApplicationController
     @sales_productivity = SalesProductivity.new
     @salesman = current_user.branch1.present? ?
     SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen
-    WHERE branch_id = '#{current_user.branch1}'") : SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen")
+    WHERE branch_id = '#{current_user.branch1}' ORDER BY nama ASC") : SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen ORDER BY nama ASC")
     @brand = SalesProductivity.find_by_sql("SELECT jde_brand, id FROM tbbjmerk")
 
     respond_to do |format|
