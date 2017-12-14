@@ -1,5 +1,4 @@
 class Forecast < ActiveRecord::Base
-  
   def self.update_master_forecast
     self.all.each do |e|
       item = ItemMaster.where(item_number: e.item_number).first
@@ -7,13 +6,13 @@ class Forecast < ActiveRecord::Base
       e.update_attributes!(segment1: a)
     end
   end
-  
+
   def self.import(file)
     spreadsheet = Roo::Spreadsheet.open(file.path)
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      forecast = find_by(brand: row["brand"], item_number: row["item_number"].strip, branch: row["branch"], 
+      forecast = find_by(brand: row["brand"], item_number: row["item_number"].strip, branch: row["branch"],
       month: row["month"], year: row["year"]) || new
       if forecast.id.nil?
         item = JdeItemMaster.get_desc_forecast(row["item_number"])
@@ -24,11 +23,11 @@ class Forecast < ActiveRecord::Base
         row["segment3_name"] = item.nil? ? 0 : JdeUdc.kain_udc(item.imseg3.strip)
         row["size"] = item.nil? ? 0 : item.imseg6.strip
         row["description"] = item.nil? ? 'UNLISTED ITEM NUMBER' : (item.imdsc1.strip + ' ' + item.imdsc2.strip)
-        forecast.attributes = row.to_hash
+      forecast.attributes = row.to_hash
       else
         forecast["quantity"] = row["quantity"]
       end
-        forecast.save!
+      forecast.save!
     end
   end
 
@@ -39,7 +38,7 @@ class Forecast < ActiveRecord::Base
             SELECT f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
             f.size, f.quantity, lp.jumlah, ABS((IFNULL(lp.jumlah,0)-IFNULL(f.quantity,0))) AS acv FROM
             (
-              SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name, 
+              SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
               segment3_name, size, quantity FROM
               forecasts WHERE branch = '#{area}' AND month = '#{end_date.to_date.month}'
               AND year = '#{end_date.to_date.year}'
@@ -66,7 +65,7 @@ class Forecast < ActiveRecord::Base
       SELECT f.description, f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
       f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, s.onhand, ib.qty_buf FROM
       (
-        SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name, 
+        SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
         segment3_name, size, quantity FROM
         forecasts WHERE branch = '#{area}' AND month = '#{start_date.to_date.month}'
         AND year = '#{start_date.to_date.year}' AND brand = '#{brand}'
@@ -82,7 +81,7 @@ class Forecast < ActiveRecord::Base
         AND f.branch = lp.area_id
       LEFT JOIN
       (
-        SELECT onhand, item_number, area_id, short_item FROM stocks
+        SELECT onhand, item_number, area_id, short_item FROM stocks WHERE status = 'N'
       ) AS s ON s.item_number = f.item_number AND s.area_id = f.branch
       LEFT JOIN
       (

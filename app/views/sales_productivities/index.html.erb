@@ -37,6 +37,7 @@
                 <th>CALL CUSTOMER</th>
                 <th>CLOSE DEAL CALL</th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tfoot></tfoot>
@@ -53,6 +54,7 @@
                 <td><%= sm.ncc %></td>
                 <td><%= sm.ncdc %></td>
                 <td><%= link_to "EDIT", edit_sales_productivity_path(sm) %></td>
+                <td><%= link_to "HAPUS", sales_productivity_path(sm), method: :delete, data: { confirm: "Yakin?"} %></td>
               </tr>
               <% end %>
             </tbody>
