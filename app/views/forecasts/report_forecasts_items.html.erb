@@ -70,12 +70,12 @@
                 <% @acv_forecast.each do |fc| %>
                 <tr class="gradeX">
                   <td style="text-align: center;"><%= fc.area %></td>
-                  <td style="text-align: center;"><%= fc.segment1 %></td>
-                  <td><%= fc.description %></td>
-                  <td style="text-align: center;"><%= fc.size %></td>
-                  <td style="text-align: center;"><%= fc.quantity %></td>
+                  <td style="text-align: center;"><%= fc.kodejenis %></td>
+                  <td><%= fc.namabrg %></td>
+                  <td style="text-align: center;"><%= fc.lebar %></td>
+                  <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : calculate_by_day(fc.quantity, params[:end_date]) %></td>
                   <td style="text-align: center;"><%= fc.jumlah.nil? ? 0 : fc.jumlah %></td>
-                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.jumlah.nil? ? 0 : fc.jumlah) %></td>
+                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.jumlah.nil? ? 0 : fc.jumlah, params[:start_date], params[:end_date]) %></td>
                   <td style="text-align: center;"><%= fc.onhand %></td>
                   <td style="text-align: center;"><%= fc.qty_buf %></td>
                 </tr>
