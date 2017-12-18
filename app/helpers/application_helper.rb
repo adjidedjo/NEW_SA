@@ -10,7 +10,7 @@ module ApplicationHelper
   end
   
   def calculate_by_day(forecast, end_date)
-    (forecast/get_days_in_month(end_date))*end_date.to_date.day.to_i
+    ((forecast.to_f/get_days_in_month(end_date).to_f)*end_date.to_date.day.to_f).to_i
   end
   
   def get_days_in_month(end_date)

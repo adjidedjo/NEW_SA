@@ -33,25 +33,25 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts_by_branch(start_date, end_date, area)
     self.find_by_sql("
-      SELECT oa.brand, SUM(oa.quantity) AS quantity, SUM(oa.jumlah) AS jumlah, SUM(oa.acv) AS acv FROM
+      SELECT oa.brand, oa.quantity, oa.jumlah, SUM(oa.acv) AS acv FROM
       (
             SELECT f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
             f.size, f.quantity, lp.jumlah, ABS((IFNULL(lp.jumlah,0)-IFNULL(f.quantity,0))) AS acv FROM
             (
-              SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, area_id, fiscal_month, fiscal_year FROM
+              SELECT SUM(jumlah) AS jumlah, jenisbrgdisc, kodebrg, namabrg, area_id, fiscal_month, fiscal_year FROM
               tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
-              ('KM', 'DV', 'HB', 'KB', 'SB', 'SA') AND orty IN ('SO', 'ZO') AND tanggalsj BETWEEN '#{start_date.to_date}'
-              AND '#{end_date.to_date}'
-              GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
+              ('KM', 'DV', 'HB', 'KB', 'SB', 'SA', 'ST') AND orty IN ('SO', 'ZO') AND tanggalsj
+              BETWEEN '#{start_date.to_date}' AND '#{end_date.to_date}' AND area_id = '#{area}'
+              AND jenisbrgdisc NOT LIKE 'CLASSIC'
+              GROUP BY area_id, jenisbrgdisc
             ) AS lp
             LEFT JOIN
             (
               SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
-              segment3_name, size, quantity FROM
+              segment3_name, size, SUM(quantity) AS quantity FROM
               forecasts WHERE branch = '#{area}' AND month = '#{end_date.to_date.month}'
-              AND year = '#{end_date.to_date.year}'
-            ) AS f ON f.item_number = lp.kodebrg
-              AND f.branch = lp.area_id
+              AND year = '#{end_date.to_date.year}' GROUP BY brand
+            ) AS f ON f.brand = lp.jenisbrgdisc AND f.branch = lp.area_id
             LEFT JOIN
             (
               SELECT * FROM areas
@@ -75,10 +75,9 @@ class Forecast < ActiveRecord::Base
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
         segment3_name, size, quantity FROM
-        forecasts WHERE branch = '#{area}' AND month = '#{start_date.to_date.month}'
-        AND year = '#{start_date.to_date.year}' AND brand = '#{brand}'
-      ) AS f ON f.item_number = lp.kodebrg
-        AND f.branch = lp.area_id
+        forecasts WHERE month = '#{start_date.to_date.month}'
+        AND year = '#{start_date.to_date.year}'
+      ) AS f ON f.item_number = lp.kodebrg AND f.branch = lp.area_id
       LEFT JOIN
       (
         SELECT onhand, item_number, area_id, short_item FROM stocks WHERE status = 'N'
