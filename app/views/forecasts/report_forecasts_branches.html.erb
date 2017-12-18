@@ -51,7 +51,8 @@
               <thead>
                 <tr>
                   <th style="text-align: center;">BRAND</th>
-                  <th style="text-align: center;">FORECAST</th>
+                  <th style="text-align: center;">TOTAL FORECAST</th>
+                  <th style="text-align: center;">ToDATE FORECAST</th>
                   <th style="text-align: center;">ACTUAL</th>
                   <th style="text-align: center;">ACCURACY</th>
                 </tr>
@@ -61,6 +62,7 @@
                 <% @acv_forecast.each do |fc| %>
                 <tr class="gradeX">
                   <td style="text-align: center;"><%= fc.brand %></td>
+                  <td style="text-align: center;"><%= currency(fc.quantity) %></td>
                   <td style="text-align: center;"><%= currency(calculate_by_day(fc.quantity, params[:end_date])) %></td>
                   <td style="text-align: center;"><%= currency(fc.jumlah) %></td>
                   <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.jumlah.nil? ? 0 : fc.jumlah, params[:start_date], params[:end_date]) %></td>
@@ -68,6 +70,11 @@
                 <% end %>
               </tbody>
             </table>
+          </div>
+          <div class="panel-footer">
+            <p>TOTAL Forecast = Forecast Perbulan</p>
+            <p>ToDATE Forecast = (Total Forecast per Bulan / Jumlah hari per bulan) * Jumlah hari berjalan</p>
+            <p>ACTUAL = Hasil % ABS DEVIATION dari Actual Penjualan dan ToDate Forecast</p>
           </div>
         </div>
       </div>
