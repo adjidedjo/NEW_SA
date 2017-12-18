@@ -83,7 +83,8 @@
           </li>
         </ul>
       </li>
-      <% if current_user.position == 'admin' || current_user.position == 'nsm' || current_user.position == 'gm' %>
+      <% if bm_customers(current_user, current_user.branch1) || current_user.position == 'admin' || 
+        general_manager(current_user) || nsm_customers(current_user) %>
       <li class="<%= 'active' if controller?('forecasts') %>">
         <a href="#forcast" title="forecast" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Forecasts</b></span> </a>
         <ul id="forcast" class="nav sidebar-subnav collapse">
