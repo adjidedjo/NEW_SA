@@ -10,15 +10,16 @@ module ApplicationHelper
   end
   
   def calculate_by_day(forecast, end_date)
-    ((forecast.to_f/get_days_in_month(end_date).to_f)*end_date.to_date.day.to_f).to_i
+    ((forecast.to_f/get_days_in_month(end_date).to_f)*end_date.to_date.day.to_f).round
   end
   
   def get_days_in_month(end_date)
     Time.days_in_month(end_date.to_date.month, end_date.to_date.year)
   end
   
-  def branch_forcast(forecast,actual)
-    val = (((actual.to_f/forecast.to_f)*100) > 100) ? 0 : ((100 - (actual.to_f/forecast.to_f)*100)).abs
+  def branch_forcast(forecast,actual, end_date)
+    forcast = forecast.nil? ? 0 : calculate_by_day(forecast, end_date)
+    val = (((actual.to_f/forcast.to_f)*100) > 100) ? 0 : ((100 - (actual.to_f/forcast.to_f)*100)).abs
     return number_to_percentage(val, precision: 0)
   end
   

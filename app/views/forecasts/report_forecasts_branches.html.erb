@@ -53,7 +53,6 @@
                   <th style="text-align: center;">BRAND</th>
                   <th style="text-align: center;">FORECAST</th>
                   <th style="text-align: center;">ACTUAL</th>
-                  <th style="text-align: center;">ABS DEVIATION</th>
                   <th style="text-align: center;">ACCURACY</th>
                 </tr>
               </thead>
@@ -62,10 +61,9 @@
                 <% @acv_forecast.each do |fc| %>
                 <tr class="gradeX">
                   <td style="text-align: center;"><%= fc.brand %></td>
-                  <td style="text-align: center;"><%= currency(fc.quantity) %></td>
+                  <td style="text-align: center;"><%= currency(calculate_by_day(fc.quantity, params[:end_date])) %></td>
                   <td style="text-align: center;"><%= currency(fc.jumlah) %></td>
-                  <td style="text-align: center;"><%= currency(fc.acv) %></td>
-                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : branch_forcast(fc.quantity, fc.acv) %></td>
+                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.jumlah.nil? ? 0 : fc.jumlah, params[:start_date], params[:end_date]) %></td>
                 </tr>
                 <% end %>
               </tbody>

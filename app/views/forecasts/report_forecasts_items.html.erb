@@ -58,7 +58,8 @@
                   <th style="text-align: center;">TYPE</th>
                   <th>DESCRIPTION</th>
                   <th style="text-align: center;">SIZE</th>
-                  <th style="text-align: center;">FORECAST</th>
+                  <th style="text-align: center;">TO DATE FORECAST</th>
+                  <th style="text-align: center;">TOTAL FORECAST</th>
                   <th style="text-align: center;">ACTUAL</th>
                   <th style="text-align: center;">ACCURACY</th>
                   <th style="text-align: center;">STOCK</th>
@@ -74,6 +75,7 @@
                   <td><%= fc.namabrg %></td>
                   <td style="text-align: center;"><%= fc.lebar %></td>
                   <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : calculate_by_day(fc.quantity, params[:end_date]) %></td>
+                  <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : fc.quantity %></td>
                   <td style="text-align: center;"><%= fc.jumlah.nil? ? 0 : fc.jumlah %></td>
                   <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.jumlah.nil? ? 0 : fc.jumlah, params[:start_date], params[:end_date]) %></td>
                   <td style="text-align: center;"><%= fc.onhand %></td>
