@@ -72,7 +72,7 @@
                 <tr class="gradeX">
                   <td style="text-align: center;"><%= fc.area %></td>
                   <td style="text-align: center;"><%= fc.kodejenis %></td>
-                  <td><%= fc.namabrg %></td>
+                  <td><%= fc.namabrg.nil? ? fc.description : fc.namabrg %></td>
                   <td style="text-align: center;"><%= fc.lebar %></td>
                   <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : calculate_by_day(fc.quantity, params[:end_date]) %></td>
                   <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : fc.quantity %></td>
@@ -86,9 +86,15 @@
             </table>
           </div>
           <div class="panel-footer">
-            <p>TOTAL Forecast = Forecast Perbulan</p>
-            <p>ToDATE Forecast = (Total Forecast per Bulan / Jumlah hari per bulan) * Jumlah hari berjalan</p>
-            <p>ACTUAL = Hasil % ABS DEVIATION dari Actual Penjualan dan ToDate Forecast</p>
+            <p>
+              TOTAL Forecast = Forecast Perbulan
+            </p>
+            <p>
+              ToDATE Forecast = (Total Forecast per Bulan / Jumlah hari per bulan) * Jumlah hari berjalan
+            </p>
+            <p>
+              ACTUAL = Hasil % ABS DEVIATION dari Actual Penjualan dan ToDate Forecast
+            </p>
           </div>
         </div>
       </div>
