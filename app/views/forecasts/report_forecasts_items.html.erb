@@ -74,8 +74,8 @@
                   <td style="text-align: center;"><%= fc.kodejenis %></td>
                   <td><%= fc.namabrg.nil? ? fc.description : fc.namabrg %></td>
                   <td style="text-align: center;"><%= fc.lebar %></td>
-                  <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : calculate_by_day(fc.quantity, params[:end_date]) %></td>
                   <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : fc.quantity %></td>
+                  <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : calculate_by_day(fc.quantity, params[:end_date]) %></td>
                   <td style="text-align: center;"><%= fc.jumlah.nil? ? 0 : fc.jumlah %></td>
                   <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.jumlah.nil? ? 0 : fc.jumlah, params[:start_date], params[:end_date]) %></td>
                   <td style="text-align: center;"><%= fc.onhand %></td>

@@ -18,8 +18,8 @@ module ApplicationHelper
   end
   
   def branch_forcast(forecast,actual)
-    val = (((actual.to_f/forecast.to_f)*100) > 100) ? 0 : ((100 - (actual.to_f/forecast.to_f)*100)).abs
-    return number_to_percentage(val, precision: 0)
+    val = ((100 - (actual.to_f/forecast.to_f)*100))
+    return number_to_percentage(val < 0 ? 0 : val, precision: 0)
   end
   
   def eforecast(forecast,actual)

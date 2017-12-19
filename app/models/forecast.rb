@@ -36,8 +36,21 @@ class Forecast < ActiveRecord::Base
       SELECT oa.jenisbrgdisc AS brand, SUM(oa.quantity) AS quantity, SUM(oa.jumlah) AS jumlah,
       SUM(oa.acv) AS acv, SUM(oa.todate) AS todate FROM
       (
-            SELECT lp.kodebrg, f.todate, lp.jenisbrgdisc, lp.namabrg, a.area, f.branch,
-            f.size, f.quantity, lp.jumlah, ABS((IFNULL(lp.jumlah,0)-IFNULL(f.todate,0))) AS acv FROM
+            SELECT lp.kodebrg, f.todate, IFNULL(lp.jenisbrgdisc, f.brand) AS jenisbrgdisc, lp.namabrg, a.area,
+            f.branch, f.size, f.quantity, lp.jumlah, ABS((IFNULL(lp.jumlah,0)-IFNULL(f.todate,0))) AS acv FROM
+            (
+              SELECT DISTINCT(kodebrg) FROM
+              tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+              ('KM', 'DV', 'HB', 'KB', 'SB', 'SA') AND orty IN ('SO', 'ZO') AND tanggalsj BETWEEN '#{start_date.to_date}'
+              AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc NOT LIKE 'CLASSIC'
+
+              UNION ALL
+
+              SELECT DISTINCT(item_number) FROM
+              forecasts WHERE MONTH = '#{end_date.to_date.month}' AND YEAR = '#{end_date.to_date.year}'
+              AND branch = '#{area}'
+            ) AS f1
+            LEFT JOIN
             (
               SELECT SUM(jumlah) AS jumlah, jenisbrgdisc, kodebrg, namabrg, area_id, fiscal_month, fiscal_year FROM
               tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
@@ -45,7 +58,7 @@ class Forecast < ActiveRecord::Base
               BETWEEN '#{start_date.to_date}' AND '#{end_date.to_date}' AND area_id = '#{area}'
               AND jenisbrgdisc NOT LIKE 'CLASSIC'
               GROUP BY area_id, kodebrg
-            ) AS lp
+            ) AS lp ON lp.kodebrg = f1.kodebrg
             LEFT JOIN
             (
               SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
@@ -53,11 +66,12 @@ class Forecast < ActiveRecord::Base
               ROUND((quantity/DAY(LAST_DAY(NOW())))*DAY(NOW())) AS todate FROM
               forecasts WHERE branch = '#{area}' AND MONTH = '#{end_date.to_date.month}'
               AND YEAR = '#{end_date.to_date.year}'
-            ) AS f ON f.item_number = lp.kodebrg AND f.branch = lp.area_id AND f.brand = lp.jenisbrgdisc
+            ) AS f ON f.item_number = f1.kodebrg
             LEFT JOIN
             (
               SELECT * FROM areas
             ) AS a ON f.branch = a.id
+      GROUP BY f1.kodebrg
       ) AS oa GROUP BY oa.jenisbrgdisc
     ")
   end
@@ -65,7 +79,7 @@ class Forecast < ActiveRecord::Base
   def self.calculation_forecasts(start_date, end_date, area, brand)
     self.find_by_sql("
       SELECT f.description, f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
-      lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, 
+      lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv,
       IFNULL(s.onhand, 0) AS onhand,
       IFNULL(ib.qty_buf, 0) AS qty_buf FROM
       (
@@ -107,6 +121,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT * FROM areas
       ) AS a ON IFNULL(lp.area_id, f.branch) = a.id
+      GROUP BY f1.kodebrg
     ")
   end
 
