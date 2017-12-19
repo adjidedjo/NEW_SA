@@ -17,9 +17,8 @@ module ApplicationHelper
     Time.days_in_month(end_date.to_date.month, end_date.to_date.year)
   end
   
-  def branch_forcast(forecast,actual, end_date)
-    forcast = forecast.nil? ? 0 : calculate_by_day(forecast, end_date)
-    val = (((actual.to_f/forcast.to_f)*100) > 100) ? 0 : ((100 - (actual.to_f/forcast.to_f)*100)).abs
+  def branch_forcast(forecast,actual)
+    val = (((actual.to_f/forecast.to_f)*100) > 100) ? 0 : ((100 - (actual.to_f/forecast.to_f)*100)).abs
     return number_to_percentage(val, precision: 0)
   end
   
