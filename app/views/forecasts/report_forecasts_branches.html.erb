@@ -64,7 +64,7 @@
                 <tr class="gradeX">
                   <td style="text-align: center;"><%= fc.brand %></td>
                   <td style="text-align: center;"><%= currency(fc.quantity) %></td>
-                  <td style="text-align: center;"><%= currency(calculate_by_day(fc.quantity, params[:end_date])) %></td>
+                  <td style="text-align: center;"><%= currency(fc.todate) %></td>
                   <td style="text-align: center;"><%= currency(fc.jumlah) %></td>
                   <td style="text-align: center;"><%= currency(fc.acv) %></td>
                   <td style="text-align: center;"><%= fc.acv.nil? ? 0 : branch_forcast(fc.todate, fc.acv.nil? ? 0 : fc.acv) %></td>
