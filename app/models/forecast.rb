@@ -63,7 +63,7 @@ class Forecast < ActiveRecord::Base
             (
               SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
               segment3_name, size, quantity,
-              ROUND((quantity/DAY(LAST_DAY(NOW())))*DAY(NOW())) AS todate FROM
+              ROUND((quantity/DAY(LAST_DAY(NOW())))*DAY('#{end_date.to_date}')) AS todate FROM
               forecasts WHERE branch = '#{area}' AND MONTH = '#{end_date.to_date.month}'
               AND YEAR = '#{end_date.to_date.year}'
             ) AS f ON f.item_number = f1.kodebrg
