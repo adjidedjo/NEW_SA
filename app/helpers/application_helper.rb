@@ -9,6 +9,11 @@ module ApplicationHelper
     Branch.get_cabang(branch)
   end
   
+  def asong_calc(qty, point)
+    val = ((point.to_f/qty.to_f)*100).round
+    return number_to_percentage(val, precision: 0)
+  end
+  
   def calculate_by_day(forecast, end_date)
     ((forecast.to_f/get_days_in_month(end_date).to_f)*end_date.to_date.day.to_f).round
   end

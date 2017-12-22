@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   # Sales Productivity
   resources :sales_productivities
+  
+  # Asong
+  get 'asong/report_by_branch'
 
   # FORECAST
   get 'forecasts/upload_forecast'
