@@ -64,8 +64,7 @@
                     today : 'fa fa-crosshairs',
                     clear : 'fa fa-trash'
                 },
-                format : 'YYYY-MM-DD',
-                maxDate : new Date()
+                format : 'YYYY-MM-DD'
             }).attr('readonly', 'true');
             $('#datepicker1').datetimepicker({
                 icons : {
