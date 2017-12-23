@@ -41,7 +41,7 @@ class Forecast < ActiveRecord::Base
             (
               SELECT DISTINCT(kodebrg) FROM
               tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
-              ('KM', 'DV', 'HB', 'KB', 'SB', 'SA') AND orty IN ('SO', 'ZO') AND tanggalsj BETWEEN '#{start_date.to_date}'
+              ('KM', 'DV', 'HB', 'KB', 'SB', 'SA', 'ST') AND orty IN ('SO', 'ZO') AND tanggalsj BETWEEN '#{start_date.to_date}'
               AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc NOT LIKE 'CLASSIC'
 
               UNION ALL
@@ -63,7 +63,7 @@ class Forecast < ActiveRecord::Base
             (
               SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
               segment3_name, size, quantity,
-              ROUND((quantity/DAY(LAST_DAY(NOW())))*DAY('#{end_date.to_date}')) AS todate FROM
+              ROUND((quantity/DAY(LAST_DAY('#{end_date.to_date}')))*DAY('#{end_date.to_date}')) AS todate FROM
               forecasts WHERE branch = '#{area}' AND MONTH = '#{end_date.to_date.month}'
               AND YEAR = '#{end_date.to_date.year}'
             ) AS f ON f.item_number = f1.kodebrg
