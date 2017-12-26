@@ -1,6 +1,6 @@
 class SalesOrder::Order < ActiveRecord::Base
   #establish_connection "dbmarketing".to_sym
-  self.table_name = "outstanding_orders" #sd
+  self.table_name = "sales_outstanding_orders" #sd
   #SDSRP1, SDSRP2, SDUORG
   #HELD ORDRES TABLE (HO)
   
@@ -18,7 +18,7 @@ class SalesOrder::Order < ActiveRecord::Base
   end
   
   def self.outstand_order(branch, brand)
-    find_by_sql("SELECT * FROM outstanding_orders WHERE branch = '#{branch}' AND brand = '#{brand}'
+    find_by_sql("SELECT * FROM sales_outstanding_orders WHERE branch = '#{branch}' AND brand = '#{brand}'
     AND updated_at >= '#{Date.today}'")
   end
   
