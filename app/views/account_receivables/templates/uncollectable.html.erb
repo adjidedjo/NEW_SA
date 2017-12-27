@@ -29,7 +29,7 @@
                 <tr class="gradeX">
                   <td><%= ar.customer %></td>
                   <td><%= ar.salesman %></td>
-                  <td><%= ar.due_date.strftime(('%B %y')) %></td>
+                  <td><%= ar.due_date.nil? ? '' : ar.due_date.strftime(('%B %y')) %></td>
                   <td><%= currency(ar.open_amount) %></td>
                 <% end %>
                 </tr>
@@ -58,7 +58,7 @@
                 <tr class="gradeX">
                   <td><%= ar.customer %></td>
                   <td><%= ar.salesman %></td>
-                  <td><%= ar.due_date.strftime(('%B %y')) %></td>
+                  <td><%= ar.due_date.nil? ? '' : ar.due_date.strftime(('%B %y')) %></td>
                   <td><%= currency(ar.open_amount) %></td>
                 </tr>
                 <% end %>
