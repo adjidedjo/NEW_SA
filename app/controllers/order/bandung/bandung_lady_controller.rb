@@ -16,7 +16,7 @@ class Order::Bandung::BandungLadyController < ApplicationController
   end
 
   def initialize_brach_id
-    "11011"
+    "18011"
   end
   
   def authorize_users

@@ -15,6 +15,6 @@ class Order::Bekasi::BekasiSerenityController < ApplicationController
   end
 
   def initialize_brach_id
-    "11031"
+    "18032"
   end
 end

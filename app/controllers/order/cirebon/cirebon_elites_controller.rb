@@ -16,7 +16,7 @@ class Order::Cirebon::CirebonElitesController < ApplicationController
   end
 
   def initialize_brach_id
-    "11021"
+    "18021"
   end
   
   def authorize_user

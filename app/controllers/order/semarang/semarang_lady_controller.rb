@@ -15,6 +15,6 @@ class Order::Semarang::SemarangLadyController < ApplicationController
   end
 
   def initialize_brach_id
-    "13051"
+    "18051"
   end
 end

@@ -15,6 +15,6 @@ class Order::Tangerang::TangerangSerenityController < ApplicationController
   end
 
   def initialize_brach_id
-    "11151"
+    "18151"
   end
 end

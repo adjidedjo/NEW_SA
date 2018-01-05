@@ -16,7 +16,7 @@ class Order::Bali::BaliLadyController < ApplicationController
   end
 
   def initialize_brach_id
-    "13071"
+    "18071"
   end
   
   def authorize_user

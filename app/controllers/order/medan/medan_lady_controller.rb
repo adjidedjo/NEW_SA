@@ -15,6 +15,6 @@ class Order::Medan::MedanLadyController < ApplicationController
   end
 
   def initialize_brach_id
-    "13081"
+    "18081"
   end
 end

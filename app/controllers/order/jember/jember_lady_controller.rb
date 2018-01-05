@@ -15,6 +15,6 @@ class Order::Jember::JemberLadyController < ApplicationController
   end
 
   def initialize_brach_id
-    "13131"
+    "18131"
   end
 end

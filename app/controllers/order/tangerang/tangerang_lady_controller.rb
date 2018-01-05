@@ -15,6 +15,6 @@ class Order::Tangerang::TangerangLadyController < ApplicationController
   end
 
   def initialize_brach_id
-    "13151"
+    "18151"
   end
 end

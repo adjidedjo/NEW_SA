@@ -15,6 +15,6 @@ class Order::Yogya::YogyaLadyController < ApplicationController
   end
 
   def initialize_brach_id
-    "13041"
+    "18041"
   end
 end

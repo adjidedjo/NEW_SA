@@ -16,7 +16,7 @@ class Order::Bekasi::BekasiElitesController < ApplicationController
   end
 
   def initialize_brach_id
-    "11031"
+    "18031"
   end
   
   def authorize_user

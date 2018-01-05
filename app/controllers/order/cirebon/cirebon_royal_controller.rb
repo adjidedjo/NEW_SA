@@ -15,6 +15,6 @@ class Order::Cirebon::CirebonRoyalController < ApplicationController
   end
 
   def initialize_brach_id
-    "11022"
+    "18021"
   end
 end

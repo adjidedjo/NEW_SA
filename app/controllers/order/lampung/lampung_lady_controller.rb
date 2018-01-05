@@ -15,6 +15,6 @@ class Order::Lampung::LampungLadyController < ApplicationController
   end
 
   def initialize_brach_id
-    "13101"
+    "18101"
   end
 end
