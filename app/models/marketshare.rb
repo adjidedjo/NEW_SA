@@ -6,13 +6,13 @@ class Marketshare < ActiveRecord::Base
   validates :start_date, :end_date, presence: true
   validates :city, presence: true, on: :create
   validate :checking_city, on: :create
-  
   def checking_city
     id = IndonesiaCity.find_by_city(self.city)
     return errors.add(:city, "Kota yang anda pilih tidak terdaftar") if id.nil?
   end
 
   before_save :upcase_fields
+
   def upcase_fields
     id = IndonesiaCity.find_by_city(self.city)
     internal_brand = Brand.find_by_name(self.brand)
@@ -50,6 +50,9 @@ class Marketshare < ActiveRecord::Base
   end
 
   def self.get_area_potential(brand, branch)
+    week3 = 3.week.ago.to_date.cweek
+    week2 = 2.week.ago.to_date.cweek
+    week1 = 1.week.ago.to_date.cweek
     find_by_sql("
       SELECT ct.siti, ct.area, lp.w1, lp.w2, lp.w3, mt.potent, ((lp.w1/mt.potent) * 100) AS market,
       (((lp.w1 - lp.w2) / lp.w2) * 100) as grow FROM
@@ -59,11 +62,10 @@ class Marketshare < ActiveRecord::Base
       LEFT JOIN
       (
         SELECT kota AS area,
-        SUM(CASE WHEN week = '#{3.week.ago.to_date.cweek}' THEN harganetto2 END) AS w3,
-        SUM(CASE WHEN week = '#{2.week.ago.to_date.cweek}' THEN harganetto2 END) AS w2,
-        SUM(CASE WHEN week = '#{1.week.ago.to_date.cweek}' THEN harganetto2 END) AS w1 FROM
-        tblaporancabang WHERE week BETWEEN '#{3.week.ago.to_date.cweek}' AND '#{1.week.ago.to_date.cweek}' AND
-        jenisbrgdisc LIKE '#{brand}' AND area_id = '#{branch}'
+        SUM(CASE WHEN week = '#{week3}' AND fiscal_year = ('#{week3 > 2 ? Date.today.last_year.year : Date.today.year}') THEN harganetto2 END) AS w3,
+        SUM(CASE WHEN week = '#{2.week.ago.to_date.cweek}' AND fiscal_year = ('#{week2 > 2 ? Date.today.last_year.year : Date.today.year}') THEN harganetto2 END) AS w2,
+        SUM(CASE WHEN week = '#{1.week.ago.to_date.cweek}' AND fiscal_year = ('#{week1 <= 2 ? Date.today.year : Date.today.last_year.year}') THEN harganetto2 END) AS w1 FROM
+        tblaporancabang WHERE jenisbrgdisc LIKE '#{brand}' AND area_id = '#{branch}'
         AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB') AND area_id NOT IN (1,50)
         AND tipecust = 'RETAIL' GROUP BY kota
       ) AS lp ON ct.area = lp.area
