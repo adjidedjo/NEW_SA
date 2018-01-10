@@ -77,7 +77,7 @@ module PenjualanConcern
   end
   
   def revenue_last_month
-    @sales_revenue_last_month = Penjualan::SaleDaily.revenue_last_month(@date, initialize_brach_id, initialize_brand)
+    @sales_revenue_last_month = Penjualan::Sale.revenue_last_month(@date, initialize_brach_id, initialize_brand)
   end
   
   def monthly_summaries
