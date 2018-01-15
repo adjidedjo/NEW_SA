@@ -53,9 +53,11 @@
                   <th style="text-align: center;">BRAND</th>
                   <th style="text-align: center;">TOTAL FORECAST</th>
                   <th style="text-align: center;">ToDATE FORECAST</th>
-                  <th style="text-align: center;">ACTUAL</th>
-                  <th style="text-align: center;">ABS DEV</th>
-                  <th style="text-align: center;">ACCURACY</th>
+                  <th style="text-align: center;">ACTUAL SALES</th>
+                  <th style="text-align: center;">SUM ACCURATE</th>
+                  <th style="text-align: center;">ACCURATE</th>
+                  <th style="text-align: center;">SUM NON ACCURATE</th>
+                  <th style="text-align: center;">NON ACCURATE</th>
                 </tr>
               </thead>
               <tfoot></tfoot>
@@ -66,8 +68,10 @@
                   <td style="text-align: center;"><%= currency(fc.quantity) %></td>
                   <td style="text-align: center;"><%= currency(fc.todate) %></td>
                   <td style="text-align: center;"><%= currency(fc.jumlah) %></td>
-                  <td style="text-align: center;"><%= currency(fc.acv) %></td>
-                  <td style="text-align: center;"><%= fc.acv.nil? ? 0 : branch_forcast(fc.todate, fc.acv.nil? ? 0 : fc.acv) %></td>
+                  <td style="text-align: center;"><%= currency(fc.equal_sales) %></td>
+                  <td style="text-align: center;"><%= number_to_percentage((fc.equal_sales.to_f/fc.todate.to_f)*100, precision: 2) %></td>
+                  <td style="text-align: center;"><%= currency(fc.more_sales) %></td>
+                  <td style="text-align: center;"><%= number_to_percentage((fc.more_sales.to_f/fc.todate.to_f)*100, precision: 0) %></td>
                 </tr>
                 <% end %>
               </tbody>

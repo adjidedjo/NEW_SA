@@ -29,14 +29,14 @@ module ApplicationHelper
   
   def eforecast(forecast,actual)
     absolute = (actual - forecast).abs
-    val = (absolute.to_f/forecast.to_f)*100
+    val = (actual.to_f/forecast.to_f).infinite? ? 0 : (actual.to_f/forecast.to_f)*100
     return number_to_percentage(val, precision: 0)
   end
   
   def aforecast(forecast,actual,start,end_date)
     forcast = forecast.nil? ? 0 : calculate_by_day(forecast, end_date)
     absolute = (actual - forcast).abs
-    val = (((absolute.to_f/forcast.to_f)*100) > 100) ? 0 : ((100 - (absolute.to_f/forcast.to_f)*100)).abs
+    val = (actual.to_f/forcast.to_f).infinite? ? 0 : (actual.to_f/forcast.to_f)*100
     return number_to_percentage(val, precision: 0)
   end
   

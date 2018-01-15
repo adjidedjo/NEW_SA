@@ -34,10 +34,14 @@ class Forecast < ActiveRecord::Base
   def self.calculation_forecasts_by_branch(start_date, end_date, area)
     self.find_by_sql("
       SELECT oa.jenisbrgdisc AS brand, SUM(oa.quantity) AS quantity, SUM(oa.jumlah) AS jumlah,
-      SUM(oa.acv) AS acv, SUM(oa.todate) AS todate FROM
+      SUM(oa.acv) AS acv, SUM(oa.todate) AS todate, SUM(IFNULL(equal_sales,0)) AS equal_sales, 
+      SUM(IFNULL(more_sales,0)) AS more_sales FROM
       (
             SELECT lp.kodebrg, f.todate, IFNULL(lp.jenisbrgdisc, f.brand) AS jenisbrgdisc, lp.namabrg, a.area,
-            f.branch, f.size, f.quantity, lp.jumlah, ABS((IFNULL(lp.jumlah,0)-IFNULL(f.todate,0))) AS acv FROM
+            f.branch, f.size, f.quantity, lp.jumlah, ABS((IFNULL(lp.jumlah,0)-IFNULL(f.todate,0))) AS acv,
+            CASE WHEN IFNULL(lp.jumlah,0) = IFNULL(f.todate, 0) THEN lp.jumlah END AS equal_sales,
+            CASE WHEN IFNULL(lp.jumlah,0) <> IFNULL(f.todate,0) THEN lp.jumlah END AS more_sales
+            FROM
             (
               SELECT DISTINCT(kodebrg) FROM
               tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
