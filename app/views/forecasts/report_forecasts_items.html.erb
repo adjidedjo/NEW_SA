@@ -55,6 +55,7 @@
               <thead>
                 <tr>
                   <th style="text-align: center;">AREA</th>
+                  <th style="text-align: center;">ITEM NUMBER</th>
                   <th style="text-align: center;">TYPE</th>
                   <th>DESCRIPTION</th>
                   <th style="text-align: center;">SIZE</th>
@@ -71,6 +72,7 @@
                 <% @acv_forecast.each do |fc| %>
                 <tr class="gradeX">
                   <td style="text-align: center;"><%= fc.area %></td>
+                  <td style="text-align: center;"><%= fc.kodebrg %></td>
                   <td style="text-align: center;"><%= fc.kodejenis %></td>
                   <td><%= fc.namabrg.nil? ? fc.description : fc.namabrg %></td>
                   <td style="text-align: center;"><%= fc.lebar %></td>
@@ -86,15 +88,6 @@
             </table>
           </div>
           <div class="panel-footer">
-            <p>
-              TOTAL Forecast = Forecast Perbulan
-            </p>
-            <p>
-              ToDATE Forecast = (Total Forecast per Bulan / Jumlah hari per bulan) * Jumlah hari berjalan
-            </p>
-            <p>
-              ACCURACY = Hasil % ABS DEVIATION dari Actual Penjualan dan ToDate Forecast
-            </p>
           </div>
         </div>
       </div>

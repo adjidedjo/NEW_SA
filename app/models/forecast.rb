@@ -82,7 +82,7 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts(start_date, end_date, area, brand)
     self.find_by_sql("
-      SELECT f.description, f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
+      SELECT f1.kodebrg, f.description, f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
       lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv,
       IFNULL(s.onhand, 0) AS onhand,
       IFNULL(ib.qty_buf, 0) AS qty_buf FROM
