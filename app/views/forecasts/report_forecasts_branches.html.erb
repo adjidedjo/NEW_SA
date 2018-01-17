@@ -64,14 +64,15 @@
               <tbody>
                 <% @acv_forecast.each do |fc| %>
                 <tr class="gradeX">
+                  <% equal = total_equal(fc.equal_sales, fc.more_sales, fc.less_sales) %>
                   <td style="text-align: center;"><%= fc.brand %></td>
                   <td style="text-align: center;"><%= currency(fc.quantity) %></td>
                   <td style="text-align: center;"><%= currency(fc.todate) %></td>
                   <td style="text-align: center;"><%= currency(fc.jumlah) %></td>
-                  <td style="text-align: center;"><%= currency(fc.equal_sales) %></td>
-                  <td style="text-align: center;"><%= number_to_percentage((fc.equal_sales.to_f/fc.todate.to_f)*100, precision: 2) %></td>
-                  <td style="text-align: center;"><%= currency(fc.more_sales) %></td>
-                  <td style="text-align: center;"><%= number_to_percentage((fc.more_sales.to_f/fc.todate.to_f)*100, precision: 0) %></td>
+                  <td style="text-align: center;"><%= currency(equal) %></td>
+                  <td style="text-align: center;"><%= number_to_percentage((equal.to_f/fc.todate.to_f)*100, precision: 2) %></td>
+                  <td style="text-align: center;"><%= currency(fc.jumlah - equal) %></td>
+                  <td style="text-align: center;"><%= number_to_percentage(((fc.jumlah - equal).to_f/fc.todate.to_f)*100, precision: 0) %></td>
                 </tr>
                 <% end %>
               </tbody>

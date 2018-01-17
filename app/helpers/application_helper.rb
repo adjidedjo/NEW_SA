@@ -1,6 +1,10 @@
 module ApplicationHelper
   include RolesHelper
   
+  def total_equal(equal_sales, more_sales, less_sales)
+    equal_sales + more_sales + less_sales
+  end
+  
   def find_area(area)
     Area.find(area).area
   end
