@@ -60,23 +60,24 @@
                   <th style="text-align: center;">NON ACCURATE</th>
                 </tr>
               </thead>
-              <tfoot></tfoot>
-              <p>
-                ToDATE FORECAST: <b>Total Forecast/Tanggal Hari ini</b>
-              </p>
-              <p>
-                SUM ACCURATE: Total Quantity Penjualan Yang termasuk kedalam forecast. Jika Qty Penjualan > dari Forecast maka qty yang diambil
-                adalah Forecast. Jika Qty Penjualan < Forecast maka qty yang diambil adalah Qty Penjualan.
-              </p>
-              <p>
-                ACCURATE: Percentase dari <b>ACCURATE/ToDATE FORECAST</b>
-              </p>
-              <p>
-                SUM NON ACCURATE: Total Quantity Penjualan Yang <b>TIDAK</b> termasuk kedalam forecast. ACTUAL SALES - SUM ACCURATE.
-              </p>
-              <p>
-                NON ACCURATE: Percentase dari SUM NON ACCURATE/ToDATE FORECAST.
-              </p>
+              <tfoot>
+                <p>
+                  ToDATE FORECAST: <b>Total Forecast/Tanggal Hari ini</b>
+                </p>
+                <p>
+                  SUM ACCURATE: Total Quantity Penjualan Yang termasuk kedalam forecast. Jika Qty Penjualan > dari Forecast maka qty yang diambil
+                  adalah Forecast. Jika Qty Penjualan < Forecast maka qty yang diambil adalah Qty Penjualan.
+                </p>
+                <p>
+                  ACCURATE: Percentase dari <b>ACCURATE/ToDATE FORECAST</b>
+                </p>
+                <p>
+                  SUM NON ACCURATE: Total Quantity Penjualan Yang <b>TIDAK</b> termasuk kedalam forecast. ACTUAL SALES - SUM ACCURATE.
+                </p>
+                <p>
+                  NON ACCURATE: Percentase dari SUM NON ACCURATE/ToDATE FORECAST.
+                </p>
+              </tfoot>
               <tbody>
                 <% @acv_forecast.each do |fc| %>
                 <tr class="gradeX">
