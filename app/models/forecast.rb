@@ -34,7 +34,7 @@ class Forecast < ActiveRecord::Base
   def self.calculation_forecasts_by_branch(start_date, end_date, area)
     self.find_by_sql("
       SELECT oa.jenisbrgdisc AS brand, SUM(oa.quantity) AS quantity, SUM(oa.jumlah) AS jumlah,
-      SUM(oa.acv) AS acv, SUM(oa.todate) AS todate, SUM(IFNULL(equal_sales,0)) AS equal_sales, 
+      SUM(oa.acv) AS acv, SUM(oa.todate) AS todate, SUM(IFNULL(equal_sales,0)) AS equal_sales,
       SUM(IFNULL(more_sales,0)) AS more_sales FROM
       (
             SELECT lp.kodebrg, f.todate, IFNULL(lp.jenisbrgdisc, f.brand) AS jenisbrgdisc, lp.namabrg, a.area,
@@ -82,7 +82,7 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts(start_date, end_date, area, brand)
     self.find_by_sql("
-      SELECT f1.kodebrg, f.description, f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
+      SELECT f.salesmen_id, f1.kodebrg, f.description, f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
       lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv,
       IFNULL(s.onhand, 0) AS onhand,
       IFNULL(ib.qty_buf, 0) AS qty_buf FROM
@@ -109,9 +109,9 @@ class Forecast < ActiveRecord::Base
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
-        segment3_name, size, quantity FROM
+        segment3_name, size, SUM(quantity) AS quantity, salesmen_id FROM
         forecasts WHERE month = '#{start_date.to_date.month}'
-        AND year = '#{start_date.to_date.year}' AND branch = '#{area}'
+        AND year = '#{start_date.to_date.year}' AND branch = '#{area}' GROUP BY item_number
       ) AS f ON f.item_number = f1.kodebrg
       LEFT JOIN
       (
