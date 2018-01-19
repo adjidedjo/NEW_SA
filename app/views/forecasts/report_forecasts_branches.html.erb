@@ -72,8 +72,8 @@
                   <td style="text-align: center;"><%= currency(fc.jumlah) %></td>
                   <td style="text-align: center;"><%= currency(equal) %></td>
                   <td style="text-align: center;"><%= number_to_percentage((equal.to_f/fc.todate.to_f)*100, precision: 2) %></td>
-                  <td style="text-align: center;"><%= currency(fc.jumlah - equal) %></td>
-                  <td style="text-align: center;"><%= number_to_percentage(((fc.jumlah - equal).to_f/fc.todate.to_f)*100, precision: 0) %></td>
+                  <td style="text-align: center;"><%= currency((equal - fc.todate).abs) %></td>
+                  <td style="text-align: center;"><%= number_to_percentage(((equal - fc.todate).abs.to_f/fc.todate.to_f)*100, precision: 2) %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -91,7 +91,7 @@
               ACCURATE: Percentase dari <b>ACCURATE/ToDATE FORECAST</b>
             </p>
             <p>
-              SUM NON ACCURATE: Total Quantity Penjualan Yang <b>TIDAK</b> termasuk kedalam forecast. ACTUAL SALES - SUM ACCURATE.
+              SUM NON ACCURATE: Total Quantity Penjualan Yang <b>TIDAK</b> termasuk kedalam forecast. ABS(SUM ACCURATE - ToDATE FORECAST).
             </p>
             <p>
               NON ACCURATE: Percentase dari SUM NON ACCURATE/ToDATE FORECAST.
