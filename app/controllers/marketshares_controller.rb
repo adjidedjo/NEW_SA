@@ -3,6 +3,12 @@ class MarketsharesController < ApplicationController
   before_action :find_brand, only: [:new, :create, :edit, :update, :destroy]
   # GET /marketshares
   # GET /marketshares.json
+  def by_store
+    @areas = Area.all
+    @brand = Brand.where(external: 0)
+    @ms_by_store = MarketshareBrand.customers(current_user, params[:areas], params[:brand]) if params[:areas].present?
+  end
+  
   def index
     @marketshares = Marketshare.list_customers(current_user)
   end

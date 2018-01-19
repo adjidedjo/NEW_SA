@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   # view routes
 
   # market share
-  resources :marketshares
+  resources :marketshares do
+    collection do
+      get 'by_store'
+    end
+  end
 
   # Sales Productivity
   resources :sales_productivities

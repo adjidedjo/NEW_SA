@@ -6,6 +6,7 @@ class Marketshare < ActiveRecord::Base
   validates :start_date, :end_date, presence: true
   validates :city, presence: true, on: :create
   validate :checking_city, on: :create
+
   def checking_city
     id = IndonesiaCity.find_by_city(self.city)
     return errors.add(:city, "Kota yang anda pilih tidak terdaftar") if id.nil?

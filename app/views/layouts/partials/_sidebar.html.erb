@@ -310,8 +310,11 @@
           <li class="sidebar-subnav-header">
             MarketShare
           </li>
-          <li class="<%= 'active' if controller?('marketshares/index') && action?('index') %>">
+          <li class="<%= 'active' if controller?('marketshares') && action?('index') %>">
             <a href="/marketshares/" title="Marketshare"> <em class="fa fa-cubes"></em> <span><b>MarketShares</b></span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('marketshares') && action?('by_store') %>">
+            <a href="/marketshares/by_store" title="Marketshare"> <em class="fa fa-bell-o"></em> <span><b>By Customers</b></span> </a>
           </li>
         </ul>
       </li>
