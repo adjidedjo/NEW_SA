@@ -35,13 +35,16 @@ class Forecast < ActiveRecord::Base
     self.find_by_sql("
       SELECT oa.jenisbrgdisc AS brand, SUM(oa.quantity) AS quantity, SUM(oa.jumlah) AS jumlah,
       SUM(oa.acv) AS acv, SUM(oa.todate) AS todate, SUM(IFNULL(equal_sales,0)) AS equal_sales,
-      SUM(IFNULL(more_sales,0)) AS more_sales, SUM(IFNULL(less_sales,0)) AS less_sales FROM
+      SUM(IFNULL(more_sales,0)) AS more_sales, SUM(IFNULL(less_sales,0)) AS less_sales, 
+      SUM(IFNULL(more_sales_for_non,0)) AS msfn FROM
       (
             SELECT lp.kodebrg, f.todate, IFNULL(lp.jenisbrgdisc, f.brand) AS jenisbrgdisc, lp.namabrg, a.area,
             f.branch, f.size, f.quantity, lp.jumlah, ABS((IFNULL(lp.jumlah,0)-IFNULL(f.todate,0))) AS acv,
             CASE WHEN IFNULL(lp.jumlah,0) = IFNULL(f.todate, 0) THEN lp.jumlah END AS equal_sales,
             CASE WHEN IFNULL(lp.jumlah,0) > IFNULL(f.todate,0) THEN f.todate END AS more_sales,
-            CASE WHEN IFNULL(lp.jumlah,0) < IFNULL(f.todate,0) THEN lp.jumlah END AS less_sales
+            CASE WHEN IFNULL(lp.jumlah,0) < IFNULL(f.todate,0) THEN lp.jumlah END AS less_sales,
+            CASE WHEN IFNULL(lp.jumlah,0) > IFNULL(f.todate,0) THEN 
+            (IFNULL(lp.jumlah,0) - IFNULL(f.todate,0)) END AS more_sales_for_non
             FROM
             (
               SELECT DISTINCT(kodebrg) FROM
@@ -67,10 +70,10 @@ class Forecast < ActiveRecord::Base
             LEFT JOIN
             (
               SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
-              segment3_name, size, quantity,
-              ROUND((quantity/DAY(LAST_DAY('#{end_date.to_date}')))*DAY('#{end_date.to_date}')) AS todate FROM
+              segment3_name, size, SUM(quantity) AS quantity,
+              ROUND((SUM(quantity)/DAY(LAST_DAY('#{end_date.to_date}')))*DAY('#{Date.today.to_date}')) AS todate FROM
               forecasts WHERE branch = '#{area}' AND MONTH = '#{end_date.to_date.month}'
-              AND YEAR = '#{end_date.to_date.year}'
+              AND YEAR = '#{end_date.to_date.year}' GROUP BY item_number
             ) AS f ON f.item_number = f1.kodebrg
             LEFT JOIN
             (
