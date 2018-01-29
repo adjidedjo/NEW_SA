@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  namespace :api do
+    devise_scope :user do
+      post '/sessions' => 'sessions#create'
+    end
+    resources :sessions
+  end
+
   resources :indonesia_cities
   resources :salesmen
   devise_for :users
@@ -17,7 +24,7 @@ Rails.application.routes.draw do
 
   # Sales Productivity
   resources :sales_productivities
-  
+
   # Asong
   get 'asong/report_by_branch'
 
@@ -27,7 +34,7 @@ Rails.application.routes.draw do
   get 'forecasts/report_forecasts_branches'
   get 'forecasts/report_forecasts_items'
   get 'sales_form/sales_form'
-  
+
   #SUCCESS RATE ALL BRANCH
   get 'rates/index'
 

@@ -15,6 +15,8 @@ gem 'jquery-ui-rails'
 # and uncomment the following
 # gem 'pg'
 # gem 'thin'
+# gem 'active_model_serializers'
+# gem 'rack-cors'
 
 # authentication
 gem 'devise'
