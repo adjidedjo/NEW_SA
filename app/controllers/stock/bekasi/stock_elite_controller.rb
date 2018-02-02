@@ -47,7 +47,7 @@ class Stock::Bekasi::StockEliteController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "11031"
+    @branch_plant = "18031"
     @branch = "BEKASI"
   end
 end
