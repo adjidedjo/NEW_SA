@@ -16,8 +16,8 @@ class Marketshare < ActiveRecord::Base
 
   def upcase_fields
     id = IndonesiaCity.find_by_city(self.city)
-    internal_brand = Brand.find_by_name(self.brand)
     self.marketshare_brands.each do |bv|
+      internal_brand = Brand.find_by_name(self.brand)
       bv.area_id = id.area_id
       bv.internal_brand = self.brand
       bv.customer_name = self.customer_name
