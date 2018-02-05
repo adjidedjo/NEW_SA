@@ -47,7 +47,7 @@ class Stock::Cirebon::StockRoyalController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "11022"
+    @branch_plant = "18022"
     @branch = "CIREBON"
   end
 end
