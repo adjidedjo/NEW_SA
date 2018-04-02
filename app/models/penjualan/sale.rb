@@ -238,7 +238,7 @@ class Penjualan::Sale < ActiveRecord::Base
         '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}'
         THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{date.last_month.beginning_of_month}'
-      AND '#{date.to_date}' AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND area_id != 50 AND
+      AND '#{date.end_of_month}' AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND area_id != 50 AND
       tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
       AND area_id IS NOT NULL GROUP BY jenisbrgdisc, area_id
     ) as lc
