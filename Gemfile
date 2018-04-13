@@ -12,10 +12,15 @@ gem 'best_in_place'
 gem 'gon'
 gem 'jquery-ui-rails'
 
+gem 'kaminari'
+gem 'api-pagination'
+gem 'pager_api'
+
+
 # and uncomment the following
 # gem 'pg'
 # gem 'thin'
-# gem 'active_model_serializers'
+gem 'active_model_serializers'
 # gem 'rack-cors'
 
 # authentication

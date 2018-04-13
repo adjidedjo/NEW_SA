@@ -24,6 +24,11 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_model_serializers (0.10.7)
+      actionpack (>= 4.1, < 6)
+      activemodel (>= 4.1, < 6)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (5.0.0.1)
       activesupport (= 5.0.0.1)
       globalid (>= 0.3.6)
@@ -42,6 +47,7 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    api-pagination (4.7.0)
     arel (7.1.4)
     bcrypt (3.1.11)
     bcrypt (3.1.11-x64-mingw32)
@@ -61,6 +67,8 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    case_transform (0.2)
+      activesupport
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -108,6 +116,19 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (1.8.3)
+    jsonapi-renderer (0.2.0)
+    kaminari (1.1.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
+      actionview
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
+      activerecord
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     libv8 (3.16.14.19)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -130,6 +151,7 @@ GEM
     nokogiri (1.6.8.1-x64-mingw32)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
+    pager_api (0.2.3)
     rack (2.0.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -216,7 +238,9 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  active_model_serializers
   activerecord-oracle_enhanced-adapter (~> 1.7.0)
+  api-pagination
   best_in_place
   better_errors
   binding_of_caller
@@ -233,7 +257,9 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   jquery-ui-rails
+  kaminari
   mysql2 (~> 0.3.17)
+  pager_api
   rails (= 5.0.0.1)
   rolify
   roo (~> 2.7.0)
