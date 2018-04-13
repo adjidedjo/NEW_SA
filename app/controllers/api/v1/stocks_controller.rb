@@ -1,7 +1,6 @@
 module Api
   module V1
     class StocksController < ActionController::Base
-      include PagerApi::Pagination::Kaminari
       
       def stock_normal
         @stocks = Stock::ItemAvailability.stock_report_for_android(params[:stock]["branch"], params[:stock]["brand"])
