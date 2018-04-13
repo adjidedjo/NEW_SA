@@ -2,6 +2,11 @@ class Stock::ItemAvailability < ActiveRecord::Base
   #establish_connection "jdeoracle".to_sym
   self.table_name = "stocks" #sd
   
+  def self.stock_report_for_android(branch, brand)
+    self.find_by_sql("SELECT onhand, available, description, item_number FROM stocks 
+    WHERE branch = '#{branch}' AND brand = '#{brand}' AND product REGEXP 'KM|DV|HB|SA|SB|ST|L|E' AND onhand > 0 ")
+  end
+  
   def self.recap_cap_stock_report(mat, foam, caps)
     self.find_by_sql("SELECT s.product, bc.capacity,
       SUM(CASE WHEN s.brand = 'E' THEN s.onhand END) AS elite,
@@ -19,7 +24,7 @@ class Stock::ItemAvailability < ActiveRecord::Base
   
   def self.stock_report(branch, brand)
     self.find_by_sql("SELECT brand, onhand, available, buffer, description, item_number, updated_at FROM stocks 
-    WHERE branch = '#{branch}' AND brand = '#{brand}' AND onhand > 0 ")
+    WHERE branch = '#{branch}' AND brand = '#{brand}' AND product REGEXP 'KM|DV|HB|SA|SB|ST|L|E' AND onhand > 0 ")
   end
   
   def self.stock_display_report(branch, brand)
