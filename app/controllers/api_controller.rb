@@ -1,4 +1,5 @@
 class ApiController < ActionController::Base
+  skip_before_action :verify_authenticity_token
   
   def documentation
     render file: "app/assets/documentation/readme.md"
