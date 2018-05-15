@@ -86,8 +86,9 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts(start_date, end_date, area, brand)
     self.find_by_sql("
-      SELECT f.salesmen_id, f1.kodebrg, f.description, f.segment1, f.brand, f.month, f.year, lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
-      lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv,
+      SELECT f.salesmen_id, f1.kodebrg, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year, 
+      lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
+      lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, lp.namaartikel, lp.namakain,
       IFNULL(s.onhand, 0) AS onhand,
       IFNULL(ib.qty_buf, 0) AS qty_buf FROM
       (
@@ -104,7 +105,8 @@ class Forecast < ActiveRecord::Base
       ) AS f1
       LEFT JOIN
       (
-        SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, area_id, lebar, fiscal_month, fiscal_year FROM
+        SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
+        fiscal_month, fiscal_year FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA') AND orty IN ('SO', 'ZO') AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'

@@ -55,13 +55,13 @@
               <thead>
                 <tr>
                   <th style="text-align: center;">AREA</th>
-                  <th style="text-align: center;">ITEM NUMBER</th>
                   <th style="text-align: center;">TYPE</th>
                   <th>DESCRIPTION</th>
+                  <th></th>
                   <th style="text-align: center;">SIZE</th>
                   <th style="text-align: center;">TOTAL FORECAST</th>
                   <th style="text-align: center;">TO DATE FORECAST</th>
-                  <th style="text-align: center;">ACTUAL</th>
+                  <th style="text-align: center;">SALES</th>
                   <th style="text-align: center;">ACCURACY</th>
                   <th style="text-align: center;">STOCK</th>
                   <th style="text-align: center;">BUFFER</th>
@@ -72,10 +72,10 @@
                 <% @acv_forecast.each do |fc| %>
                 <tr class="gradeX">
                   <td style="text-align: center;"><%= fc.area %></td>
-                  <td style="text-align: center;"><%= fc.kodebrg %></td>
-                  <td style="text-align: center;"><%= fc.kodejenis %></td>
-                  <td><%= fc.namabrg.nil? ? fc.description : fc.namabrg %></td>
-                  <td style="text-align: center;"><%= fc.lebar %></td>
+                  <td style="text-align: center;"><%= fc.kodejenis.nil? ? fc.segment1 : fc.kodejenis %></td>
+                  <td><%= fc.namaartikel.nil? ? fc.segment2_name : fc.namaartikel %></td>
+                  <td><%= fc.namakain.nil? ? fc.segment3_name : fc.namakain %></td>
+                  <td style="text-align: center;"><%= fc.lebar.nil? ? fc.size : fc.lebar %></td>
                   <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : fc.quantity %></td>
                   <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : calculate_by_day(fc.quantity, params[:end_date]) %></td>
                   <td style="text-align: center;"><%= fc.jumlah.nil? ? 0 : fc.jumlah %></td>
