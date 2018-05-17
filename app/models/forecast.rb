@@ -86,7 +86,7 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts(start_date, end_date, area, brand)
     self.find_by_sql("
-      SELECT f.salesmen_id, f1.kodebrg, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year, 
+      SELECT f1.kodebrg, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year, 
       lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
       lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, lp.namaartikel, lp.namakain,
       IFNULL(s.onhand, 0) AS onhand,
@@ -115,7 +115,7 @@ class Forecast < ActiveRecord::Base
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
-        segment3_name, size, SUM(quantity) AS quantity, salesmen_id FROM
+        segment3_name, size, SUM(quantity) AS quantity FROM
         forecasts WHERE month = '#{start_date.to_date.month}'
         AND year = '#{start_date.to_date.year}' AND branch = '#{area}' GROUP BY item_number
       ) AS f ON f.item_number = f1.kodebrg
