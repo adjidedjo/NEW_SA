@@ -38,23 +38,6 @@
         </ul>
       </li>
       <% if current_user.position != 'sales' %>
-      <li class="<%= 'active' if controller?('credit_limits') %>">
-        <a href="#cl" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Credit Limits</b></span> </a>
-        <ul id="cl" class="nav sidebar-subnav collapse">
-          <li class="sidebar-subnav-header">
-            Credit Limits
-          </li>
-          <li class="<%= 'active' if controller?('credit_limits') %>">
-            <a href="#retail_cl" title="Credit Limits" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
-            <ul id="retail_cl" class="nav sidebar-subnav collapse">
-              <li class="sidebar-subnav-header">
-                Retail
-              </li>
-              <%= render "layouts/partials/sidebar_credit" %>
-            </ul>
-          </li>
-        </ul>
-      </li>
       <li class="<%= 'active' if controller?('order') %>">
         <a href="#order" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Order</b></span> </a>
         <ul id="order" class="nav sidebar-subnav collapse">
@@ -242,6 +225,25 @@
           </li>
         </ul>
       </li>
+      
+      <li class="<%= 'active' if controller?('credit_limits') %>">
+        <a href="#cl" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Credit Limits</b></span> </a>
+        <ul id="cl" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Credit Limits
+          </li>
+          <li class="<%= 'active' if controller?('credit_limits') %>">
+            <a href="#retail_cl" title="Credit Limits" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail_cl" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+              <%= render "layouts/partials/sidebar_credit" if branch(current_user, 2) %>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      
       <li class="<%= 'active' if controller?('penjualan_salesman') %>">
         <a href="#penjualan_salesman" title="Penjualan Salesman" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Sales</b></span> </a>
         <ul id="penjualan_salesman" class="nav sidebar-subnav collapse">

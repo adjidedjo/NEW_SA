@@ -44,6 +44,10 @@ module RolesHelper
     (user.branch1 == branch || user.branch2 == branch) 
   end
   
+  def sales_credit_limit(user, branch1, branch2)
+    user.position == "sales" && (user.branch1 == branch1 || user.branch2 == branch2) 
+  end
+  
   def sales_page(user, brand)
     user.position == "sales" && (user.brand1 == brand || user.brand2 == brand)
   end

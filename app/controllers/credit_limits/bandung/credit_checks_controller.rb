@@ -27,6 +27,6 @@ class CreditLimits::Bandung::CreditChecksController < ApplicationController
 
   def authorize_user
     render template: "pages/notfound" unless general_manager(current_user) || nsm_customers(current_user) ||
-    bm_customers(current_user, initialize_brach_id)
+    bm_customers(current_user, initialize_brach_id) || sales_credit_limit(current_user, current_user.branch1, current_user.branch2)
   end
 end
