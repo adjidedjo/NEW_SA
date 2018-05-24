@@ -66,6 +66,25 @@
           </li>
         </ul>
       </li>
+      
+      <li class="<%= 'active' if controller?('credit_limits') %>">
+        <a href="#cl" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Credit Limits</b></span> </a>
+        <ul id="cl" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Credit Limits
+          </li>
+          <li class="<%= 'active' if controller?('credit_limits') %>">
+            <a href="#retail_cl" title="Credit Limits" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail_cl" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+              <%= render "layouts/partials/sidebar_credit" %>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      
       <% if bm_customers(current_user, current_user.branch1) || current_user.position == 'admin' || 
         general_manager(current_user) || nsm_customers(current_user) %>
       <li class="<%= 'active' if controller?('forecasts') %>">
@@ -238,7 +257,7 @@
               <li class="sidebar-subnav-header">
                 Retail
               </li>
-              <%= render "layouts/partials/sidebar_credit" if branch(current_user, 2) %>
+              <%= render "layouts/partials/sidebar_credit" %>
             </ul>
           </li>
         </ul>
