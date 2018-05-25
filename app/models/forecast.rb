@@ -86,7 +86,7 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts(start_date, end_date, area, brand)
     self.find_by_sql("
-      SELECT f1.kodebrg, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year, 
+      SELECT f1.kodebrg, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year,
       lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
       lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, lp.namaartikel, lp.namakain,
       IFNULL(s.onhand, 0) AS onhand,
@@ -131,6 +131,45 @@ class Forecast < ActiveRecord::Base
       (
         SELECT * FROM areas
       ) AS a ON IFNULL(lp.area_id, f.branch) = a.id
+      GROUP BY f1.kodebrg
+    ")
+  end
+
+  def self.calculation_direct_forecast(start_date, end_date, area)
+    id_img = area == 100 ? "DIRECT" : "MODERN"
+    self.find_by_sql("
+      SELECT f1.kodebrg, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year,
+      lp.namabrg, f.branch, f.segment2_name, f.segment3_name,
+      lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, 
+      lp.namaartikel, lp.namakain FROM
+      (
+        SELECT DISTINCT(kodebrg) FROM
+        tblaporancabang WHERE tipecust = '#{id_img}' AND bonus = '-' AND kodejenis IN
+        ('KM', 'DV', 'HB', 'KB', 'SB', 'SA') AND orty IN ('SO', 'ZO') AND tanggalsj BETWEEN '#{start_date.to_date}'
+        AND '#{end_date.to_date}'
+
+        UNION ALL
+
+        SELECT DISTINCT(item_number) FROM
+        forecasts WHERE MONTH = '#{end_date.to_date.month}' AND YEAR = '#{end_date.to_date.year}'
+        AND branch = '#{area}'
+      ) AS f1
+      LEFT JOIN
+      (
+        SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
+        fiscal_month, fiscal_year FROM
+        tblaporancabang WHERE tipecust = '#{id_img}' AND bonus = '-' AND kodejenis IN
+        ('KM', 'DV', 'HB', 'KB', 'SB', 'SA') AND orty IN ('SO', 'ZO') AND tanggalsj BETWEEN '#{start_date.to_date}'
+        AND '#{end_date.to_date}'
+        GROUP BY kodebrg, jenisbrgdisc, fiscal_month, fiscal_year
+      ) AS lp ON lp.kodebrg = f1.kodebrg
+      LEFT JOIN
+      (
+        SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
+        segment3_name, size, SUM(quantity) AS quantity FROM
+        forecasts WHERE month = '#{start_date.to_date.month}'
+        AND year = '#{start_date.to_date.year}' AND branch = '#{area}' GROUP BY item_number
+      ) AS f ON f.item_number = f1.kodebrg
       GROUP BY f1.kodebrg
     ")
   end

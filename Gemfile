@@ -28,6 +28,7 @@ gem 'devise'
 gem 'cancancan'
 gem 'rolify'
 gem "roo", "~> 2.7.0"
+gem 'roo-xls'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.1'
 # Use Uglifier as compressor for JavaScript assets
