@@ -149,6 +149,19 @@ class Penjualan::Customer < Penjualan::Sale
     ")
   end
 
+  def self.reporting_customer_monthly(branch, brand)
+    find_by_sql("SELECT customer, kode_customer, kota, salesman,
+      SUM(CASE WHEN fiscal_month = '#{3.months.ago.month}' AND fiscal_year = '#{3.months.ago.year}' THEN harganetto1 END) month3,
+      SUM(CASE WHEN fiscal_month = '#{2.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN harganetto1 END) month2,
+      SUM(CASE WHEN fiscal_month = '#{1.months.ago.month}' AND fiscal_year = '#{1.months.ago.year}' THEN harganetto1 END) month1,
+      SUM(CASE WHEN fiscal_month = '#{Date.today.month}' AND fiscal_year = '#{Date.today.year}' THEN harganetto1 END) monthnow
+      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{3.months.ago.beginning_of_month.to_date}' AND '#{Date.today}'
+      AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
+      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+      GROUP BY kode_customer
+    ")
+  end
+
   def self.reporting_customers(month, year, branch)
     find_by_sql("SELECT customer, kode_customer,
       SUM(CASE WHEN jenisbrgdisc = 'ELITE' THEN harganetto1 END) elite,

@@ -7,6 +7,12 @@ class Penjualan::Pekanbaru::PekanbaruRoyalController < ApplicationController
   before_action :retail_sales_through, only: :sales_through
   before_action :retail_sales_stock_rate, only: :sales_stock_rate
   before_action :retail_success_rate, only: :success_rate
+
+  def customer_monthly
+    @branch = "PEKANBARU"
+    @customer = Penjualan::Customer.reporting_customer_monthly(initialize_brach_id, initialize_brand)
+    render template: "penjualan/template_dashboard/customer_monthly"
+  end
   
   def marketshare
     @area_potent = Marketshare.get_area_potential(initialize_brand, initialize_brach_id)

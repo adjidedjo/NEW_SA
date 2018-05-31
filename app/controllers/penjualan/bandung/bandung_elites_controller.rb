@@ -7,7 +7,13 @@ class Penjualan::Bandung::BandungElitesController < ApplicationController
   before_action :retail_sales_through, only: :sales_through
   before_action :retail_sales_stock_rate, only: :sales_stock_rate
   before_action :retail_success_rate, only: :success_rate
-  
+
+  def customer_monthly
+    @branch = "Jawa Barat"
+    @customer = Penjualan::Customer.reporting_customer_monthly(initialize_brach_id, initialize_brand)
+    render template: "penjualan/template_dashboard/customer_monthly"
+  end
+
   def marketshare
     @area_potent = Marketshare.get_area_potential(initialize_brand, initialize_brach_id)
     gon.marketshare = Marketshare.get_report(initialize_brand, initialize_brach_id)
@@ -16,21 +22,21 @@ class Penjualan::Bandung::BandungElitesController < ApplicationController
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/marketshare"
   end
-  
+
   def success_rate
     gon.brand = initialize_brand
     @branch = "JAWA BARAT"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/success_rate"
   end
-  
+
   def sales_stock_rate
     gon.brand = initialize_brand
     @branch = "JAWA BARAT"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/sales_stock_rate"
   end
-  
+
   def sales_through
     @branch = "JAWA BARAT"
     @brand_name = initialize_brand

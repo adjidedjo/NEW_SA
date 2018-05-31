@@ -4,6 +4,12 @@ class Penjualan::Jember::JemberLadyController < ApplicationController
   before_action :retail_weekly, only: :weekly
   before_action :retail_monthly, only: :monthly
   before_action :retail_daily, only: :daily
+
+  def customer_monthly
+    @branch = "JEMBER"
+    @customer = Penjualan::Customer.reporting_customer_monthly(initialize_brach_id, initialize_brand)
+    render template: "penjualan/template_dashboard/customer_monthly"
+  end
   
   def marketshare
     @area_potent = Marketshare.get_area_potential(initialize_brand, initialize_brach_id)
