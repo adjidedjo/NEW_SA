@@ -81,13 +81,7 @@ class Penjualan::Cirebon::CirebonLadyController < ApplicationController
     end
   end
   
-  def 
-
-  def customer_monthly
-    @branch = "Jakarta"
-    @customer = Penjualan::Customer.reporting_customer_monthly(initialize_brach_id, initialize_brand)
-    render template: "penjualan/template_dashboard/customer_monthly"
-  end
+  def initialize_brand
     "LADY"
   end
   
