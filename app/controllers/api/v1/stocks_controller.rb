@@ -18,6 +18,10 @@ module Api
         return 
       end
       
+      def real_jde
+        @stocks = Stock::JdeItemAvailability.stock_real_jde(params[:artikel], params[:size])
+        render json: {status: "SUCCESS", message: 'Loaded Stock', data_stocks: @stocks}
+      end
     end
   end
 end
