@@ -16,7 +16,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' 
       ) as sub")
   end
 
@@ -30,7 +30,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
     (
       SELECT area_id,
       SUM(CASE WHEN fiscal_month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
-        '#{Date.yesterday.month}' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) y_qty,
+        '#{Date.yesterday.month}'  THEN harganetto1 END) y_qty,
       SUM(CASE WHEN fiscal_month = '#{Date.yesterday.month}' THEN harganetto1 END) val_1,
       SUM(CASE WHEN fiscal_month = '#{Date.yesterday.month}' AND
         kodejenis IN ('KM', 'DV', 'HB', 'KB') THEN harganetto1 END) val1_1,
@@ -39,7 +39,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       AND '#{Date.yesterday.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.year}'
       AND '#{Date.yesterday.year}' AND area_id != 1 AND area_id != 50
       AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY jenisbrgdisc
     ) as lc
       LEFT JOIN
@@ -48,7 +48,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
         fiscal_month = '#{Date.yesterday.last_year.month}' AND
         fiscal_year = '#{Date.yesterday.last_year.year}'
         AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND jenisbrgdisc = '#{brand}' AND area_id = '#{branch}' AND
-        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'ST', 'KB')
+        tipecust = 'RETAIL' AND bonus = '-' 
         GROUP BY jenisbrgdisc
       ) AS ly ON lc.area_id = '#{branch}'
       LEFT JOIN
@@ -75,7 +75,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN harganetto1 END) AS val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.day.ago.to_date}'
       AND '#{1.day.ago.to_date}' AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kodejenis WITH ROLLUP")
   end
 
@@ -97,7 +97,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'KB') AND nopo != '-'
+      tipecust = 'RETAIL' AND bonus = '-'  AND nopo != '-'
       GROUP BY nopo
       ) as lc
       LEFT JOIN sales_targets st
@@ -123,7 +123,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY namaartikel, lebar
       ) as sub")
   end
@@ -152,7 +152,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY customer
       ) as sub")
   end
@@ -181,7 +181,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kota
       ) as sub")
   end
@@ -204,7 +204,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kodejenis
       ) as lc
       LEFT JOIN sales_targets AS st
@@ -231,7 +231,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}'
       AND '#{Date.yesterday}'
       AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB')
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kodejenis WITH ROLLUP
       ) as sub")
   end
@@ -240,7 +240,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah
     FROM tblaporancabang WHERE area_id = '#{branch}' AND
     tanggalsj BETWEEN '#{6.day.ago.to_date}' AND '#{1.day.ago.to_date}' AND jenisbrgdisc = '#{brand}' AND
-    tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') GROUP BY tanggalsj")
+    tipecust = 'RETAIL' AND bonus = '-'  GROUP BY tanggalsj")
   end
 
   def self.daily_product(branch, brand)
@@ -251,13 +251,13 @@ class Penjualan::SaleDaily < Penjualan::Sale
       SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN harganetto1 END) AS val_1
       FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{2.day.ago.to_date}' AND '#{1.day.ago.to_date}'
       AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') GROUP BY kodejenis")
+      tipecust = 'RETAIL' AND bonus = '-'  GROUP BY kodejenis")
   end
 
   def self.daily_summary(branch, brand)
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price FROM tblaporancabang WHERE area_id = '#{branch}' AND
     tanggalsj BETWEEN '#{6.day.ago.to_date}' AND '#{1.day.ago.to_date}' AND jenisbrgdisc = '#{brand}' AND
-    tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') GROUP BY tanggalsj")
+    tipecust = 'RETAIL' AND bonus = '-'  GROUP BY tanggalsj")
   end
 
   def self.daily_salesman(branch, brand)
@@ -268,7 +268,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN harganetto1 END) AS val_1
       FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{2.day.ago.to_date}' AND '#{1.day.ago.to_date}'
       AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') GROUP BY salesman")
+      tipecust = 'RETAIL' AND bonus = '-'  GROUP BY salesman")
   end
 
   def self.daily_customer(branch, brand)
@@ -279,6 +279,6 @@ class Penjualan::SaleDaily < Penjualan::Sale
       SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN harganetto1 END) AS val_1
       FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{2.day.ago.to_date}' AND '#{1.day.ago.to_date}'
       AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') GROUP BY kode_customer")
+      tipecust = 'RETAIL' AND bonus = '-'  GROUP BY kode_customer")
   end
 end

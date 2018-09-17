@@ -16,14 +16,14 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY jenisbrgdisc
     ) as lc
       LEFT JOIN 
       (
         SELECT SUM(harganetto1) AS v_last_year, area_id, nopo FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_year.beginning_of_month}' 
         AND '#{Date.yesterday.last_year}' AND jenisbrgdisc = '#{brand}' AND nopo = '#{sales.address_number}' AND
-        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+        tipecust = 'RETAIL' AND bonus = '-' 
         GROUP BY jenisbrgdisc
       ) AS ly ON lc.nopo = '#{sales.address_number}'
       LEFT JOIN 
@@ -47,7 +47,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
         FROM tblaporancabang AS lc
         WHERE tanggalsj BETWEEN '#{2.day.ago.to_date}' 
         AND '#{1.day.ago.to_date}' AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+        tipecust = 'RETAIL' AND bonus = '-' 
         GROUP BY kodejenis WITH ROLLUP
       ) AS lc
       LEFT JOIN sales_targets AS st
@@ -72,7 +72,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY namaartikel, lebar
       ) as sub")
   end
@@ -101,7 +101,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY customer
       ) as sub")
   end
@@ -130,7 +130,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kota
       ) as sub")
   end
@@ -151,7 +151,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}' 
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kodejenis WITH ROLLUP
       ) as sub")
   end
@@ -174,7 +174,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kodejenis WITH ROLLUP
       ) as lc
       LEFT JOIN sales_targets AS st
@@ -200,7 +200,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}' 
       AND '#{1.month.ago.to_date.end_of_month}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY namaartikel, lebar
       ) as sub")
   end
@@ -229,7 +229,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}' 
       AND '#{1.month.ago.to_date.end_of_month}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY customer
       ) as sub")
   end
@@ -258,7 +258,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}' 
       AND '#{1.month.ago.to_date.end_of_month}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kota
       ) as sub")
   end
@@ -279,7 +279,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}' 
       AND '#{1.month.ago.to_date.end_of_month}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kodejenis WITH ROLLUP
       ) as sub")
   end
@@ -303,7 +303,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}' 
       AND '#{1.week.ago.to_date.end_of_week}'
       AND nopo = '#{sales.address_number}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY namaartikel, lebar
       ) as sub")
   end
@@ -330,7 +330,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}' 
       AND '#{1.week.ago.to_date.end_of_week}'
       AND nopo = '#{sales.address_number}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY customer
       ) as sub")
   end
@@ -357,7 +357,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}' 
       AND '#{1.week.ago.to_date.end_of_week}'
       AND nopo = '#{sales.address_number}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kota
       ) as sub")
   end
@@ -378,7 +378,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}' 
       AND '#{1.week.ago.to_date.end_of_week}'
       AND nopo = '#{sales.address_number}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kodejenis WITH ROLLUP
       ) as sub")
   end
@@ -397,7 +397,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
         FROM tblaporancabang AS lc
         WHERE tanggalsj BETWEEN '#{2.day.ago.to_date}' 
         AND '#{1.day.ago.to_date}' AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-        tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+        tipecust = 'RETAIL' AND bonus = '-' 
         GROUP BY kodejenis WITH ROLLUP
       ) AS lc
       LEFT JOIN sales_targets AS st
@@ -422,7 +422,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY namaartikel, lebar
       ) as sub")
   end
@@ -451,7 +451,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY customer
       ) as sub")
   end
@@ -480,7 +480,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kota
       ) as sub")
   end
@@ -501,7 +501,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}' 
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kodejenis WITH ROLLUP
       ) as sub")
   end
@@ -524,7 +524,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}' 
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN ('KM', 'DV', 'HB', 'SA', 'SB', 'KB') 
+      tipecust = 'RETAIL' AND bonus = '-' 
       GROUP BY kodejenis WITH ROLLUP
       ) as lc
       LEFT JOIN sales_targets AS st
