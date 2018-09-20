@@ -150,6 +150,7 @@ Rails.application.routes.draw do
   get 'order/bandung/bandung_royal/order'
 
   get 'penjualan/bandung/bandung_customers/customer_active'
+  get 'penjualan/bandung/bandung_customers/customer_inactive'
   get 'penjualan/bandung/bandung_customers/customer'
   get 'penjualan/bandung/bandung_recaps/recap'
   get 'penjualan/bandung/bandung_elites/weekly'

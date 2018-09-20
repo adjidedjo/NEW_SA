@@ -10,6 +10,14 @@ class Penjualan::Bandung::BandungCustomersController < ApplicationController
     render template: "penjualan/template_dashboard/customer_active"     
   end
   
+  def customer_inactive
+    @branch = "Jawa Barat"
+    @customer = Penjualan::Customer.active_customers(initialize_branch_id)
+    @list_customers = Penjualan::Customer.list_customers_inactive(params[:branch], params[:state],
+    params[:brand]) if params[:state].present? && params[:branch].present?
+    render template: "penjualan/template_dashboard/customer_inactive"     
+  end
+  
   def customer
     @branch = "Jawa Barat"
     @customer = Penjualan::Customer.reporting_customers(@month, @year, initialize_branch_id)

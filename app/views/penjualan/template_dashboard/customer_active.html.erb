@@ -25,7 +25,7 @@
                 <tr class="gradeX">
                   <td><%= cus.brand %></td>
                   <td><%= link_to cus.active, '/penjualan/bandung/bandung_customers/customer_active'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=1' %></td>
-                  <td><%= link_to cus.inactive, '/penjualan/bandung/bandung_customers/customer_active'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=0' %></td>
+                  <td><%= link_to cus.inactive, '/penjualan/bandung/bandung_customers/customer_inactive'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=0' %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -55,7 +55,7 @@
                 <% @list_customers.each do |cus| %>
                 <tr class="gradeX">
                   <td><%= cus.customer %></td>
-                  <td><%= cus.last_order.strftime('%d %B %Y') %></td>
+                  <td><%= cus.tanggalsj.strftime('%d %B %Y') %></td>
                   <td><%= currency(cus.three_month) %></td>
                   <td><%= currency(cus.two_month) %></td>
                   <td><%= currency(cus.last_month) %></td>
