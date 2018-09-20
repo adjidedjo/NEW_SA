@@ -1,0 +1,70 @@
+<div class="content-heading">
+  Dashboard Active Customers <%= @branch %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <!-- START content-->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+          <div class="panel-heading" style="text-align: center">
+            Active Customers REPORT
+          </div>
+          <div class="panel-body">
+            <table id="datatable_city" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Brand</th>
+                  <th>Active</th>
+                  <th>InActive</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @customer.each do |cus| %>
+                <tr class="gradeX">
+                  <td><%= cus.brand %></td>
+                  <td><%= link_to cus.active, '/penjualan/bandung/bandung_customers/customer_active'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=1' %></td>
+                  <td><%= link_to cus.inactive, '/penjualan/bandung/bandung_customers/customer_inactive'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=0' %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <% if params[:state].present? && params[:branch].present? %>
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+          <div class="panel-heading" style="text-align: center">
+            List Inactive <%= params[:brand] %> Customers REPORT
+          </div>
+          <div class="panel-body">
+            <table id="datatable_customer" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Last Order</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @list_customers.each do |cus| %>
+                <tr class="gradeX">
+                  <td><%= cus.customer %></td>
+                  <td><%= cus.tanggalsj.strftime('%d %B %Y') %></td>
+                  <td><%= currency(cus.total) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+    </div>
+    <!-- END content-->
+  </div>
+</div>
