@@ -12,24 +12,23 @@ class Penjualan::Customer < Penjualan::Sale
 
   def self.list_customers_inactive(branch, state, brand)
     CustomerBrand.find_by_sql("
-      SELECT ca.* FROM customer_active ca
-      JOIN
-        (
-          SELECT MAX(id) AS id FROM customer_active WHERE branch = '#{branch}' AND
-          MAX(tanggalsj) < '#{3.months.ago.to_date}' AND brand = '#{brand}' AND
-          tipecust = 'RETAIL' GROUP BY kode_customer
-        ) co ON co.id = ca.id;
+      SELECT cus.* FROM customer_active cus WHERE cus.id = (
+        SELECT cus2.id FROM customer_active cus2 WHERE cus2.branch = '#{branch}' AND
+        cus2.kode_customer = cus.kode_customer AND cus2.brand = '#{brand}' AND
+        cus2.tipecust = 'RETAIL' ORDER BY cus2.tanggalsj DESC LIMIT 1
+      ) AND cus.tanggalsj  < '#{3.months.ago.to_date}';
     ")
   end
 
   def self.active_customers(branch)
     CustomerBrand.find_by_sql("
-      SELECT brand,
-        COUNT(CASE WHEN tanggalsj >= '#{3.months.ago.to_date}' THEN id END) active,
-        COUNT(DISTINCT(CASE WHEN tanggalsj < '#{3.months.ago.to_date}' THEN id END)) inactive,
-        branch
-        FROM customer_active WHERE branch = '#{branch}' AND
-        tipecust = 'RETAIL' AND brand != '' GROUP BY brand ORDER BY tanggalsj DESC
+      SELECT a.brand, a.branch,
+        COUNT(CASE WHEN a.tanggal >= '2018-06-26' THEN id END) active,
+        COUNT(CASE WHEN a.tanggal < '2018-06-26' THEN id END) inactive FROM
+      (
+        SELECT id, kode_customer, MAX(tanggalsj) AS tanggal, brand, branch FROM customer_active cus2 WHERE cus2.branch = '2' AND
+        cus2.tipecust = 'RETAIL' GROUP BY kode_customer, brand ORDER BY cus2.tanggalsj DESC
+      ) a WHERE brand != ' ' GROUP BY brand;
     ")
   end
 
