@@ -16,7 +16,7 @@ class Penjualan::Customer < Penjualan::Sale
       JOIN
         (
           SELECT MAX(id) AS id FROM customer_active WHERE branch = '#{branch}' AND
-          tanggalsj < '#{3.months.ago.to_date}' AND brand = '#{brand}' AND
+          MAX(tanggalsj) < '#{3.months.ago.to_date}' AND brand = '#{brand}' AND
           tipecust = 'RETAIL' GROUP BY kode_customer
         ) co ON co.id = ca.id;
     ")
