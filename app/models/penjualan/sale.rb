@@ -410,67 +410,61 @@ class Penjualan::Sale < ActiveRecord::Base
   end
 
   def self.monthly_salesman_summary(date, branch, brand)
-    self.find_by_sql("SELECT lc.salesman, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2,
-    ROUND((((val_1 - val_2) / val_2) * 100), 0) AS percentage,
-    ROUND(((lc.qty_1/SUM(st.target)) * 100.0), 0) AS target FROM
+    date = define_date(date)
+    self.find_by_sql("SELECT lc.salesmen_desc, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2,
+    ROUND((((val_1 - val_2) / val_2) * 100), 0) AS percentage FROM
     (
-      SELECT area_id, salesman, nopo,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN jumlah END) qty_1,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN harganetto1 END) val_1,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-        '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}' THEN jumlah END) qty_2,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-        '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{date.last_month.beginning_of_month}'
-      AND '#{date.to_date}' AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-'   AND nopo != '-'
-      GROUP BY nopo
-      ) as lc
-      LEFT JOIN sales_targets st
-      ON (st.address_number = lc.nopo) AND st.brand = '#{brand}'
-      AND st.month = '#{date.month}' AND st.year = '#{date.year}'
-      GROUP BY lc.nopo
-      ")
+      SELECT branch, salesmen_desc, salesmen,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_quantity END) qty_1,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
+      SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_quantity END) qty_2,
+      SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
+      FROM sales_mart.RET3SALBRAND WHERE fiscal_day <= '#{date.day}' AND fiscal_month BETWEEN '#{date.last_month.month}'
+      AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}'
+      AND '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
+      GROUP BY salesmen
+    ) AS lc
+    ")
   end
 
   def self.monthly_city_summary(date, branch, brand)
-    self.find_by_sql("SELECT kota, kodejenis, km, dv, hb, sa, sb, kb, total_1, total_2,
+    date = define_date(date)
+    self.find_by_sql("SELECT city, product, km, dv, hb, sa, sb, kb, total_1, total_2,
     ROUND((((total_1 - total_2) / total_2) * 100), 0) AS percentage FROM
     (
-      SELECT kota, kodejenis,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'KM' THEN jumlah END) km,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'HB' THEN jumlah END) hb,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'DV' THEN jumlah END) dv,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'SA' THEN jumlah END) sa,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'SB' THEN jumlah END) sb,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'KB' THEN jumlah END) kb,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN harganetto1 END) total_1,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-        '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}' THEN harganetto1 END) total_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{date.last_month.beginning_of_month}'
-      AND '#{date.to_date}' AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-'
-      GROUP BY kota
+      SELECT city, product,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'KM' THEN sales_quantity END) km,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'HB' THEN sales_quantity END) hb,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'DV' THEN sales_quantity END) dv,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'SA' THEN sales_quantity END) sa,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'SB' THEN sales_quantity END) sb,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'KB' THEN sales_quantity END) kb,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) total_1,
+      SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) total_2
+      FROM sales_mart.RET4CITYPRODUCT WHERE fiscal_day <= '#{date.day}' AND fiscal_month BETWEEN '#{date.last_month.month}'
+      AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}'
+      AND '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
+      GROUP BY city
       ) as sub")
   end
 
   def self.monthly_customer_summary(date, branch, brand)
-    self.find_by_sql("SELECT customer, kodejenis, km, dv, hb, sa, sb, kb, total_1, total_2,
+    date = define_date(date)
+    self.find_by_sql("SELECT customer_desc, product, km, dv, hb, sa, sb, kb, total_1, total_2,
     ROUND((((total_1 - total_2) / total_2) * 100), 0) AS percentage FROM
     (
-      SELECT customer, kodejenis,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'KM' THEN jumlah END) km,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'HB' THEN jumlah END) hb,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'DV' THEN jumlah END) dv,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'SA' THEN jumlah END) sa,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'SB' THEN jumlah END) sb,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND kodejenis = 'KB' THEN jumlah END) kb,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN harganetto1 END) total_1,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-        '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}' THEN harganetto1 END) total_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{date.last_month.beginning_of_month}'
-      AND '#{date.end_of_month}' AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-'
+      SELECT customer_desc, product,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'KM' THEN sales_quantity END) km,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'HB' THEN sales_quantity END) hb,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'DV' THEN sales_quantity END) dv,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'SA' THEN sales_quantity END) sa,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'SB' THEN sales_quantity END) sb,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'KB' THEN sales_quantity END) kb,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) total_1,
+      SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) total_2
+      FROM sales_mart.RET2CUSPRODUCT WHERE fiscal_day <= '#{date.day}' AND fiscal_month BETWEEN '#{date.last_month.month}'
+      AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}'
+      AND '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
       GROUP BY customer
       ) as sub")
   end
@@ -530,37 +524,46 @@ class Penjualan::Sale < ActiveRecord::Base
   end
 
   def self.monthly_summaries(branch, brand)
-    self.find_by_sql("SELECT SUM(jumlah) AS jumlah, fiscal_month FROM tblaporancabang
-    WHERE area_id = '#{branch}' AND fiscal_month BETWEEN '#{ 1.month.ago.beginning_of_year.month}'
+    self.find_by_sql("SELECT SUM(sales_quantity) AS jumlah, fiscal_month FROM sales_mart.RET1BRAND
+    WHERE branch = '#{branch}' AND fiscal_month BETWEEN '#{ 1.month.ago.beginning_of_year.month}'
     AND '#{Date.yesterday.last_month.month}' AND fiscal_year = '#{1.month.ago.beginning_of_year.year}'
-    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-'
-    GROUP BY fiscal_month, area_id")
+    AND brand = '#{brand}' GROUP BY branch, fiscal_month")
   end
 
   def self.monthly_product_summary(date, branch, brand)
-    self.find_by_sql("SELECT lc.kodejenis, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2,
-    ROUND((((lc.val_1 - lc.val_2) /lc. val_2) * 100), 0) AS percentage,
-    ROUND(((lc.qty_1/SUM(st.target)) * 100.0), 0) AS target FROM
+    date = define_date(date)
+    # self.find_by_sql("SELECT lc.product, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2,
+    # ROUND((((lc.val_1 - lc.val_2) /lc. val_2) * 100), 0) AS percentage,
+    # ROUND(((lc.qty_1/SUM(st.target)) * 100.0), 0) AS target FROM
+    # (
+    # SELECT product,
+    # SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_quantity END) qty_1,
+    # SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
+    # SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_quantity END) qty_2,
+    # SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
+    # FROM sales_mart.RET1PRODUCT WHERE fiscal_month BETWEEN '#{date.last_month.month}'
+    # AND '#{date.month}' AND branch = '#{branch}' AND brand = '#{brand}'
+    # GROUP BY product
+    # ) as lc
+    # RIGHT JOIN sales_targets AS st
+    # ON lc.product = st.product AND (st.brand = '#{brand}' OR st.brand IS NULL) AND
+    # (st.branch = '#{branch}' OR st.branch IS NULL)
+    # AND (st.month = '#{date.month}' OR st.month IS NULL)
+    # AND (st.year = '#{date.year}' OR st.year IS NULL) GROUP BY st.product
+    # ")
+
+    self.find_by_sql("SELECT lc.product, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2,
+    ROUND((((lc.val_1 - lc.val_2) /lc. val_2) * 100), 0) AS percentage FROM
     (
-      SELECT kodejenis,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.beginning_of_month}' AND
-        '#{date.to_date}' THEN jumlah END) qty_1,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.beginning_of_month}' AND
-        '#{date.to_date}' THEN harganetto1 END) val_1,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-        '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}' THEN jumlah END) qty_2,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-        '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{date.last_month.beginning_of_month}'
-      AND '#{date.to_date}' AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-'
-      GROUP BY kodejenis
+      SELECT product,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_quantity END) qty_1,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
+      SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_quantity END) qty_2,
+      SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
+      FROM sales_mart.RET1PRODUCT WHERE fiscal_day <= '#{date.day}' AND fiscal_month BETWEEN '#{date.last_month.month}'
+      AND '#{date.month}' AND branch = '#{branch}' AND brand = '#{brand}'
+      GROUP BY product
       ) as lc
-      LEFT JOIN sales_targets AS st
-      ON lc.kodejenis = st.product AND (st.brand = '#{brand}' OR st.brand IS NULL) AND
-      (st.branch = '#{branch}' OR st.branch IS NULL)
-      AND (st.month = '#{date.month}' OR st.month IS NULL)
-      AND (st.year = '#{date.year}' OR st.year IS NULL) GROUP BY st.product
       ")
   end
 
@@ -737,5 +740,9 @@ class Penjualan::Sale < ActiveRecord::Base
     tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
     tipecust = 'RETAIL' AND bonus = '-'  GROUP BY jenisbrgdisc")
   end
-########## END WEEKLY
+  ########## END WEEKLY
+
+  def self.define_date(date)
+    (date.month == Date.today.month) ? Date.today : date.end_of_month
+  end
 end

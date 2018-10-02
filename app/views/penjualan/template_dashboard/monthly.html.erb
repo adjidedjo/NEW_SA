@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="panel-body">
-            <div class="chart-line-monthly flot-chart"></div>
+            <div class="chart-line-monthly flot-chart" style="width:100%;height:250px;"></div>
           </div>
         </div>
         <!-- END widget-->
@@ -101,17 +101,15 @@
                   <th><%= @date.strftime('%b %y') %></th>
                   <th><%= @date.strftime('%b %y') %></th>
                   <th>MoM</th>
-                  <th>Target</th>
                 </tr>
               </thead>
               <tbody>
                 <% @product_month_summary.each do |cws| %>
                 <tr class="gradeX">
-                  <td><%= cws.kodejenis %></td>
+                  <td><%= cws.product %></td>
                   <td><%= cws.qty_1 %></td>
                   <td><%= currency(cws.val_1) %></td>
                   <td class="<%= coloring(cws.percentage) %>"><%= cws.percentage.nil? ? 0 : cpercent(cws.percentage.abs) %></td>
-                  <td class="<%= coloring_target(cws.target) %>"><%= cws.target.nil? ? 0 : cpercent(cws.target) %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -132,17 +130,15 @@
                   <th><%= @date.strftime('%b %y') %></th>
                   <th><%= @date.strftime('%b %y') %></th>
                   <th>MoM</th>
-                  <th>Target</th>
                 </tr>
               </thead>
               <tbody>
                 <% @last_month_salesman.each do |dp| %>
                 <tr class="gradeX">
-                  <td><%= dp.salesman %></td>
+                  <td><%= dp.salesmen_desc %></td>
                   <td><%= dp.qty_1 %></td>
                   <td><%= currency(dp.val_1) %></td>
                   <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
-                  <td class="<%= coloring_target(dp.target) %>"><%= dp.target.nil? ? 0 : cpercent(dp.target) %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -178,7 +174,7 @@
               <tbody>
                 <% @last_month_customer.each do |dp| %>
                 <tr class="gradeX">
-                  <td><%= dp.customer %></td>
+                  <td><%= dp.customer_desc %></td>
                   <td><%= dp.km %></td>
                   <td><%= dp.dv %></td>
                   <td><%= dp.hb %></td>
@@ -217,7 +213,7 @@
               <tbody>
                 <% @city_month_sum.each do |dp| %>
                 <tr class="gradeX">
-                  <td><%= dp.kota %></td>
+                  <td><%= dp.city %></td>
                   <td><%= dp.km %></td>
                   <td><%= dp.dv %></td>
                   <td><%= dp.hb %></td>

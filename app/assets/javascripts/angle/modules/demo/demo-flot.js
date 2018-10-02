@@ -748,10 +748,6 @@
         "label": "Sales",
         "color": "#5ab1ef",
         "data": gon.summaries
-    }, {
-        "label": "Target",
-        "color": "#f5994e",
-        "data": gon.target
     }];
     
     var data_monthlynas = [{
@@ -798,7 +794,7 @@
       
     var chart_monthly = $('.chart-line-monthly');
     if(chart_monthly.length)
-      $.plot(chart_monthly, data_monthly, options_monthly);
+      $.plot(chart_monthly, data_monthly, options);
       
     var chart_monthly_nasional = $('.chart-line-monthlynas');
     if(chart_monthly_nasional.length)

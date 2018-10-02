@@ -82,9 +82,7 @@ module PenjualanConcern
   
   def monthly_summaries
     summaries = Penjualan::Sale.monthly_summaries(initialize_brach_id, initialize_brand)
-    target_sum = Penjualan::Sale.target_monthly_summaries(initialize_brach_id, initialize_brand)
     gon.summaries = summaries.map { |u| [Date::ABBR_MONTHNAMES[u.fiscal_month], (u.jumlah)] }.to_a
-    gon.target = target_sum.map { |u| [Date::ABBR_MONTHNAMES[u.month], (u.jumlah)] }.to_a
   end
   
   def last_month_city_summary
