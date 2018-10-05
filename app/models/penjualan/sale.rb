@@ -410,8 +410,7 @@ class Penjualan::Sale < ActiveRecord::Base
   end
 
   def self.monthly_salesman_summary(date, branch, brand)
-    date = define_date(date)
-    self.find_by_sql("SELECT lc.salesmen_desc, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2,
+    find_by_sql("SELECT lc.salesmen_desc, lc.qty_1, lc.qty_2, lc.val_1, lc.val_2,
     ROUND((((val_1 - val_2) / val_2) * 100), 0) AS percentage FROM
     (
       SELECT branch, salesmen_desc, salesmen,
@@ -423,8 +422,7 @@ class Penjualan::Sale < ActiveRecord::Base
       AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}'
       AND '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
       GROUP BY salesmen
-    ) AS lc
-    ")
+    ) AS lc")
   end
 
   def self.monthly_city_summary(date, branch, brand)
@@ -470,35 +468,23 @@ class Penjualan::Sale < ActiveRecord::Base
   end
 
   def self.revenue_last_month(date, branch, brand)
-    self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue, st.month_target,
+    date = define_date(date)
+    self.find_by_sql("SELECT lc.val_1, lc.val_2, lc.revenue, st.month_target,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
-    ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage,
+    ROUND((((lc.val_1 - lc.revenue) / lc.revenue) * 100), 0) AS y_percentage,
     ROUND(((lc.val_1 / SUM(st.month_target)) * 100.0), 0) AS t_percentage,
     ROUND(((lc.y_qty / SUM(st.year_target)) * 100), 0) AS ty_percentage FROM
     (
-      SELECT area_id,
+      SELECT branch,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
+      SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_2,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.last_year.year}' THEN sales_amount END) revenue,
       SUM(CASE WHEN fiscal_month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
-        '#{date.last_month.month}'   THEN harganetto1 END) y_qty,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.beginning_of_month}' AND
-        '#{date.to_date}' THEN jumlah END) qty_1,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.beginning_of_month}' AND
-        '#{date.to_date}' THEN harganetto1 END) val_1,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-        '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{date.last_month.beginning_of_month}'
-      AND '#{date.end_of_month}' AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-'
-      GROUP BY jenisbrgdisc
+        '#{date.last_month.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) y_qty
+      FROM sales_mart.RET1BRAND WHERE fiscal_day <= '#{date.day}' AND fiscal_month BETWEEN '#{date.last_month.month}'
+      AND '#{date.month}' AND fiscal_year IN ('#{date.last_year.year}', '#{date.year}')
+      AND branch = '#{branch}' AND brand = '#{brand}'
     ) as lc
-      LEFT JOIN
-      (
-        SELECT SUM(harganetto1) AS revenue, area_id FROM tblaporancabang WHERE
-        tanggalsj BETWEEN '#{date.last_year.beginning_of_month}' AND
-        '#{date.month == Date.yesterday.last_year.month ? date.last_year : date.last_year.end_of_month}'
-        AND jenisbrgdisc = '#{brand}' AND area_id = '#{branch}' AND
-        tipecust = 'RETAIL' AND bonus = '-'
-        GROUP BY jenisbrgdisc
-      ) AS ly ON lc.area_id = '#{branch}'
       LEFT JOIN
       (
         SELECT branch,
@@ -511,7 +497,7 @@ class Penjualan::Sale < ActiveRecord::Base
         AND month BETWEEN '#{date.beginning_of_year.month}' AND
         '#{date.end_of_year.month}'
         AND (year = '#{Date.yesterday.year}' OR year IS NULL)
-      ) AS st ON lc.area_id = st.branch
+      ) AS st ON lc.branch = st.branch
     ")
   end
 
