@@ -2,11 +2,12 @@ class Penjualan::Customer < Penjualan::Sale
   def self.list_customers(branch, state, brand)
     CustomerBrand.find_by_sql("
       SELECT customer, MAX(tanggalsj) AS tanggalsj,
-      SUM(CASE WHEN fiscal_month = '#{2.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN total END) three_month,
-      SUM(CASE WHEN fiscal_month = '#{1.months.ago.month}' AND fiscal_year = '#{1.months.ago.year}' THEN total END) two_month,
-      SUM(CASE WHEN fiscal_month = '#{Date.today.month}' AND fiscal_year = '#{Date.today.year}' THEN total END) last_month
+      SUM(CASE WHEN fiscal_month = '#{3.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN total END) three_month,
+      SUM(CASE WHEN fiscal_month = '#{2.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN total END) two_month,
+      SUM(CASE WHEN fiscal_month = '#{1.months.ago.month}' AND fiscal_year = '#{1.months.ago.year}' THEN total END) last_month,
+      SUM(CASE WHEN fiscal_month = '#{Date.today.month}' AND fiscal_year = '#{Date.today.year}' THEN total END) this_month
       FROM customer_active WHERE
-      branch = '#{branch}' AND tanggalsj >= '#{2.months.ago.to_date}' AND brand = '#{brand}' AND
+      branch = '#{branch}' AND tanggalsj >= '#{3.months.ago.to_date}' AND brand = '#{brand}' AND
       tipecust = 'RETAIL' GROUP BY kode_customer")
   end
 
@@ -21,14 +22,13 @@ class Penjualan::Customer < Penjualan::Sale
   end
 
   def self.active_customers(branch)
-    CustomerBrand.find_by_sql("
-      SELECT a.brand, a.branch,
-        COUNT(CASE WHEN a.tanggal >= '2018-06-26' THEN id END) active,
-        COUNT(CASE WHEN a.tanggal < '2018-06-26' THEN id END) inactive FROM
-      (
-        SELECT id, kode_customer, MAX(tanggalsj) AS tanggal, brand, branch FROM customer_active cus2 WHERE cus2.branch = '2' AND
-        cus2.tipecust = 'RETAIL' GROUP BY kode_customer, brand ORDER BY cus2.tanggalsj DESC
-      ) a WHERE brand != ' ' GROUP BY brand;
+    find_by_sql("
+      SELECT brand, branch,
+      MAX(CASE WHEN fday = '#{Date.today.day}' AND fmonth = '#{Date.today.month}' AND fyear = '#{Date.today.year}' THEN active END) AS active,
+      MAX(CASE WHEN fday = '#{Date.today.day}' AND fmonth = '#{Date.today.month}' AND fyear = '#{Date.today.year}' THEN inactive END) AS inactive,
+      MAX(CASE WHEN fday = '#{7.days.ago.day}' AND fmonth = '#{7.days.ago.month}' AND fyear = '#{7.days.ago.year}' THEN inactive END) AS onlastweek
+      FROM sales_mart.CUSTOMER_PROGRESSES WHERE branch = '#{branch}' AND
+      fday >= '#{7.days.ago.day}' AND fmonth >= '#{7.days.ago.month}' AND fyear >= '#{7.days.ago.year}' GROUP BY brand
     ")
   end
 

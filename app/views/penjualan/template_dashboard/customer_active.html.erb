@@ -18,6 +18,7 @@
                   <th>Brand</th>
                   <th>Active</th>
                   <th>InActive</th>
+                  <th>Growth From 7 days ago</th>
                 </tr>
               </thead>
               <tbody>
@@ -26,6 +27,7 @@
                   <td><%= cus.brand %></td>
                   <td><%= link_to cus.active, '/penjualan/bandung/bandung_customers/customer_active'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=1' %></td>
                   <td><%= link_to cus.inactive, '/penjualan/bandung/bandung_customers/customer_inactive'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=0' %></td>
+                  <td><b><%= cus.inactive-cus.onlastweek %></b> Customer(s)</td>
                 </tr>
                 <% end %>
               </tbody>
@@ -46,6 +48,7 @@
                 <tr>
                   <th>Customer</th>
                   <th>Last Order</th>
+                  <th><%= params[:state] == '1' ? 3.month.ago.strftime('%B %y') : 6.month.ago.strftime('%B %y') %></th>
                   <th><%= params[:state] == '1' ? 2.month.ago.strftime('%B %y') : 6.month.ago.strftime('%B %y') %></th>
                   <th><%= params[:state] == '1' ? 1.month.ago.strftime('%B %y') : 5.month.ago.strftime('%B %y') %></th>
                   <th><%= params[:state] == '1' ? Date.today.strftime('%B %y') : 4.month.ago.strftime('%B %y') %></th>
@@ -59,6 +62,7 @@
                   <td><%= currency(cus.three_month) %></td>
                   <td><%= currency(cus.two_month) %></td>
                   <td><%= currency(cus.last_month) %></td>
+                  <td><%= currency(cus.this_month) %></td>
                 </tr>
                 <% end %>
               </tbody>
