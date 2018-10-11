@@ -50,6 +50,10 @@
               <li class="sidebar-subnav-header">
                 Retail
               </li>
+              
+              <li class="<%= 'active' if controller?('order/production/planning') && action?('aging_orders') %>">
+                <a href="/order/production/planning/aging_orders" title="outstanding orders"> <em class="icon-chart"></em> <span><b>National Outstanding Order</b></span> </a>
+              </li>
               <%= render "layouts/partials/order/order_bandung" if branch(current_user, 2) %>
               <%= render "layouts/partials/order/order_cirebon" if branch(current_user, 9) %>
               <%= render "layouts/partials/order/order_tangerang" if branch(current_user, 23) %>

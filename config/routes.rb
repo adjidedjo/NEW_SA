@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  
+  
+  get 'order/production/planning/aging_orders'
 
   namespace :api do
     namespace :v1 do
