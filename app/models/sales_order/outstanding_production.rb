@@ -13,7 +13,7 @@ class SalesOrder::OutstandingProduction < ActiveRecord::Base
     find_by_sql("
       SELECT exceeds, day_category, promised_delivery, order_no, last_status, customer, brand, branch, item_number, description, order_date, quantity,
       short_item, segment1, originator FROM PRODUCTION_ORDERS WHERE branch_desc = '#{branch}' and quantity > 0
-      AND exceeds > '-4'
+      AND exceeds > '-4' AND DATE(created_at) = '#{Date.today}'
     ")
   end
 end
