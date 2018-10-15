@@ -1,15 +1,23 @@
 class Stock::JdeItemAvailability < ActiveRecord::Base
   establish_connection :jdeoracle
-  self.table_name = "proddta.f41021" #sd
+  self.table_name = "PRODDTA.F41021" #sd
   
   def self.stock_real_jde(artikel, size)
     if artikel.nil? || size.nil?
       
-      @stock = find_by_sql("SELECT MAX(IM.imlitm) AS imlitm , 
-      CONCAT(CONCAT(MAX(TRIM(TRAILING ' ' FROM IM.imdsc1)), ' '), MAX(TRIM(TRAILING ' ' FROM IM.imdsc2))), 
-      IA.liitm AS liitm, IA.limcu AS limcu, SUM(IA.lipqoh/10000) AS lipqoh, SUM(IA.lihcom/10000) AS lihcom
-      FROM PRODDTA.F41021 IA JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm WHERE limcu LIKE '%18011' 
-      AND lipbin = 'S' AND lipqoh > 0 GROUP BY IA.liitm, IA.limcu")
+      @stock = find_by_sql("SELECT
+      MAX(IM.imdsc1) AS description, MAX(IM.imseg4) AS seg4, MAX(IM.imseg5) AS panjang, 
+      SUM(CASE WHEN IM.imseg6 = '090' THEN (IA.lipqoh - IA.lihcom)/10000 END) as A90,
+      SUM(CASE WHEN IM.imseg6 = '100' THEN (IA.lipqoh - IA.lihcom)/10000 END) as A100,
+      SUM(CASE WHEN IM.imseg6 = '120' THEN (IA.lipqoh - IA.lihcom)/10000 END) as A120,
+      SUM(CASE WHEN IM.imseg6 = '160' THEN (IA.lipqoh - IA.lihcom)/10000 END) as A160,
+      SUM(CASE WHEN IM.imseg6 = '180' THEN (IA.lipqoh - IA.lihcom)/10000 END) as A180,
+      SUM(CASE WHEN IM.imseg6 = '200' THEN (IA.lipqoh - IA.lihcom)/10000 END) as A200,
+      MAX(IM.imsrp1) AS brand
+      FROM PRODDTA.F41021 IA 
+      JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm
+      WHERE limcu LIKE '%18011' AND lipbin = 'S' AND lipqoh > 0 
+      GROUP BY IM.imseg2, IM.imseg3, IM.imseg5")
     else
       
     end
@@ -19,12 +27,17 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
   
   def self.stock_real_jde_web(branch, brand)
       
-      @stock = find_by_sql("SELECT MAX(IM.imlitm) AS item_number, 
-      CONCAT(CONCAT(MAX(TRIM(TRAILING ' ' FROM IM.imdsc1)), ' '), MAX(TRIM(TRAILING ' ' FROM IM.imdsc2))) AS description, 
-      IA.liitm AS liitm, IA.limcu AS limcu, SUM(IA.lipqoh/10000) AS lipqoh, SUM(IA.lihcom/10000) AS lihcom,
+      @stock = find_by_sql("SELECT
+      MAX(IM.imdsc1) AS description, MAX(IM.imseg4) AS seg4, MAX(IM.imseg5) AS panjang, 
+      NVL(SUM(CASE WHEN IM.imseg6 = '090' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AA,
+      NVL(SUM(CASE WHEN IM.imseg6 = '100' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AB,
+      NVL(SUM(CASE WHEN IM.imseg6 = '120' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AC,
+      NVL(SUM(CASE WHEN IM.imseg6 = '160' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AD,
+      NVL(SUM(CASE WHEN IM.imseg6 = '180' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AE,
+      NVL(SUM(CASE WHEN IM.imseg6 = '200' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AF,
       MAX(IM.imsrp1) AS brand
       FROM PRODDTA.F41021 IA JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm WHERE lipbin = 'S' AND lipqoh >= 1 
       AND IM.imsrp1 LIKE '%#{brand}%' AND IA.limcu LIKE '%#{branch}' 
-      GROUP BY IA.liitm, IA.limcu")
+      GROUP BY IM.imseg2, IM.imseg3, IM.imseg5")
   end
 end

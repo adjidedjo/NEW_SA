@@ -17,26 +17,35 @@
             <table id="stock-table" class="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th>Descriptions</th>
-                  <th>Brand</th>
-                  <th>Item</th>
-                  <th class="sort-numeric">Available</th>
-                  <th class="sort-numeric">OnHand</th>
+                  <th>ARTIKEL</th>
+                  <th>S/T</th>
+                  <th>PANJANG</th>
+                  <th class="sort-numeric">090</th>
+                  <th class="sort-numeric">100</th>
+                  <th class="sort-numeric">120</th>
+                  <th class="sort-numeric">160</th>
+                  <th class="sort-numeric">180</th>
+                  <th class="sort-numeric">200</th>
                 </tr>
               </thead>
               <tbody>
                 <% @stock.each do |cs| %>
                 <tr class="gradeX">
-                  <td><%= cs.item_number %></td>
                   <td><%= cs.description %></td>
-                  <td><%= cs.brand %></td>
-                  <td><%= cs.lipqoh.to_i - cs.lihcom.to_i %></td>
-                  <td><%= cs.lipqoh.to_i %></td>
+                  <td><%= cs.seg4 %></td>
+                  <td><%= cs.panjang %></td>
+                  <td><%= cs.aa.to_i %></td>
+                  <td><%= cs.ab.to_i %></td>
+                  <td><%= cs.ac.to_i %></td>
+                  <td><%= cs.ad.to_i %></td>
+                  <td><%= cs.ae.to_i %></td>
+                  <td><%= cs.af.to_i %></td>
                 </tr>
                 <% end %>
               </tbody>
             </table>
           </div>
+          <div class="panel-footer">DATA STOCK IS AVAILABLE QUANTITY TO BOOK</div>
         </div>
       </div>
     </div>
