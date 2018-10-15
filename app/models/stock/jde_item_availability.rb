@@ -32,9 +32,10 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
       NVL(SUM(CASE WHEN IM.imseg6 = '090' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AA,
       NVL(SUM(CASE WHEN IM.imseg6 = '100' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AB,
       NVL(SUM(CASE WHEN IM.imseg6 = '120' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AC,
-      NVL(SUM(CASE WHEN IM.imseg6 = '160' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AD,
-      NVL(SUM(CASE WHEN IM.imseg6 = '180' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AE,
-      NVL(SUM(CASE WHEN IM.imseg6 = '200' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AF,
+      NVL(SUM(CASE WHEN IM.imseg6 = '140' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AD,
+      NVL(SUM(CASE WHEN IM.imseg6 = '160' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AE,
+      NVL(SUM(CASE WHEN IM.imseg6 = '180' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AF,
+      NVL(SUM(CASE WHEN IM.imseg6 = '200' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AG,
       MAX(IM.imsrp1) AS brand
       FROM PRODDTA.F41021 IA JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm WHERE lipbin = 'S' AND lipqoh >= 1 
       AND IM.imsrp1 LIKE '%#{brand}%' AND IA.limcu LIKE '%#{branch}' 
