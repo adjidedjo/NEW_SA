@@ -10,8 +10,7 @@ class Stock::Jember::StockCapacitiesController < ApplicationController
   
   def set_branch_plant
     @caps = 22
-    @mat = "12131"
-    @foam = "12132"
+    @mat = "22"
     @branch = "JEMBER"
   end
 end

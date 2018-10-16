@@ -10,8 +10,7 @@ class Stock::Semarang::StockCapacitiesController < ApplicationController
   
   def set_branch_plant
     @caps = 8
-    @mat = "11051"
-    @foam = "11052"
+    @mat = "08"
     @branch = "SEMARANG"
   end
 end

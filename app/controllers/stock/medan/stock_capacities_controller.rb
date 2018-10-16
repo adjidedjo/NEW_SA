@@ -10,8 +10,7 @@ class Stock::Medan::StockCapacitiesController < ApplicationController
   
   def set_branch_plant
     @caps = 5
-    @mat = "11081"
-    @foam = "11082"
+    @mat = "05"
     @branch = "MEDAN"
   end
 end

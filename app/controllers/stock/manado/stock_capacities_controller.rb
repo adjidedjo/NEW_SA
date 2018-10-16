@@ -15,8 +15,7 @@ class Stock::Manado::StockCapacitiesController < ApplicationController
   
   def set_branch_plant
     @caps = 26
-    @mat = "12171"
-    @foam = "12171"
+    @mat = "26"
     @branch = "MANADO"
   end
 end

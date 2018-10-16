@@ -9,17 +9,17 @@ class Stock::ItemAvailability < ActiveRecord::Base
   
   def self.recap_cap_stock_report(mat, foam, caps)
     self.find_by_sql("SELECT s.product, bc.capacity,
-      SUM(CASE WHEN s.brand = 'E' THEN s.onhand END) AS elite,
-      SUM(CASE WHEN s.brand = 'L' THEN s.onhand END) AS lady,
-      SUM(CASE WHEN s.brand = 'R' THEN s.onhand END) AS royal,
-      SUM(CASE WHEN s.brand = 'S' THEN s.onhand END) AS serenity
-      FROM stocks s
+      SUM(CASE WHEN s.brand = 'ELITE' THEN s.quantity END) AS elite,
+      SUM(CASE WHEN s.brand = 'LADY' THEN s.quantity END) AS lady,
+      SUM(CASE WHEN s.brand = 'ROYAL' THEN s.quantity END) AS royal,
+      SUM(CASE WHEN s.brand = 'SERENITY' THEN s.quantity END) AS serenity
+      FROM sales_mart.BRANCH_CAPACITIES s
       LEFT JOIN
       (
         SELECT * FROM branch_capacities
       ) AS bc ON bc.branch = '#{caps}' AND bc.jenis = s.product
-      WHERE s.branch IN ('#{mat}', '#{foam}') AND s.onhand > 0 
-      AND s.status IN ('N') AND s.product IN ('KM','KB','DV','HB') GROUP BY s.product")
+      WHERE s.branch = '#{mat}' AND s.quantity > 0 AND DATE(s.created_at) = '#{Date.today}'
+      AND s.product IN ('KM','KB','DV','HB') GROUP BY s.product")
   end
   
   def self.stock_report(branch, brand)

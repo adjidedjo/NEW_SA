@@ -10,8 +10,7 @@ class Stock::Pusat::StockCapacitiesController < ApplicationController
   
   def set_branch_plant
     @caps = 1
-    @mat = "11001"
-    @foam = "11002"
+    @mat = "01"
     @branch = "PUSAT"
   end
 end

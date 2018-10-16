@@ -14,9 +14,8 @@ class Stock::Bandung::StockCapacitiesController < ApplicationController
   end
   
   def set_branch_plant
-    @caps = 2
-    @mat = "11011"
-    @foam = "11002"
+    @caps = 02
+    @mat = "02"
     @branch = "BANDUNG"
   end
 end
