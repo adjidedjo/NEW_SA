@@ -28,7 +28,7 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
   def self.stock_real_jde_web(branch, brand)
       
       @stock = find_by_sql("SELECT
-      MAX(IM.imdsc1) AS description, MAX(IM.imseg4) AS seg4, MAX(IM.imseg5) AS panjang, 
+      MAX(IM.imdsc1) AS dsc1, MAX(IM.imdsc2) AS dsc2, MAX(IM.imseg4) AS seg4, MAX(IM.imseg5) AS panjang,
       NVL(SUM(CASE WHEN IM.imseg6 = '090' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AA,
       NVL(SUM(CASE WHEN IM.imseg6 = '100' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AB,
       NVL(SUM(CASE WHEN IM.imseg6 = '120' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AC,
@@ -37,7 +37,9 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
       NVL(SUM(CASE WHEN IM.imseg6 = '180' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AF,
       NVL(SUM(CASE WHEN IM.imseg6 = '200' THEN (IA.lipqoh - IA.lihcom)/10000 END),0) as AG,
       MAX(IM.imsrp1) AS brand
-      FROM PRODDTA.F41021 IA JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm WHERE lipbin = 'S' AND lipqoh >= 1 
+      FROM PRODDTA.F41021 IA 
+      JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm
+      WHERE lipbin = 'S' AND lipqoh >= 1 
       AND IM.imsrp1 LIKE '%#{brand}%' AND IA.limcu LIKE '%#{branch}' 
       GROUP BY IM.imseg2, IM.imseg3, IM.imseg5")
   end
