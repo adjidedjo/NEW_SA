@@ -17,7 +17,7 @@
             <table id="stock-table" class="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th>ARTIKEL</th>
+                  <th>PRODUCT</th>
                   <th>S/T</th>
                   <th>PANJANG</th>
                   <th class="sort-numeric">090</th>
@@ -32,7 +32,7 @@
               <tbody>
                 <% @stock.each do |cs| %>
                 <tr class="gradeX">
-                  <td><%= cs.description %></td>
+                  <td><%= cs.dsc1.strip + ' ' + cs.dsc2.strip[0..-10] %></td>
                   <td><%= cs.seg4 %></td>
                   <td><%= cs.panjang %></td>
                   <td><%= cs.aa.to_i %></td>
