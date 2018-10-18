@@ -16,6 +16,12 @@ gem 'kaminari'
 gem 'api-pagination'
 gem 'pager_api'
 
+# xlsx
+gem 'rubyzip', '~> 1.1.0'
+gem 'axlsx', '2.1.0.pre'
+gem 'axlsx_rails'
+gem 'zip-zip'
+
 
 # and uncomment the following
 # gem 'pg'
@@ -27,7 +33,7 @@ gem 'active_model_serializers'
 gem 'devise'
 gem 'cancancan'
 gem 'rolify'
-gem "roo", "~> 2.7.0"
+gem "roo"
 gem 'roo-xls'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.1'
