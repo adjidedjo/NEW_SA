@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   
+  #data source
+  get 'data_source/item_ledger'
   
+  #planning orders
   get 'order/production/planning/aging_orders'
 
   namespace :api do

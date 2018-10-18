@@ -374,6 +374,19 @@
         </ul>
       </li>
       <% end %>
+      <% if current_user.position == 'admin' || general_manager(current_user) %>
+      <li class="<%= 'active' if controller?('iledger') %>">
+        <a href="#iledger" title="iledger" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Data Source</b></span> </a>
+        <ul id="iledger" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Summary Item Ledger
+          </li>
+          <li class="<%= 'active' if controller?('data_source') && action?('item_ledger') %>">
+            <a href="data_source/item_ledger/" title="Daily"> <span>Summary Item Ledger</span> </a>
+          </li>
+        </ul>
+      </li>
+      <% end %>
       <li>
         <%= link_to "Change your password", edit_user_registration_path %>
       </li>
