@@ -1,7 +1,7 @@
 xlsx_package = Axlsx::Package.new
 wb = xlsx_package.workbook
 
-wb.add_worksheet(name: "Users") do |sheet|
+wb.add_worksheet(name: "Ledger") do |sheet|
   # this is the head row of your spreadsheet
   sheet.add_row %w(branch brand item_number description stock in out adj_in adj_out)
   
