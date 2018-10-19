@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   #data source
+  get 'data_source/sales_report'
   get 'data_source/item_ledger'
   
   #planning orders

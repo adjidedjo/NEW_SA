@@ -384,6 +384,9 @@
           <li class="<%= 'active' if controller?('data_source') && action?('item_ledger') %>">
             <a href="data_source/item_ledger/" title="Daily"> <span>Summary Item Ledger</span> </a>
           </li>
+          <li class="<%= 'active' if controller?('data_source') && action?('sales_report') %>">
+            <a href="data_source/sales_report/" title="Daily"> <span>Sales Report</span> </a>
+          </li>
         </ul>
       </li>
       <% end %>

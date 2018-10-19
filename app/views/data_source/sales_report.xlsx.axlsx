@@ -1,0 +1,18 @@
+xlsx_package = Axlsx::Package.new
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Sales Report") do |sheet|
+  # this is the head row of your spreadsheet
+  sheet.add_row %w(tglsj nosj nofaktur dt noso kodecust nmcust2 salesman AlamatCust	kodebrg	nmbrg jenis	brand 
+  artikel kain pjg lbr qty harga bruto D1 D2 D3 D4 D5 D6 D7 D8 D9 netto alamat_kirim Kota remark no_reff Customer_PO 
+  Business_Unit
+  )
+  
+  # each user is a row on your spreadsheet
+  @sales.each do |s|
+    sheet.add_row [s.tanggalsj, s.nosj_so, s.nofaktur, s.orty, s.noso, s.kode_customer, s.customer, s.salesman, s.alamat_so,
+    s.kodebrg, s.namabrg, s.kodejenis, s.jenisbrgdisc, s.namaartikel, s.namakain, s.panjang, s.lebar, s.jumlah, s.harganetto1,
+    s.harganetto2, s.diskon1, s.diskon2, s.diskon3, s.diskon4, s.diskon5, s.diskonsum, s.diskonrp, s.cashback, s.nupgrade,
+    s.harganetto2, s.alamat_so, s.kota, s.kodebrg, s.reference, s.customerpo_so, s.ketppb]
+  end
+end
