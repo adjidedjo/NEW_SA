@@ -1,6 +1,10 @@
 class Penjualan::Sale < ActiveRecord::Base
   self.table_name = "tblaporancabang"
   ########## START MONTHLY
+  def self.export_sales_report(from, to)
+    find_by_sql("SELECT * FROM warehouse.F03B11_INVOICES WHERE tanggalsj BETWEEN '#{from.to_date}' AND '#{to.to_date}'")
+  end
+  
   def self.channel_nasional_this_month(date)
     self.find_by_sql("SELECT cc.channel, ly.val_elite, ly.val_classic, ly.val_serenity,
     ly.val_royal, ly.val_lady,
