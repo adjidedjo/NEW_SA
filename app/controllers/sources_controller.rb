@@ -1,21 +1,20 @@
-class DataSourceController < ApplicationController
-  
-  def item_ledger
+class SourcesController < ApplicationController
+  def item_ledgers
     @areas = Area.all
     @brand = Brand.where(external: 0)
-    @ledger = Stock::ItemAvailability.ledger(params[:start_date], params[:end_date]) if params[:start_date].present? && params[:end_date].present?    
-      
+    @ledger = Stock::ItemAvailability.ledger(params[:start_date], params[:end_date]) if params[:start_date].present? && params[:end_date].present?
+
     respond_to do |format|
       format.html
       format.xlsx {render :xlsx => "item_ledger", :filename => "summary item ledger.xlsx"}
     end
   end
-  
-  def sales_report
+
+  def sales_reports
     @areas = Area.all
     @brand = Brand.where(external: 0)
-    @sales = Penjualan::Sale.export_sales_report(params[:start_date], params[:end_date]) if params[:start_date].present? && params[:end_date].present?    
-      
+    @sales = Penjualan::Sale.export_sales_report(params[:start_date], params[:end_date]) if params[:start_date].present? && params[:end_date].present?
+
     respond_to do |format|
       format.html
       format.xlsx {render :xlsx => "sales_report", :filename => "sales report from '#{params[:start_date]}' to '#{params[:end_date]}'.xlsx"}
