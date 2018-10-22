@@ -16,7 +16,8 @@ module RolesHelper
   end
   
   def general_manager(user)
-    user.position == "gm" || user.position == "owner" || user.position == "admin" || user.position == "marketing pusat" || user.position == "admin marketing"
+    user.position == "gm" || user.position == "owner" || user.position == "admin" || 
+    user.position == "marketing pusat" || user.position == "admin marketing" || user.position == "akunting pusat"
   end
   
   def nsm_customers(user)
