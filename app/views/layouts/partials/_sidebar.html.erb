@@ -368,7 +368,6 @@
         </ul>
       </li>
       <% end %>
-      <% if general_manager(current_user) %>
       <li class="<%= 'active' if controller?('sources') %>">
         <a href="#isources" title="isources" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Data Source</b></span> </a>
         <ul id="isources" class="nav sidebar-subnav collapse">
@@ -383,7 +382,6 @@
           </li>
         </ul>
       </li>
-      <% end %>
       <li>
         <%= link_to "Change your password", edit_user_registration_path %>
       </li>
