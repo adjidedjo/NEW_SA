@@ -8,12 +8,6 @@
         <div id="user-block" class="collapse">
           <div class="item user-block">
             <!-- User picture-->
-            <div class="user-block-picture">
-              <div class="user-block-status">
-                <img src="<%= image_path('angle/user/02.jpg') %>" alt="Avatar" width="60" height="60" class="img-thumbnail img-circle" />
-                <div class="circle circle-success circle-lg"></div>
-              </div>
-            </div>
             <!-- Name and Job-->
             <div class="user-block-info">
               <span class="user-block-name">Hello, <%= current_user.username %></span>
@@ -374,18 +368,18 @@
         </ul>
       </li>
       <% end %>
-      <% if current_user.position == 'admin' || general_manager(current_user) %>
-      <li class="<%= 'active' if controller?('iledger') %>">
-        <a href="#iledger" title="iledger" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Data Source</b></span> </a>
-        <ul id="iledger" class="nav sidebar-subnav collapse">
+      <% if general_manager(current_user) %>
+      <li class="<%= 'active' if controller?('sources') %>">
+        <a href="#isources" title="isources" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Data Source</b></span> </a>
+        <ul id="isources" class="nav sidebar-subnav collapse">
           <li class="sidebar-subnav-header">
             Summary Item Ledger
           </li>
-          <li class="<%= 'active' if controller?('data_source') && action?('item_ledger') %>">
-            <a href="data_source/item_ledger/" title="Daily"> <span>Summary Item Ledger</span> </a>
+          <li class="<%= 'active' if controller?('sources') && action?('item_ledger') %>">
+            <a href="/sources/item_ledger" title="Item Ledger"> <span>Summary Item Ledger</span> </a>
           </li>
-          <li class="<%= 'active' if controller?('data_source') && action?('sales_report') %>">
-            <a href="data_source/sales_report/" title="Daily"> <span>Sales Report</span> </a>
+          <li class="<%= 'active' if controller?('sources') && action?('sales_report') %>">
+            <a href="/sources/sales_report" title="Sales Report"> <span>Sales Report</span> </a>
           </li>
         </ul>
       </li>

@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
   
-  #data source
-  get 'data_source/sales_report'
-  get 'data_source/item_ledger'
-  
   #planning orders
   get 'order/production/planning/aging_orders'
 
@@ -39,6 +35,10 @@ Rails.application.routes.draw do
 
   # Asong
   get 'asong/report_by_branch'
+  
+  #data source
+  get 'sources/sales_report'
+  get 'sources/item_ledger'
 
   # FORECAST
   get 'forecasts/upload_forecast'
