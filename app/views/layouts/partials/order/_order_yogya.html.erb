@@ -1,52 +1,28 @@
 <li class="<%= 'active' if controller?('order/yogya') %>">
-  <a href="#yogya-order" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Yogya</span> </a>
+  <a href="#yogya-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Yogya</span> </a>
   <ul id="yogya-order" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
       YOGYA
     </li>
     <li class="<%= 'active' if controller?('order/yogya/yogya_elites') %>">
-      <a href="#yogya-order-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
-      <ul id="yogya-order-elite" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          ELITE
+      <li class="<%= 'active' if controller?('order/yogya/yogya_elites') && action?('order') %>">
+          <a href="/order/yogya/yogya_elites/order" title="Order"> <em class="icon-chart"></em><span>Elite</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/yogya/yogya_elites') && action?('order') %>">
-          <a href="/order/yogya/yogya_elites/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/yogya/yogya_serenity') %>">
-      <a href="#yogya-order-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
-      <ul id="yogya-order-serenity" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Serenity
+      <li class="<%= 'active' if controller?('order/yogya/yogya_serenity') && action?('order') %>">
+          <a href="/order/yogya/yogya_serenity/order" title="Order"> <em class="icon-chart"></em><span>Serenity</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/yogya/yogya_serenity') && action?('order') %>">
-          <a href="/order/yogya/yogya_serenity/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/yogya/yogya_lady') %>">
-      <a href="#yogya-order-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
-      <ul id="yogya-order-lady" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Lady
+      <li class="<%= 'active' if controller?('order/yogya/yogya_lady') && action?('order') %>">
+          <a href="/order/yogya/yogya_lady/order" title="Order"> <em class="icon-chart"></em><span>Lady</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/yogya/yogya_lady') && action?('order') %>">
-          <a href="/order/yogya/yogya_lady/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/yogya/yogya_royal') %>">
-      <a href="#yogya-order-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
-      <ul id="yogya-order-royal" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Royal
+      <li class="<%= 'active' if controller?('order/yogya/yogya_royal') && action?('order') %>">
+          <a href="/order/yogya/yogya_royal/order" title="Order"> <em class="icon-chart"></em><span>Royal</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/yogya/yogya_royal') && action?('order') %>">
-          <a href="/order/yogya/yogya_royal/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
   </ul>
 </li>

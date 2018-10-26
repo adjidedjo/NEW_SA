@@ -1,52 +1,28 @@
 <li class="<%= 'active' if controller?('order/bandung') %>">
-  <a href="#bdg-order" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Bandung</span> </a>
+  <a href="#bdg-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Bandung</span> </a>
   <ul id="bdg-order" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
       BANDUNG
     </li>
     <li class="<%= 'active' if controller?('order/bandung/bandung_elites') %>">
-      <a href="#bdg-order-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
-      <ul id="bdg-order-elite" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          ELITE
-        </li>
-        <li class="<%= 'active' if controller?('order/bandung/bandung_elites') && action?('order') %>">
-          <a href="/order/bandung/bandung_elites/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
+      <li class="<%= 'active' if controller?('order/bandung/bandung_elites') && action?('order') %>">
+        <a href="/order/bandung/bandung_elites/order" title="Order"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      </li>
     </li>
     <li class="<%= 'active' if controller?('order/bandung/bandung_serenity') %>">
-      <a href="#bdg-order-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
-      <ul id="bdg-order-serenity" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Serenity
-        </li>
-        <li class="<%= 'active' if controller?('order/bandung/bandung_serenity') && action?('order') %>">
-          <a href="/order/bandung/bandung_serenity/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
+      <li class="<%= 'active' if controller?('order/bandung/bandung_serenity') && action?('order') %>">
+        <a href="/order/bandung/bandung_serenity/order" title="Order"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      </li>
     </li>
     <li class="<%= 'active' if controller?('order/bandung/bandung_lady') %>">
-      <a href="#bdg-order-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
-      <ul id="bdg-order-lady" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Lady
-        </li>
-        <li class="<%= 'active' if controller?('order/bandung/bandung_lady') && action?('order') %>">
-          <a href="/order/bandung/bandung_lady/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
+      <li class="<%= 'active' if controller?('order/bandung/bandung_lady') && action?('order') %>">
+        <a href="/order/bandung/bandung_lady/order" title="Order"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      </li>
     </li>
     <li class="<%= 'active' if controller?('order/bandung/bandung_royal') %>">
-      <a href="#bdg-order-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
-      <ul id="bdg-order-royal" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Royal
-        </li>
-        <li class="<%= 'active' if controller?('order/bandung/bandung_royal') && action?('order') %>">
-          <a href="/order/bandung/bandung_royal/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
+      <li class="<%= 'active' if controller?('order/bandung/bandung_royal') && action?('order') %>">
+        <a href="/order/bandung/bandung_royal/order" title="Order"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      </li>
     </li>
   </ul>
 </li>

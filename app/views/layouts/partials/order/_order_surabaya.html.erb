@@ -1,52 +1,28 @@
 <li class="<%= 'active' if controller?('order/surabaya') %>">
-  <a href="#sby-order" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Surabaya</span> </a>
+  <a href="#sby-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Surabaya</span> </a>
   <ul id="sby-order" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
       SURABAYA
     </li>
     <li class="<%= 'active' if controller?('order/surabaya/surabaya_elites') %>">
-      <a href="#sby-order-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
-      <ul id="sby-order-elite" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          ELITE
+      <li class="<%= 'active' if controller?('order/surabaya/surabaya_elites') && action?('order') %>">
+          <a href="/order/surabaya/surabaya_elites/order" title="Order"> <em class="icon-chart"></em><span>Elite</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/surabaya/surabaya_elites') && action?('order') %>">
-          <a href="/order/surabaya/surabaya_elites/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/surabaya/surabaya_serenity') %>">
-      <a href="#sby-order-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
-      <ul id="sby-order-serenity" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Serenity
+       <li class="<%= 'active' if controller?('order/surabaya/surabaya_serenity') && action?('order') %>">
+          <a href="/order/surabaya/surabaya_serenity/order" title="Order"> <em class="icon-chart"></em><span>Serenity</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/surabaya/surabaya_serenity') && action?('order') %>">
-          <a href="/order/surabaya/surabaya_serenity/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/surabaya/surabaya_lady') %>">
-      <a href="#sby-order-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
-      <ul id="sby-order-lady" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Lady
+      <li class="<%= 'active' if controller?('order/surabaya/surabaya_lady') && action?('order') %>">
+          <a href="/order/surabaya/surabaya_lady/order" title="Order"> <em class="icon-chart"></em><span>Lady</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/surabaya/surabaya_lady') && action?('order') %>">
-          <a href="/order/surabaya/surabaya_lady/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/surabaya/surabaya_royal') %>">
-      <a href="#sby-order-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
-      <ul id="sby-order-royal" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Royal
+      <li class="<%= 'active' if controller?('order/surabaya/surabaya_royal') && action?('order') %>">
+          <a href="/order/surabaya/surabaya_royal/order" title="Order"> <em class="icon-chart"></em><span>Royal</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/surabaya/surabaya_royal') && action?('order') %>">
-          <a href="/order/surabaya/surabaya_royal/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
   </ul>
 </li>

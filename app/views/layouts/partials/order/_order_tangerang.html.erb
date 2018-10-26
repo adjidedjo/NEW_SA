@@ -1,52 +1,28 @@
 <li class="<%= 'active' if controller?('order/tangerang') %>">
-  <a href="#tng-order" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Tangerang</span> </a>
+  <a href="#tng-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Tangerang</span> </a>
   <ul id="tng-order" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
       TANGERANG
     </li>
     <li class="<%= 'active' if controller?('order/tangerang/tangerang_elites') %>">
-      <a href="#tng-order-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
-      <ul id="tng-order-elite" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          ELITE
+      <li class="<%= 'active' if controller?('order/tangerang/tangerang_elites') && action?('order') %>">
+          <a href="/order/tangerang/tangerang_elites/order" title="Order"> <em class="icon-chart"></em><span>Elite</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/tangerang/tangerang_elites') && action?('order') %>">
-          <a href="/order/tangerang/tangerang_elites/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/tangerang/tangerang_serenity') %>">
-      <a href="#tng-order-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
-      <ul id="tng-order-serenity" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Serenity
+      <li class="<%= 'active' if controller?('order/tangerang/tangerang_serenity') && action?('order') %>">
+          <a href="/order/tangerang/tangerang_serenity/order" title="Order"> <em class="icon-chart"></em><span>Serenity</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/tangerang/tangerang_serenity') && action?('order') %>">
-          <a href="/order/tangerang/tangerang_serenity/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/tangerang/tangerang_lady') %>">
-      <a href="#tng-order-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
-      <ul id="tng-order-lady" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Lady
+      <li class="<%= 'active' if controller?('order/tangerang/tangerang_lady') && action?('order') %>">
+          <a href="/order/tangerang/tangerang_lady/order" title="Order"> <em class="icon-chart"></em><span>Lady</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/tangerang/tangerang_lady') && action?('order') %>">
-          <a href="/order/tangerang/tangerang_lady/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/tangerang/tangerang_royal') %>">
-      <a href="#tng-order-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
-      <ul id="tng-order-royal" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Royal
+      <li class="<%= 'active' if controller?('order/tangerang/tangerang_royal') && action?('order') %>">
+          <a href="/order/tangerang/tangerang_royal/order" title="Order"> <em class="icon-chart"></em><span>Royal</span> </a>
         </li>
-        <li class="<%= 'active' if controller?('order/tangerang/tangerang_royal') && action?('order') %>">
-          <a href="/order/tangerang/tangerang_royal/order" title="Order"> <span>Order</span> </a>
-        </li>
-      </ul>
     </li>
   </ul>
 </li>
