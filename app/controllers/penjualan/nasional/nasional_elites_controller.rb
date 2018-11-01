@@ -7,7 +7,7 @@ class Penjualan::Nasional::NasionalElitesController < ApplicationController
   
   def daily
     gon.brand = initialize_brand
-    gon.max = 2000
+    gon.max = 3000
     @branch = "NASIONAL"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/retail_nasional_daily"

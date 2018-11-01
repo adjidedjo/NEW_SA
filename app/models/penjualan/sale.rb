@@ -136,7 +136,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{2.month.ago.month}' THEN sales_amount END) val_2
       FROM sales_mart.RET1BRAND WHERE fiscal_month BETWEEN '#{Date.yesterday.last_month.beginning_of_year.to_date.month}'
       AND '#{Date.yesterday.last_month.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.beginning_of_year.to_date.year}'
-      AND '#{Date.yesterday.last_month.year}' AND branch = '#{brand}' GROUP BY branch
+      AND '#{Date.yesterday.last_month.year}' AND brand = '#{brand}' GROUP BY branch
     ) as lc
     LEFT JOIN
       (
@@ -250,7 +250,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT lc.harga, cb.area AS branch FROM (
     SELECT SUM(sales_amount) AS harga, branch FROM sales_mart.RET4CITYBRAND
     WHERE fiscal_month = '#{date.month}'
-    AND fiscal_year = '#{date.year}'
+    AND fiscal_year = '#{date.year}' AND branch NOT IN(1,5)
     AND brand = '#{brand}' GROUP BY branch) AS lc
     LEFT JOIN dbmarketing.areas AS cb ON lc.branch = cb.id
     ")

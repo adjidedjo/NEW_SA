@@ -404,13 +404,13 @@
                             align: 'center',
                             lineWidth: 0,
                             show: true,
-                            barWidth: 0.6,
-                            fill: 0.9
+                            barWidth: 0.3,
+                            fill: 0.6
                         }
                     },
                     grid: {
                         borderColor: '#eee',
-                        borderWidth: 1,
+                        borderWidth: 0.3,
                         hoverable: true,
                         backgroundColor: '#fcfcfc'
                     },
