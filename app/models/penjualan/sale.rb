@@ -580,7 +580,7 @@ class Penjualan::Sale < ActiveRecord::Base
     end_of_week = 1.week.ago.to_date.end_of_week.to_date
     self.find_by_sql("SELECT customer, salesman, SUM(jumlah) AS ordered, SUM(harganetto1) AS price,
     jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{beginning_of_week}'
-    AND '#{end_of_week}' AND tipecust = 'RETAIL' AND bonus = '-' AND AND jenisbrgdisc = '#{brand}' GROUP BY customer")
+    AND '#{end_of_week}' AND tipecust = 'RETAIL' AND bonus = '-' AND jenisbrgdisc = '#{brand}' GROUP BY customer")
   end
   ########## END CUSTOMER
 
