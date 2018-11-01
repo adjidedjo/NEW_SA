@@ -139,17 +139,15 @@ class Penjualan::Customer < Penjualan::Sale
   end
 
   def self.reporting_customers(month, year, branch)
-    find_by_sql("SELECT customer, kode_customer,
-      SUM(CASE WHEN jenisbrgdisc = 'ELITE' THEN harganetto1 END) elite,
-      SUM(CASE WHEN jenisbrgdisc = 'SERENITY' THEN harganetto1 END) serenity,
-      SUM(CASE WHEN jenisbrgdisc = 'LADY' THEN harganetto1 END) lady,
-      SUM(CASE WHEN jenisbrgdisc = 'ROYAL' THEN harganetto1 END) royal
-      FROM tblaporancabang WHERE fiscal_month = '#{month}'
+    find_by_sql("SELECT customer_desc as customer, customer as kode_customer,
+      SUM(CASE WHEN brand = 'ELITE' THEN sales_amount END) elite,
+      SUM(CASE WHEN brand = 'SERENITY' THEN sales_amount END) serenity,
+      SUM(CASE WHEN brand = 'LADY' THEN sales_amount END) lady,
+      SUM(CASE WHEN brand = 'ROYAL' THEN sales_amount END) royal
+      FROM sales_mart.RET2CUSBRAND WHERE fiscal_month = '#{month}'
       AND fiscal_year = '#{year}'
-      AND area_id != 1 AND area_id != 50
-      AND area_id = '#{branch}'AND
-      tipecust = 'RETAIL' AND bonus = '-'
-      GROUP BY kode_customer
+      AND branch = '#{branch}'
+      GROUP BY customer
     ")
   end
 
