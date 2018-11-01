@@ -23,7 +23,7 @@ module PenjualanConcern
   
   def retail_nasional_this_month_branch_conc
     summaries = Penjualan::Sale::retail_nasional_this_month_branch(@date, initialize_brand)
-    gon.summaries_branch = summaries.map { |u| [u.branch.gsub(/Cabang/,''), (u.harga/10000000)] }.to_a
+    gon.summaries_branch = summaries.map { |u| [u.branch, (u.harga/10000000)] }.to_a
   end
   
   def retail_productivity_conc
