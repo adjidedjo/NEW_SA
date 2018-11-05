@@ -7,6 +7,17 @@
   <!-- START dashboard main content-->
   <div class="col-lg-12">
     <div class="row">
+      <div class="col-lg-5">
+        <div class="panel panel-info">
+          <div class="panel-body">
+            <%= form_tag(request.fullpath, {method: :get, :class => "form-inline"}) do %>
+              Generate PBJ <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn btn-info" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-12">
         <div class="panel panel-info">
           <div class="panel-heading" style="text-align: center">
@@ -20,7 +31,6 @@
                   <th>Description</th>
                   <th>Qty</th>
                   <th>Customer</th>
-                  <th>Salesman</th>
                   <th>Requested Date</th>
                   <th>Exceeds</th>
                 </tr>
@@ -30,11 +40,10 @@
                 <tr class="gradeX">
                   <td><%= dp.order_no %></td>
                   <td><%= dp.description %></td>
-                  <td><%= dp.jumlah %></td>
+                  <td><%= dp.quantity %></td>
                   <td><%= dp.customer %></td>
-                  <td><%= dp.salesman %></td>
                   <td><%= dp.promised_delivery.strftime("%d-%b-%y") %></td>
-                  <td><%= dp.exceeds %> days</td>
+                  <td><%= (Date.today - dp.promised_delivery.to_date).to_i %> days</td>
                 </tr>
                 <% end %>
               </tbody>
