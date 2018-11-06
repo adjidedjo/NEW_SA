@@ -86,7 +86,7 @@ end
   end
   
   def find_sales(sales)
-    Salesman.find(sales)
+    Salesman.find_by_id(sales).nil? ? Salesman.find(230) : Salesman.find(sales)
   end
   
   def find_brand(brand)
