@@ -35,11 +35,6 @@ class SalesProductivitiesController < ApplicationController
     SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen
     WHERE branch_id = '#{current_user.branch1}' ORDER BY nama ASC") : SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen ORDER BY nama ASC")
     @brand = SalesProductivity.find_by_sql("SELECT jde_brand, id FROM tbbjmerk")
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @sales_productivity }
-    end
   end
 
   # GET /sales_productivities/1/edit
@@ -108,6 +103,7 @@ class SalesProductivitiesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def sales_productivity_params
     params.require(:sales_productivity).permit(:id, :date, :salesmen_id, :branch_id, :brand,
-    :npvnc, :nvc, :ncdv, :ncc, :ncdc)
+    :npvnc, :nvc, :ncdv, :ncc, :ncdc,
+    sales_productivity_customers_attributes: [:id, :customer, :_destroy])
   end
 end

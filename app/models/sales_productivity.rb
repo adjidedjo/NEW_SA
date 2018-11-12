@@ -1,4 +1,7 @@
 class SalesProductivity < ActiveRecord::Base
+  has_many :sales_productivity_customers, dependent: :destroy
+  accepts_nested_attributes_for :sales_productivity_customers, reject_if: :all_blank, allow_destroy: true
+  
   def self.retail_success_rate_branch(branch, month, year)
     self.find_by_sql("SELECT sp.count_sales, sp.salesmen_id, sp.npvnc, sp.nvc, sp.ncdv, sp.ncc, sp.ncdc,
       us.nama, lc.jumlah, cb.Cabang, sp.brand FROM

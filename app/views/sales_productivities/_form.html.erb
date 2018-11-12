@@ -120,6 +120,30 @@
             </div>
           </fieldset>
         </div>
+        
+        <div class="col-sm-6">
+          <fieldset>
+            <div class="col-lg-4 col-lg-offset-3">
+            <table class='table'>
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class='fields'>
+                <%= f.fields_for :sales_productivity_customers do |builder| %>
+                <%= render 'sales_productivity_customer', f: builder %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-lg-4 col-lg-offset-7">
+            <%= link_to_add_row('Add', f, :sales_productivity_customers, class: 'btn btn-primary') %>
+          </div>
+          </fieldset>
+        </div>
+        
         <% if f.object.new_record? %>
           <%= f.submit "CREATE", class: "btn btn-primary" %>
         <% else %>
