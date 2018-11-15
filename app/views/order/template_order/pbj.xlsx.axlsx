@@ -1,0 +1,18 @@
+xlsx_package = Axlsx::Package.new
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "PBJ") do |sheet|
+  # this is the head row of your spreadsheet
+  sheet.add_row ["Item Number", "Description", "Branch Plan", "Buffer",
+   "Qty Order", "Available", "Qty Pbj", "QTY Recomendation", "SO ReqDate", "PBJ Branch Plan", "Promise Date", "Customer Po"]
+  
+  # each user is a row on your spreadsheet
+  @pbj.each do |l|
+    sheet.add_row [l.item_number, l.description, l.branch_plan, 
+    l.safety_stock, l.qty_order, l.onhand-l.comit, l.qty_pbj, 
+    SalesOrder::Order.positive_checking(((l.safety_stock + l.qty_order)-((l.onhand-l.comit) + l.qty_pbj))), 
+    SalesOrder::Order.julian_to_date(l.so_reqdate), 
+    l.pbj_bp, SalesOrder::Order.julian_to_date(l.po_promisedate), 
+    l.customer_po]
+  end
+end

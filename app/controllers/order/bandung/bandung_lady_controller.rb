@@ -6,7 +6,14 @@ class Order::Bandung::BandungLadyController < ApplicationController
   def order
     @branch = "BANDUNG"
     @brand = "LADY"
-    render template: "order/template_order/order"
+    @pbj = SalesOrder::Order.generate_pbj(initialize_brach_id, initialize_brand) if params["format"] == "xlsx"
+    
+    respond_to do |format|
+      format.html {render template: "order/template_order/order"}
+      format.xlsx {render template: "order/template_order/pbj", 
+        :xlsx => "pbj", :filename => "pbj #{initialize_brach_id}#{initialize_brand}.xlsx"}
+    end
+    
   end
 
   private
