@@ -4,6 +4,14 @@ class SalesOrder::Order < ActiveRecord::Base
   #SDSRP1, SDSRP2, SDUORG
   #HELD ORDRES TABLE (HO)
   
+  def self.leadtime(to_branch, item)
+    lead = find_by_sql("
+      SELECT short_item, description, from_branch, to_branch, AVG(fulfillment_day) AS fulfill
+      FROM warehouse.LEADTIMES WHERE to_branch = '#{to_branch.strip}' AND short_item = '#{item}' GROUP BY short_item
+    ")
+    lead.empty? ? '-' : lead.first.fulfill
+  end
+  
   def self.generate_pbj(branch, brand)
     Jde.find_by_sql("
       SELECT IM.IMITM, IM.IMLITM AS ITEM_NUMBER, NVL(BO.SDMCU, IB.IBMCU) AS BRANCH_PLAN, NVL(BO.SO_REQDATE, 0) AS SO_REQDATE, 
