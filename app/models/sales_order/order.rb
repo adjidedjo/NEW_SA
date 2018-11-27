@@ -26,7 +26,8 @@ class SalesOrder::Order < ActiveRecord::Base
       FULL OUTER JOIN
       (
         SELECT SDITM, MAX(SDLITM) AS SDLITM, SDMCU, SUM(SDUORG) AS QTY, MIN(SDDRQJ) AS SO_REQDATE FROM PRODDTA.F4211 
-        WHERE SDNXTR = '525' AND SDDCTO = 'SO' AND SDMCU LIKE '%#{branch}' AND SDSRP1 LIKE '#{brand}%'
+        WHERE SDNXTR = '525' AND SDDCTO = 'SO' AND SDMCU LIKE '%#{branch}' AND 
+        (SDSRP1 LIKE '#{brand}%' OR SDSRP1 LIKE 'K%') AND SDCOMM != 'K'
         GROUP BY SDITM, SDMCU
       ) BO ON IB.IBITM = BO.SDITM
       LEFT JOIN
