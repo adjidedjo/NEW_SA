@@ -503,7 +503,7 @@ Rails.application.routes.draw do
   get 'account_receivables/surabaya/royal_ar/collectable_ar'
   # Bali
   get 'credit_limits/bali/credit_checks/credit_checks'
-  get 'order/bali/bali_elites/order'
+  get 'order/bali/bali_elite/order'
   get 'order/bali/bali_serenity/order'
   get 'order/bali/bali_lady/order'
   get 'order/bali/bali_royal/order'
