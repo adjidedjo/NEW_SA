@@ -4,7 +4,7 @@ class Forecast < ActiveRecord::Base
       SELECT f1.namaartikel, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year,
       lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
       lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv,
-      lp.namaartikel, lp.namakain, f2.qty_last
+      lp.namaartikel, lp.namakain, f2.qty_last, lp2.jml_last, ((lp2.jml_last/f2.qty_last)*100) AS acv2
       FROM
       (
         SELECT DISTINCT(namaartikel), kodekain, namakain FROM
@@ -25,9 +25,18 @@ class Forecast < ActiveRecord::Base
         fiscal_month, fiscal_year, kodeartikel, kodekain FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
+        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty = 'RI'
         GROUP BY namaartikel, kodekain, area_id, jenisbrgdisc, fiscal_month, fiscal_year
       ) AS lp ON lp.namaartikel = f1.namaartikel AND lp.kodekain = f1.kodekain
+      LEFT JOIN
+      (
+        SELECT SUM(jumlah) AS jml_last, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
+        fiscal_month, fiscal_year, kodeartikel, kodekain FROM
+        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date.last_year}'
+        AND '#{end_date.to_date.last_year}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty = 'RI'
+        GROUP BY namaartikel, kodekain, area_id, jenisbrgdisc, fiscal_month, fiscal_year
+      ) AS lp2 ON lp2.namaartikel = f1.namaartikel AND lp2.kodekain = f1.kodekain
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2, segment2_name,
