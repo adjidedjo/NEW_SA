@@ -1,4 +1,10 @@
 class ForecastsController < ApplicationController
+  def report_forecasts_years
+    @areas = Area.all
+    @brand = Brand.where(external: 0)
+    @acv_forecast = Forecast.calculation_forecast_year(params[:start_date], params[:end_date], params[:areas], params[:brand]) if params[:start_date].present?
+  end
+  
   def report_forecasts_items
     @areas = Area.all
     @brand = Brand.where(external: 0)

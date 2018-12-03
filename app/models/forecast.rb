@@ -1,4 +1,56 @@
 class Forecast < ActiveRecord::Base
+  def self.calculation_forecast_year(start_date, end_date, area, brand)
+    self.find_by_sql("
+      SELECT f1.namaartikel, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year,
+      lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name,
+      lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv,
+      lp.namaartikel, lp.namakain, f2.qty_last
+      FROM
+      (
+        SELECT DISTINCT(namaartikel), kodekain, namakain FROM
+        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
+        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
+        GROUP BY namaartikel, kodekain
+
+        UNION ALL
+
+        SELECT DISTINCT(segment2_name), segment3, segment3_name FROM
+        forecasts WHERE MONTH = '#{end_date.to_date.month}' AND YEAR = '#{end_date.to_date.year}'
+        AND branch = '#{area}' AND brand = '#{brand}' GROUP BY segment2_name, segment3
+      ) AS f1
+      LEFT JOIN
+      (
+        SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
+        fiscal_month, fiscal_year, kodeartikel, kodekain FROM
+        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
+        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
+        GROUP BY namaartikel, kodekain, area_id, jenisbrgdisc, fiscal_month, fiscal_year
+      ) AS lp ON lp.namaartikel = f1.namaartikel AND lp.kodekain = f1.kodekain
+      LEFT JOIN
+      (
+        SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2, segment2_name,
+        segment3_name, size, SUM(quantity) AS quantity, segment3 FROM
+        forecasts WHERE month = '#{start_date.to_date.month}'
+        AND year = '#{start_date.to_date.year}' AND branch = '#{area}' GROUP BY segment2_name, segment3
+      ) AS f ON f.segment2_name = f1.namaartikel AND f.segment3 = f1.kodekain
+      LEFT JOIN
+      (
+        SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2, segment2_name,
+        segment3_name, size, SUM(quantity) AS qty_last, segment3 FROM
+        forecasts WHERE month = '#{start_date.to_date.last_year.month}'
+        AND year = '#{start_date.to_date.last_year.year}' AND branch = '#{area}' GROUP BY segment2_name, segment3
+      ) AS f2 ON f2.segment2_name = f1.namaartikel AND f2.segment3 = f1.kodekain
+      LEFT JOIN
+      (
+        SELECT * FROM areas
+      ) AS a ON IFNULL(lp.area_id, f.branch) = a.id
+      WHERE lp.jumlah > 0 OR f.quantity > 0
+      GROUP BY f1.namaartikel, f1.namakain
+    ")
+  end
+
   def self.update_master_forecast
     self.all.each do |e|
       item = ItemMaster.where(item_number: e.item_number).first
@@ -140,7 +192,7 @@ class Forecast < ActiveRecord::Base
     self.find_by_sql("
       SELECT f1.kodebrg, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year,
       lp.namabrg, f.branch, f.segment2_name, f.segment3_name,
-      lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, 
+      lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv,
       lp.namaartikel, lp.namakain FROM
       (
         SELECT DISTINCT(kodebrg) FROM

@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   post 'forecasts/import'
   get 'forecasts/report_forecasts_branches'
   get 'forecasts/report_forecasts_items'
+  get 'forecasts/report_forecasts_years'
   get 'forecasts/report_forecasts_directs'
   get 'sales_form/sales_form'
 
