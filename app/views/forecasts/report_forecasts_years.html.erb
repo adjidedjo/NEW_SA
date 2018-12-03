@@ -58,6 +58,7 @@
                   <th style="text-align: center;">TYPE</th>
                   <th>ARTICLE</th>
                   <th></th>
+                  <th>SIZE</th>
                   <th style="text-align: center;">FORECAST <%= params[:start_date].to_date.last_year.year %></th>
                   <th style="text-align: center;">SALES <%= params[:start_date].to_date.last_year.year %></th>
                   <th style="text-align: center;">ACCURACY <%= params[:start_date].to_date.last_year.year %></th>
@@ -74,6 +75,7 @@
                   <td style="text-align: center;"><%= fc.kodejenis.nil? ? fc.segment1 : fc.kodejenis %></td>
                   <td><%= fc.namaartikel.nil? ? fc.segment2_name : fc.namaartikel %></td>
                   <td><%= fc.namakain.nil? ? fc.segment3_name : fc.namakain %></td>
+                  <td><%= fc.lebar.nil? ? fc.size : fc.lebar %></td>
                   <td style="text-align: center;"><%= fc.qty_last.nil? ? 0 : fc.qty_last %></td>
                   <td style="text-align: center;"><%= fc.jml_last.nil? ? 0 : fc.jml_last %></td>
                   <td style="text-align: center;"><%= fc.acv2.nil? ? 0 : aforecast(fc.qty_last, fc.jml_last.nil? ? 0 : fc.jml_last, params[:start_date], params[:end_date]) %></td>

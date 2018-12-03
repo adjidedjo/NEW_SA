@@ -7,17 +7,17 @@ class Forecast < ActiveRecord::Base
       lp.namaartikel, lp.namakain, f2.qty_last, lp2.jml_last, ((lp2.jml_last/f2.qty_last)*100) AS acv2
       FROM
       (
-        SELECT DISTINCT(namaartikel), kodekain, namakain FROM
+        SELECT DISTINCT(kodebrg), namaartikel, kodekain, namakain FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
-        GROUP BY namaartikel, kodekain
+        GROUP BY kodebrg
 
         UNION ALL
 
-        SELECT DISTINCT(segment2_name), segment3, segment3_name FROM
+        SELECT DISTINCT(item_number), segment2_name, segment3, segment3_name FROM
         forecasts WHERE MONTH = '#{end_date.to_date.month}' AND YEAR = '#{end_date.to_date.year}'
-        AND branch = '#{area}' AND brand = '#{brand}' GROUP BY segment2_name, segment3
+        AND branch = '#{area}' AND brand = '#{brand}' GROUP BY item_number
       ) AS f1
       LEFT JOIN
       (
@@ -26,8 +26,8 @@ class Forecast < ActiveRecord::Base
         tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty = 'RI'
-        GROUP BY namaartikel, kodekain, area_id, jenisbrgdisc, fiscal_month, fiscal_year
-      ) AS lp ON lp.namaartikel = f1.namaartikel AND lp.kodekain = f1.kodekain
+        GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
+      ) AS lp ON lp.kodebrg = f1.kodebrg
       LEFT JOIN
       (
         SELECT SUM(jumlah) AS jml_last, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
@@ -35,28 +35,28 @@ class Forecast < ActiveRecord::Base
         tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date.last_year}'
         AND '#{end_date.to_date.last_year}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty = 'RI'
-        GROUP BY namaartikel, kodekain, area_id, jenisbrgdisc, fiscal_month, fiscal_year
-      ) AS lp2 ON lp2.namaartikel = f1.namaartikel AND lp2.kodekain = f1.kodekain
+        GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
+      ) AS lp2 ON lp2.kodebrg = f1.kodebrg
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2, segment2_name,
         segment3_name, size, SUM(quantity) AS quantity, segment3 FROM
         forecasts WHERE month = '#{start_date.to_date.month}'
-        AND year = '#{start_date.to_date.year}' AND branch = '#{area}' GROUP BY segment2_name, segment3
-      ) AS f ON f.segment2_name = f1.namaartikel AND f.segment3 = f1.kodekain
+        AND year = '#{start_date.to_date.year}' AND branch = '#{area}' GROUP BY item_number
+      ) AS f ON f.item_number = f1.kodebrg
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2, segment2_name,
         segment3_name, size, SUM(quantity) AS qty_last, segment3 FROM
         forecasts WHERE month = '#{start_date.to_date.last_year.month}'
-        AND year = '#{start_date.to_date.last_year.year}' AND branch = '#{area}' GROUP BY segment2_name, segment3
-      ) AS f2 ON f2.segment2_name = f1.namaartikel AND f2.segment3 = f1.kodekain
+        AND year = '#{start_date.to_date.last_year.year}' AND branch = '#{area}' GROUP BY item_number
+      ) AS f2 ON f2.item_number = f1.kodebrg
       LEFT JOIN
       (
         SELECT * FROM areas
       ) AS a ON IFNULL(lp.area_id, f.branch) = a.id
       WHERE lp.jumlah > 0 OR f.quantity > 0
-      GROUP BY f1.namaartikel, f1.namakain
+      GROUP BY f1.kodebrg
     ")
   end
 
