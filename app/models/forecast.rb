@@ -25,7 +25,7 @@ class Forecast < ActiveRecord::Base
         fiscal_month, fiscal_year, kodeartikel, kodekain FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty = 'RI'
+        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
         GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
       ) AS lp ON lp.kodebrg = f1.kodebrg
       LEFT JOIN
@@ -34,7 +34,7 @@ class Forecast < ActiveRecord::Base
         fiscal_month, fiscal_year, kodeartikel, kodekain FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date.last_year}'
-        AND '#{end_date.to_date.last_year}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty = 'RI'
+        AND '#{end_date.to_date.last_year}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
         GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
       ) AS lp2 ON lp2.kodebrg = f1.kodebrg
       LEFT JOIN
@@ -172,14 +172,14 @@ class Forecast < ActiveRecord::Base
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
         GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
-      ) AS lp ON lp.kodebrg = f1.kodebrg
+      ) AS lp ON lp.kodebrg = f1.kodebrg AND lp.cabang_id = '#{area}'
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
         segment3_name, size, SUM(quantity) AS quantity FROM
         forecasts WHERE month = '#{start_date.to_date.month}'
         AND year = '#{start_date.to_date.year}' AND branch = '#{area}' GROUP BY item_number
-      ) AS f ON f.item_number = f1.kodebrg
+      ) AS f ON f.item_number = f1.kodebrg AND f.branch = '#{area}'
       LEFT JOIN
       (
         SELECT onhand, item_number, area_id, short_item FROM stocks WHERE status = 'N'
