@@ -25,9 +25,9 @@
                 <% @customer.each do |cus| %>
                 <tr class="gradeX">
                   <td><%= cus.brand %></td>
-                  <td><%= link_to cus.active, '/penjualan/bandung/bandung_customers/customer_active'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=1' %></td>
+                  <td><%= link_to (cus.active.nil? ? 0 : cus.active), '/penjualan/bandung/bandung_customers/customer_active'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=1' %></td>
                   <td><%= link_to cus.inactive, '/penjualan/bandung/bandung_customers/customer_inactive'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=0' %></td>
-                  <td><b><%= cus.inactive-cus.onlastweek %></b> Customer(s)</td>
+                  <td><b><%= (cus.inactive.nil? ? 0 : cus.inactive)-(cus.onlastweek.nil? ? 0 : cus.onlastweek) %></b> Customer(s)</td>
                 </tr>
                 <% end %>
               </tbody>

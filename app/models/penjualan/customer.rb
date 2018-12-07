@@ -28,7 +28,7 @@ class Penjualan::Customer < Penjualan::Sale
       MAX(CASE WHEN fday = '#{Date.today.day}' AND fmonth = '#{Date.today.month}' AND fyear = '#{Date.today.year}' THEN inactive END) AS inactive,
       MAX(CASE WHEN fday = '#{7.days.ago.day}' AND fmonth = '#{7.days.ago.month}' AND fyear = '#{7.days.ago.year}' THEN inactive END) AS onlastweek
       FROM sales_mart.CUSTOMER_PROGRESSES WHERE branch = '#{branch}' AND
-      fday >= '#{7.days.ago.day}' AND fmonth >= '#{7.days.ago.month}' AND fyear >= '#{7.days.ago.year}' GROUP BY brand
+      date_process >= '#{7.days.ago.to_date}' GROUP BY brand
     ")
   end
 
