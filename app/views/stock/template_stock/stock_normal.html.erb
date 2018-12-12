@@ -35,9 +35,9 @@
                 <% @stock.each do |cs| %>
                 <tr class="gradeX">
                   <td><%= cs.dsc1.strip + ' ' + cs.dsc2.strip[0..-10] %></td>
-                  <td><%= cs.seg4 %></td>
+                  <td><%= cs.seg4.strip %></td>
                   <td><%= cs.panjang %></td>
-                  <td><%= cs.lebar %></td>
+                  <td><%= cs.seg4.strip == 'T' ? cs.lebar : '-' %></td>
                   <td><%= cs.ah.to_i %></td>
                   <td><%= cs.aa.to_i %></td>
                   <td><%= cs.ab.to_i %></td>

@@ -43,6 +43,6 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
       JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm
       WHERE lipqoh >= 1 
       AND IM.imsrp1 LIKE '%#{brand}%' AND IA.limcu LIKE '%#{branch}' 
-      GROUP BY IM.imseg2, IM.imseg3, IM.imseg5, IM.imseg6")
+      GROUP BY IM.imseg2, IM.imseg3, IM.imseg5")
   end
 end
