@@ -1,5 +1,5 @@
 class SourcesController < ApplicationController
-  def item_ledgers
+  def item_ledger
     @areas = Area.all
     @brand = Brand.where(external: 0)
     @ledger = Stock::ItemAvailability.ledger(params[:start_date], params[:end_date]) if params[:start_date].present? && params[:end_date].present?
@@ -10,7 +10,7 @@ class SourcesController < ApplicationController
     end
   end
 
-  def sales_reports
+  def sales_report
     @areas = Area.all
     @brand = Brand.where(external: 0)
     @sales = Penjualan::Sale.export_sales_report(params[:start_date], params[:end_date]) if params[:start_date].present? && params[:end_date].present?
