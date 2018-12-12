@@ -18,7 +18,7 @@
       Brand:
     </div>
     <div class="form-group">
-      <%= select_tag "brand", options_from_collection_for_select(@brand, "name", "name"), {class: "form-control"} %>
+      <%= select_tag "brand", options_from_collection_for_select(@brand, "name", "name", params[:brand]), {class: "form-control"} %>
     </div>
     <div class="form-group">
       From:
