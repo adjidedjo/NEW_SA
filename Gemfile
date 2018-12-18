@@ -59,6 +59,8 @@ gem 'countries'
 gem 'country_select'
 gem 'carrierwave', '~> 1.0'
 
+gem 'turnout'
+
 #user ajax datatables
 #gem 'ajax-datatables-rails'
 
