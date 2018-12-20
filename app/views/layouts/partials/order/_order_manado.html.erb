@@ -1,0 +1,28 @@
+<li class="<%= 'active' if controller?('order/manado') %>">
+  <a href="#mks-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Manado</span> </a>
+  <ul id="mks-order" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      MANADO
+    </li>
+    <li class="<%= 'active' if controller?('order/manado/manado_elites') %>">
+      <li class="<%= 'active' if controller?('order/manado/manado_elites') && action?('order') %>">
+          <a href="/order/manado/manado_elites/order" title="Order"> <em class="icon-chart"></em><span>Elite</span> </a>
+        </li>
+    </li>
+    <li class="<%= 'active' if controller?('order/manado/manado_serenity') %>">
+      <li class="<%= 'active' if controller?('order/manado/manado_serenity') && action?('order') %>">
+          <a href="/order/manado/manado_serenity/order" title="Order"> <em class="icon-chart"></em><span>Serenity</span> </a>
+        </li>
+    </li>
+    <li class="<%= 'active' if controller?('order/manado/manado_lady') %>">
+      <li class="<%= 'active' if controller?('order/manado/manado_lady') && action?('order') %>">
+          <a href="/order/manado/manado_lady/order" title="Order"> <em class="icon-chart"></em><span>Lady</span> </a>
+        </li>
+    </li>
+    <li class="<%= 'active' if controller?('order/manado/manado_royal') %>">
+      <li class="<%= 'active' if controller?('order/manado/manado_royal') && action?('order') %>">
+          <a href="/order/manado/manado_royal/order" title="Order"> <em class="icon-chart"></em><span>Royal</span> </a>
+        </li>
+    </li>
+  </ul>
+</li>
