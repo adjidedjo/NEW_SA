@@ -6,7 +6,6 @@ class Order::Cirebon::CirebonRoyalController < ApplicationController
   def order
     @branch = "CIREBON"
     @brand = "ROYAL"
-    render template: "order/template_order/order"
     @pbj = SalesOrder::Order.generate_pbj(initialize_brach_id, initialize_brand) if params["format"] == "xlsx"
     
     respond_to do |format|
@@ -23,7 +22,7 @@ class Order::Cirebon::CirebonRoyalController < ApplicationController
   end
 
   def initialize_brach_id
-    "18021"
+    "18022"
   end
   
   def authorize_user

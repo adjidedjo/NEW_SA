@@ -6,7 +6,6 @@ class Order::Cirebon::CirebonLadyController < ApplicationController
   def order
     @branch = "CIREBON"
     @brand = "LADY"
-    render template: "order/template_order/order"
     @pbj = SalesOrder::Order.generate_pbj(initialize_brach_id, initialize_brand) if params["format"] == "xlsx"
     
     respond_to do |format|
