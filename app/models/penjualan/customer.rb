@@ -22,13 +22,11 @@ class Penjualan::Customer < Penjualan::Sale
   end
 
   def self.active_customers(branch)
+    date = 1.month.ago.to_date
     find_by_sql("
-      SELECT brand, branch,
-      MAX(CASE WHEN fday = '#{Date.today.day}' AND fmonth = '#{Date.today.month}' AND fyear = '#{Date.today.year}' THEN active END) AS active,
-      MAX(CASE WHEN fday = '#{Date.today.day}' AND fmonth = '#{Date.today.month}' AND fyear = '#{Date.today.year}' THEN inactive END) AS inactive,
-      MAX(CASE WHEN fday = '#{7.days.ago.day}' AND fmonth = '#{7.days.ago.month}' AND fyear = '#{7.days.ago.year}' THEN inactive END) AS onlastweek
-      FROM sales_mart.CUSTOMER_PROGRESSES WHERE branch = '#{branch}' AND
-      date_process >= '#{7.days.ago.to_date}' GROUP BY brand
+      SELECT brand, area_id, total, new_customer, active_customer, inactive_customer
+      FROM sales_mart.CUSTOMER_GROWTHS WHERE area_id = '#{branch}' AND
+      fmonth = '#{date.month}' AND fyear = '#{date.year}'
     ")
   end
 

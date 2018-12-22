@@ -16,18 +16,22 @@
               <thead>
                 <tr>
                   <th>Brand</th>
+                  <th>New</th>
                   <th>Active</th>
                   <th>InActive</th>
-                  <th>Growth From 7 days ago</th>
+                  <th>TOTAL</th>
+                  <th>Growth <%= 1.month.ago.strftime('%B') %></th>
                 </tr>
               </thead>
               <tbody>
                 <% @customer.each do |cus| %>
                 <tr class="gradeX">
                   <td><%= cus.brand %></td>
-                  <td><%= link_to (cus.active.nil? ? 0 : cus.active), '/penjualan/bandung/bandung_customers/customer_active'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=1' %></td>
-                  <td><%= link_to cus.inactive, '/penjualan/bandung/bandung_customers/customer_inactive'+'?branch='+cus.branch.to_s+'&brand='+cus.brand+'&state=0' %></td>
-                  <td><b><%= (cus.inactive.nil? ? 0 : cus.inactive)-(cus.onlastweek.nil? ? 0 : cus.onlastweek) %></b> Customer(s)</td>
+                  <td><%= cus.new_customer %></td>
+                  <td><%= cus.active_customer %></td>
+                  <td><%= cus.inactive_customer %></td>
+                  <td><%= cus.total %></td>
+                  <td><b><%= number_to_percentage((cus.new_customer.to_f/cus.total.to_f)*100, precision: 2) %></b></td>
                 </tr>
                 <% end %>
               </tbody>
