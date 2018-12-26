@@ -23,10 +23,21 @@ class Penjualan::Customer < Penjualan::Sale
 
   def self.active_customers(branch)
     date = 1.month.ago.to_date
+    date2 = date - 1.month
     find_by_sql("
-      SELECT brand, area_id, total, new_customer, active_customer, inactive_customer
-      FROM sales_mart.CUSTOMER_GROWTHS WHERE area_id = '#{branch}' AND
-      fmonth = '#{date.month}' AND fyear = '#{date.year}'
+      SELECT a.*, b.active_customer AS active_1month, b.inactive_customer AS inactive_1month,
+       (a.new_customer/a.total)*100 AS growth_customer,
+       ((b.active_customer - a.active_customer)/a.total)*100 AS growth_active,
+       ((b.inactive_customer - a.inactive_customer)/a.total)*100 AS growth_inactive FROM (
+        SELECT brand, area_id, total, new_customer, active_customer, inactive_customer
+            FROM sales_mart.CUSTOMER_GROWTHS WHERE area_id = '#{branch}' AND
+            fmonth = '#{date.month}' AND fyear = '#{date.year}'
+        ) AS a
+        LEFT JOIN
+        (
+        SELECT brand, area_id, total, new_customer, active_customer, inactive_customer
+              FROM sales_mart.CUSTOMER_GROWTHS WHERE fmonth = '#{date2.month}' AND fyear = '#{date2.year}'
+        ) AS b ON a.area_id = b.area_id AND a.brand = b.brand
     ")
   end
 
