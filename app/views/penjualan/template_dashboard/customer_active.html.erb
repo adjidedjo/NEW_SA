@@ -17,8 +17,10 @@
                 <tr>
                   <th>Brand</th>
                   <th>New</th>
-                  <th>Active</th>
-                  <th>InActive</th>
+                  <th>Active <%= 2.month.ago.strftime('%B') %></th>
+                  <th>InActive <%= 2.month.ago.strftime('%B') %></th>
+                  <th>Active <%= 1.month.ago.strftime('%B') %></th>
+                  <th>InActive <%= 1.month.ago.strftime('%B') %></th>
                   <th>TOTAL</th>
                   <th>Growth</th>
                   <th>G_active</th>
@@ -30,6 +32,8 @@
                 <tr class="gradeX">
                   <td><%= cus.brand %></td>
                   <td><%= cus.new_customer %></td>
+                  <td><%= cus.active_1month %></td>
+                  <td><%= cus.inactive_1month %></td>
                   <td><%= cus.active_customer %></td>
                   <td><%= cus.inactive_customer %></td>
                   <td><%= cus.total %></td>
