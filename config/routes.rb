@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   #data source
   get 'sources/sales_report'
   get 'sources/item_ledger'
+  get 'sources/sold_as_order'
 
   # FORECAST
   get 'forecasts/upload_forecast'

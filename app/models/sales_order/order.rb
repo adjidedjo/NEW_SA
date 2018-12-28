@@ -4,6 +4,65 @@ class SalesOrder::Order < ActiveRecord::Base
   #SDSRP1, SDSRP2, SDUORG
   #HELD ORDRES TABLE (HO)
   
+  def self.check_forecast(branch, start_day, end_day, item)
+    branch_check = jde_cabang(branch.split('|', 2).first)
+    fc = find_by_sql("SELECT sum(quantity) AS qty FROM dbmarketing.forecasts WHERE branch = '#{branch_check}' AND 
+    month BETWEEN '#{start_day.to_date.month}' AND '#{end_day.to_date.month}' AND 
+    year BETWEEN '#{start_day.to_date.year}' AND '#{end_day.to_date.year}' AND item_number = '#{item}' 
+    GROUP BY item_number, branch")
+    fc.empty? ? 0 : fc.first.qty
+  end
+  
+  def self.generate_proving_reports(branch, start_day, end_day)
+    Jde.find_by_sql("
+    SELECT '#{branch}' AS PARAMSBRANCH, '#{start_day.to_date}' AS PARAMSSTART,
+    '#{end_day.to_date}' AS PARAMSEND, PO.SDITM, MAX(PO.SDLITM) AS SDLITM, MAX(PO.DESCRIPTION) AS DESCRIPTION, 
+      MAX(PO.BRAND) AS BRAND, SUM(PO.QTY_PBJ/10000) AS PBJ, 
+      SUM(PO.QTY_IN)/10000 AS IN_STOCK, NVL(SUM(BO.QTY)/10000,0) AS OUTSTANDING, 
+      NVL(SUM(IV.SELL_OUT)/100,0) AS SELL, ROUND(AVG(PO.SDTRDJ), 2) AS ORDER_DATE, 
+      NVL(ROUND(AVG(LEDGER.ILCRDJ),2),0) AS RECEIPT, ROUND((AVG(LEDGER.ILCRDJ)-AVG(PO.SDTRDJ)),2) AS LEADTIME FROM
+      (
+      SELECT SDMCU, SDITM, MAX(SDLITM) AS SDLITM, SDSHAN, SUM(SDUORG) AS QTY_PBJ, MAX(SDRCTO) AS SDRCTO, MAX(SDRORN) AS SDRORN, 
+        AVG(SDTRDJ) AS SDTRDJ, NVL(SUM(CASE WHEN SDADDJ BETWEEN '#{date_to_julian(start_day.to_date)}' AND 
+        '#{date_to_julian(end_day.to_date)}' THEN SDUORG END), 0) AS QTY_IN,
+        CONCAT(CONCAT(TRIM(MAX(SDDSC1)), ' '), TRIM(MAX(SDDSC2))) AS DESCRIPTION, MAX(SDSRP1) AS BRAND,
+        MIN(SDVR01) AS CUSTOMER_PO FROM PRODDTA.F4211 WHERE SDNXTR = '999' AND SDLTTR = '580'
+        AND REGEXP_LIKE(SDMCU, '11001|11002|12001|12002|15151|15152|11051|11052|11081|11082|11091|11092')
+        AND REGEXP_LIKE(SDSHAN, '#{branch}') AND SDTRDJ BETWEEN '#{date_to_julian(start_day.to_date)}' AND 
+        '#{date_to_julian(end_day.to_date)}' AND SDCOMM != 'K'
+        GROUP BY SDITM, SDSHAN, SDMCU
+      ) PO
+      LEFT JOIN
+      (
+        SELECT SDITM, MAX(SDLITM) AS SDLITM, SDMCU, SUM(SDUORG) AS QTY, MIN(SDDRQJ) AS SO_REQDATE FROM PRODDTA.F4211 
+        WHERE SDNXTR = '525' AND SDDCTO = 'SO' AND REGEXP_LIKE(SDMCU, '#{branch}') AND 
+        SDCOMM != 'K'
+        GROUP BY SDITM, SDMCU
+      ) BO ON PO.SDITM = BO.SDITM AND TRIM(PO.SDSHAN) = TRIM(BO.SDMCU)
+      LEFT JOIN
+      (
+        SELECT RPMCU, RPRMK, SUM(RPU) AS SELL_OUT FROM PRODDTA.F03B11 WHERE RPDIVJ BETWEEN '#{date_to_julian(start_day.to_date)}' AND 
+        '#{date_to_julian(end_day.to_date)}' AND RPDCT = 'RI' 
+        GROUP BY RPMCU, RPRMK
+      ) IV ON TRIM(PO.SDLITM) = TRIM(IV.RPRMK) AND PO.SDSHAN LIKE '%'||TRIM(IV.RPMCU)
+      LEFT JOIN
+      (
+        SELECT LEDGER.ILMCU AS TO_BP, LEDGER.ILAN8 AS FROM_BP, LEDGER.ILITM AS SHORT_I, LEDGER.ILDOCO, LEDGER.ILDCTO, 
+        AVG(LEDGER.ILCRDJ) AS ILCRDJ
+        FROM PRODDTA.F4111 LEDGER WHERE LEDGER.ILCRDJ BETWEEN '#{date_to_julian(3.month.ago.to_date)}' AND 
+        '#{date_to_julian(Date.today)}' AND LEDGER.ILDCTO IN ('OK', 'OT') AND LEDGER.ILAN8 > 0 
+        AND LEDGER.ILDCT IN ('OV', 'VT') AND 
+        REGEXP_LIKE(LEDGER.ILAN8, '11001$|11002$|12002$|12001$|15001$|15002$|15151$|15152$|11051$|11052$|11081$|11082$|11091$|11092$')
+        GROUP BY LEDGER.ILITM, LEDGER.ILDOCO, LEDGER.ILDCTO, LEDGER.ILAN8, LEDGER.ILMCU
+      ) LEDGER ON LEDGER.ILDCTO = PO.SDRCTO AND TO_NUMBER(LEDGER.ILDOCO) = PO.SDRORN AND LEDGER.SHORT_I = PO.SDITM
+      WHERE PO.BRAND != ' ' GROUP BY PO.SDITM
+    ")
+  end
+  
+  def self.checking_forecast(item, branch, month, year)
+    
+  end
+  
   def self.checking_available(onhand, commit)
     commit > onhand ? 0 : (onhand - commit)
   end

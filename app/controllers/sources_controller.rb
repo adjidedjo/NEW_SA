@@ -20,4 +20,15 @@ class SourcesController < ApplicationController
       format.xlsx {render :xlsx => "sales_report", :filename => "sales report from '#{params[:start_date]}' to '#{params[:end_date]}'.xlsx"}
     end
   end
+
+  def sold_as_order
+    @areas = Branch.all
+    @brand = Brand.where(external: 0)
+    @proov = SalesOrder::Order.generate_proving_reports(params[:areas], params[:start_date], params[:end_date]) if params[:start_date].present? && params[:end_date].present?
+
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "prooving_report", :filename => "prooving report '#{params[:start_date]}' to '#{params[:end_date]}'.xlsx"}
+    end
+  end
 end
