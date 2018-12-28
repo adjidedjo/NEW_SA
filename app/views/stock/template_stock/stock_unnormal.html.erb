@@ -10,7 +10,7 @@
       <div class="col-lg-12">
         <div class="panel panel-info">
           <div class="panel-heading" style="text-align: center">
-            Stock  
+            Stock Unnormal or Tanggung
             <b>REAL TIME</b> 
           </div>
           <div class="panel-body">
@@ -19,14 +19,8 @@
                 <tr>
                   <th>PRODUCT</th>
                   <th>PANJANG</th>
-                  <th class="sort-numeric">000</th>
-                  <th class="sort-numeric">090</th>
-                  <th class="sort-numeric">100</th>
-                  <th class="sort-numeric">120</th>
-                  <th class="sort-numeric">140</th>
-                  <th class="sort-numeric">160</th>
-                  <th class="sort-numeric">180</th>
-                  <th class="sort-numeric">200</th>
+                  <th>LEBAR</th>
+                  <th class="sort-numeric">Jumlah</th>
                 </tr>
               </thead>
               <tbody>
@@ -34,25 +28,14 @@
                 <tr class="gradeX">
                   <td><%= cs.dsc1.strip + ' ' + cs.dsc2.strip[0..-10] %></td>
                   <td><%= cs.panjang %></td>
-                  <td><%= cs.ah.to_i %></td>
-                  <td><%= cs.aa.to_i %></td>
-                  <td><%= cs.ab.to_i %></td>
-                  <td><%= cs.ac.to_i %></td>
-                  <td><%= cs.ad.to_i %></td>
-                  <td><%= cs.ae.to_i %></td>
-                  <td><%= cs.af.to_i %></td>
-                  <td><%= cs.ag.to_i %></td>
+                  <td><%= cs.lebar %></td>
+                  <td><%= cs.jumlah %></td>
                 </tr>
                 <% end %>
               </tbody>
             </table>
           </div>
-          <div class="panel-footer">
-            <ul>
-              <li>DATA STOCK ADALAH JUMLAH YANG SIAP UNTUK DI BOOKING</li>
-              <li>UNTUK UKURAN TANGGUNG ATAU LEBAR YANG TIDAK ADA DIATAS, SILAHKAN KLIK MENU TANGGUNG%></li>
-            </ul>
-          </div>
+          <div class="panel-footer">DATA STOCK IS AVAILABLE QUANTITY TO BOOK</div>
         </div>
       </div>
     </div>
