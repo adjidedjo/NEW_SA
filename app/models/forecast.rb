@@ -8,7 +8,7 @@ class Forecast < ActiveRecord::Base
       FROM
       (
         SELECT DISTINCT(kodebrg), namaartikel, kodekain, namakain FROM
-        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
         GROUP BY kodebrg
@@ -23,7 +23,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
         fiscal_month, fiscal_year, kodeartikel, kodekain FROM
-        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
         GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
@@ -32,7 +32,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT SUM(jumlah) AS jml_last, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
         fiscal_month, fiscal_year, kodeartikel, kodekain FROM
-        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date.last_year}'
         AND '#{end_date.to_date.last_year}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
         GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
@@ -109,7 +109,7 @@ class Forecast < ActiveRecord::Base
             FROM
             (
               SELECT DISTINCT(kodebrg) FROM
-              tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+              tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
               ('KM', 'DV', 'HB', 'KB', 'SB', 'SA', 'ST')  AND tanggalsj BETWEEN '#{start_date.to_date}'
               AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc NOT LIKE 'CLASSIC'
 
@@ -122,7 +122,7 @@ class Forecast < ActiveRecord::Base
             LEFT JOIN
             (
               SELECT SUM(jumlah) AS jumlah, jenisbrgdisc, kodebrg, namabrg, area_id, fiscal_month, fiscal_year FROM
-              tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+              tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
               ('KM', 'DV', 'HB', 'KB', 'SB', 'SA', 'ST')  AND tanggalsj
               BETWEEN '#{start_date.to_date}' AND '#{end_date.to_date}' AND area_id = '#{area}'
               AND jenisbrgdisc NOT LIKE 'CLASSIC'
@@ -154,7 +154,7 @@ class Forecast < ActiveRecord::Base
       IFNULL(ib.qty_buf, 0) AS qty_buf FROM
       (
         SELECT DISTINCT(kodebrg) FROM
-        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
 
@@ -168,7 +168,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
         fiscal_month, fiscal_year FROM
-        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
         GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
@@ -205,7 +205,7 @@ class Forecast < ActiveRecord::Base
       lp.namaartikel, lp.namakain FROM
       (
         SELECT DISTINCT(kodebrg) FROM
-        tblaporancabang WHERE tipecust = '#{id_img}' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = '#{id_img}' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}'
 
@@ -219,7 +219,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
         fiscal_month, fiscal_year FROM
-        tblaporancabang WHERE tipecust = '#{id_img}' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = '#{id_img}' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}'
         GROUP BY kodebrg, jenisbrgdisc, fiscal_month, fiscal_year
