@@ -42,7 +42,7 @@ class Penjualan::Sale < ActiveRecord::Base
           AND jenisbrgdisc = 'CLASSIC' THEN harganetto1 END) classic
         FROM tblaporancabang WHERE fiscal_month BETWEEN '#{date.beginning_of_year.to_date.month}'
         AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}'
-        AND '#{date.year}' AND bonus = '-'
+        AND '#{date.year}'
         GROUP BY tipecust
       ) AS ly ON cc.channel = ly.tipecust
     ")
@@ -69,7 +69,7 @@ class Penjualan::Sale < ActiveRecord::Base
       AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}'
       AND '#{date.year}' AND area_id NOT IN (1,50)
       AND area_id = '#{branch}' AND jenisbrgdisc != '' AND
-      tipecust = 'RETAIL' AND bonus = '-'
+      tipecust = 'RETAIL'
       GROUP BY jenisbrgdisc, area_id
     ) as lc
       LEFT JOIN
@@ -78,7 +78,7 @@ class Penjualan::Sale < ActiveRecord::Base
         fiscal_month = '#{Date.yesterday.last_year.month}' AND
         fiscal_year = '#{Date.yesterday.last_year.year}'
         AND area_id != 1 AND area_id = '#{branch}' AND
-        tipecust = 'RETAIL' AND bonus = '-'
+        tipecust = 'RETAIL'
         AND jenisbrgdisc IS NOT NULL
         GROUP BY jenisbrgdisc, area_id
       ) AS ly ON lc.area_id = '#{branch}' AND lc.jenisbrgdisc = ly.jenisbrgdisc
@@ -269,7 +269,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT SUM(harganetto1) AS harga, fiscal_month FROM tblaporancabang
     WHERE fiscal_month BETWEEN '#{date.beginning_of_year.month}'
     AND '#{date.month}' AND fiscal_year = '#{date.beginning_of_year.year}'
-    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-' AND area_id IS NOT NULL
+    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND area_id IS NOT NULL
 
     GROUP BY fiscal_month")
   end
@@ -290,7 +290,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{Date.yesterday.last_month.last_month.month}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{date.last_month.beginning_of_month}'
       AND '#{date.to_date}' AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND area_id != 50 AND
-      tipecust = 'RETAIL' AND bonus = '-'  AND area_id IS NOT NULL
+      tipecust = 'RETAIL'  AND area_id IS NOT NULL
       GROUP BY jenisbrgdisc, area_id
     ) as lc
     LEFT JOIN
@@ -298,7 +298,7 @@ class Penjualan::Sale < ActiveRecord::Base
         SELECT SUM(harganetto1) AS revenue, area_id FROM tblaporancabang WHERE
         fiscal_month = '#{Date.yesterday.last_month.last_year.month}' AND fiscal_year = '#{Date.yesterday.last_month.last_year.year}'
         AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND
-        tipecust = 'RETAIL' AND bonus = '-'  AND area_id IS NOT NULL
+        tipecust = 'RETAIL' AND area_id IS NOT NULL
         GROUP BY jenisbrgdisc, area_id
       ) AS ly ON lc.area_id = ly.area_id
     LEFT JOIN
@@ -324,7 +324,7 @@ class Penjualan::Sale < ActiveRecord::Base
     SELECT SUM(harganetto1) AS harga, area_id FROM tblaporancabang
     WHERE fiscal_month = '#{Date.yesterday.last_month.month}'
     AND fiscal_year = '#{Date.yesterday.last_month.year}'
-    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-'
+    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}'
 
     AND area_id NOT IN (1,50) AND area_id IS NOT NULL
     GROUP BY area_id) AS lc
@@ -344,7 +344,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT SUM(harganetto1) AS harga, fiscal_month FROM tblaporancabang
     WHERE fiscal_month BETWEEN '#{1.month.ago.beginning_of_year.month}'
     AND '#{Date.yesterday.last_month.month}' AND fiscal_year = '#{1.month.ago.beginning_of_year.year}'
-    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-'
+    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}'
 
     GROUP BY fiscal_month")
   end
@@ -365,7 +365,7 @@ class Penjualan::Sale < ActiveRecord::Base
       COUNT(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN diskon5 END) total_so
       FROM tblaporancabang WHERE fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}'
       AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-'
+      tipecust = 'RETAIL'
       ) as sub")
   end
 
@@ -382,7 +382,7 @@ class Penjualan::Sale < ActiveRecord::Base
         '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{date.last_month.beginning_of_month}'
       AND '#{date.to_date}' AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-'
+      tipecust = 'RETAIL'
       GROUP BY namaartikel, lebar
       ) as sub")
   end
@@ -534,7 +534,7 @@ class Penjualan::Sale < ActiveRecord::Base
   def self.monthly_summary(branch, brand)
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND
     MONTH(tanggalsj) = '#{Date.today.month}' AND YEAR(tanggalsj) = '#{Date.today.year}' AND jenisbrgdisc = '#{brand}' AND
-    tipecust = 'RETAIL' AND bonus = '-'  GROUP BY jenisbrgdisc")
+    tipecust = 'RETAIL' GROUP BY jenisbrgdisc")
   end
   ########## END MONTHLY
 
@@ -555,7 +555,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{4.weeks.ago.beginning_of_week.to_date}' AND '#{1.week.ago.end_of_week.to_date}' THEN jumlah END) most
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{4.weeks.ago.to_date}' AND
       '#{1.week.ago.end_of_week.to_date}' AND jenisbrgdisc = '#{brand}' AND area_id = '#{branch}' AND
-      tipecust = 'RETAIL' AND bonus = '-'
+      tipecust = 'RETAIL'
       GROUP BY namaartikel ORDER BY most DESC LIMIT 10
       ) as lc")
   end
@@ -564,7 +564,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT namaartikel, ordered, lebar, value FROM (
     SELECT kodejenis, namaartikel, lebar, SUM(jumlah) AS ordered, SUM(harganetto1) AS value FROM tblaporancabang
     WHERE area_id = '#{branch}' AND MONTH(tanggalsj) = '#{1.month.ago.to_date.month}' AND
-    YEAR(tanggalsj) = '#{1.month.ago.to_date.year}' AND tipecust = 'RETAIL' AND bonus = '-' AND AND jenisbrgdisc = '#{brand}'
+    YEAR(tanggalsj) = '#{1.month.ago.to_date.year}' AND tipecust = 'RETAIL' AND AND jenisbrgdisc = '#{brand}'
     GROUP BY namaartikel, lebar) totals ORDER BY ordered DESC LIMIT 10")
   end
   ########## END MOST ITEMS
@@ -573,7 +573,7 @@ class Penjualan::Sale < ActiveRecord::Base
   def self.customer_summary_monthly(branch, brand)
     self.find_by_sql("SELECT customer, salesman, SUM(jumlah) AS ordered, SUM(harganetto1) AS price,
     jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND MONTH(tanggalsj) = '#{1.month.ago.to_date.month}' AND
-    YEAR(tanggalsj) = '#{1.month.ago.to_date.year}' AND tipecust = 'RETAIL' AND bonus = '-'  AND jenisbrgdisc = '#{brand}' GROUP BY customer")
+    YEAR(tanggalsj) = '#{1.month.ago.to_date.year}' AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' GROUP BY customer")
   end
 
   def self.customer_summary(branch, brand)
@@ -581,7 +581,7 @@ class Penjualan::Sale < ActiveRecord::Base
     end_of_week = 1.week.ago.to_date.end_of_week.to_date
     self.find_by_sql("SELECT customer, salesman, SUM(jumlah) AS ordered, SUM(harganetto1) AS price,
     jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{beginning_of_week}'
-    AND '#{end_of_week}' AND tipecust = 'RETAIL' AND bonus = '-' AND jenisbrgdisc = '#{brand}' GROUP BY customer")
+    AND '#{end_of_week}' AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' GROUP BY customer")
   end
   ########## END CUSTOMER
 
@@ -589,7 +589,7 @@ class Penjualan::Sale < ActiveRecord::Base
   def self.monthly_channel(branch, brand)
     self.find_by_sql("SELECT SUM(jumlah) AS jumlah, tipecust FROM tblaporancabang WHERE area_id = '#{branch}' AND
     MONTH(tanggalsj) = '#{1.month.ago.month}' AND YEAR(tanggalsj) = '#{1.month.ago.year}' AND jenisbrgdisc = '#{brand}' AND
-    tipecust = 'RETAIL' AND bonus = '-'  GROUP BY tipecust")
+    tipecust = 'RETAIL' GROUP BY tipecust")
   end
 
   def self.weekly_channel(branch, brand)
@@ -597,7 +597,7 @@ class Penjualan::Sale < ActiveRecord::Base
     end_of_week = 1.week.ago.to_date.end_of_week.to_date
     self.find_by_sql("SELECT SUM(jumlah) AS jumlah, tipecust FROM tblaporancabang WHERE area_id = '#{branch}' AND
     tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
-    tipecust = 'RETAIL' AND bonus = '-'  GROUP BY tipecust")
+    tipecust = 'RETAIL' GROUP BY tipecust")
   end
   ########## END CHANNEL
 
@@ -607,7 +607,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT SUM(harganetto1) AS val, CONCAT('WEEK ', week) AS weekly_name FROM tblaporancabang
     WHERE week BETWEEN '#{5.weeks.ago.to_date.cweek}'
     AND '#{1.weeks.ago.to_date.cweek}' AND fiscal_year BETWEEN '#{5.weeks.ago.to_date.year}' AND '#{1.weeks.ago.to_date.year}'
-    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' AND bonus = '-'
+    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}'
     GROUP BY week")
   end
 
@@ -628,7 +628,7 @@ class Penjualan::Sale < ActiveRecord::Base
       FROM tblaporancabang WHERE week BETWEEN '#{4.week.ago.to_date.cweek}'
       AND '#{1.week.ago.to_date.cweek}' AND fiscal_year BETWEEN '#{4.week.ago.year}'
       AND '#{1.week.ago.year}' AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND
-      tipecust = 'RETAIL' AND bonus = '-'
+      tipecust = 'RETAIL'
       GROUP BY area_id
       ) as lc
       LEFT JOIN tbidcabang AS st
@@ -647,7 +647,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{this_week_start}' AND '#{this_week_end}' THEN harganetto1 END) AS val_this_week
       FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{last_week_start}' AND '#{this_week_end}'
       AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-'  GROUP BY kota")
+      tipecust = 'RETAIL' GROUP BY kota")
   end
 
   def self.weekly_product_summary(branch, brand)
@@ -662,7 +662,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{this_week_start}' AND '#{this_week_end}' THEN harganetto1 END) AS val_this_week
       FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{last_week_start}' AND '#{this_week_end}'
       AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL' AND bonus = '-'  GROUP BY kodejenis")
+      tipecust = 'RETAIL' GROUP BY kodejenis")
   end
 
   def self.weekly_summary(branch, brand)
@@ -670,7 +670,7 @@ class Penjualan::Sale < ActiveRecord::Base
     end_of_week = Date.today.end_of_week
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND
     tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
-    tipecust = 'RETAIL' AND bonus = '-'  GROUP BY jenisbrgdisc")
+    tipecust = 'RETAIL' GROUP BY jenisbrgdisc")
   end
 
   def self.a_week_ago(branch, brand)
@@ -678,7 +678,7 @@ class Penjualan::Sale < ActiveRecord::Base
     end_of_week = 1.week.ago.end_of_week.to_date
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND
     tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
-    tipecust = 'RETAIL' AND bonus = '-'  GROUP BY jenisbrgdisc")
+    tipecust = 'RETAIL' GROUP BY jenisbrgdisc")
   end
 
   def self.two_weeks_ago(branch, brand)
@@ -686,7 +686,7 @@ class Penjualan::Sale < ActiveRecord::Base
     end_of_week = 2.week.ago.end_of_week.to_date
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND
     tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
-    tipecust = 'RETAIL' AND bonus = '-'  GROUP BY jenisbrgdisc")
+    tipecust = 'RETAIL' GROUP BY jenisbrgdisc")
   end
 
   def self.three_weeks_ago(branch, brand)
@@ -694,7 +694,7 @@ class Penjualan::Sale < ActiveRecord::Base
     end_of_week = 3.week.ago.end_of_week.to_date
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND
     tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
-    tipecust = 'RETAIL' AND bonus = '-'  GROUP BY jenisbrgdisc")
+    tipecust = 'RETAIL' GROUP BY jenisbrgdisc")
   end
 
   def self.four_weeks_ago(branch, brand)
@@ -702,7 +702,7 @@ class Penjualan::Sale < ActiveRecord::Base
     end_of_week = 4.week.ago.end_of_week.to_date
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND
     tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
-    tipecust = 'RETAIL' AND bonus = '-'  GROUP BY jenisbrgdisc")
+    tipecust = 'RETAIL' GROUP BY jenisbrgdisc")
   end
   ########## END WEEKLY
 

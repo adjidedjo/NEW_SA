@@ -50,6 +50,6 @@ module RolesHelper
   end
   
   def sales_page(user, brand)
-    user.position == "sales" && (user.brand1 == brand || user.brand2 == brand)
+    user.position == "sales" && (user.brand1 == brand || user.brand2 == brand || user.brand3 == brand || user.brand4 == brand)
   end
 end
