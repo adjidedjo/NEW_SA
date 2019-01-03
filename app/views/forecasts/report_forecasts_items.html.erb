@@ -64,8 +64,6 @@
                   <th style="text-align: center;">TO DATE FORECAST</th>
                   <th style="text-align: center;">SALES</th>
                   <th style="text-align: center;">ACCURACY</th>
-                  <th style="text-align: center;">STOCK</th>
-                  <th style="text-align: center;">BUFFER</th>
                 </tr>
               </thead>
               <tfoot></tfoot>
@@ -82,8 +80,6 @@
                   <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : calculate_by_day(fc.quantity, params[:end_date]) %></td>
                   <td style="text-align: center;"><%= fc.jumlah.nil? ? 0 : fc.jumlah %></td>
                   <td style="text-align: center;"><%= fc.acv.nil? ? 0 : aforecast(fc.quantity, fc.jumlah.nil? ? 0 : fc.jumlah, params[:start_date], params[:end_date]) %></td>
-                  <td style="text-align: center;"><%= fc.onhand %></td>
-                  <td style="text-align: center;"><%= fc.qty_buf %></td>
                 </tr>
                 <% end %>
               </tbody>

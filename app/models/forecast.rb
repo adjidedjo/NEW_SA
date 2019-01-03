@@ -8,7 +8,7 @@ class Forecast < ActiveRecord::Base
       FROM
       (
         SELECT DISTINCT(kodebrg), namaartikel, kodekain, namakain FROM
-        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
         GROUP BY kodebrg
@@ -16,40 +16,41 @@ class Forecast < ActiveRecord::Base
         UNION ALL
 
         SELECT DISTINCT(item_number), segment2_name, segment3, segment3_name FROM
-        forecasts WHERE MONTH = '#{end_date.to_date.month}' AND YEAR = '#{end_date.to_date.year}'
+        forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
+        '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
         AND branch = '#{area}' AND brand = '#{brand}' GROUP BY item_number
       ) AS f1
       LEFT JOIN
       (
         SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
         fiscal_month, fiscal_year, kodeartikel, kodekain FROM
-        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
-        GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
+        GROUP BY kodebrg, area_id, jenisbrgdisc
       ) AS lp ON lp.kodebrg = f1.kodebrg
       LEFT JOIN
       (
         SELECT SUM(jumlah) AS jml_last, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
         fiscal_month, fiscal_year, kodeartikel, kodekain FROM
-        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date.last_year}'
         AND '#{end_date.to_date.last_year}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
-        GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
+        GROUP BY kodebrg, area_id, jenisbrgdisc
       ) AS lp2 ON lp2.kodebrg = f1.kodebrg
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2, segment2_name,
         segment3_name, size, SUM(quantity) AS quantity, segment3 FROM
-        forecasts WHERE month = '#{start_date.to_date.month}'
-        AND year = '#{start_date.to_date.year}' AND branch = '#{area}' GROUP BY item_number
+        forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
+        '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}' AND branch = '#{area}' GROUP BY item_number
       ) AS f ON f.item_number = f1.kodebrg
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2, segment2_name,
         segment3_name, size, SUM(quantity) AS qty_last, segment3 FROM
-        forecasts WHERE month = '#{start_date.to_date.last_year.month}'
-        AND year = '#{start_date.to_date.last_year.year}' AND branch = '#{area}' GROUP BY item_number
+        forecasts WHERE month BETWEEN '#{start_date.to_date.last_year.month}' AND '#{end_date.to_date.last_year.month}'
+        AND year BETWEEN '#{start_date.to_date.last_year.year}' AND '#{end_date.to_date.last_year.year}' AND branch = '#{area}' GROUP BY item_number
       ) AS f2 ON f2.item_number = f1.kodebrg
       LEFT JOIN
       (
@@ -109,20 +110,21 @@ class Forecast < ActiveRecord::Base
             FROM
             (
               SELECT DISTINCT(kodebrg) FROM
-              tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+              tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
               ('KM', 'DV', 'HB', 'KB', 'SB', 'SA', 'ST')  AND tanggalsj BETWEEN '#{start_date.to_date}'
               AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc NOT LIKE 'CLASSIC'
 
               UNION ALL
 
               SELECT DISTINCT(item_number) FROM
-              forecasts WHERE MONTH = '#{end_date.to_date.month}' AND YEAR = '#{end_date.to_date.year}'
-              AND branch = '#{area}'
+              forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
+              '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
+              AND '#{end_date.to_date.year}' AND branch = '#{area}'
             ) AS f1
             LEFT JOIN
             (
               SELECT SUM(jumlah) AS jumlah, jenisbrgdisc, kodebrg, namabrg, area_id, fiscal_month, fiscal_year FROM
-              tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+              tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
               ('KM', 'DV', 'HB', 'KB', 'SB', 'SA', 'ST')  AND tanggalsj
               BETWEEN '#{start_date.to_date}' AND '#{end_date.to_date}' AND area_id = '#{area}'
               AND jenisbrgdisc NOT LIKE 'CLASSIC'
@@ -133,8 +135,9 @@ class Forecast < ActiveRecord::Base
               SELECT brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
               segment3_name, size, SUM(quantity) AS quantity,
               ROUND((SUM(quantity)/DAY(LAST_DAY('#{end_date.to_date}')))*DAY('#{end_date.to_date}')) AS todate FROM
-              forecasts WHERE branch = '#{area}' AND MONTH = '#{end_date.to_date.month}'
-              AND YEAR = '#{end_date.to_date.year}' GROUP BY item_number
+              forecasts WHERE branch = '#{area}' AND MONTH BETWEEN '#{start_date.to_date.month}' AND
+              '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
+              GROUP BY item_number
             ) AS f ON f.item_number = f1.kodebrg
             LEFT JOIN
             (
@@ -154,31 +157,33 @@ class Forecast < ActiveRecord::Base
       IFNULL(ib.qty_buf, 0) AS qty_buf FROM
       (
         SELECT DISTINCT(kodebrg) FROM
-        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
+        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO')
 
         UNION ALL
 
         SELECT DISTINCT(item_number) FROM
-        forecasts WHERE MONTH = '#{end_date.to_date.month}' AND YEAR = '#{end_date.to_date.year}'
+        forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
+        '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
         AND branch = '#{area}' AND brand = '#{brand}'
       ) AS f1
       LEFT JOIN
       (
         SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
         fiscal_month, fiscal_year FROM
-        tblaporancabang WHERE tipecust = 'RETAIL' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
-        GROUP BY kodebrg, area_id, jenisbrgdisc, fiscal_month, fiscal_year
+        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO')
+        GROUP BY kodebrg, area_id, jenisbrgdisc
       ) AS lp ON lp.kodebrg = f1.kodebrg
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
         segment3_name, size, SUM(quantity) AS quantity FROM
-        forecasts WHERE month = '#{start_date.to_date.month}'
-        AND year = '#{start_date.to_date.year}' AND branch = '#{area}' GROUP BY item_number
+        forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
+        '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
+        AND branch = '#{area}' GROUP BY item_number
       ) AS f ON f.item_number = f1.kodebrg AND f.branch = '#{area}'
       LEFT JOIN
       (
@@ -205,7 +210,7 @@ class Forecast < ActiveRecord::Base
       lp.namaartikel, lp.namakain FROM
       (
         SELECT DISTINCT(kodebrg) FROM
-        tblaporancabang WHERE tipecust = '#{id_img}' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = '#{id_img}' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}'
 
@@ -219,7 +224,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
         fiscal_month, fiscal_year FROM
-        tblaporancabang WHERE tipecust = '#{id_img}' AND bonus = '-' AND kodejenis IN
+        tblaporancabang WHERE tipecust = '#{id_img}' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}'
         GROUP BY kodebrg, jenisbrgdisc, fiscal_month, fiscal_year
