@@ -40,8 +40,8 @@ class Penjualan::Sale < ActiveRecord::Base
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
           '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}'
           AND jenisbrgdisc = 'CLASSIC' THEN harganetto1 END) classic
-        FROM tblaporancabang WHERE fiscal_month BETWEEN '#{date.beginning_of_year.to_date.month}'
-        AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}'
+        FROM tblaporancabang WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}')
+        AND fiscal_year BETWEEN '#{date.last_month.year}'
         AND '#{date.year}'
         GROUP BY tipecust
       ) AS ly ON cc.channel = ly.tipecust
@@ -65,8 +65,7 @@ class Penjualan::Sale < ActiveRecord::Base
         AND fiscal_year = '#{date.year}'  THEN harganetto1 END) val_1,
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}'
         AND fiscal_year = '#{date.last_month.year}'  THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE fiscal_month BETWEEN '#{date.last_month.month}'
-      AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}'
+      FROM tblaporancabang WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
       AND '#{date.year}' AND area_id NOT IN (1,50)
       AND area_id = '#{branch}' AND jenisbrgdisc != '' AND
       tipecust = 'RETAIL'
@@ -171,15 +170,15 @@ class Penjualan::Sale < ActiveRecord::Base
     (
       SELECT branch as area_id, brand as jenisbrgdisc,
       SUM(CASE WHEN
-        fiscal_month BETWEEN '#{date.beginning_of_year.to_date.month}' AND '#{date.month}'
+        fiscal_month IN ('#{date.last_month.month}','#{date.month}')
         AND fiscal_year BETWEEN '#{date.beginning_of_year.to_date.year}' AND '#{date.year}'
         THEN sales_amount END) y_qty,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_quantity END) qty_1,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val1_1,
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
-      FROM sales_mart.RET1BRAND WHERE fiscal_month BETWEEN '#{date.last_month.month}'
-      AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}' AND '#{date.year}'
+      FROM sales_mart.RET1BRAND WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}')
+      AND fiscal_year BETWEEN '#{date.last_month.year}' AND '#{date.year}'
       AND brand = '#{brand}' GROUP BY brand
     ) as lc
     LEFT JOIN
@@ -219,8 +218,8 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val1_1,
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
-      FROM sales_mart.RET1BRAND WHERE fiscal_month BETWEEN '#{date.last_month.month}'
-      AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}' AND '#{date.year}'
+      FROM sales_mart.RET1BRAND WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}')
+      AND fiscal_year BETWEEN '#{date.last_month.year}' AND '#{date.year}'
       AND brand = '#{brand}' GROUP BY branch
     ) as lc
     LEFT JOIN
@@ -396,8 +395,8 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_quantity END) qty_2,
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
-      FROM sales_mart.RET3SALBRAND WHERE fiscal_day <= '#{date.day}' AND fiscal_month BETWEEN '#{date.last_month.month}'
-      AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}'
+      FROM sales_mart.RET3SALBRAND WHERE fiscal_day <= '#{date.day}' AND
+      fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
       AND '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
       GROUP BY salesmen
     ) AS lc")
@@ -417,8 +416,8 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'KB' THEN sales_quantity END) kb,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) total_1,
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) total_2
-      FROM sales_mart.RET4CITYPRODUCT WHERE fiscal_day <= '#{date.day}' AND fiscal_month BETWEEN '#{date.last_month.month}'
-      AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}'
+      FROM sales_mart.RET4CITYPRODUCT WHERE fiscal_day <= '#{date.day}' AND
+      fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
       AND '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
       GROUP BY city
       ) as sub")
@@ -438,8 +437,8 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND product = 'KB' THEN sales_quantity END) kb,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) total_1,
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) total_2
-      FROM sales_mart.RET2CUSPRODUCT WHERE fiscal_day <= '#{date.day}' AND fiscal_month BETWEEN '#{date.last_month.month}'
-      AND '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}'
+      FROM sales_mart.RET2CUSPRODUCT WHERE fiscal_day <= '#{date.day}' AND
+      fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
       AND '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
       GROUP BY customer
       ) as sub")
@@ -455,12 +454,12 @@ class Penjualan::Sale < ActiveRecord::Base
     (
       SELECT branch,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
-      SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_2,
+      SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.last_year.year}' THEN sales_amount END) revenue,
       SUM(CASE WHEN fiscal_month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
         '#{date.last_month.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) y_qty
-      FROM sales_mart.RET1BRAND WHERE fiscal_day <= '#{date.day}' AND fiscal_month BETWEEN '#{date.last_month.month}'
-      AND '#{date.month}' AND fiscal_year IN ('#{date.last_year.year}', '#{date.year}')
+      FROM sales_mart.RET1BRAND WHERE fiscal_day <= '#{date.day}' AND fiscal_month IN ('#{date.last_month.month}','#{date.month}')
+      AND fiscal_year IN ('#{date.last_year.year}', '#{date.year}')
       AND branch = '#{branch}' AND brand = '#{brand}'
     ) as lc
       LEFT JOIN
@@ -524,7 +523,8 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_quantity END) qty_2,
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
-      FROM sales_mart.RET1PRODUCT WHERE fiscal_day <= '#{date.day}' AND fiscal_month BETWEEN '#{date.last_month.month}'
+      FROM sales_mart.RET1PRODUCT WHERE fiscal_day <= '#{date.day}' AND
+      fiscal_month IN ('#{date.last_month.month}','#{date.month}')
       AND '#{date.month}' AND branch = '#{branch}' AND brand = '#{brand}'
       GROUP BY product
       ) as lc
