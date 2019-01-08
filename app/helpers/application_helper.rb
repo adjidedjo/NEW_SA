@@ -138,10 +138,10 @@ end
   end
   
   def coloring(val)
-    if val.nil?
+    if val.nil? || val == 0
       ''
     else
-      val >= 0 ? 'arrowUp' : 'arrowDown'
+      val > 0 ? 'arrowUp' : 'arrowDown'
     end
   end
   

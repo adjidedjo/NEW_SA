@@ -27,8 +27,8 @@ class Penjualan::Customer < Penjualan::Sale
     find_by_sql("
       SELECT a.*, b.active_customer AS active_1month, b.inactive_customer AS inactive_1month,
        (a.new_customer/a.total)*100 AS growth_customer,
-       ((b.active_customer - a.active_customer)/a.total)*100 AS growth_active,
-       ((b.inactive_customer - a.inactive_customer)/a.total)*100 AS growth_inactive FROM (
+       ((a.active_customer - b.active_customer)/a.total)*100 AS growth_active,
+       ((a.inactive_customer - b.inactive_customer)/a.total)*100 AS growth_inactive FROM (
         SELECT brand, area_id, total, new_customer, active_customer, inactive_customer
             FROM sales_mart.CUSTOMER_GROWTHS WHERE area_id = '#{branch}' AND
             fmonth = '#{date.month}' AND fyear = '#{date.year}'
