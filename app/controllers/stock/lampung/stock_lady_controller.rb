@@ -39,7 +39,7 @@ class Stock::Lampung::StockLadyController < ApplicationController
   private
   
   def initialize_brand
-    "ELITE"
+    "LADY"
   end
   
   def initialize_brach_id
@@ -47,7 +47,7 @@ class Stock::Lampung::StockLadyController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "13101"
+    @branch_plant = "18101"
     @branch = "LAMPUNG"
   end
 end
