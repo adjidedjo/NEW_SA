@@ -1,14 +1,9 @@
 class Penjualan::Customer < Penjualan::Sale
-  def self.list_customers(branch, state, brand)
-    CustomerBrand.find_by_sql("
-      SELECT customer, MAX(tanggalsj) AS tanggalsj,
-      SUM(CASE WHEN fiscal_month = '#{3.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN total END) three_month,
-      SUM(CASE WHEN fiscal_month = '#{2.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN total END) two_month,
-      SUM(CASE WHEN fiscal_month = '#{1.months.ago.month}' AND fiscal_year = '#{1.months.ago.year}' THEN total END) last_month,
-      SUM(CASE WHEN fiscal_month = '#{Date.today.month}' AND fiscal_year = '#{Date.today.year}' THEN total END) this_month
-      FROM customer_active WHERE
-      branch = '#{branch}' AND tanggalsj >= '#{3.months.ago.to_date}' AND brand = '#{brand}' AND
-      tipecust = 'RETAIL' GROUP BY kode_customer")
+  def self.list_customers(branch, brand)
+    find_by_sql("
+      SELECT customer, last_invoice, cust_status, brand
+      FROM sales_mart.CUSTOMER_DETGROWTHS WHERE
+      branch = '#{branch}' AND brand = '#{brand}'")
   end
 
   def self.list_customers_inactive(branch, state, brand)

@@ -15,31 +15,33 @@
             <table id="datatable_city" class="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th>Brand</th>
-                  <th>New</th>
-                  <th>Active <%= 2.month.ago.strftime('%B') %></th>
-                  <th>InActive <%= 2.month.ago.strftime('%B') %></th>
-                  <th>Active <%= 1.month.ago.strftime('%B') %></th>
-                  <th>InActive <%= 1.month.ago.strftime('%B') %></th>
-                  <th>TOTAL</th>
-                  <th>Growth</th>
-                  <th>G_active</th>
-                  <th>G_inactive</th>
+                  <th align="center">Brand</th>
+                  <th align="center">New</th>
+                  <th align="center">Active <%= 2.month.ago.strftime('%B') %></th>
+                  <th align="center">InActive <%= 2.month.ago.strftime('%B') %></th>
+                  <th align="center">Active <%= 1.month.ago.strftime('%B') %></th>
+                  <th align="center">InActive <%= 1.month.ago.strftime('%B') %></th>
+                  <th align="center">TOTAL</th>
+                  <th align="center">Growth</th>
+                  <th align="center">G_active</th>
+                  <th align="center">G_inactive</th>
+                  <th>
                 </tr>
               </thead>
               <tbody>
                 <% @customer.each do |cus| %>
                 <tr class="gradeX">
-                  <td><%= cus.brand %></td>
-                  <td><%= cus.new_customer %></td>
-                  <td><%= cus.active_1month %></td>
-                  <td><%= cus.inactive_1month %></td>
-                  <td><%= cus.active_customer %></td>
-                  <td><%= cus.inactive_customer %></td>
-                  <td><%= cus.total %></td>
-                  <td class="<%= coloring(cus.growth_customer) %>"><b><%= cpercent(cus.growth_customer.abs) %></b></td>
-                  <td class="<%= coloring(cus.growth_active) %>"><b><%= cpercent(cus.growth_active.abs) %></b></td>
-                  <td class="<%= coloring(cus.growth_inactive) %>"><b><%= cpercent(cus.growth_inactive.abs) %></b></td>
+                  <td align="center"><%= cus.brand %></td>
+                  <td align="center"><%= cus.new_customer %></td>
+                  <td align="center"><%= cus.active_1month %></td>
+                  <td align="center"><%= cus.inactive_1month %></td>
+                  <td align="center"><%= cus.active_customer %></td>
+                  <td align="center"><%= cus.inactive_customer %></td>
+                  <td align="center"><%= cus.total %></td>
+                  <td align="center" class="<%= coloring(cus.growth_customer) %>"><b><%= cpercent(cus.growth_customer.abs) %></b></td>
+                  <td align="center" class="<%= coloring(cus.growth_active) %>"><b><%= cpercent(cus.growth_active.abs) %></b></td>
+                  <td align="center" class="<%= coloring(cus.growth_inactive) %>"><b><%= cpercent(cus.growth_inactive.abs) %></b></td>
+                  <td><%= link_to "See Detail", '/penjualan/bandung/bandung_customers/customer_active'+'?branch='+cus.area_id.to_s+'&brand='+cus.brand %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -56,33 +58,29 @@
         </div>
       </div>
 
-      <% if params[:state].present? && params[:branch].present? %>
+      <% if params[:branch].present? %>
       <div class="col-lg-12">
         <div class="panel panel-info">
           <div class="panel-heading" style="text-align: center">
-            List <%= params[:state] == '1' ? 'Active' : 'InActive' %> <%= params[:brand] %> Customers REPORT
+            List <%= params[:brand] %> Customers REPORT
           </div>
           <div class="panel-body">
             <table id="datatable_customer" class="table table-striped table-hover">
               <thead>
                 <tr>
                   <th>Customer</th>
+                  <th>Brand</th>
                   <th>Last Order</th>
-                  <th><%= params[:state] == '1' ? 3.month.ago.strftime('%B %y') : 6.month.ago.strftime('%B %y') %></th>
-                  <th><%= params[:state] == '1' ? 2.month.ago.strftime('%B %y') : 6.month.ago.strftime('%B %y') %></th>
-                  <th><%= params[:state] == '1' ? 1.month.ago.strftime('%B %y') : 5.month.ago.strftime('%B %y') %></th>
-                  <th><%= params[:state] == '1' ? Date.today.strftime('%B %y') : 4.month.ago.strftime('%B %y') %></th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 <% @list_customers.each do |cus| %>
                 <tr class="gradeX">
                   <td><%= cus.customer %></td>
-                  <td><%= cus.tanggalsj.strftime('%d %B %Y') %></td>
-                  <td><%= currency(cus.three_month) %></td>
-                  <td><%= currency(cus.two_month) %></td>
-                  <td><%= currency(cus.last_month) %></td>
-                  <td><%= currency(cus.this_month) %></td>
+                  <td><%= cus.brand %></td>
+                  <td><%= cus.last_invoice.strftime('%d %B %Y') %></td>
+                  <td><%= cus.cust_status %></td>
                 </tr>
                 <% end %>
               </tbody>
