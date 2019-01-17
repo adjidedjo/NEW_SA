@@ -5,8 +5,8 @@ class Penjualan::Semarang::SemarangCustomersController < ApplicationController
   def customer_active
     @branch = "Semarang"
     @customer = Penjualan::Customer.active_customers(initialize_branch_id)
-    @list_customers = Penjualan::Customer.list_customers(params[:branch], params[:state],
-    params[:brand]) if params[:state].present? && params[:branch].present?
+    @list_customers = Penjualan::Customer.list_customers(params[:branch],
+    params[:brand]) if params[:branch].present?
     render template: "penjualan/template_dashboard/customer_active"     
   end
   
