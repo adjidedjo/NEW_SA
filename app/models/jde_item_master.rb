@@ -1,9 +1,9 @@
 class JdeItemMaster < ActiveRecord::Base
   establish_connection :jdeoracle
-  self.table_name = "proddta.f4101" #im
+  self.table_name = "PRODDTA.F4101" #im
 
   def self.get_desc_forecast(item_number)
-    item = where("imlitm LIKE '#{item_number}%'").first
+    item = find_by_sql("SELECT * FROM PRODDTA.F4101 WHERE IMLITM LIKE '#{item_number}%'").first
   end
 
   def self.date_to_julian(date)

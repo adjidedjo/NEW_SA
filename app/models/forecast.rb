@@ -1,4 +1,5 @@
 class Forecast < ActiveRecord::Base
+
   def self.calculation_forecast_year(start_date, end_date, area, brand)
     self.find_by_sql("
       SELECT f1.namaartikel, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year,
@@ -74,7 +75,7 @@ class Forecast < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      forecast = find_by(brand: row["brand"], item_number: row["item_number"].strip, branch: row["branch"],
+      forecast = find_by(brand: row["brand"], address_number: row["address_number"], item_number: row["item_number"].strip, branch: row["branch"],
       month: row["month"], year: row["year"]) || new
       if forecast.id.nil?
         item = JdeItemMaster.get_desc_forecast(row["item_number"])
