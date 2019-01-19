@@ -21,7 +21,7 @@ class AccountReceivables::Bandung::SerenityArController < ApplicationController
   private
   
   def branch_name
-    "BANDUNG"
+    "JEMBER"
   end
 
   def initialize_brand
@@ -29,7 +29,7 @@ class AccountReceivables::Bandung::SerenityArController < ApplicationController
   end
 
   def initialize_brach_id
-    2
+    22
   end
   
   def authorize_user

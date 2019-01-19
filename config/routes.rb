@@ -31,7 +31,12 @@ Rails.application.routes.draw do
   end
 
   # Sales Productivity
-  resources :sales_productivities
+  resources :sales_productivities do
+    collection do
+      get 'upload_rkb'
+      post 'import'
+    end
+  end
   
   # Asong
   get 'asong/report_by_branch'
@@ -46,6 +51,7 @@ Rails.application.routes.draw do
   post 'forecasts/import'
   get 'forecasts/report_forecasts_branches'
   get 'forecasts/report_forecasts_items'
+  get 'forecasts/export_all_forecast'
   get 'forecasts/report_forecasts_years'
   get 'forecasts/report_forecasts_directs'
   get 'sales_form/sales_form'
@@ -733,6 +739,14 @@ Rails.application.routes.draw do
   get 'stock/jember/stock_royal/stock_clearence'
   get 'stock/jember/stock_royal/stock_service'
   get 'stock/jember/stock_royal/stock_display'
+  get 'account_receivables/jember/elite_ar/uncollectable_ar'
+  get 'account_receivables/jember/elite_ar/collectable_ar'
+  get 'account_receivables/jember/serenity_ar/uncollectable_ar'
+  get 'account_receivables/jember/serenity_ar/collectable_ar'
+  get 'account_receivables/jember/lady_ar/uncollectable_ar'
+  get 'account_receivables/jember/lady_ar/collectable_ar'
+  get 'account_receivables/jember/royal_ar/uncollectable_ar'
+  get 'account_receivables/jember/royal_ar/collectable_ar'
   # Lampung
   get 'credit_limits/lampung/credit_checks/credit_checks'
   get 'order/lampung/lampung_elites/order'
