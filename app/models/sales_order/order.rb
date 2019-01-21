@@ -131,8 +131,18 @@ class SalesOrder::Order < ActiveRecord::Base
   end
   
   def self.outstand_order(branch, brand)
-    find_by_sql("SELECT * FROM warehouse.F4211_ORDERS WHERE branch LIKE '#{branch}%' AND brand = '#{brand}'
-    AND updated_at >= '#{Date.today}' AND next_status = 525")
+    Jde.find_by_sql("SELECT so.sddoco AS order_no, so.sddrqj as promised_delivery, so.sdnxtr as status, 
+    so.sduorg AS jumlah, so.sdtrdj AS sdtrdj,
+    so.sdsrp1 AS sdsrp1, so.sdmcu AS sdmcu, so.sditm, so.sdlitm AS sdlitm, 
+    so.sddsc1 AS sddsc1, so.sddsc2 AS sddsc2, itm.imseg1 AS imseg1,
+    cus.abalph AS abalph, so.sdshan, cus.abat1 AS abat1,
+    so.sdtorg AS sdtorg, so.sdpsn, so.sdlttr, so.sddcto, so.sdlotn, so.sdvr01
+    FROM PRODDTA.F4211 so
+    JOIN PRODDTA.F4101 itm ON so.sditm = itm.imitm
+    JOIN PRODDTA.F0101 cus ON so.sdshan = cus.aban8
+    WHERE so.sdcomm NOT LIKE '%K%' AND so.sdmcu LIKE '%#{branch}%' AND so.sdsrp1 = '#{brand}'
+    AND REGEXP_LIKE(so.sddcto,'SO|ZO') AND itm.imtmpl LIKE '%BJ MATRASS%' AND
+    so.sdlttr <= '560'")
   end
   
   def self.pick_order(branch, brand)

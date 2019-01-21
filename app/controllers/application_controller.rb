@@ -85,7 +85,6 @@ class ApplicationController < ActionController::Base
   end
   
   def order_daily
-    order_ready_to_ship
     outstanding_order
     held_orders_by_credit
     held_orders_by_approval
