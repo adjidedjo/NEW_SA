@@ -1,0 +1,68 @@
+<li class="<%= 'active' if controller?('stock/pusat_bcp') %>">
+  <a href="#stock-pusat_bcp" title="Level 1" data-toggle="collapse"> <em class="fa fa-folder-o"></em> <span>PUSAT BCP</span> </a>
+  <ul id="stock-pusat_bcp" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      PUSAT BCP
+    </li>
+    <li class="<%= 'active' if controller?('stock/pusat/stock_capacities') && action?('capacity') %>">
+      <a href="/stock/pusat/stock_capacities/capacity" title="Recap"> <span>Capacity</span></a>
+    </li>
+    <li class="<%= 'active' if controller?('stock/pusat/stock_elite') %>">
+      <a href="#stock-pusat_bcp-elite" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Elite</span> </a>
+      <ul id="stock-pusat_bcp-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
+        </li>
+        <li class="<%= 'active' if controller?('stock/pusat_bcp/stock_elite') && action?('stock_recap') %>">
+          <a href="/stock/pusat_bcp/stock_elite/stock_recap" title="Recap"> <span>Recap</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/pusat_bcp/stock_elite') && action?('stock_normal') %>">
+          <a href="/stock/pusat_bcp/stock_elite/stock_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('stock/pusat_bcp/stock_serenity') %>">
+      <a href="#stock-pusat_bcp-serenity" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Serenity</span> </a>
+      <ul id="stock-pusat_bcp-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('stock/pusat_bcp/stock_serenity') && action?('stock_recap') %>">
+          <a href="/stock/pusat_bcp/stock_serenity/stock_recap" title="Recap"> <span>Recap</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/pusat_bcp/stock_serenity') && action?('stock_normal') %>">
+          <a href="/stock/pusat_bcp/stock_serenity/stock_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('stock/pusat_bcp/stock_lady') %>">
+      <a href="#stock-pusat_bcp-lady" title="Lady" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Lady</span> </a>
+      <ul id="stock-pusat_bcp-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('stock/pusat_bcp/stock_lady') && action?('stock_recap') %>">
+          <a href="/stock/pusat_bcp/stock_lady/stock_recap" title="Recap"> <span>Recap</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/pusat_bcp/stock_lady') && action?('stock_normal') %>">
+          <a href="/stock/pusat_bcp/stock_lady/stock_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('stock/pusat_bcp/stock_royal') %>">
+      <a href="#stock-pusat_bcp-royal" title="Royal" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Royal</span> </a>
+      <ul id="stock-pusat_bcp-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('stock/pusat_bcp/stock_royal') && action?('stock_recap') %>">
+          <a href="/stock/pusat_bcp/stock_royal/stock_recap" title="Recap"> <span>Recap</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/pusat_bcp/stock_royal') && action?('stock_normal') %>">
+          <a href="/stock/pusat_bcp/stock_royal/stock_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>

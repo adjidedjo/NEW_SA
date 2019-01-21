@@ -110,6 +110,15 @@ Rails.application.routes.draw do
 
   #Pusat
   get 'stock/pusat/stock_capacities/capacity'
+  get 'stock/pusat_bcp/stock_elite/stock_recap'
+  get 'stock/pusat_bcp/stock_elite/stock_normal'
+  get 'stock/pusat_bcp/stock_serenity/stock_recap'
+  get 'stock/pusat_bcp/stock_serenity/stock_normal'
+  get 'stock/pusat_bcp/stock_lady/stock_recap'
+  get 'stock/pusat_bcp/stock_lady/stock_normal'
+  get 'stock/pusat_bcp/stock_royal/stock_recap'
+  get 'stock/pusat_bcp/stock_royal/stock_normal'
+  get 'stock/pusat/stock_capacities/capacity'
   get 'stock/pusat/stock_elite/stock_recap'
   get 'stock/pusat/stock_elite/stock_normal'
   get 'stock/pusat/stock_elite/stock_unnormal'
