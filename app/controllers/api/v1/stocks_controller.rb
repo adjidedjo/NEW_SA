@@ -9,7 +9,7 @@ module Api
         car.jumlah_check = params["jumlah"]
         
         if car.save
-          render json: {status: "TERSIMPAN", message: 'TERSIMPAN'}
+          render json: {status: "TERSIMPAN", message: 'Data Tersimpan'}
         else
           render json: {status: "GAGAL", message: 'GAGAL'}
         end
