@@ -4,9 +4,9 @@ module Api
       
       def car_insert_pos1
         car = Api::CarLog.new
-        car.nopol = params[:car]["nopol"]
-        car.nopos = params[:car]["nopos"]
-        car.jumlah = params[:car]["jumlah"]
+        car.nopol = params["nopol"]
+        car.nopos = params["nopos"]
+        car.jumlah_check = params["jumlah"]
         
         if car.save
           render json: {status: "TERSIMPAN", message: 'TERSIMPAN'}
