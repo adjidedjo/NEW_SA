@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post '/normal' => 'stocks#stock_normal'
+      post '/car' => 'stocks#car_insert_pos1'
     end
 
     devise_scope :user do

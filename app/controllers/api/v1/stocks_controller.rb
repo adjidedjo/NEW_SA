@@ -2,6 +2,19 @@ module Api
   module V1
     class StocksController < ActionController::Base
       
+      def car_insert_pos1
+        car = Api::CarLog.new
+        car.nopol = params[:car]["nopol"]
+        car.nopos = params[:car]["nopos"]
+        car.jumlah = params[:car]["jumlah"]
+        
+        if car.save
+          render json: {status: "TERSIMPAN", message: 'TERSIMPAN'}
+        else
+          render json: {status: "GAGAL", message: 'GAGAL'}
+        end
+      end
+
       def stock_normal
         @stocks = Stock::ItemAvailability.stock_report_for_android(params[:stock]["branch"], params[:stock]["brand"])
         
