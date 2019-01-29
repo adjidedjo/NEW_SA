@@ -9,7 +9,7 @@ class Stock::Jember::StockSerenityController < ApplicationController
   end
   
   def stock_display
-    @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant + "D", "S")
+    @stock = Stock::ItemAvailability.stock_display_report(@branch_plant + "D", "R")
     @brand = initialize_brand
     @state = "DISPLAY"
     render template: "stock/template_stock/stock_normal"

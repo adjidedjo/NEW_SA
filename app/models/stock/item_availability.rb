@@ -34,8 +34,39 @@ class Stock::ItemAvailability < ActiveRecord::Base
   end
   
   def self.stock_display_report(branch, brand)
-    find_by_sql("SELECT onhand, available, description, item_number, customer, age, updated_at FROM display_stocks 
-    WHERE branch = '#{branch}' AND brand = '#{brand}' AND onhand > 0 GROUP BY item_number, customer")
+    Jde.find_by_sql("
+      SELECT MAX(SO.SDDOCO) AS NOSO, MAX(PO.PHMCU) AS BRANCH, SA.LILOTN, NVL(NULLIF(MAX(SO.SDADDJ), 0),MAX(SO.SDDRQJ)) AS ACTUALSHIP, MAX(SO.SDSHAN) AS CUS, MAX(CU.ABALPH) CUSTOMER,
+        MAX(SO.SDSRP1) AS BRAND, MAX(SO.SDLITM) AS SDLITM, MAX(SO.SDDSC1) AS DESC1, MAX(SO.SDDSC2) AS DESC2, SUM(SA.LIPQOH) AS JML, MAX(CM1.ABALPH) AS SALESMAN
+      FROM 
+      (
+        SELECT LIMCU, MAX(LILOTN) AS LILOTN, SUM(LIPQOH) AS LIPQOH FROM PRODDTA.F41021
+        WHERE LIMCU LIKE '%#{branch}%' AND LIPQOH >= 10000 AND LIPBIN = 'S' GROUP BY LIMCU, LILOTN
+      ) SA
+      LEFT JOIN
+      (
+        SELECT MAX(SDDOCO) AS SDDOCO, SDLOTN, MAX(SDSHAN) AS SDSHAN, MAX(SDSRP1) AS SDSRP1, 
+        SUM(SDUORG) AS SDUORG, MAX(SDDSC1) AS SDDSC1, MAX(SDDSC2) AS SDDSC2, MAX(SDLITM) AS SDLITM, MAX(SDDRQJ) AS SDDRQJ, MAX(SDADDJ) AS SDADDJ 
+        FROM PRODDTA.F4211 WHERE SDDCTO = 'ST' AND SDDELN > 1 AND SDSRP1 = '#{brand}'
+        GROUP BY SDLOTN ORDER BY SDADDJ DESC
+      ) SO ON SO.SDLOTN = SA.LILOTN
+      LEFT JOIN
+      (
+        SELECT * FROM PRODDTA.F4301 WHERE PHDCTO = 'OT'
+      ) PO ON PO.PHRORN = SO.SDDOCO
+      LEFT JOIN
+      (
+        SELECT * FROM PRODDTA.F0101
+      ) CU ON CU.ABAN8 = SO.SDSHAN 
+      LEFT JOIN
+      (
+        SELECT SASLSM, SAIT44, SAAN8 FROM PRODDTA.F40344 WHERE SAEXDJ > (select 1000*(to_char(sysdate, 'yyyy')-1900)+to_char(sysdate, 'ddd') as julian from dual)
+      ) SM ON SM.SAAN8 = CU.ABAN8 AND SM.SAIT44 = SO.SDSRP1
+      LEFT JOIN
+      (
+        SELECT * FROM PRODDTA.F0101
+      ) CM1 ON TRIM(SM.SASLSM) = TRIM(CM1.ABAN8)
+      WHERE SO.SDDOCO IS NOT NULL GROUP BY SA.LILOTN
+    ")
   end
   
   def self.recap_stock_report(branch, brand)

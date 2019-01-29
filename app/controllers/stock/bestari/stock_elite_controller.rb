@@ -24,7 +24,7 @@ class Stock::Bestari::StockEliteController < ApplicationController
   end
   
   def stock_service
-    @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant + "S", "E")
+    # @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant + "S", "E")
     @brand = initialize_brand
     @state = "DISPLAY"
     render template: "stock/template_stock/stock_normal"
