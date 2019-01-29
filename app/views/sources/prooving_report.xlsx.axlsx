@@ -3,13 +3,15 @@ wb = xlsx_package.workbook
 
 wb.add_worksheet(name: "Proving Report") do |sheet|
   # this is the head row of your spreadsheet
-  sheet.add_row %w(kode_barang nama brand forecast pbj in_stock outs sell asong leadtime
+  sheet.add_row %w(kode_barang nama brand forecast pbj outstanding_pbj stock_masuk pencapaian_target_pengiriman oustanding_so jual asong leadtime
   )
   
   # each user is a row on your spreadsheet
   @proov.each do |s|
     sheet.add_row [s.sdlitm, s.description, s.brand, 
     SalesOrder::Order.check_forecast(s.paramsbranch, s.paramsstart, s.paramsend, s.sdlitm), 
-    s.pbj, s.in_stock, s.outstanding, s.sell, cpercent((s.sell.to_f/s.pbj.to_f)*100), s.leadtime]
+    s.pbj, s.outstanding_pbj, s.in_stock, 
+    (s.in_stock == 0 ? 0 : cpercent(((s.in_stock.to_f - s.qty_off.to_f).abs/s.in_stock.to_f)*100)), 
+    s.outstanding_so, s.sell, cpercent((s.sell.to_f/s.pbj.to_f)*100), s.leadtime]
   end
 end

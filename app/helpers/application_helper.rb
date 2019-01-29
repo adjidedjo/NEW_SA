@@ -147,5 +147,7 @@ end
   
   def cpercent(val)
     number_to_percentage(val, precision: 0)
+    rescue ZeroDivisionError
+      0
   end
 end
