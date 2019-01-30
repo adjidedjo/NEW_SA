@@ -20,6 +20,7 @@
                 <tr>
                   <th>Toko</th>
                   <th>Sales</th>
+                  <th>NoSO</th>
                   <th>Kode</th>
                   <th>Descriptions</th>
                   <th>Serial</th>
@@ -32,11 +33,12 @@
                 <tr class="gradeX">
                   <td><%= cs.customer %></td>
                   <td><%= cs.salesman %></td>
+                  <td><%= cs.noso %></td>
                   <td><%= cs.sdlitm.strip %></td>
                   <td><%= cs.desc1.strip %></td>
                   <td><%= cs.lilotn.strip %></td>
                   <td><%= cs.jml/10000 %></td>
-                  <td><%= date_to_julian(Date.today) - cs.actualship %></td>
+                  <td><%= (Date.today - julian_to_date(cs.actualship)).to_i %></td>
                 </tr>
                 <% end %>
               </tbody>

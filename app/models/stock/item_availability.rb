@@ -52,7 +52,7 @@ class Stock::ItemAvailability < ActiveRecord::Base
       LEFT JOIN
       (
         SELECT * FROM PRODDTA.F4301 WHERE PHDCTO = 'OT'
-      ) PO ON PO.PHRORN = SO.SDDOCO
+      ) PO ON PO.PHRORN = SO.SDDOCO AND PO.PHMCU LIKE '%#{branch}%'
       LEFT JOIN
       (
         SELECT * FROM PRODDTA.F0101
@@ -65,7 +65,7 @@ class Stock::ItemAvailability < ActiveRecord::Base
       (
         SELECT * FROM PRODDTA.F0101
       ) CM1 ON TRIM(SM.SASLSM) = TRIM(CM1.ABAN8)
-      WHERE SO.SDDOCO IS NOT NULL GROUP BY SA.LILOTN
+      WHERE SO.SDDOCO IS NOT NULL AND PO.PHMCU IS NOT NULL GROUP BY SA.LILOTN
     ")
   end
   
