@@ -38,7 +38,7 @@
                   <td><%= cs.desc1.strip %></td>
                   <td><%= cs.lilotn.strip %></td>
                   <td><%= cs.jml/10000 %></td>
-                  <td><%= (Date.today - julian_to_date(cs.actualship)).to_i %></td>
+                  <td><%= (Date.today - julian_to_date(cs.receive_date)).to_i %></td>
                 </tr>
                 <% end %>
               </tbody>
