@@ -1,9 +1,9 @@
 class Penjualan::Customer < Penjualan::Sale
   def self.list_customers(branch, brand)
     find_by_sql("
-      SELECT customer, last_invoice, cust_status, brand
+      SELECT customer, MAX(last_invoice) AS last_invoice, cust_status, brand
       FROM sales_mart.CUSTOMER_DETGROWTHS WHERE
-      branch = '#{branch}' AND brand = '#{brand}'")
+      branch = '#{branch}' AND brand = '#{brand}' GROUP BY customer, brand")
   end
 
   def self.list_customers_inactive(branch, state, brand)
