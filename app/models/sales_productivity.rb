@@ -42,7 +42,7 @@ class SalesProductivity < ActiveRecord::Base
       (
        SELECT SUM(jumlah) AS jumlah, cabang_id, nopo, jenisbrgdisc FROM tblaporancabang WHERE
        fiscal_month = '#{month}' AND fiscal_year = '#{year}' AND
-       tipecust = 'RETAIL' AND bonus = '-' AND cabang_id = '#{branch}' AND
+       tipecust = 'RETAIL' AND cabang_id = '#{branch}' AND
        kodejenis IN ('KM','DV','HB','KB') AND orty = 'SO'
       ) AS lc ON lc.nopo = us.nik AND lc.jenisbrgdisc = sp.brand AND lc.cabang_id = sp.branch_id
     ")
@@ -53,7 +53,7 @@ class SalesProductivity < ActiveRecord::Base
     (
      SELECT cabang_id, jenisbrgdisc, SUM(jumlah) AS jumlah, salesman, tanggalsj FROM tblaporancabang WHERE
      fiscal_month = '#{month}' AND fiscal_year = '#{year}' AND kodejenis IN ('KM','DV','HB','KB') AND
-     bonus = '-' AND tipecust = 'RETAIL' AND cabang_id = '#{branch}'
+     tipecust = 'RETAIL' AND cabang_id = '#{branch}'
      GROUP BY tanggalsj, jenisbrgdisc
     ) AS lc
     LEFT JOIN
@@ -75,7 +75,7 @@ class SalesProductivity < ActiveRecord::Base
      SELECT cabang_id, jenisbrgdisc, SUM(jumlah) AS jumlah, salesman, tanggalsj FROM tblaporancabang WHERE
      tanggalsj BETWEEN '#{1.week.ago.to_date}' AND
      '#{Date.yesterday.to_date}' AND kodejenis IN ('KM','DV','HB','KB') AND
-     bonus = '-' AND tipecust = 'RETAIL' AND cabang_id = '#{branch}' AND jenisbrgdisc = '#{brand}'
+     tipecust = 'RETAIL' AND cabang_id = '#{branch}' AND jenisbrgdisc = '#{brand}'
      GROUP BY tanggalsj
     ) AS lc
     LEFT JOIN
@@ -108,7 +108,7 @@ class SalesProductivity < ActiveRecord::Base
       (
        SELECT SUM(jumlah) AS jumlah, cabang_id, nopo FROM tblaporancabang WHERE fiscal_month = '#{Date.yesterday.month}'
        AND fiscal_year = '#{Date.yesterday.year}' AND jenisbrgdisc = '#{brand}' AND
-       tipecust = 'RETAIL' AND bonus = '-' AND
+       tipecust = 'RETAIL' AND
        kodejenis IN ('KM','DV','HB','KB') AND orty = 'SO'
       ) AS lc ON lc.nopo = us.nik
     ")
@@ -135,7 +135,7 @@ class SalesProductivity < ActiveRecord::Base
       (
        SELECT SUM(jumlah) AS jumlah, cabang_id, nopo, jenisbrgdisc FROM tblaporancabang WHERE fiscal_month = '#{Date.yesterday.month}'
        AND fiscal_year = '#{Date.yesterday.year}' AND
-       tipecust = 'RETAIL' AND bonus = '-' AND
+       tipecust = 'RETAIL' AND
        kodejenis IN ('KM','DV','HB','KB') AND orty = 'SO'
       ) AS lc ON lc.nopo = us.nik AND lc.jenisbrgdisc = sp.brand AND lc.cabang_id = sp.branch_id
     ")
@@ -147,7 +147,7 @@ class SalesProductivity < ActiveRecord::Base
      SELECT cabang_id, jenisbrgdisc, SUM(jumlah) AS jumlah, salesman, tanggalsj FROM tblaporancabang WHERE
      tanggalsj BETWEEN '#{1.months.ago.beginning_of_month.to_date}' AND
      '#{Date.yesterday.to_date}' AND kodejenis IN ('KM','DV','HB','KB') AND
-     bonus = '-' AND tipecust = 'RETAIL'
+     tipecust = 'RETAIL'
      GROUP BY tanggalsj, cabang_id, jenisbrgdisc
     ) AS lc
     LEFT JOIN
@@ -159,6 +159,7 @@ class SalesProductivity < ActiveRecord::Base
     (
       SELECT id, Cabang FROM tbidcabang
     ) AS cb ON cb.id = lc.cabang_id
+    WHERE cb.Cabang IS NOT NULL
     ")
   end
 end
