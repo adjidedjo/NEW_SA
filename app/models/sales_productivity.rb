@@ -2,6 +2,25 @@ class SalesProductivity < ActiveRecord::Base
   has_many :sales_productivity_customers, dependent: :destroy
   accepts_nested_attributes_for :sales_productivity_customers, reject_if: :all_blank, allow_destroy: true
   
+  def self.import(file)
+    spreadsheet = Roo::Spreadsheet.open(file.path)
+    header = spreadsheet.row(1)
+    (2..spreadsheet.last_row).each do |i|
+      row = Hash[[header, spreadsheet.row(i)].transpose]
+      rkb = MonthlyVisitPlan.find_by(sales_id: row["sales_id"].to_i, customer: row["customer"].to_i, 
+      date: row["date"]) || MonthlyVisitPlan.new
+      if rkb.id.nil?
+        sales = Jde.get_sales_rkb(row["sales_id"].to_i)
+        row["sales_id"] = row["sales_id"].to_i
+        row["customer"] = row["customer"].nil? ? '-' : row["customer"]
+        row["brand"] = row["brand"].upcase
+        row["sales_name"] = sales.empty? ? '-' : sales.first.abalph.strip
+      rkb.attributes = row.to_hash
+      end
+      rkb.save!
+    end
+  end
+  
   def self.retail_success_rate_branch(branch, month, year)
     self.find_by_sql("SELECT sp.count_sales, sp.salesmen_id, sp.npvnc, sp.nvc, sp.ncdv, sp.ncc, sp.ncdc,
       us.nama, lc.jumlah, cb.Cabang, sp.brand FROM
@@ -101,7 +120,7 @@ class SalesProductivity < ActiveRecord::Base
       (
         SELECT COUNT(salesmen_id) AS count_sales, salesmen_id, SUM(npvnc) AS npvnc, SUM(nvc) AS nvc,
         SUM(ncdv) AS ncdv, SUM(ncc) AS ncc, SUM(ncdc) AS ncdc, brand, branch_id
-        FROM sales_productivities WHERE month = 10 AND year = '#{Date.yesterday.year}'
+        FROM sales_productivities WHERE month = '#{Date.yesterday.month}' AND year = '#{Date.yesterday.year}'
         GROUP BY salesmen_id, branch_id, brand
       ) AS sp
       LEFT JOIN
