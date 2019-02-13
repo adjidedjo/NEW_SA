@@ -1,5 +1,5 @@
 class Forecast < ActiveRecord::Base
-
+  self.table_name = "forecasts_copy"
   def self.calculation_forecast_year(start_date, end_date, area, brand)
     self.find_by_sql("
       SELECT f1.namaartikel, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year,
@@ -79,6 +79,7 @@ class Forecast < ActiveRecord::Base
       month: row["month"], year: row["year"]) || new
       if forecast.id.nil?
         item = JdeItemMaster.get_desc_forecast(row["item_number"])
+        item_branch = JdeItemMaster.get_item_branch_desc(row["item_number"])
         row["segment1"] = item.nil? ? 0 : item.imseg1.strip
         row["segment2"] = item.nil? ? 0 : item.imseg2.strip
         row["segment3"] = item.nil? ? 0 : item.imseg3.strip
@@ -86,6 +87,7 @@ class Forecast < ActiveRecord::Base
         row["segment3_name"] = item.nil? ? 0 : JdeUdc.kain_udc(item.imseg3.strip)
         row["size"] = item.nil? ? 0 : item.imseg6.strip
         row["description"] = item.nil? ? 'UNLISTED ITEM NUMBER' : (item.imdsc1.strip + ' ' + item.imdsc2.strip)
+        row["planner"] = item.nil? ? ' ' : item_branch.ibsrp6.strip
       forecast.attributes = row.to_hash
       else
         forecast["quantity"] = row["quantity"]

@@ -5,6 +5,10 @@ class JdeItemMaster < ActiveRecord::Base
   def self.get_desc_forecast(item_number)
     item = find_by_sql("SELECT * FROM PRODDTA.F4101 WHERE IMLITM LIKE '#{item_number}%'").first
   end
+  
+  def self.get_item_branch_desc(item_number)
+    item = find_by_sql("SELECT * FROM PRODDTA.F4102 WHERE IBLITM LIKE '#{item_number}%' AND IBMCU LIKE '%11001'").first
+  end
 
   def self.date_to_julian(date)
     date = date.to_date
