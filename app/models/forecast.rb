@@ -1,5 +1,5 @@
 class Forecast < ActiveRecord::Base
-  self.table_name = "forecasts_copy"
+  
   def self.calculation_forecast_year(start_date, end_date, area, brand)
     self.find_by_sql("
       SELECT f1.namaartikel, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year,
