@@ -160,14 +160,14 @@ class Forecast < ActiveRecord::Base
       IFNULL(s.onhand, 0) AS onhand,
       IFNULL(ib.qty_buf, 0) AS qty_buf FROM
       (
-        SELECT DISTINCT(kodebrg) FROM
+        SELECT DISTINCT(kodebrg), nopo FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO')
 
         UNION ALL
 
-        SELECT DISTINCT(item_number) FROM
+        SELECT DISTINCT(item_number), address_number FROM
         forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
         '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
         AND branch = '#{area}' AND brand = '#{brand}'
@@ -180,7 +180,7 @@ class Forecast < ActiveRecord::Base
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO')
         GROUP BY kodebrg, area_id, jenisbrgdisc, nopo
-      ) AS lp ON lp.kodebrg = f1.kodebrg
+      ) AS lp ON lp.kodebrg = f1.kodebrg AND lp.nopo = f1.nopo
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
@@ -188,7 +188,7 @@ class Forecast < ActiveRecord::Base
         forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
         '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
         AND branch = '#{area}' GROUP BY item_number, address_number
-      ) AS f ON f.item_number = f1.kodebrg AND f.branch = '#{area}' AND f.address_number = lp.nopo
+      ) AS f ON f.item_number = f1.kodebrg AND f.branch = '#{area}' AND f.address_number = f1.nopo
       LEFT JOIN
       (
         SELECT onhand, item_number, area_id, short_item FROM stocks WHERE status = 'N'
@@ -201,7 +201,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT * FROM areas
       ) AS a ON IFNULL(lp.area_id, f.branch) = a.id
-      GROUP BY f1.kodebrg
+      GROUP BY f1.kodebrg, f1.nopo
     ")
   end
 
