@@ -39,4 +39,9 @@ class ForecastsController < ApplicationController
     Forecast.import(params[:file])
     redirect_to forecasts_upload_forecast_url, notice: 'Forecasts imported.'
   end
+  
+  def import_weekly
+    ForecastWeekly.import_weekly(params[:file])
+    redirect_to forecasts_upload_forecast_url, notice: 'Forecasts Weekly imported.'
+  end
 end

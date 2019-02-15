@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   # FORECAST
   get 'forecasts/upload_forecast'
   post 'forecasts/import'
+  post 'forecasts/import_weekly'
   get 'forecasts/report_forecasts_branches'
   get 'forecasts/report_forecasts_salesman'
   get 'forecasts/report_forecasts_items'
