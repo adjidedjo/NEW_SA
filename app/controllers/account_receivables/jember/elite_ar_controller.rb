@@ -1,4 +1,4 @@
-class AccountReceivables::Bandung::EliteArController < ApplicationController
+class AccountReceivables::Jember::EliteArController < ApplicationController
   include RolesHelper
   before_action :initialize_brand, :initialize_brach_id, :authorize_user, :branch_name
   before_action :retail_uncollectable_ar, only: :uncollectable_ar
