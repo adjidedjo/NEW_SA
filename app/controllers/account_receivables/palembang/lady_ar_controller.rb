@@ -29,7 +29,7 @@ class AccountReceivables::Palembang::LadyArController < ApplicationController
   end
 
   def initialize_brach_id
-    19
+    11
   end
   
   def authorize_user
