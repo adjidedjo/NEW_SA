@@ -97,6 +97,9 @@
           <li class="<%= 'active' if controller?('forecasts') && action?('upload_forecast') %>">
             <a href="/forecasts/upload_forecast" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Upload Master Forecast</b></span> </a>
           </li>
+          <li class="<%= 'active' if controller?('forecasts') && action?('report_rkm') %>">
+            <a href="/forecasts/report_rkm" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report RKM</b></span> </a>
+          </li>
           <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_salesman') %>">
             <a href="/forecasts/report_forecasts_salesman" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report by Sales</b></span> </a>
           </li>

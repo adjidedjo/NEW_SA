@@ -1,4 +1,10 @@
 class ForecastsController < ApplicationController
+  def report_rkm
+    @areas = Area.all
+    @brand = Brand.where(external: 0)
+    @pbj_mingguan = Forecast.calculate_rkm(params[:week], params[:year], params[:areas], params[:brand]) if params[:week].present?
+  end
+  
   def report_forecasts_years
     @areas = Area.all
     @brand = Brand.where(external: 0)

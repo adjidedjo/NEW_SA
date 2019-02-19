@@ -1,0 +1,103 @@
+<div class="content-heading">
+  Dashboard NASIONAL FORECASTS
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Search by Month Form
+  </div>
+  <div class="panel-body">
+    <%= form_tag(request.fullpath, {method: :get, :class => "form-inline"}) do %>
+    <div class="form-group">
+      Branch:
+    </div>
+    <div class="form-group">
+      <%= select_tag "areas", options_from_collection_for_select(@areas, "id", "area", params[:areas]), {class: "form-control"} %>
+    </div>
+    <div class="form-group">
+      Brand:
+    </div>
+    <div class="form-group">
+      <%= select_tag "brand", options_from_collection_for_select(@brand, "name", "name", params[:brand]), {class: "form-control"} %>
+    </div>
+
+    <div class="form-group">
+      Week:
+    </div>
+    <div class="form-group">
+      <%= select_tag "week", options_for_select((1..53), params[:week]), {class: "form-control"} %>
+    </div>
+
+    <div class="form-group">
+      Year:
+    </div>
+    <div class="form-group">
+      <%= select_tag "year", options_for_select(((Date.today.year-1)..Date.today.year), params[:year]), {class: "form-control"} %>
+    </div>
+    <%= button_tag 'Search', name: nil, class: "btn btn-info", data: { disable_with: "<i class='fa fa-cog fa-spin'></i> Finding Nemo ...." } %>
+    <% end %>
+  </div>
+</div>
+<!-- START widgets box-->
+<!-- END widgets box-->
+<% if params[:week].present? && params[:year].present? %>
+<div class="row">
+  <div class="col-lg-12">
+    <!-- START content-->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+          <div class="panel-heading" style="text-align: center">
+            RKM
+          </div>
+          <div class="panel-body">
+            <table id="table-revenue-products" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th style="text-align: center;">CABANG</th>
+                  <th style="text-align: center;">KODE SALES</th>
+                  <th>SALES</th>
+                  <th>WEEK</th>
+                  <th>ITEM NUMBER</th>
+                  <th style="text-align: center;">SIZE</th>
+                  <th style="text-align: center;">BRAND</th>
+                  <th style="text-align: center;">ARTICLE</th>
+                  <th style="text-align: center;">KAIN</th>
+                  <th style="text-align: center;">TARGET PENJUALAN MINGGU <%= params[:week] %></th>
+                  <th style="text-align: center;">SISA RKM</th>
+                  <th style="text-align: center;">TOTAL TARGET</th>
+                  <th style="text-align: center;">STOCK GUDANG MINGGU <%= params[:week] %></th>
+                  <th style="text-align: center;">REALISASI PENJUALAN <%= params[:week] %></th>
+                </tr>
+              </thead>
+              <tfoot></tfoot>
+              <tbody>
+                <% @pbj_mingguan.each do |fc| %>
+                <tr class="gradeX">
+                  <td style="text-align: center;"><%= fc.cabang %></td>
+                  <td style="text-align: center;"><%= fc.address_number %></td>
+                  <td style="text-align: center;"><%= fc.sales_name %></td>
+                  <td><%= fc.week %></td>
+                  <td><%= fc.item_number %></td>
+                  <td style="text-align: center;"><%= fc.size %></td>
+                  <td style="text-align: center;"><%= fc.brand %></td>
+                  <td style="text-align: center;"><%= fc.segment2_name %></td>
+                  <td style="text-align: center;"><%= fc.segment3_name%></td>
+                  <td style="text-align: center;"><%= fc.target_penjualan %></td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td style="text-align: center;"><%= fc.jumlah_penjualan %></td>
+                  <td style="text-align: center;"><%= fc.stock %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-footer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- END content-->
+  </div>
+</div>
+<% end %>
