@@ -25,7 +25,7 @@ module RolesHelper
   end
   
   def bm_customers(user, branch)
-    (user.position == "bm" || user.position == "admin sales") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
+    (user.position == "bm" || user.position == "admin sales" || user.position == "accounting") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
   end
   
   def nsm(user, brand)
