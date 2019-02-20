@@ -1,4 +1,30 @@
 class Forecast < ActiveRecord::Base
+  def self.calculate_rkm_admin(week, year, area)
+    date = Date.commercial(year.to_i, week.to_i).to_date
+    find_by_sql("
+      SELECT cab.Cabang AS cabang, fw.address_number, fw.sales_name, fw.week, fw.item_number, fw.size, fw.brand, fw.segment2_name, fw.segment3_name,
+      fw.quantity AS target_penjualan, IFNULL(tl.jumlah,0) AS jumlah_penjualan, IFNULL(st.onhand, 0) AS stock FROM
+      (
+        SELECT * FROM forecast_weeklies WHERE branch = '#{area}' AND week = '#{week}' AND year = '#{year}'
+      ) fw
+      LEFT JOIN
+      (
+        SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo FROM dbmarketing.tblaporancabang
+        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+7}'
+        GROUP BY area_id, kodebrg, nopo
+      ) tl ON tl.area_id = fw.branch AND tl.kodebrg = fw.item_number
+      LEFT JOIN
+      (
+        SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '2019-02-10'
+        GROUP BY item_number, branch_code
+      ) st ON st.item_number = fw.item_number AND st.branch_code = fw.branch
+      LEFT JOIN
+      (
+        SELECT * FROM dbmarketing.tbidcabang
+      ) cab ON cab.id = fw.branch
+    ")
+  end
+
   def self.calculate_rkm(week, year, area, brand)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("

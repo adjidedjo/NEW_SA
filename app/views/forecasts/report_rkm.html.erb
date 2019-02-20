@@ -27,14 +27,17 @@
     <div class="form-group">
       <%= select_tag "week", options_for_select((1..53), params[:week]), {class: "form-control"} %>
     </div>
-
+    
     <div class="form-group">
       Year:
     </div>
     <div class="form-group">
       <%= select_tag "year", options_for_select(((Date.today.year-1)..Date.today.year), params[:year]), {class: "form-control"} %>
     </div>
-    <%= button_tag 'Search', name: nil, class: "btn btn-info", data: { disable_with: "<i class='fa fa-cog fa-spin'></i> Finding Nemo ...." } %>
+    <%= button_tag 'Search', name: nil, class: "btn btn-info" %>
+    <% if current_user = 'admin' %>
+      <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn" %>
+    <% end %>
     <% end %>
   </div>
 </div>
@@ -68,7 +71,7 @@
                   <th style="text-align: center;">TOTAL TARGET</th>
                   <th style="text-align: center;">STOCK GUDANG MINGGU <%= params[:week] %></th>
                   <th style="text-align: center;">REALISASI PENJUALAN <%= params[:week] %></th>
-                </tr>
+                  </tr>
               </thead>
               <tfoot></tfoot>
               <tbody>

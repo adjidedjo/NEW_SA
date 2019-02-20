@@ -2,7 +2,14 @@ class ForecastsController < ApplicationController
   def report_rkm
     @areas = Area.all
     @brand = Brand.where(external: 0)
-    @pbj_mingguan = Forecast.calculate_rkm(params[:week], params[:year], params[:areas], params[:brand]) if params[:week].present?
+    @pbj_mingguan = Forecast.calculate_rkm(params[:week], params[:year], params[:areas], params[:brand]) if params[:week].present? && params[:format].nil?
+    @pbj_mingguan_admin = Forecast.calculate_rkm_admin(params[:week], params[:year], params[:areas]) if params[:week].present? && params[:format] == 'xlsx'
+    @week = Date.commercial(params[:year].to_i, params[:week].to_i).to_date if params[:week].present?
+    
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "rkm", :filename => "rkm #{params[:areas]}.xlsx"}
+    end
   end
   
   def report_forecasts_years
