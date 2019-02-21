@@ -128,7 +128,7 @@ class AccountReceivable < ActiveRecord::Base
 
   def self.find_uncollectable20(brand, branch)
     find_by_sql("SELECT customer, SUM(open_amount) AS open_amount, salesman, due_date FROM account_receivables WHERE
-    branch = '#{branch}' AND brand = '#{brand}' AND fiscal_month >= '#{1.month.ago.month}' AND
+    branch = '#{branch}' AND brand = '#{brand}' AND fiscal_month > '#{1.month.ago.month}' AND
     fiscal_year >= '#{1.month.ago.year}' AND open_amount != 0 GROUP BY customer_number, brand, fiscal_month, fiscal_year")
   end
 end
