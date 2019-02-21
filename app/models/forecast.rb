@@ -131,7 +131,7 @@ class Forecast < ActiveRecord::Base
       if forecast.id.nil?
         item = JdeItemMaster.get_desc_forecast(row["item_number"])
         item_branch = JdeItemMaster.get_item_branch_desc(row["item_number"])
-        sales_name = Jde.get_sales_rkb(row["address_number"])
+        sales_name = Jde.get_sales_rkb(row["address_number"].to_i)
         row["segment1"] = item.nil? ? 0 : item.imseg1.strip
         row["segment2"] = item.nil? ? 0 : item.imseg2.strip
         row["segment3"] = item.nil? ? 0 : item.imseg3.strip
