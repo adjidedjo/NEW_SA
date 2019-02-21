@@ -126,7 +126,7 @@ class Forecast < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      forecast = find_by(brand: row["brand"], address_number: row["address_number"], item_number: row["item_number"].strip, branch: row["branch"],
+      forecast = find_by(brand: row["brand"], address_number: row["address_number"].to_i, item_number: row["item_number"].strip, branch: row["branch"],
       month: row["month"], year: row["year"]) || new
       if forecast.id.nil?
         item = JdeItemMaster.get_desc_forecast(row["item_number"])
