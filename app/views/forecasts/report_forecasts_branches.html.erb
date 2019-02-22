@@ -72,8 +72,8 @@
                   <td style="text-align: center;"><%= currency(fc.jumlah) %></td>
                   <td style="text-align: center;"><%= currency(equal) %></td>
                   <td style="text-align: center;"><%= number_to_percentage((equal.to_f/fc.todate.to_f)*100, precision: 2) %></td>
-                  <td style="text-align: center;"><%= currency((equal - fc.todate).abs) %></td>
-                  <td style="text-align: center;"><%= number_to_percentage(((equal - fc.todate).abs.to_f/fc.todate.to_f)*100, precision: 2) %></td>
+                  <td style="text-align: center;"><%= fc.nil? ? 0 : currency(((equal.nil? ? 0 : equal) - (fc.todate.nil? ? 0 : fc.todate)).abs) %></td>
+                  <td style="text-align: center;"><%= number_to_percentage(((equal - (fc.todate.nil? ? 0 : fc.todate)).abs.to_f/fc.todate.to_f)*100, precision: 2) %></td>
                 </tr>
                 <% end %>
               </tbody>
