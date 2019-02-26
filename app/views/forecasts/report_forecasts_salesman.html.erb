@@ -55,6 +55,7 @@
               <thead>
                 <tr>
                   <th style="text-align: center;">AREA</th>
+                  <th style="text-align: center;">SALESCODE</th>
                   <th style="text-align: center;">SALES</th>
                   <th style="text-align: center;">TYPE</th>
                   <th>ITEM</th>
@@ -72,7 +73,8 @@
                 <% @acv_forecast.each do |fc| %>
                 <tr class="gradeX">
                   <td style="text-align: center;"><%= fc.area %></td>
-                  <td style="text-align: center;"><%= fc.sales_name %></td>
+                  <td style="text-align: center;"><%= fc.address_number %></td>
+                  <td style="text-align: center;"><%= fc.sales_name == ' ' ? 'UNLISTED SALES NAME' : fc.sales_name %></td>
                   <td style="text-align: center;"><%= fc.kodejenis.nil? ? fc.segment1 : fc.kodejenis %></td>
                   <td style="text-align: center;"><%= fc.kodebrg %></td>
                   <td><%= fc.namaartikel.nil? ? fc.segment2_name : fc.namaartikel %></td>
