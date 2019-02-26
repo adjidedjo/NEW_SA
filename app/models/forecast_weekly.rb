@@ -18,7 +18,7 @@ class ForecastWeekly < ActiveRecord::Base
         row["segment3_name"] = item.nil? ? 0 : JdeUdc.kain_udc(item.imseg3.strip)
         row["size"] = item.nil? ? 0 : item.imseg6.strip
         row["description"] = item.nil? ? 'UNLISTED ITEM NUMBER' : (item.imdsc1.strip + ' ' + item.imdsc2.strip)
-        row["planner"] = item.nil? ? ' ' : item_branch.ibsrp6.strip
+        row["planner"] = item_branch.nil? ? ' ' : item_branch.ibsrp6.strip
         row["sales_name"] = sales_name.nil? ? ' ' : sales_name.abalph.strip
       forecast.attributes = row.to_hash
       else
