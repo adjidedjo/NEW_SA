@@ -5,7 +5,7 @@ class ForecastWeekly < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      forecast = find_by(brand: row["brand"], address_number: row["address_number"], item_number: row["item_number"].strip, branch: row["branch"],
+      forecast = find_by(brand: row["brand"].upcase, address_number: row["address_number"], item_number: row["item_number"].strip, branch: row["branch"],
       week: row["week"], year: row["year"]) || ForecastWeekly.new
       if forecast.id.nil?
         item = JdeItemMaster.get_desc_forecast(row["item_number"])
@@ -27,5 +27,4 @@ class ForecastWeekly < ActiveRecord::Base
       forecast.save!
     end
   end
-  
 end
