@@ -128,24 +128,26 @@ class Forecast < ActiveRecord::Base
       row = Hash[[header, spreadsheet.row(i)].transpose]
       forecast = find_by(brand: row["brand"], address_number: row["address_number"].to_i, item_number: row["item_number"].strip, branch: row["branch"],
       month: row["month"], year: row["year"]) || new
-      if forecast.id.nil?
-        item = JdeItemMaster.get_desc_forecast(row["item_number"])
-        item_branch = JdeItemMaster.get_item_branch_desc(row["item_number"])
-        sales_name = Jde.get_sales_rkb(row["address_number"].to_i)
-        row["segment1"] = item.nil? ? 0 : item.imseg1.strip
-        row["segment2"] = item.nil? ? 0 : item.imseg2.strip
-        row["segment3"] = item.nil? ? 0 : item.imseg3.strip
-        row["segment2_name"] = item.nil? ? 0 : JdeUdc.artikel_udc(item.imseg2.strip)
-        row["segment3_name"] = item.nil? ? 0 : JdeUdc.kain_udc(item.imseg3.strip)
-        row["size"] = item.nil? ? 0 : item.imseg6.strip
-        row["description"] = item.nil? ? 'UNLISTED ITEM NUMBER' : (item.imdsc1.strip + ' ' + item.imdsc2.strip)
-        row["planner"] = item_branch.nil? ? ' ' : item_branch.ibsrp6.strip
-        row["sales_name"] = sales_name.nil? ? ' ' : sales_name.abalph.strip
-      forecast.attributes = row.to_hash
-      else
-        forecast["quantity"] = row["quantity"]
+      unless row["quantity"].nil? || row["quantity"] == 0
+        if forecast.id.nil?
+          item = JdeItemMaster.get_desc_forecast(row["item_number"])
+          item_branch = JdeItemMaster.get_item_branch_desc(row["item_number"])
+          sales_name = Jde.get_sales_rkb(row["address_number"].to_i)
+          row["segment1"] = item.nil? ? 0 : item.imseg1.strip
+          row["segment2"] = item.nil? ? 0 : item.imseg2.strip
+          row["segment3"] = item.nil? ? 0 : item.imseg3.strip
+          row["segment2_name"] = item.nil? ? 0 : JdeUdc.artikel_udc(item.imseg2.strip)
+          row["segment3_name"] = item.nil? ? 0 : JdeUdc.kain_udc(item.imseg3.strip)
+          row["size"] = item.nil? ? 0 : item.imseg6.strip
+          row["description"] = item.nil? ? 'UNLISTED ITEM NUMBER' : (item.imdsc1.strip + ' ' + item.imdsc2.strip)
+          row["planner"] = item_branch.nil? ? ' ' : item_branch.ibsrp6.strip
+          row["sales_name"] = sales_name.nil? ? ' ' : sales_name.abalph.strip
+        forecast.attributes = row.to_hash
+        else
+          forecast["quantity"] = row["quantity"]
+        end
+        forecast.save!
       end
-      forecast.save!
     end
   end
 
