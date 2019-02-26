@@ -8,7 +8,7 @@ class JdeItemMaster < ActiveRecord::Base
   
   def self.get_item_branch_desc(item_number)
     item = find_by_sql("SELECT * FROM PRODDTA.F4102 WHERE IBLITM LIKE '#{item_number}%' AND 
-    REGEXP_LIKE(IBMCU, '11001|11002')").first
+    REGEXP_LIKE(IBMCU, '11001|11002') AND IBSRP6 != ' '").first
   end
 
   def self.date_to_julian(date)
