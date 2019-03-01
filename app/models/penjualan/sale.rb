@@ -369,20 +369,22 @@ class Penjualan::Sale < ActiveRecord::Base
   end
 
   def self.monthly_article_summary(date, branch, brand)
-    self.find_by_sql("SELECT namaartikel, lebar, qty_1, qty_2, val_1, val_2,
+    self.find_by_sql("SELECT article_desc, size, qty_1, qty_2, val_1, val_2,
     ROUND((((val_1 - val_2) / val_2) * 100), 0) AS percentage FROM
     (
-      SELECT namaartikel, lebar,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN jumlah END) qty_1,
-      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN harganetto1 END) val_1,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-        '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}' THEN jumlah END) qty_2,
-      SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-        '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{date.last_month.beginning_of_month}'
-      AND '#{date.to_date}' AND area_id = '#{branch}' AND jenisbrgdisc = '#{brand}' AND
-      tipecust = 'RETAIL'
-      GROUP BY namaartikel, lebar
+      SELECT article, article_desc, size,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_quantity END) qty_1,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
+      SUM(CASE WHEN fiscal_month BETWEEN '#{date.last_month.month}' AND
+        '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}' AND
+        '#{date.year}' THEN sales_quantity END) qty_2,
+      SUM(CASE WHEN fiscal_month BETWEEN '#{date.last_month.month}' AND
+        '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}' AND
+        '#{date.year}' THEN sales_amount END) val_2
+      FROM sales_mart.RET1ARTICLE WHERE fiscal_month BETWEEN '#{date.last_month.month}' AND
+        '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}' AND
+        '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
+      GROUP BY article, size
       ) as sub")
   end
 
