@@ -253,8 +253,8 @@
               <tbody>
                 <% @last_month_article.each do |dp| %>
                 <tr class="gradeX">
-                  <td><%= dp.namaartikel %></td>
-                  <td><%= dp.lebar %></td>
+                  <td><%= dp.article_desc %></td>
+                  <td><%= dp.size %></td>
                   <th><%= dp.qty_1 %></th>
                   <th><%= currency(dp.val_1) %></th>
                   <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
