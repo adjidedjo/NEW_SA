@@ -99,5 +99,12 @@
         </li>
       </ul>
     </li>
+    
+    <li class="<%= 'active' if controller?('stock/jember/stock_classic') && action?('stock_classic') %>">
+      <a href="/stock/jember/stock_elite/stock_classic" title="Tote"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
+    </li>
+    <li class="<%= 'active' if controller?('stock/jember/stock_elite') && action?('stock_tote') %>">
+      <a href="/stock/jember/stock_elite/stock_tote" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
+    </li>
   </ul>
 </li>

@@ -1,5 +1,19 @@
 class Stock::Bandung::StockEliteController < ApplicationController
   before_action :set_branch_plant, :initialize_brand
+  
+  def stock_classic
+    @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "C")
+    @brand = "CLASSIC"
+    @state = "NORMAL"
+    render template: "stock/template_stock/stock_normal"
+  end
+  
+  def stock_tote
+    @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "O")
+    @brand = "TOTE"
+    @state = "NORMAL"
+    render template: "stock/template_stock/stock_normal"
+  end
     
   def stock_unnormal
     @stock = Stock::JdeItemAvailability.stock_real_unnormal(@branch_plant, "E")
@@ -44,6 +58,14 @@ class Stock::Bandung::StockEliteController < ApplicationController
   end
 
   private
+  
+  def classic
+    "CLASSIC"
+  end
+  
+  def tote
+    "TOTE"
+  end
   
   def initialize_brand
     "ELITE"

@@ -1,6 +1,20 @@
 class Stock::Semarang::StockEliteController < ApplicationController
   before_action :set_branch_plant, :initialize_brand
   
+  def stock_classic
+    @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "C")
+    @brand = "CLASSIC"
+    @state = "NORMAL"
+    render template: "stock/template_stock/stock_normal"
+  end
+  
+  def stock_tote
+    @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "O")
+    @brand = "TOTE"
+    @state = "NORMAL"
+    render template: "stock/template_stock/stock_normal"
+  end
+  
   def stock_normal
     @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "E")
     @brand = initialize_brand
