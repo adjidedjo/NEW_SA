@@ -17,7 +17,7 @@ class Order::Surabaya::SurabayaSerenityController < ApplicationController
   private
 
   def initialize_brand
-    "S"
+    "S|C"
   end
 
   def initialize_brach_id

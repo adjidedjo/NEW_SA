@@ -154,7 +154,7 @@ class SalesOrder::Order < ActiveRecord::Base
     FROM PRODDTA.F4211 so
     JOIN PRODDTA.F4101 itm ON so.sditm = itm.imitm
     JOIN PRODDTA.F0101 cus ON so.sdshan = cus.aban8
-    WHERE so.sdcomm NOT LIKE '%K%' AND so.sdmcu LIKE '%#{branch}%' AND so.sdsrp1 = '#{brand}'
+    WHERE so.sdcomm NOT LIKE '%K%' AND so.sdmcu LIKE '%#{branch}%' AND REGEXP_LIKE(so.sdsrp1, '#{brand}')
     AND REGEXP_LIKE(so.sddcto,'SO|ZO') AND itm.imtmpl LIKE '%BJ MATRASS%' AND
     so.sdlttr <= '560'")
   end
