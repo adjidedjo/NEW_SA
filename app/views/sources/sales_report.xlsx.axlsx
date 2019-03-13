@@ -13,7 +13,7 @@ wb.add_worksheet(name: "Sales Report") do |sheet|
     sheet.add_row [s.tanggalsj, s.nosj_so, s.nofaktur, s.orty, s.noso, s.kode_customer, s.customer, s.salesman, s.alamat_so,
     s.kodebrg, s.namabrg, s.kodejenis, s.jenisbrgdisc, s.namaartikel, s.namakain, s.panjang, s.lebar, s.jumlah, s.harganetto1,
     s.harganetto2, s.diskon1, s.diskon2, s.diskon3, s.diskon4, s.diskon5, s.diskonsum, s.diskonrp, s.cashback, s.nupgrade,
-    s.faktur_rm, s.harga_c, s.totalharga, s.alamat_so, s.kota, s.kodebrg, s.reference, s.customerpo_so, s.ketppb, s.tipecust]
+    s.faktur_rm, (s.harga_c.nil? ? 0 : s.harga_c), (s.harganetto2-(s.harga_c.nil? ? 0 : s.harga_c)), s.alamat_so, s.kota, s.kodebrg, s.reference, s.customerpo_so, s.ketppb, s.tipecust]
   end
 end
 
