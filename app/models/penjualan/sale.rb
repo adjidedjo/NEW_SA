@@ -11,14 +11,14 @@ class Penjualan::Sale < ActiveRecord::Base
         s.jumlah, s.harganetto1,
         SUM(s.harganetto2) harganetto2, s.diskon1, s.diskon2, s.diskon3, s.diskon4, s.diskon5, s.diskonsum,
         s.diskonrp, s.cashback, s.nupgrade, s.kota, s.reference, s.customerpo_so, s.ketppb, s.tipecust
-        FROM warehouse.F03B11_INVOICES AS s
+        FROM dbmarketing.tblaporancabang AS s
         WHERE s.tanggalsj BETWEEN '#{from.to_date}' AND '#{to.to_date}'
         AND s.area_id = '#{area}' GROUP BY s.kodebrg, s.nofaktur, s.kode_customer, s.noso
     ) ri
     LEFT JOIN
     (
       SELECT nofaktur, reference, kodebrg, noso, kode_customer, SUM(jumlah) AS jumlah_c, IFNULL(SUM(harganetto2),0) AS harga_c
-        FROM warehouse.F03B11_INVOICES
+        FROM dbmarketing.tblaporancabang
         WHERE tanggalsj BETWEEN '#{from.to_date}' AND '#{to.to_date}'
         AND area_id = '#{area}' AND orty = 'RM' GROUP BY kodebrg, nofaktur, kode_customer, noso
     ) rm ON ri.nofaktur = rm.reference AND rm.kodebrg = ri.kodebrg AND rm.kode_customer = ri.kode_customer")
