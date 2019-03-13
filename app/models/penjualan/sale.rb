@@ -17,7 +17,7 @@ class Penjualan::Sale < ActiveRecord::Base
     ) ri
     LEFT JOIN
     (
-      SELECT nofaktur, reference, kodebrg, noso, kode_customer, SUM(jumlah) AS jumlah_c, SUM(harganetto2) AS harga_c
+      SELECT nofaktur, reference, kodebrg, noso, kode_customer, SUM(jumlah) AS jumlah_c, IFNULL(SUM(harganetto2),0) AS harga_c
         FROM warehouse.F03B11_INVOICES
         WHERE tanggalsj BETWEEN '#{from.to_date}' AND '#{to.to_date}'
         AND area_id = '#{area}' AND orty = 'RM' GROUP BY kodebrg, nofaktur, kode_customer, noso
