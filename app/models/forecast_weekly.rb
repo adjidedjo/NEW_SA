@@ -10,7 +10,6 @@ class ForecastWeekly < ActiveRecord::Base
       unless row["quantity"].nil? || row["quantity"] == 0
         if forecast.id.nil?
           item = JdeItemMaster.get_desc_forecast(row["item_number"])
-          item_branch = JdeItemMaster.get_item_branch_desc(row["item_number"])
           sales_name = Jde.get_sales_rkb(row["address_number"])
           row["segment1"] = item.nil? ? 0 : item.imseg1.strip
           row["segment2"] = item.nil? ? 0 : item.imseg2.strip
@@ -19,7 +18,7 @@ class ForecastWeekly < ActiveRecord::Base
           row["segment3_name"] = item.nil? ? 0 : JdeUdc.kain_udc(item.imseg3.strip)
           row["size"] = item.nil? ? 0 : item.imseg6.strip
           row["description"] = item.nil? ? 'UNLISTED ITEM NUMBER' : (item.imdsc1.strip + ' ' + item.imdsc2.strip)
-          row["planner"] = item_branch.nil? ? ' ' : item_branch.ibsrp6.strip
+          row["planner"] = '-'
           row["sales_name"] = sales_name.nil? ? ' ' : sales_name.abalph.strip
         forecast.attributes = row.to_hash
         else
