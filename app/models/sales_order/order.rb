@@ -156,7 +156,7 @@ class SalesOrder::Order < ActiveRecord::Base
     JOIN PRODDTA.F0101 cus ON so.sdshan = cus.aban8
     WHERE so.sdcomm NOT LIKE '%K%' AND so.sdmcu LIKE '%#{branch}%' AND REGEXP_LIKE(so.sdsrp1, '#{brand}')
     AND REGEXP_LIKE(so.sddcto,'SO|ZO') AND itm.imtmpl LIKE '%BJ MATRASS%' AND
-    so.sdlttr <= '560'")
+    so.sdnxtr <= '560'")
   end
   
   def self.pick_order(branch, brand)
