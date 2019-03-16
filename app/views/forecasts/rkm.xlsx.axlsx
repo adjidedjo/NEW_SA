@@ -22,7 +22,8 @@ wb.add_worksheet(name: "ELITE") do |sheet|
     "REALISASI PENJUALAN MINGGU #{params[:week]}"]
   elite.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
-    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 0, p.stock, p.jumlah_penjualan]
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    p.target_penjualan-(p.target_penjualan-p.jumlah_penjualan), p.stock, p.jumlah_penjualan]
   end
 end
 
@@ -36,7 +37,8 @@ wb.add_worksheet(name: "SERENITY") do |sheet|
     "REALISASI PENJUALAN MINGGU #{params[:week]}"]
   serenity.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
-    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 0, p.stock, p.jumlah_penjualan]
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    p.target_penjualan-(p.target_penjualan-p.jumlah_penjualan), p.stock, p.jumlah_penjualan]
   end
 end
 
@@ -50,7 +52,8 @@ wb.add_worksheet(name: "ROYAL") do |sheet|
     "REALISASI PENJUALAN MINGGU #{params[:week]}"]
   royal.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
-    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 0, p.stock, p.jumlah_penjualan]
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    p.target_penjualan-(p.target_penjualan-p.jumlah_penjualan), p.stock, p.jumlah_penjualan]
   end
 end
 
@@ -64,6 +67,7 @@ wb.add_worksheet(name: "LADY") do |sheet|
     "REALISASI PENJUALAN MINGGU #{params[:week]}"]
   lady.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
-    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 0, p.stock, p.jumlah_penjualan]
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    p.target_penjualan-(p.target_penjualan-p.jumlah_penjualan), p.stock, p.jumlah_penjualan]
   end
 end
