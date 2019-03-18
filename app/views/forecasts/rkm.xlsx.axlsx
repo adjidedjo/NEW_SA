@@ -37,11 +37,11 @@ wb.add_worksheet(name: "JABAR") do |sheet|
   sheet.add_row ["CABANG", "KODE SALES", "NAMA", "MINGGU", "KODE BARANG", 
     "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
     "STOCK GUDANG MINGGU #{params[:week]}", 
-    "REALISASI PENJUALAN MINGGU #{params[:week]}"]
+    "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   jabar.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -56,7 +56,7 @@ wb.add_worksheet(name: "JAKARTA") do |sheet|
   jakarta.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -71,7 +71,7 @@ wb.add_worksheet(name: "BALI") do |sheet|
   bali.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -86,7 +86,7 @@ wb.add_worksheet(name: "MEDAN") do |sheet|
   medan.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -101,7 +101,7 @@ wb.add_worksheet(name: "JATIM") do |sheet|
   jatim.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -116,7 +116,7 @@ wb.add_worksheet(name: "SEMARANG") do |sheet|
   semarang.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -131,7 +131,7 @@ wb.add_worksheet(name: "CIREBON") do |sheet|
   cirebon.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -146,7 +146,7 @@ wb.add_worksheet(name: "YOGYA") do |sheet|
   yogya.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -161,7 +161,7 @@ wb.add_worksheet(name: "PALEMBANG") do |sheet|
   palembang.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -176,7 +176,7 @@ wb.add_worksheet(name: "LAMPUNG") do |sheet|
   lampung.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -191,7 +191,7 @@ wb.add_worksheet(name: "MAKASAR") do |sheet|
   makasar.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -206,7 +206,7 @@ wb.add_worksheet(name: "PEKANBARU") do |sheet|
   pekanbaru.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
 
@@ -221,6 +221,6 @@ wb.add_worksheet(name: "MANADO") do |sheet|
   manado.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
   end
 end
