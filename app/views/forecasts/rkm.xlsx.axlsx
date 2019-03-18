@@ -23,7 +23,7 @@ wb.add_worksheet(name: "ELITE") do |sheet|
   elite.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0-p.jumlah_penjualan), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
   end
 end
 
@@ -38,7 +38,7 @@ wb.add_worksheet(name: "SERENITY") do |sheet|
   serenity.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0-p.jumlah_penjualan), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
   end
 end
 
@@ -53,7 +53,7 @@ wb.add_worksheet(name: "ROYAL") do |sheet|
   royal.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0-p.jumlah_penjualan), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
   end
 end
 
@@ -68,6 +68,6 @@ wb.add_worksheet(name: "LADY") do |sheet|
   lady.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0-p.jumlah_penjualan), p.stock, p.jumlah_penjualan]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
   end
 end
