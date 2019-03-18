@@ -1,18 +1,36 @@
 xlsx_package = Axlsx::Package.new
 wb = xlsx_package.workbook
 
-elite = []
-serenity = []
-royal = []
-lady = []
+jabar = []
+jakarta = []
+bali = []
+medan = []
+jatim = []
+semarang = []
+cirebon = []
+yogya = []
+palembang = []
+lampung = []
+makasar = []
+pekanbaru = []
+manado = []
 @pbj_mingguan_admin.each do |pma|
-  elite << pma if pma.brand == 'ELITE'
-  serenity << pma if pma.brand == 'SERENITY'
-  royal << pma if pma.brand == 'ROYAL'
-  lady << pma if pma.brand == 'LADY'
+  jabar << pma if pma.branch == 2
+  jakarta << pma if pma.branch == 3
+  bali << pma if pma.branch == 4
+  medan << pma if pma.branch == 5
+  jatim << pma if pma.branch == 7
+  semarang  << pma if pma.branch == 8
+  cirebon << pma if pma.branch == 9
+  yogya << pma if pma.branch == 10
+  palembang << pma if pma.branch == 11
+  lampung << pma if pma.branch == 13
+  makasar << pma if pma.branch == 19
+  pekanbaru << pma if pma.branch == 20
+  manado << pma if pma.branch == 26
 end
 
-wb.add_worksheet(name: "ELITE") do |sheet|
+wb.add_worksheet(name: "JABAR") do |sheet|
   sheet.add_row ["RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+7}"]
   sheet.add_row []
@@ -20,14 +38,14 @@ wb.add_worksheet(name: "ELITE") do |sheet|
     "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}"]
-  elite.each do |p|
+  jabar.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
   end
 end
 
-wb.add_worksheet(name: "SERENITY") do |sheet|
+wb.add_worksheet(name: "JAKARTA") do |sheet|
   sheet.add_row ["RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+7}"]
   sheet.add_row []
@@ -35,14 +53,14 @@ wb.add_worksheet(name: "SERENITY") do |sheet|
     "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}"]
-  serenity.each do |p|
+  jakarta.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
   end
 end
 
-wb.add_worksheet(name: "ROYAL") do |sheet|
+wb.add_worksheet(name: "BALI") do |sheet|
   sheet.add_row ["RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+7}"]
   sheet.add_row []
@@ -50,14 +68,14 @@ wb.add_worksheet(name: "ROYAL") do |sheet|
     "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}"]
-  royal.each do |p|
+  bali.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
   end
 end
 
-wb.add_worksheet(name: "LADY") do |sheet|
+wb.add_worksheet(name: "MEDAN") do |sheet|
   sheet.add_row ["RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+7}"]
   sheet.add_row []
@@ -65,7 +83,142 @@ wb.add_worksheet(name: "LADY") do |sheet|
     "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}"]
-  lady.each do |p|
+  medan.each do |p|
+    sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+  end
+end
+
+wb.add_worksheet(name: "JATIM") do |sheet|
+  sheet.add_row ["RENCANA KERJA MINGGUAN"]
+  sheet.add_row ["#{@week} - #{@week+7}"]
+  sheet.add_row []
+  sheet.add_row ["CABANG", "KODE SALES", "NAMA", "MINGGU", "KODE BARANG", 
+    "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
+    "STOCK GUDANG MINGGU #{params[:week]}", 
+    "REALISASI PENJUALAN MINGGU #{params[:week]}"]
+  jatim.each do |p|
+    sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+  end
+end
+
+wb.add_worksheet(name: "SEMARANG") do |sheet|
+  sheet.add_row ["RENCANA KERJA MINGGUAN"]
+  sheet.add_row ["#{@week} - #{@week+7}"]
+  sheet.add_row []
+  sheet.add_row ["CABANG", "KODE SALES", "NAMA", "MINGGU", "KODE BARANG", 
+    "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
+    "STOCK GUDANG MINGGU #{params[:week]}", 
+    "REALISASI PENJUALAN MINGGU #{params[:week]}"]
+  semarang.each do |p|
+    sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+  end
+end
+
+wb.add_worksheet(name: "CIREBON") do |sheet|
+  sheet.add_row ["RENCANA KERJA MINGGUAN"]
+  sheet.add_row ["#{@week} - #{@week+7}"]
+  sheet.add_row []
+  sheet.add_row ["CABANG", "KODE SALES", "NAMA", "MINGGU", "KODE BARANG", 
+    "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
+    "STOCK GUDANG MINGGU #{params[:week]}", 
+    "REALISASI PENJUALAN MINGGU #{params[:week]}"]
+  cirebon.each do |p|
+    sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+  end
+end
+
+wb.add_worksheet(name: "YOGYA") do |sheet|
+  sheet.add_row ["RENCANA KERJA MINGGUAN"]
+  sheet.add_row ["#{@week} - #{@week+7}"]
+  sheet.add_row []
+  sheet.add_row ["CABANG", "KODE SALES", "NAMA", "MINGGU", "KODE BARANG", 
+    "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
+    "STOCK GUDANG MINGGU #{params[:week]}", 
+    "REALISASI PENJUALAN MINGGU #{params[:week]}"]
+  yogya.each do |p|
+    sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+  end
+end
+
+wb.add_worksheet(name: "PALEMBANG") do |sheet|
+  sheet.add_row ["RENCANA KERJA MINGGUAN"]
+  sheet.add_row ["#{@week} - #{@week+7}"]
+  sheet.add_row []
+  sheet.add_row ["CABANG", "KODE SALES", "NAMA", "MINGGU", "KODE BARANG", 
+    "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
+    "STOCK GUDANG MINGGU #{params[:week]}", 
+    "REALISASI PENJUALAN MINGGU #{params[:week]}"]
+  palembang.each do |p|
+    sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+  end
+end
+
+wb.add_worksheet(name: "LAMPUNG") do |sheet|
+  sheet.add_row ["RENCANA KERJA MINGGUAN"]
+  sheet.add_row ["#{@week} - #{@week+7}"]
+  sheet.add_row []
+  sheet.add_row ["CABANG", "KODE SALES", "NAMA", "MINGGU", "KODE BARANG", 
+    "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
+    "STOCK GUDANG MINGGU #{params[:week]}", 
+    "REALISASI PENJUALAN MINGGU #{params[:week]}"]
+  lampung.each do |p|
+    sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+  end
+end
+
+wb.add_worksheet(name: "MAKASAR") do |sheet|
+  sheet.add_row ["RENCANA KERJA MINGGUAN"]
+  sheet.add_row ["#{@week} - #{@week+7}"]
+  sheet.add_row []
+  sheet.add_row ["CABANG", "KODE SALES", "NAMA", "MINGGU", "KODE BARANG", 
+    "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
+    "STOCK GUDANG MINGGU #{params[:week]}", 
+    "REALISASI PENJUALAN MINGGU #{params[:week]}"]
+  makasar.each do |p|
+    sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+  end
+end
+
+wb.add_worksheet(name: "PEKANBARU") do |sheet|
+  sheet.add_row ["RENCANA KERJA MINGGUAN"]
+  sheet.add_row ["#{@week} - #{@week+7}"]
+  sheet.add_row []
+  sheet.add_row ["CABANG", "KODE SALES", "NAMA", "MINGGU", "KODE BARANG", 
+    "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
+    "STOCK GUDANG MINGGU #{params[:week]}", 
+    "REALISASI PENJUALAN MINGGU #{params[:week]}"]
+  pekanbaru.each do |p|
+    sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
+  end
+end
+
+wb.add_worksheet(name: "MANADO") do |sheet|
+  sheet.add_row ["RENCANA KERJA MINGGUAN"]
+  sheet.add_row ["#{@week} - #{@week+7}"]
+  sheet.add_row []
+  sheet.add_row ["CABANG", "KODE SALES", "NAMA", "MINGGU", "KODE BARANG", 
+    "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
+    "STOCK GUDANG MINGGU #{params[:week]}", 
+    "REALISASI PENJUALAN MINGGU #{params[:week]}"]
+  manado.each do |p|
     sheet.add_row [p.cabang, p.address_number, p.sales_name, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan]
