@@ -30,6 +30,12 @@ manado = []
   manado << pma if pma.branch == 26
 end
 
+percent = wb.styles.add_style(:format_code => "0%", :sz => 11)
+money = wb.styles.add_style(:format_code => '0,000', :border => Axlsx::STYLE_THIN_BORDER)
+status = wb.styles.add_style(:border => Axlsx::STYLE_THIN_BORDER)
+more = wb.styles.add_style( :bg_color=> "FFFF99", :fg_color => "999900", :type => :dxf )
+less = wb.styles.add_style( :bg_color=> "FFC0CB", :fg_color => "FF0000", :type => :dxf )
+
 wb.add_worksheet(name: "JABAR") do |sheet|
   sheet.add_row ["RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+7}"]
@@ -38,11 +44,16 @@ wb.add_worksheet(name: "JABAR") do |sheet|
     "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
+  
   jabar.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{jabar.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{jabar.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "JAKARTA") do |sheet|
@@ -54,10 +65,14 @@ wb.add_worksheet(name: "JAKARTA") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   jakarta.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{jakarta.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{jakarta.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "BALI") do |sheet|
@@ -69,10 +84,14 @@ wb.add_worksheet(name: "BALI") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   bali.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{bali.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{bali.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "MEDAN") do |sheet|
@@ -84,10 +103,14 @@ wb.add_worksheet(name: "MEDAN") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   medan.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{medan.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{medan.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "JATIM") do |sheet|
@@ -99,10 +122,14 @@ wb.add_worksheet(name: "JATIM") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   jatim.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{jatim.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{jatim.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "SEMARANG") do |sheet|
@@ -114,10 +141,14 @@ wb.add_worksheet(name: "SEMARANG") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   semarang.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{semarang.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{semarang.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "CIREBON") do |sheet|
@@ -129,10 +160,14 @@ wb.add_worksheet(name: "CIREBON") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   cirebon.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{cirebon.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{cirebon.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "YOGYA") do |sheet|
@@ -144,10 +179,14 @@ wb.add_worksheet(name: "YOGYA") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   yogya.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{yogya.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{yogya.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "PALEMBANG") do |sheet|
@@ -159,10 +198,14 @@ wb.add_worksheet(name: "PALEMBANG") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   palembang.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{palembang.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{palembang.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "LAMPUNG") do |sheet|
@@ -174,10 +217,14 @@ wb.add_worksheet(name: "LAMPUNG") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   lampung.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{lampung.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{lampung.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "MAKASAR") do |sheet|
@@ -189,10 +236,14 @@ wb.add_worksheet(name: "MAKASAR") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   makasar.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{makasar.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{makasar.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "PEKANBARU") do |sheet|
@@ -204,10 +255,14 @@ wb.add_worksheet(name: "PEKANBARU") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   pekanbaru.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{pekanbaru.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{pekanbaru.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "MANADO") do |sheet|
@@ -219,8 +274,12 @@ wb.add_worksheet(name: "MANADO") do |sheet|
     "STOCK GUDANG MINGGU #{params[:week]}", 
     "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
   manado.each do |p|
-    sheet.add_row [p.cabang, p.address_number, p.sales_name.strip, p.week, p.item_number, 
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
-    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, "#{((p.jumlah_penjualan.to_f/p.target_penjualan.to_f)*100).ceil rescue 0}%"]
+    (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
+  sheet.add_conditional_formatting("O5:O#{manado.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{manado.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
