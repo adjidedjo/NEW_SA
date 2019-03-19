@@ -49,7 +49,7 @@ wb.add_worksheet(name: "JABAR") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{jabar.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -68,7 +68,7 @@ wb.add_worksheet(name: "JAKARTA") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{jakarta.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -87,7 +87,7 @@ wb.add_worksheet(name: "BALI") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{bali.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -106,7 +106,7 @@ wb.add_worksheet(name: "MEDAN") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{medan.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -125,7 +125,7 @@ wb.add_worksheet(name: "JATIM") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{jatim.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -144,7 +144,7 @@ wb.add_worksheet(name: "SEMARANG") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{semarang.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -163,7 +163,7 @@ wb.add_worksheet(name: "CIREBON") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{cirebon.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -182,7 +182,7 @@ wb.add_worksheet(name: "YOGYA") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{yogya.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -201,7 +201,7 @@ wb.add_worksheet(name: "PALEMBANG") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{palembang.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -220,7 +220,7 @@ wb.add_worksheet(name: "LAMPUNG") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{lampung.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -239,7 +239,7 @@ wb.add_worksheet(name: "MAKASAR") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{makasar.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -258,7 +258,7 @@ wb.add_worksheet(name: "PEKANBARU") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{pekanbaru.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
@@ -277,7 +277,7 @@ wb.add_worksheet(name: "MANADO") do |sheet|
     sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
     p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, 0, 
     (p.target_penjualan+0), p.stock, p.jumlah_penjualan, 
-    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f) rescue 0}"],
+    "#{(p.jumlah_penjualan.to_f/p.target_penjualan.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.target_penjualan.to_f)}"],
     :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
   end
   sheet.add_conditional_formatting("O5:O#{manado.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
