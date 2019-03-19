@@ -14,7 +14,7 @@ class Forecast < ActiveRecord::Base
 
         SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
         WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND nopo IS NOT NULL AND jenisbrgdisc = '#{brand}'
-        GROUP BY area_id, kodebrg, nopo
+        AND tipecust = 'RETAIL' GROUP BY area_id, kodebrg, nopo
       ) f1
       LEFT JOIN
       (
@@ -24,7 +24,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo, salesman, lebar, jenisbrgdisc, namaartikel, namakain, SUM(jumlah) AS jml, WEEK
         FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}'
+        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND tipecust = 'RETAIL'
         GROUP BY area_id, kodebrg, nopo
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
