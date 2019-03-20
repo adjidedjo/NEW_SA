@@ -36,6 +36,7 @@ status = wb.styles.add_style(:border => Axlsx::STYLE_THIN_BORDER)
 more = wb.styles.add_style( :bg_color=> "FFFF99", :fg_color => "999900", :type => :dxf )
 less = wb.styles.add_style( :bg_color=> "FFC0CB", :fg_color => "FF0000", :type => :dxf )
 
+wb.styles.fonts.first.name = 'Calibri'
 wb.add_worksheet(name: "JABAR") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
