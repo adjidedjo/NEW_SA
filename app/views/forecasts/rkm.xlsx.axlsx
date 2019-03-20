@@ -230,7 +230,7 @@ wb.add_worksheet(name: "LAMPUNG") do |sheet|
   sheet.add_conditional_formatting("O5:O#{lampung.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
-wb.add_worksheet(name: "MAKASAR") do |sheet|
+wb.add_worksheet(name: "MAKASSAR") do |sheet|
   sheet.add_row ["RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+7}"]
   sheet.add_row []

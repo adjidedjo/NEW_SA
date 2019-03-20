@@ -1,4 +1,42 @@
 class Forecast < ActiveRecord::Base
+  
+  def self.calculate_rkm_recap_admin(week, year, brand)
+    date = Date.commercial(year.to_i, week.to_i).to_date
+    find_by_sql("
+      SELECT cab.Cabang AS cabang, f1.address_number AS address_number, IFNULL(fw.sales_name, tl.salesman) AS sales_name, 
+      IFNULL(fw.brand, tl.jenisbrgdisc) AS brand,
+      IFNULL(SUM(fw.quantity), 0) AS target_penjualan, IFNULL(SUM(tl.jumlah),0) AS jumlah_penjualan, 
+      f1.branch FROM
+      (
+        SELECT item_number, address_number, branch FROM forecast_weeklies WHERE WEEK = '11' AND YEAR = '2019'
+        GROUP BY address_number, item_number, branch
+
+        UNION ALL
+
+        SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
+        WHERE tanggalsj BETWEEN '2019-03-11' AND '2019-03-17' AND nopo IS NOT NULL
+        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO') GROUP BY area_id, kodebrg, nopo
+      ) f1
+      LEFT JOIN
+      (
+        SELECT * FROM forecast_weeklies WHERE WEEK = '11' AND YEAR = '2019' GROUP BY branch, brand, address_number, item_number
+      ) fw ON fw.branch = f1.branch AND fw.address_number = f1.address_number AND fw.item_number = f1.item_number
+      LEFT JOIN
+      (
+        SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo, salesman, lebar, jenisbrgdisc, namaartikel, namakain, SUM(jumlah) AS jml, WEEK
+        FROM dbmarketing.tblaporancabang
+        WHERE tanggalsj BETWEEN '2019-03-11' AND '2019-03-17' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO')
+        GROUP BY area_id, kodebrg, nopo
+      ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
+      LEFT JOIN
+      (
+        SELECT * FROM dbmarketing.tbidcabang
+      ) cab ON cab.id = f1.branch
+      GROUP BY cab.Cabang, f1.address_number, IFNULL(fw.brand, tl.jenisbrgdisc) 
+      ORDER BY IFNULL(fw.brand, tl.jenisbrgdisc), IFNULL(fw.sales_name, tl.salesman) ASC, IFNULL(SUM(tl.jumlah),0) DESC
+    ")
+  end
+  
   def self.calculate_rkm_admin(week, year, brand)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("
@@ -7,7 +45,7 @@ class Forecast < ActiveRecord::Base
       IFNULL(fw.segment2_name, tl.namaartikel) AS segment2_name, IFNULL(fw.segment3_name, tl.namakain) AS segment3_name,
       IFNULL(fw.quantity, 0) AS target_penjualan, IFNULL(tl.jumlah,0) AS jumlah_penjualan, IFNULL(st.onhand, 0) AS stock, f1.branch FROM
       (
-        SELECT item_number, address_number, branch FROM forecast_weeklies WHERE WEEK = '11' AND YEAR = '2019'
+        SELECT item_number, address_number, branch FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}'
         AND brand = '#{brand}' GROUP BY address_number, item_number, branch
 
         UNION ALL

@@ -1,9 +1,19 @@
 class ForecastsController < ApplicationController
+  def rekap_report_rkm
+    @pbj_recap_mingguan_admin = Forecast.calculate_rkm_recap_admin(params[:week], params[:year], params[:brand]) if params[:week].present? && params[:typ] == 'recap' && params[:format] == 'xlsx'
+    @week = Date.commercial(params[:year].to_i, params[:week].to_i).to_date if params[:week].present?
+    
+    respond_to do |format|
+      format.xlsx {render :xlsx => "rekap_rkm", :filename => "rkm recap #{params[:week]}.xlsx"}
+    end
+  end
+  
   def report_rkm
     @areas = Area.all
     @brand = Brand.where(external: 0)
     @pbj_mingguan = Forecast.calculate_rkm(params[:week], params[:year], params[:areas], params[:brand]) if params[:week].present? && params[:format].nil?
-    @pbj_mingguan_admin = Forecast.calculate_rkm_admin(params[:week], params[:year], params[:brand]) if params[:week].present? && params[:format] == 'xlsx'
+    @pbj_mingguan_admin = Forecast.calculate_rkm_admin(params[:week], params[:year], params[:brand]) if params[:week].present? && params[:typ] == 'detail' && params[:format] == 'xlsx'
+    @pbj_recap_mingguan_admin = Forecast.calculate_rkm_recap_admin(params[:week], params[:year], params[:brand]) if params[:week].present? && params[:typ] == 'recap' && params[:format] == 'xlsx'
     @week = Date.commercial(params[:year].to_i, params[:week].to_i).to_date if params[:week].present?
     
     respond_to do |format|
