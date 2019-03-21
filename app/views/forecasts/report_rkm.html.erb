@@ -41,7 +41,7 @@
         </div>
         <%= hidden_field_tag :typ, 'detail' %>
         <%= button_tag 'Search', name: nil, class: "btn btn-info" %>
-        <% if current_user = 'admin' %>
+        <% if current_user.position == 'admin' %>
           <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn" %>
         <% end %>
         <% end %>
@@ -49,36 +49,36 @@
     </div>
   </div>
   
-  <div class="col-sm-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        Search by Recap Form
-      </div>
-      <div class="panel-body">
-        <%= form_tag(forecasts_rekap_report_rkm_path, {method: :get}) do %>
-
-        <div class="form-group">
-          Week:
+  <% if current_user.position == 'admin' %>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Search by Recap Form
         </div>
-        <div class="form-group">
-          <%= select_tag "week", options_for_select((1..53), params[:week].nil? ? 1.week.ago.to_date.cweek : params[:week]), {class: "form-control"} %>
+        <div class="panel-body">
+          <%= form_tag(forecasts_rekap_report_rkm_path, {method: :get}) do %>
+  
+          <div class="form-group">
+            Week:
+          </div>
+          <div class="form-group">
+            <%= select_tag "week", options_for_select((1..53), params[:week].nil? ? 1.week.ago.to_date.cweek : params[:week]), {class: "form-control"} %>
+          </div>
+          
+          <div class="form-group">
+            Year:
+          </div>
+          <div class="form-group">
+            <%= select_tag "year", options_for_select(((Date.today.year-1)..Date.today.year), params[:year].nil? ? Date.today.year : params[:year]), {class: "form-control"} %>
+          </div>
+          <%= hidden_field_tag :typ, 'recap' %>
+          <%= button_tag 'Search', name: nil, class: "btn btn-info" %>
+            <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn" %>
+          <% end %>
         </div>
-        
-        <div class="form-group">
-          Year:
-        </div>
-        <div class="form-group">
-          <%= select_tag "year", options_for_select(((Date.today.year-1)..Date.today.year), params[:year].nil? ? Date.today.year : params[:year]), {class: "form-control"} %>
-        </div>
-        <%= hidden_field_tag :typ, 'recap' %>
-        <%= button_tag 'Search', name: nil, class: "btn btn-info" %>
-        <% if current_user = 'admin' %>
-          <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn" %>
-        <% end %>
-        <% end %>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
 
 

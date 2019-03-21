@@ -1,42 +1,42 @@
 class Forecast < ActiveRecord::Base
-  
   def self.calculate_rkm_recap_admin(week, year, brand)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("
-      SELECT cab.Cabang AS cabang, f1.address_number AS address_number, IFNULL(fw.sales_name, tl.salesman) AS sales_name, 
+      SELECT cab.Cabang AS cabang, f1.address_number AS address_number, IFNULL(fw.sales_name, tl.salesman) AS sales_name,
       IFNULL(fw.brand, tl.jenisbrgdisc) AS brand,
-      IFNULL(SUM(fw.quantity), 0) AS target_penjualan, IFNULL(SUM(tl.jumlah),0) AS jumlah_penjualan, 
+      IFNULL(SUM(fw.quantity), 0) AS target_penjualan, IFNULL(SUM(tl.jumlah),0) AS jumlah_penjualan,
       f1.branch FROM
       (
-        SELECT item_number, address_number, branch FROM forecast_weeklies WHERE WEEK = '11' AND YEAR = '2019'
+        SELECT item_number, address_number, branch FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}'
         GROUP BY address_number, item_number, branch
 
         UNION ALL
 
         SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '2019-03-11' AND '2019-03-17' AND nopo IS NOT NULL
+        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND nopo IS NOT NULL
         AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO') GROUP BY area_id, kodebrg, nopo
       ) f1
       LEFT JOIN
       (
-        SELECT * FROM forecast_weeklies WHERE WEEK = '11' AND YEAR = '2019' GROUP BY branch, brand, address_number, item_number
+        SELECT * FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}' GROUP BY branch, brand, address_number, item_number
       ) fw ON fw.branch = f1.branch AND fw.address_number = f1.address_number AND fw.item_number = f1.item_number
       LEFT JOIN
       (
         SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo, salesman, lebar, jenisbrgdisc, namaartikel, namakain, SUM(jumlah) AS jml, WEEK
         FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '2019-03-11' AND '2019-03-17' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO')
+        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO')
+        AND ketppb NOT LIKE '%D'
         GROUP BY area_id, kodebrg, nopo
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
       (
         SELECT * FROM dbmarketing.tbidcabang
       ) cab ON cab.id = f1.branch
-      GROUP BY cab.Cabang, f1.address_number, IFNULL(fw.brand, tl.jenisbrgdisc) 
+      GROUP BY cab.Cabang, f1.address_number, IFNULL(fw.brand, tl.jenisbrgdisc)
       ORDER BY IFNULL(fw.brand, tl.jenisbrgdisc), IFNULL(fw.sales_name, tl.salesman) ASC, IFNULL(SUM(tl.jumlah),0) DESC
     ")
   end
-  
+
   def self.calculate_rkm_admin(week, year, brand)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("
@@ -63,6 +63,7 @@ class Forecast < ActiveRecord::Base
         SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo, salesman, lebar, jenisbrgdisc, namaartikel, namakain, SUM(jumlah) AS jml, WEEK
         FROM dbmarketing.tblaporancabang
         WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO')
+        AND ketppb NOT LIKE '%D'
         GROUP BY area_id, kodebrg, nopo
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
@@ -81,26 +82,42 @@ class Forecast < ActiveRecord::Base
   def self.calculate_rkm(week, year, area, brand)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("
-      SELECT cab.Cabang AS cabang, fw.address_number, fw.sales_name, fw.week, fw.item_number, fw.size, fw.brand, fw.segment2_name, fw.segment3_name,
-      fw.quantity AS target_penjualan, IFNULL(tl.jumlah,0) AS jumlah_penjualan, IFNULL(st.onhand, 0) AS stock FROM
+      SELECT cab.Cabang AS cabang, f1.address_number AS address_number, IFNULL(fw.sales_name, tl.salesman) AS sales_name, IFNULL(fw.week, tl.week) AS week,
+      f1.item_number AS item_number, IFNULL(fw.size, tl.lebar) AS size, IFNULL(fw.brand, tl.jenisbrgdisc) AS brand,
+      IFNULL(fw.segment2_name, tl.namaartikel) AS segment2_name, IFNULL(fw.segment3_name, tl.namakain) AS segment3_name,
+      IFNULL(fw.quantity, 0) AS target_penjualan, IFNULL(tl.jumlah,0) AS jumlah_penjualan, IFNULL(st.onhand, 0) AS stock, f1.branch FROM
       (
-        SELECT * FROM forecast_weeklies WHERE branch = '#{area}' AND week = '#{week}' AND year = '#{year}' AND brand = '#{brand}'
-      ) fw
+        SELECT item_number, address_number, branch FROM forecast_weeklies WHERE
+        branch = '#{area}' AND WEEK = '#{week}' AND YEAR = '#{year}'
+        AND brand = '#{brand}' GROUP BY address_number, item_number, branch
+
+        UNION ALL
+
+        SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
+        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND area_id = '#{area}' AND nopo IS NOT NULL AND jenisbrgdisc = '#{brand}'
+        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO') GROUP BY area_id, kodebrg, nopo
+      ) f1
       LEFT JOIN
       (
-        SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+7}'
-        GROUP BY area_id, kodebrg, nopo
-      ) tl ON tl.area_id = fw.branch AND tl.kodebrg = fw.item_number
+        SELECT * FROM forecast_weeklies WHERE branch = '#{area}' AND WEEK = '#{week}' AND YEAR = '#{year}' GROUP BY branch, brand, address_number, item_number
+      ) fw ON fw.branch = f1.branch AND fw.address_number = f1.address_number AND fw.item_number = f1.item_number
       LEFT JOIN
       (
-        SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '2019-02-10'
+        SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo, salesman, lebar, jenisbrgdisc, namaartikel, namakain, SUM(jumlah) AS jml, WEEK
+        FROM dbmarketing.tblaporancabang
+        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO')
+        AND area_id = '#{area}' AND ketppb NOT LIKE '%D' GROUP BY area_id, kodebrg, nopo
+      ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
+      LEFT JOIN
+      (
+        SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.to_date}'
         GROUP BY item_number, branch_code
-      ) st ON st.item_number = fw.item_number AND st.branch_code = fw.branch
+      ) st ON st.item_number = f1.item_number AND st.branch_code = f1.branch
       LEFT JOIN
       (
         SELECT * FROM dbmarketing.tbidcabang
-      ) cab ON cab.id = fw.branch
+      ) cab ON cab.id = f1.branch
+      ORDER BY IFNULL(fw.sales_name, tl.salesman) ASC, IFNULL(tl.jumlah,0) DESC
     ")
   end
 
