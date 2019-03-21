@@ -10,7 +10,7 @@ class Forecast < ActiveRecord::Base
         SELECT item_number, address_number, branch FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}'
         GROUP BY address_number, item_number, branch
 
-        UNION ALL
+        UNION
 
         SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
         WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND nopo IS NOT NULL
@@ -48,7 +48,7 @@ class Forecast < ActiveRecord::Base
         SELECT item_number, address_number, branch FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}'
         AND brand = '#{brand}' GROUP BY address_number, item_number, branch
 
-        UNION ALL
+        UNION
 
         SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
         WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND nopo IS NOT NULL AND jenisbrgdisc = '#{brand}'
@@ -91,7 +91,7 @@ class Forecast < ActiveRecord::Base
         branch = '#{area}' AND WEEK = '#{week}' AND YEAR = '#{year}'
         AND brand = '#{brand}' GROUP BY address_number, item_number, branch
 
-        UNION ALL
+        UNION
 
         SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
         WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND area_id = '#{area}' AND nopo IS NOT NULL AND jenisbrgdisc = '#{brand}'
