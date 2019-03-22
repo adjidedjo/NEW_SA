@@ -2,10 +2,11 @@ class Forecast < ActiveRecord::Base
   def self.calculate_rkm_recap_admin(week, year, brand)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("
+      SELECT * FROM(
       SELECT cab.Cabang AS cabang, f1.address_number AS address_number, IFNULL(fw.sales_name, tl.salesman) AS sales_name,
       IFNULL(fw.brand, tl.jenisbrgdisc) AS brand,
       IFNULL(SUM(fw.quantity), 0) AS target_penjualan, IFNULL(SUM(tl.jumlah),0) AS jumlah_penjualan,
-      f1.branch FROM
+      f1.branch, (IFNULL(SUM(fw.quantity), 0)+IFNULL(SUM(rh.quantity),0)) AS total_target, rh.quantity AS sisa FROM
       (
         SELECT item_number, address_number, branch FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}'
         GROUP BY address_number, item_number, branch
@@ -30,20 +31,27 @@ class Forecast < ActiveRecord::Base
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
       (
+        SELECT item_number, address_number, WEEK, quantity FROM rkm_histories WHERE week = '#{week.to_i-1}'
+      ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number
+      LEFT JOIN
+      (
         SELECT * FROM dbmarketing.tbidcabang
       ) cab ON cab.id = f1.branch
       GROUP BY cab.Cabang, f1.address_number, IFNULL(fw.brand, tl.jenisbrgdisc)
       ORDER BY IFNULL(fw.brand, tl.jenisbrgdisc), IFNULL(fw.sales_name, tl.salesman) ASC, IFNULL(SUM(tl.jumlah),0) DESC
+      ) au WHERE au.brand IS NOT null
     ")
   end
 
   def self.calculate_rkm_admin(week, year, brand)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("
+      SELECT * FROM(
       SELECT cab.Cabang AS cabang, f1.address_number AS address_number, IFNULL(fw.sales_name, tl.salesman) AS sales_name, IFNULL(fw.week, tl.week) AS week,
       f1.item_number AS item_number, IFNULL(fw.size, tl.lebar) AS size, IFNULL(fw.brand, tl.jenisbrgdisc) AS brand,
       IFNULL(fw.segment2_name, tl.namaartikel) AS segment2_name, IFNULL(fw.segment3_name, tl.namakain) AS segment3_name,
-      IFNULL(fw.quantity, 0) AS target_penjualan, IFNULL(tl.jumlah,0) AS jumlah_penjualan, IFNULL(st.onhand, 0) AS stock, f1.branch FROM
+      IFNULL(fw.quantity, 0) AS target_penjualan, IFNULL(tl.jumlah,0) AS jumlah_penjualan, IFNULL(st.onhand, 0) AS stock,
+      f1.branch, (IFNULL(fw.quantity, 0)+IFNULL(rh.quantity,0)) AS total_target, rh.quantity AS sisa FROM
       (
         SELECT item_number, address_number, branch FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}'
         AND brand = '#{brand}' GROUP BY address_number, item_number, branch
@@ -68,6 +76,10 @@ class Forecast < ActiveRecord::Base
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
       (
+        SELECT item_number, address_number, WEEK, quantity FROM rkm_histories WHERE week = '#{week.to_i-1}'
+      ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number
+      LEFT JOIN
+      (
         SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.to_date}'
         GROUP BY item_number, branch_code
       ) st ON st.item_number = f1.item_number AND st.branch_code = f1.branch
@@ -76,16 +88,19 @@ class Forecast < ActiveRecord::Base
         SELECT * FROM dbmarketing.tbidcabang
       ) cab ON cab.id = f1.branch
       ORDER BY IFNULL(fw.sales_name, tl.salesman) ASC, IFNULL(tl.jumlah,0) DESC
+      ) au WHERE au.week is not null
     ")
   end
 
   def self.calculate_rkm(week, year, area, brand)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("
+      SELECT * FROM(
       SELECT cab.Cabang AS cabang, f1.address_number AS address_number, IFNULL(fw.sales_name, tl.salesman) AS sales_name, IFNULL(fw.week, tl.week) AS week,
       f1.item_number AS item_number, IFNULL(fw.size, tl.lebar) AS size, IFNULL(fw.brand, tl.jenisbrgdisc) AS brand,
       IFNULL(fw.segment2_name, tl.namaartikel) AS segment2_name, IFNULL(fw.segment3_name, tl.namakain) AS segment3_name,
-      IFNULL(fw.quantity, 0) AS target_penjualan, IFNULL(tl.jumlah,0) AS jumlah_penjualan, IFNULL(st.onhand, 0) AS stock, f1.branch FROM
+      IFNULL(fw.quantity, 0) AS target_penjualan, IFNULL(tl.jumlah,0) AS jumlah_penjualan,
+      IFNULL(st.onhand, 0) AS stock, f1.branch, (IFNULL(fw.quantity, 0)+IFNULL(rh.quantity,0)) AS total_target, rh.quantity AS sisa FROM
       (
         SELECT item_number, address_number, branch FROM forecast_weeklies WHERE
         branch = '#{area}' AND WEEK = '#{week}' AND YEAR = '#{year}'
@@ -110,6 +125,10 @@ class Forecast < ActiveRecord::Base
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
       (
+        SELECT item_number, address_number, WEEK, quantity FROM rkm_histories WHERE week = '#{week.to_i-1}'
+      ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number
+      LEFT JOIN
+      (
         SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.to_date}'
         GROUP BY item_number, branch_code
       ) st ON st.item_number = f1.item_number AND st.branch_code = f1.branch
@@ -118,6 +137,7 @@ class Forecast < ActiveRecord::Base
         SELECT * FROM dbmarketing.tbidcabang
       ) cab ON cab.id = f1.branch
       ORDER BY IFNULL(fw.sales_name, tl.salesman) ASC, IFNULL(tl.jumlah,0) DESC
+      ) au WHERE au.week is not null
     ")
   end
 

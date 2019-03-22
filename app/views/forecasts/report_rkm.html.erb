@@ -129,8 +129,8 @@
                   <td style="text-align: center;"><%= fc.segment2_name %></td>
                   <td style="text-align: center;"><%= fc.segment3_name%></td>
                   <td style="text-align: center;"><%= fc.target_penjualan %></td>
-                  <td>0</td>
-                  <td>0</td>
+                  <td><%= fc.sisa %></td>
+                  <td><%= fc.total_target.nil? ? 0 : fc.total_target %></td>
                   <td style="text-align: center;"><%= fc.stock %></td>
                   <td style="text-align: center;"><%= fc.jumlah_penjualan %></td>
                 </tr>

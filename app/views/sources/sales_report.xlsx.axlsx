@@ -16,8 +16,6 @@ wb.add_worksheet(name: "Sales Report") do |sheet|
     s.alamat_so, s.kota, s.kodebrg, s.reference, s.customerpo_so, s.ketppb, s.tipecust]
   end
 end
-
-
   
 wb.add_worksheet(:name => "Summary") do |sheet|
     pivot_table = Axlsx::PivotTable.new 'A1:H15', "A1:AJ#{@sales.count}", wb.worksheets[0]
@@ -36,9 +34,7 @@ wb.add_worksheet(:name => "Summary Dealer") do |sheet|
     pivot_table.pages = %w(tipecust)
     sheet.pivot_tables << pivot_table
 end
-  
-  
-  
+    
 wb.add_worksheet(:name => "Summary Salesman") do |sheet|
     pivot_table = Axlsx::PivotTable.new 'A1:H15', "A1:AJ#{@sales.count}", wb.worksheets[0]
     pivot_table.rows = %w(salesman)
