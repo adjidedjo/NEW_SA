@@ -4,7 +4,7 @@ wb = xlsx_package.workbook
 wb.add_worksheet(name: "Sales Report") do |sheet|
   # this is the head row of your spreadsheet
   sheet.add_row %w(tglsj nosj nofaktur dt noso kodecust nmcust2 salesman AlamatCust	kodebrg	nmbrg jenis	brand 
-  artikel kain pjg lbr qty harga bruto D1 D2 D3 D4 D5 D6 D7 D8 D9 alamat_kirim Kota remark no_reff Customer_PO 
+  artikel kain pjg lbr qty harga bruto D1 D2 D3 D4 D5 D6 D7 D8 D9 netto alamat_kirim Kota remark no_reff Customer_PO 
   Business_Unit tipecust
   )
   
@@ -13,33 +13,33 @@ wb.add_worksheet(name: "Sales Report") do |sheet|
     sheet.add_row [s.tanggalsj, s.nosj_so, s.nofaktur, s.orty, s.noso, s.kode_customer, s.customer, s.salesman, s.alamat_so,
     s.kodebrg, s.namabrg, s.kodejenis, s.jenisbrgdisc, s.namaartikel, s.namakain, s.panjang, s.lebar, s.jumlah, s.harganetto1,
     s.harganetto2, s.diskon1, s.diskon2, s.diskon3, s.diskon4, s.diskon5, s.diskonsum, s.diskonrp, s.cashback, s.nupgrade,
-    s.alamat_so, s.kota, s.kodebrg, s.reference, s.customerpo_so, s.ketppb, s.tipecust]
+    s.harganetto2, s.alamat_so, s.kota, s.kodebrg, s.reference, s.customerpo_so, s.ketppb, s.tipecust]
   end
 end
   
 wb.add_worksheet(:name => "Summary") do |sheet|
-    pivot_table = Axlsx::PivotTable.new 'A1:H15', "A1:AJ#{@sales.count}", wb.worksheets[0]
+    pivot_table = Axlsx::PivotTable.new 'A1:H15', "A1:AK#{@sales.count}", wb.worksheets[0]
     pivot_table.rows = %w(tipecust)
     pivot_table.columns = %w(brand)
-    pivot_table.data = %w(bruto)
+    pivot_table.data = %w(netto)
     #pivot_table.pages = %w(kodecust)
     sheet.pivot_tables << pivot_table
 end
 
 wb.add_worksheet(:name => "Summary Dealer") do |sheet|
-    pivot_table = Axlsx::PivotTable.new 'A1:H15', "A1:AJ#{@sales.count}", wb.worksheets[0]
+    pivot_table = Axlsx::PivotTable.new 'A1:H15', "A1:AK#{@sales.count}", wb.worksheets[0]
     pivot_table.rows = %w(nmcust2)
     pivot_table.columns = %w(brand)
-    pivot_table.data = %w(bruto)
+    pivot_table.data = %w(netto)
     pivot_table.pages = %w(tipecust)
     sheet.pivot_tables << pivot_table
 end
     
 wb.add_worksheet(:name => "Summary Salesman") do |sheet|
-    pivot_table = Axlsx::PivotTable.new 'A1:H15', "A1:AJ#{@sales.count}", wb.worksheets[0]
+    pivot_table = Axlsx::PivotTable.new 'A1:H15', "A1:AK#{@sales.count}", wb.worksheets[0]
     pivot_table.rows = %w(salesman)
     pivot_table.columns = %w(brand)
-    pivot_table.data = %w(bruto)
+    pivot_table.data = %w(netto)
     #pivot_table.pages = %w(kodecust)
     sheet.pivot_tables << pivot_table
 end
