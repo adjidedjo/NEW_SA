@@ -1,6 +1,10 @@
 class SourcesController < ApplicationController
   def item_ledger
-    @areas = Area.all
+    if current_user.branch1 != nil || current_user.branch2 != nil
+      @areas = Area.where("id IN ('#{current_user.branch1}','#{current_user.branch2}')")
+    else
+      @areas = Area.all
+    end
     @brand = Brand.where(external: 0)
     @ledger = Stock::ItemAvailability.ledger(params[:start_date], params[:end_date]) if params[:start_date].present? && params[:end_date].present?
 
@@ -11,7 +15,11 @@ class SourcesController < ApplicationController
   end
 
   def sales_report
-    @areas = Area.all
+    if current_user.branch1 != nil || current_user.branch2 != nil
+      @areas = Area.where("id IN ('#{current_user.branch1}','#{current_user.branch2}')")
+    else
+      @areas = Area.all
+    end
     @brand = Brand.where(external: 0)
     @sales = Penjualan::Sale.export_sales_report(params[:start_date], params[:end_date], params[:areas]) if params[:start_date].present? && params[:end_date].present?
 
