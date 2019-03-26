@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   layout 'pages'
+  before_action :revenue_sales
 
   def login
   end
@@ -25,5 +26,8 @@ class PagesController < ApplicationController
   end
 
   def maintenance
+  end
+  
+  def sales
   end
 end
