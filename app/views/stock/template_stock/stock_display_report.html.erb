@@ -34,11 +34,11 @@
                   <td><%= cs.customer %></td>
                   <td><%= cs.salesman %></td>
                   <td><%= cs.noso %>|<%= cs.nosj %></td>
-                  <td><%= cs.sdlitm.strip %></td>
-                  <td><%= cs.desc1.strip %></td>
-                  <td><%= cs.lilotn.strip %></td>
+                  <td><%= cs.sdlitm.nil? ? '-' : cs.sdlitm.strip %></td>
+                  <td><%= cs.desc1.nil? ? '-' : cs.desc1.strip %></td>
+                  <td><%= cs.lilotn.nil? ? '-' : cs.lilotn.strip %></td>
                   <td><%= cs.jml/10000 %></td>
-                  <td><%= (Date.today - julian_to_date(cs.receive_date)).to_i %></td>
+                  <td><%= cs.receive_date == 0 ? 0 : (Date.today - julian_to_date(cs.receive_date)).to_i %></td>
                 </tr>
                 <% end %>
               </tbody>
