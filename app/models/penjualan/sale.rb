@@ -63,38 +63,33 @@ class Penjualan::Sale < ActiveRecord::Base
   end
 
   def self.retail_recap_brand(date, branch)
-    self.find_by_sql("SELECT lc.jenisbrgdisc as brand, lc.val_1, lc.qty,
+    self.find_by_sql("SELECT lc.brand as brand, lc.val_1, lc.qty,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
     ROUND((((lc.val_1 - ly.v_last_year) / ly.v_last_year) * 100), 0) AS y_percentage,
     target_val, year_target,
     ROUND(((lc.y_val / st.year_target) * 100), 0) AS ty_percentage,
     ROUND(((lc.val_1 / st.target_val) * 100), 0) AS t_percentage FROM
     (
-      SELECT area_id, jenisbrgdisc,
+      SELECT branch, brand,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND
-        fiscal_year = '#{date.year}'  THEN harganetto1 END) y_val,
+        fiscal_year = '#{date.year}'  THEN sales_amount END) y_val,
       SUM(CASE WHEN fiscal_month = '#{date.month}'
-        AND fiscal_year = '#{date.year}'  THEN jumlah END) qty,
+        AND fiscal_year = '#{date.year}' THEN sales_quantity END) qty,
       SUM(CASE WHEN fiscal_month = '#{date.month}'
-        AND fiscal_year = '#{date.year}'  THEN harganetto1 END) val_1,
+        AND fiscal_year = '#{date.year}'  THEN sales_amount END) val_1,
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}'
-        AND fiscal_year = '#{date.last_month.year}'  THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
-      AND '#{date.year}' AND area_id NOT IN (1,50)
-      AND area_id = '#{branch}' AND jenisbrgdisc != '' AND
-      tipecust = 'RETAIL'
-      GROUP BY jenisbrgdisc, area_id
+        AND fiscal_year = '#{date.last_month.year}'  THEN sales_amount END) val_2
+      FROM sales_mart.RET1BRAND WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
+      AND '#{date.year}' AND branch NOT IN (1,50)
+      AND branch = '#{branch}' AND brand != ''
+      GROUP BY brand, branch
     ) as lc
       LEFT JOIN
       (
-        SELECT SUM(harganetto1) AS v_last_year, area_id, jenisbrgdisc FROM tblaporancabang WHERE
+        SELECT SUM(sales_amount) AS v_last_year, branch, brand FROM sales_mart.RET1BRAND WHERE
         fiscal_month = '#{Date.yesterday.last_year.month}' AND
         fiscal_year = '#{Date.yesterday.last_year.year}'
-        AND area_id != 1 AND area_id = '#{branch}' AND
-        tipecust = 'RETAIL'
-        AND jenisbrgdisc IS NOT NULL
-        GROUP BY jenisbrgdisc, area_id
-      ) AS ly ON lc.area_id = '#{branch}' AND lc.jenisbrgdisc = ly.jenisbrgdisc
+      ) AS ly ON lc.branch = ly.branch AND lc.branch = ly.branch
       LEFT JOIN
       (
         SELECT branch, brand,
@@ -107,7 +102,7 @@ class Penjualan::Sale < ActiveRecord::Base
         AND month BETWEEN '#{date.beginning_of_year.month}' AND
         '#{date.end_of_year.month}'
         AND (year = '#{date.year}' OR year IS NULL) GROUP BY branch, brand
-      ) AS st ON lc.area_id = st.branch AND lc.jenisbrgdisc = st.brand
+      ) AS st ON lc.branch = st.branch AND lc.brand = st.brand
     ")
   end
 
