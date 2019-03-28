@@ -40,6 +40,7 @@ wb.styles.fonts.first.name = 'Calibri'
 wb.add_worksheet(name: "JABAR") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang JABAR"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -48,13 +49,14 @@ wb.add_worksheet(name: "JABAR") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{jabar.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{jabar.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{jabar.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{jabar.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "JAKARTA") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang JAKARTA"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -63,13 +65,14 @@ wb.add_worksheet(name: "JAKARTA") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{jakarta.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{jakarta.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{jakarta.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{jakarta.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "JATIM") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang JATIM"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -78,13 +81,14 @@ wb.add_worksheet(name: "JATIM") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{jatim.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{jatim.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{jatim.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{jatim.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "CIREBON") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang CIREBON"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -93,13 +97,14 @@ wb.add_worksheet(name: "CIREBON") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{cirebon.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{cirebon.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{cirebon.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{cirebon.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "SEMARANG") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang SEMARANG"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -108,13 +113,14 @@ wb.add_worksheet(name: "SEMARANG") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{semarang.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{semarang.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{semarang.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{semarang.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "YOGYA") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang YOGYA"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -123,13 +129,14 @@ wb.add_worksheet(name: "YOGYA") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{yogya.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{yogya.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{yogya.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{yogya.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "PALEMBANG") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang PALEMBANG"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -138,13 +145,14 @@ wb.add_worksheet(name: "PALEMBANG") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{palembang.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{palembang.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{palembang.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{palembang.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "LAMPUNG") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang LAMPUNG"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -153,13 +161,14 @@ wb.add_worksheet(name: "LAMPUNG") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{lampung.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{lampung.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{lampung.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{lampung.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "MEDAN") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang MEDAN"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -168,13 +177,14 @@ wb.add_worksheet(name: "MEDAN") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{medan.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{medan.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{medan.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{medan.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "PEKANBARU") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang PEKANBARU"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -183,13 +193,14 @@ wb.add_worksheet(name: "PEKANBARU") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{pekanbaru.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{pekanbaru.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{pekanbaru.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{pekanbaru.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "BALI") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang BALI"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -198,13 +209,14 @@ wb.add_worksheet(name: "BALI") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{bali.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{bali.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{bali.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{bali.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "MAKASSAR") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang MAKASSAR"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -213,13 +225,14 @@ wb.add_worksheet(name: "MAKASSAR") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{makasar.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{makasar.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{makasar.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{makasar.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
 
 wb.add_worksheet(name: "MANADO") do |sheet|
   sheet.add_row ["REKAP RENCANA KERJA MINGGUAN"]
   sheet.add_row ["#{@week} - #{@week+6}"]
+  sheet.add_row ["Cabang MANADO"]
   sheet.add_row []
   sheet.add_row ["BRAND", "NAMA", "TARGET PENJUALAN", "REALISASI PENJUALAN", "AKURASI"]
   
@@ -228,6 +241,6 @@ wb.add_worksheet(name: "MANADO") do |sheet|
     "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
     :style=>[nil,nil,nil,nil,percent]
   end
-  sheet.add_conditional_formatting("E5:E#{manado.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
-  sheet.add_conditional_formatting("E5:E#{manado.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{manado.count+5}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("E6:E#{manado.count+5}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
