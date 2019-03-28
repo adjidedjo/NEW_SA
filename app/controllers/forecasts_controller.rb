@@ -1,4 +1,8 @@
 class ForecastsController < ApplicationController
+  def rkm_sales_page
+    @rkm_sales = Forecast.calculate_rkm_sales(Date.today.cweek, Date.today.year, current_user.address_number)
+  end
+  
   def rekap_report_rkm
     @pbj_recap_mingguan_admin = Forecast.calculate_rkm_recap_admin(params[:week], params[:year], params[:brand]) if params[:week].present? && params[:typ] == 'recap' && params[:format] == 'xlsx'
     @week = Date.commercial(params[:year].to_i, params[:week].to_i).to_date if params[:week].present?

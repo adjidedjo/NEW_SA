@@ -44,7 +44,7 @@
               <li class="sidebar-subnav-header">
                 Retail
               </li>
-              
+
               <li class="<%= 'active' if controller?('order/production/planning') && action?('aging_orders') %>">
                 <a href="/order/production/planning/aging_orders" title="outstanding orders"> <em class="icon-chart"></em> <span><b>National Outstanding Order</b></span> </a>
               </li>
@@ -67,7 +67,7 @@
           </li>
         </ul>
       </li>
-      
+
       <li class="<%= 'active' if controller?('credit_limits') %>">
         <a href="#cl" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Credit Limits</b></span> </a>
         <ul id="cl" class="nav sidebar-subnav collapse">
@@ -85,9 +85,9 @@
           </li>
         </ul>
       </li>
-      
-      <% if bm_customers(current_user, current_user.branch1) || current_user.position == 'admin' || 
-        general_manager(current_user) || nsm_customers(current_user) %>
+
+      <% if bm_customers(current_user, current_user.branch1) || current_user.position == 'admin' ||
+      general_manager(current_user) || nsm_customers(current_user) %>
       <li class="<%= 'active' if controller?('forecasts') %>">
         <a href="#forcast" title="forecast" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Forecasts</b></span> </a>
         <ul id="forcast" class="nav sidebar-subnav collapse">
@@ -118,8 +118,8 @@
         </ul>
       </li>
       <% end %>
-      <% if bm_customers(current_user, current_user.branch1) || current_user.position == 'admin' || 
-        general_manager(current_user) || nsm_customers(current_user) %>
+      <% if bm_customers(current_user, current_user.branch1) || current_user.position == 'admin' ||
+      general_manager(current_user) || nsm_customers(current_user) %>
       <li class="<%= 'active' if controller?('asong') %>">
         <a href="#asong" title="asong" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Asong</b></span> </a>
         <ul id="asong" class="nav sidebar-subnav collapse">
@@ -230,6 +230,10 @@
       </li>
       <!-- END SA Project-->
       <% else %>
+      <li class="<%= 'active' if controller?('forecasts') && action?('rkm_sales_page') %>">
+        <a href="/forecasts/rkm_sales_page" title="RKM"> <em class="fa fa-bullseye"></em> <span>RKM</span> </a>
+      </li>
+
       <li class="<%= 'active' if controller?('order') %>">
         <a href="#order" title="Order" data-toggle="collapse"> <em class="fa fa-share-square"></em> <span><b>Order</b></span> </a>
         <ul id="order" class="nav sidebar-subnav collapse">
@@ -260,7 +264,7 @@
           </li>
         </ul>
       </li>
-      
+
       <li class="<%= 'active' if controller?('credit_limits') %>">
         <a href="#cl" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Credit Limits</b></span> </a>
         <ul id="cl" class="nav sidebar-subnav collapse">
@@ -278,7 +282,7 @@
           </li>
         </ul>
       </li>
-      
+
       <li class="<%= 'active' if controller?('penjualan_salesman') %>">
         <a href="#penjualan_salesman" title="Penjualan Salesman" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Sales</b></span> </a>
         <ul id="penjualan_salesman" class="nav sidebar-subnav collapse">
@@ -340,9 +344,9 @@
             <a href="/sales_productivities/" title="Daily"> <span>Success Rate</span> </a>
           </li>
           <% if current_user.branch1.nil? %>
-            <li class="<%= 'active' if controller?('rates') && action?('index') %>">
-              <a href="/rates/index" title="rates"> <span>Report All Branches</span> </a>
-            </li>
+          <li class="<%= 'active' if controller?('rates') && action?('index') %>">
+            <a href="/rates/index" title="rates"> <span>Report All Branches</span> </a>
+          </li>
           <% end %>
         </ul>
       </li>

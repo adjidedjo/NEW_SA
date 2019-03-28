@@ -1,0 +1,59 @@
+<div class="content-heading">
+  Dashboard RKM <%= current_user.nama %>
+</div>
+
+<!-- START widgets box-->
+<!-- END widgets box-->
+<div class="row">
+  <div class="col-lg-12">
+    <!-- START content-->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+          <div class="panel-heading" style="text-align: center">
+            RKM
+          </div>
+          <div class="panel-body">
+            <table id="table-revenue-products" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>SALES</th>
+                  <th>WEEK</th>
+                  <th>ITEM NUMBER</th>
+                  <th style="text-align: center;">SIZE</th>
+                  <th style="text-align: center;">BRAND</th>
+                  <th style="text-align: center;">ARTICLE</th>
+                  <th style="text-align: center;">KAIN</th>
+                  <th style="text-align: center;">TARGET PENJUALAN MINGGU <%= Date.today.cweek %></th>
+                  <th style="text-align: center;">SISA RKM</th>
+                  <th style="text-align: center;">TOTAL TARGET</th>
+                  <th style="text-align: center;">REALISASI PENJUALAN <%= Date.today.cweek %></th>
+                  </tr>
+              </thead>
+              <tfoot></tfoot>
+              <tbody>
+                <% @rkm_sales.each do |fc| %>
+                <tr class="gradeX">
+                  <td style="text-align: center;"><%= fc.sales_name %></td>
+                  <td><%= fc.week %></td>
+                  <td><%= fc.item_number %></td>
+                  <td style="text-align: center;"><%= fc.size %></td>
+                  <td style="text-align: center;"><%= fc.brand %></td>
+                  <td style="text-align: center;"><%= fc.segment2_name %></td>
+                  <td style="text-align: center;"><%= fc.segment3_name%></td>
+                  <td style="text-align: center;"><%= fc.target_penjualan %></td>
+                  <td><%= fc.sisa %></td>
+                  <td><%= fc.total_target.nil? ? 0 : fc.total_target %></td>
+                  <td style="text-align: center;"><%= fc.jumlah_penjualan %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-footer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- END content-->
+  </div>
+</div>
