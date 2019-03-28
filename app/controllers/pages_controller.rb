@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   layout 'pages'
-  before_action :revenue_sales, only: [:sales]
+  before_action :revenue_sales, only: [:template]
 
   def login
   end

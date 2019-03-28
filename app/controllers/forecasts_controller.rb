@@ -89,6 +89,6 @@ class ForecastsController < ApplicationController
 
   def import_weekly
     ForecastWeekly.import_weekly(params[:file])
-    redirect_to forecasts_upload_forecast_url, notice: 'Forecasts Weekly imported.'
+    redirect_to forecasts_upload_forecast_url, notice: 'RKM with file name #{params[:file].original_filename} imported.'
   end
 end
