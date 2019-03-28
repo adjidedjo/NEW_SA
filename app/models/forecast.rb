@@ -7,7 +7,7 @@ class Forecast < ActiveRecord::Base
       f1.item_number AS item_number, IFNULL(fw.size, tl.lebar) AS size, IFNULL(fw.brand, tl.jenisbrgdisc) AS brand,
       IFNULL(fw.segment2_name, tl.namaartikel) AS segment2_name, IFNULL(fw.segment3_name, tl.namakain) AS segment3_name,
       IFNULL(fw.quantity, 0) AS target_penjualan, IFNULL(tl.jumlah,0) AS jumlah_penjualan,
-      f1.branch, (IFNULL(fw.quantity, 0)+IFNULL(rh.quantity,0)) AS total_target, rh.quantity AS sisa FROM
+      IFNULL(st.onhand, 0) AS stock, f1.branch, (IFNULL(fw.quantity, 0)+IFNULL(rh.quantity,0)) AS total_target, rh.quantity AS sisa FROM
       (
         SELECT item_number, address_number, branch FROM forecast_weeklies WHERE
         WEEK = '#{week}' AND YEAR = '#{year}' AND address_number = '#{address}' GROUP BY item_number, branch, brand
@@ -33,6 +33,11 @@ class Forecast < ActiveRecord::Base
       (
         SELECT item_number, address_number, WEEK, quantity FROM rkm_histories WHERE week = '#{week.to_i-1}'
       ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number
+      LEFT JOIN
+      (
+        SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.to_date}'
+        GROUP BY item_number, branch_code
+      ) st ON st.item_number = f1.item_number AND st.branch_code = f1.branch
       LEFT JOIN
       (
         SELECT * FROM dbmarketing.tbidcabang

@@ -28,6 +28,7 @@
                   <th style="text-align: center;">SISA RKM</th>
                   <th style="text-align: center;">TOTAL TARGET</th>
                   <th style="text-align: center;">REALISASI PENJUALAN <%= Date.today.cweek %></th>
+                  <th style="text-align: center;">STOCK GUDANG MINGGU <%= Date.today.cweek %></th>
                   </tr>
               </thead>
               <tfoot></tfoot>
@@ -45,6 +46,7 @@
                   <td><%= fc.sisa %></td>
                   <td><%= fc.total_target.nil? ? 0 : fc.total_target %></td>
                   <td style="text-align: center;"><%= fc.jumlah_penjualan %></td>
+                  <td style="text-align: center;"><%= fc.stock %></td>
                 </tr>
                 <% end %>
               </tbody>
