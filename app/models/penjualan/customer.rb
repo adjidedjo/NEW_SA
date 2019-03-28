@@ -145,7 +145,7 @@ class Penjualan::Customer < Penjualan::Sale
   def self.reporting_customers(month, year, branch)
     find_by_sql("SELECT customer_desc as customer, customer as kode_customer,
       SUM(CASE WHEN brand = 'ELITE' THEN sales_amount END) elite,
-      SUM(CASE WHEN brand = 'SERENITY' THEN sales_amount END) serenity,
+      SUM(CASE WHEN brand IN ('SERENITY', 'CLASSIC') THEN sales_amount END) serenity,
       SUM(CASE WHEN brand = 'LADY' THEN sales_amount END) lady,
       SUM(CASE WHEN brand = 'ROYAL' THEN sales_amount END) royal
       FROM sales_mart.RET2CUSBRAND WHERE fiscal_month = '#{month}'
