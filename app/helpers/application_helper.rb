@@ -1,6 +1,10 @@
 module ApplicationHelper
   include RolesHelper
   
+  def week_c(week)
+    Date.commercial(Date.today.year, Date.today.cweek-week).day.to_s+'-'+Date.commercial(Date.today.year, Date.today.cweek-week).end_of_week.day.to_s
+  end
+  
   def total_equal(equal_sales, more_sales, less_sales)
     equal_sales + more_sales + less_sales
   end
