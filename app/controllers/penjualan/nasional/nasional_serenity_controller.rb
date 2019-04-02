@@ -4,6 +4,12 @@ class Penjualan::Nasional::NasionalSerenityController < ApplicationController
   before_action :retail_nasional_weekly, only: :weekly
   before_action :retail_nasional_monthly, only: :monthly
   before_action :retail_nasional_this_month, only: :daily
+  
+  def customer_decrease
+    @brand_name = initialize_brand
+    @customer = Penjualan::Customer.customer_decrease(initialize_brand)
+    render template: "penjualan/template_dashboard/customer_decrease"
+  end
 
   def daily
     gon.brand = initialize_brand
@@ -43,7 +49,7 @@ class Penjualan::Nasional::NasionalSerenityController < ApplicationController
   end
 
   def initialize_brand
-    "SERENITY"
+    "SERENITY|CLASSIC"
   end
   
   def authorize_user
