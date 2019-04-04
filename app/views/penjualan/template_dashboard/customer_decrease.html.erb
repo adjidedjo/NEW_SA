@@ -20,6 +20,7 @@
                   <th>Branch</th>
                   <th>Brand</th>
                   <th>Customer</th>
+                  <th>City</th>
                   <th>Week <%= Date.today.cweek - 4 %> <br /><%= week_c(4) %></th>
                   <th>Week <%= Date.today.cweek - 3 %> <br /><%= week_c(3) %></th>
                   <th>Week <%= Date.today.cweek - 2 %> <br /><%= week_c(2) %></th>
@@ -30,8 +31,9 @@
                 <% @customer.each do |dp| %>
                 <tr class="gradeX">
                   <td><%= dp.cabang.gsub('Cabang', '') %></td>
-                  <td><%= dp.brand %></td>
-                  <td><%= dp.customer_desc %></td>
+                  <td><%= dp.jenisbrgdisc %></td>
+                  <td><%= dp.customer %></td>
+                  <td><%= dp.kota %></td>
                   <td><%= currency(dp.w4) %></td>
                   <td><%= currency(dp.w3) %></td>
                   <td><%= currency(dp.w2) %></td>

@@ -2,23 +2,24 @@ class Penjualan::Customer < Penjualan::Sale
   def self.customer_decrease(brand)
     date = Date.today
     find_by_sql("
-      SELECT cb.Cabang as cabang, b.* FROM (
-        SELECT a.branch, a.customer, a.customer_desc, a.brand,
-          IFNULL(SUM(CASE WHEN a.fiscal_week = '#{date.cweek - 4}' AND fiscal_year = '#{date.year}' THEN a.sales_amount END), 0) AS w4,
-          IFNULL(SUM(CASE WHEN a.fiscal_week = '#{date.cweek - 3}' AND fiscal_year = '#{date.year}' THEN a.sales_amount END), 0) AS w3,
-          IFNULL(SUM(CASE WHEN a.fiscal_week = '#{date.cweek - 2}' AND fiscal_year = '#{date.year}' THEN a.sales_amount END), 0) AS w2,
-          IFNULL(SUM(CASE WHEN a.fiscal_week = '#{date.cweek - 1}' AND fiscal_year = '#{date.year}' THEN a.sales_amount END), 0) AS w1
+
+      SELECT cb.Cabang AS cabang, b.* FROM (
+        SELECT a.area_id, a.customer, a.kode_customer, a.jenisbrgdisc, a.kota,
+          IFNULL(SUM(CASE WHEN a.week = '#{date.cweek - 4}' AND fiscal_year = '#{date.year}' THEN a.harganetto2 END), 0) AS w4,
+          IFNULL(SUM(CASE WHEN a.week = '#{date.cweek - 3}' AND fiscal_year = '#{date.year}' THEN a.harganetto2 END), 0) AS w3,
+          IFNULL(SUM(CASE WHEN a.week = '#{date.cweek - 2}' AND fiscal_year = '#{date.year}' THEN a.harganetto2 END), 0) AS w2,
+          IFNULL(SUM(CASE WHEN a.week = '#{date.cweek - 1}' AND fiscal_year = '#{date.year}' THEN a.harganetto2 END), 0) AS w1
           FROM (
-            SELECT brand, branch, customer, customer_desc, sales_amount, fiscal_week, fiscal_year
-            FROM sales_mart.RET2CUSBRAND
-            WHERE fiscal_week >= '#{date.cweek - 4}' AND fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}'
-          ) a GROUP BY a.customer, a.brand
+            SELECT jenisbrgdisc, area_id, customer, kode_customer, kota, harganetto2, WEEK, fiscal_year
+            FROM dbmarketing.tblaporancabang
+            WHERE WEEK >= '#{date.cweek - 4}' AND fiscal_year = '#{date.year}' AND jenisbrgdisc REGEXP '#{brand}' AND tipecust = 'RETAIL'
+          ) a GROUP BY a.customer, a.jenisbrgdisc
       ) b
       LEFT JOIN
       (
         SELECT * FROM dbmarketing.tbidcabang
-      ) cb ON cb.id = b.branch
-      WHERE b.w4 > b.w3 AND b.w4 > b.w2 AND b.w4 > b.w1
+      ) cb ON cb.id = b.area_id
+      WHERE b.w4 > b.w3 AND b.w4 > b.w2 AND b.w4 > b.w1 ORDER BY b.customer
     ")
   end
 
