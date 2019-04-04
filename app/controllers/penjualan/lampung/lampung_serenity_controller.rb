@@ -82,7 +82,7 @@ class Penjualan::Lampung::LampungSerenityController < ApplicationController
   end
   
   def initialize_brand
-    "SERENITY"
+    "SERENITY|CLASSIC"
   end
   
   def initialize_brach_id

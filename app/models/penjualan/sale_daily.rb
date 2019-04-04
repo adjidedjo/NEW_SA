@@ -59,7 +59,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
         '#{Date.yesterday.end_of_year.month}' THEN target END) year_target
         FROM sales_target_values WHERE
         branch = '#{branch}' AND
-        (brand = '#{brand}' OR brand IS NULL)
+        (brand REGEXP '#{brand}' OR brand IS NULL)
         AND month BETWEEN '#{Date.yesterday.beginning_of_year.month}' AND
         '#{Date.yesterday.end_of_year.month}'
         AND (year = '#{Date.yesterday.year}' OR year IS NULL)
@@ -101,7 +101,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       GROUP BY nopo
       ) as lc
       LEFT JOIN sales_targets st
-      ON (st.address_number = lc.nopo) AND st.brand = '#{brand}'
+      ON (st.address_number = lc.nopo) AND st.brand REGEXP '#{brand}'
       AND st.month = '#{Date.yesterday.month}'
       AND st.year = '#{Date.yesterday.year}' GROUP BY lc.nopo
       ")
@@ -208,7 +208,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       GROUP BY kodejenis
       ) as lc
       LEFT JOIN sales_targets AS st
-      ON lc.kodejenis = st.product AND (st.brand = '#{brand}' OR st.brand IS NULL) AND
+      ON lc.kodejenis = st.product AND (st.brand REGEXP '#{brand}' OR st.brand IS NULL) AND
       (st.branch = '#{branch}' OR st.branch IS NULL)
       AND (st.month = '#{Date.yesterday.month}' OR st.month IS NULL)
       AND (st.year = '#{Date.yesterday.year}' OR st.year IS NULL) GROUP BY st.product

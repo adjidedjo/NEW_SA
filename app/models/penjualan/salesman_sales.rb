@@ -18,8 +18,8 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       (
         SELECT address_number, brand, SUM(quantity) AS qty_sisa FROM rkm_histories WHERE
         address_number = '#{sales.address_number}' AND WEEK = '#{Date.yesterday.cweek-1}' GROUP BY brand
-      ) rh ON rh.brand = fw.brand
-    ) ot ON ot.brand = sl.brand AND ot.address_number = sl.salesmen
+      ) rh ON rh.brand REGEXP fw.brand
+    ) ot ON ot.brand REGEXP sl.brand AND ot.address_number = sl.salesmen
     ")
   end
 
@@ -51,7 +51,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       LEFT JOIN
       (
         SELECT SUM(target) AS target_val, branch, address_number FROM sales_target_values WHERE month = '#{Date.yesterday.month}'
-        AND year = '#{Date.yesterday.year}' AND brand = '#{brand}' AND address_number = '#{sales.address_number}'
+        AND year = '#{Date.yesterday.year}' AND brand REGEXP '#{brand}' AND address_number = '#{sales.address_number}'
         GROUP BY branch, brand
       ) AS tv ON lc.nopo = '#{sales.address_number}'
     ")

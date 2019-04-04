@@ -26,14 +26,14 @@ class Penjualan::Customer < Penjualan::Sale
     find_by_sql("
       SELECT customer, MAX(last_invoice) AS last_invoice, cust_status, brand
       FROM sales_mart.CUSTOMER_DETGROWTHS WHERE
-      branch = '#{branch}' AND brand = '#{brand}' GROUP BY customer, brand")
+      branch = '#{branch}' AND brand REGEXP '#{brand}' GROUP BY customer, brand")
   end
 
   def self.list_customers_inactive(branch, state, brand)
     CustomerBrand.find_by_sql("
       SELECT cus.* FROM customer_active cus WHERE cus.id = (
         SELECT cus2.id FROM customer_active cus2 WHERE cus2.branch = '#{branch}' AND
-        cus2.kode_customer = cus.kode_customer AND cus2.brand = '#{brand}' AND
+        cus2.kode_customer = cus.kode_customer AND cus2.brand REGEXP '#{brand}' AND
         cus2.tipecust = 'RETAIL' ORDER BY cus2.tanggalsj DESC LIMIT 1
       ) AND cus.tanggalsj  < '#{3.months.ago.to_date}';
     ")
@@ -55,7 +55,7 @@ class Penjualan::Customer < Penjualan::Sale
         (
         SELECT brand, area_id, total, new_customer, active_customer, inactive_customer
               FROM sales_mart.CUSTOMER_GROWTHS WHERE fmonth = '#{date2.month}' AND fyear = '#{date2.year}'
-        ) AS b ON a.area_id = b.area_id AND a.brand = b.brand
+        ) AS b ON a.area_id = b.area_id AND a.brand REGEXP b.brand
     ")
   end
 
@@ -167,10 +167,10 @@ class Penjualan::Customer < Penjualan::Sale
 
   def self.reporting_customers(month, year, branch)
     find_by_sql("SELECT customer_desc as customer, customer as kode_customer,
-      SUM(CASE WHEN brand = 'ELITE' THEN sales_amount END) elite,
+      SUM(CASE WHEN brand REGEXP 'ELITE' THEN sales_amount END) elite,
       SUM(CASE WHEN brand IN ('SERENITY', 'CLASSIC') THEN sales_amount END) serenity,
-      SUM(CASE WHEN brand = 'LADY' THEN sales_amount END) lady,
-      SUM(CASE WHEN brand = 'ROYAL' THEN sales_amount END) royal
+      SUM(CASE WHEN brand REGEXP 'LADY' THEN sales_amount END) lady,
+      SUM(CASE WHEN brand REGEXP 'ROYAL' THEN sales_amount END) royal
       FROM sales_mart.RET2CUSBRAND WHERE fiscal_month = '#{month}'
       AND fiscal_year = '#{year}'
       AND branch = '#{branch}'

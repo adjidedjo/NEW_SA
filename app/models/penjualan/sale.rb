@@ -102,7 +102,7 @@ class Penjualan::Sale < ActiveRecord::Base
         AND month BETWEEN '#{date.beginning_of_year.month}' AND
         '#{date.end_of_year.month}'
         AND (year = '#{date.year}' OR year IS NULL) GROUP BY branch, brand
-      ) AS st ON lc.branch = st.branch AND lc.brand = st.brand
+      ) AS st ON lc.branch = st.branch AND lc.brand REGEXP st.brand
     ")
   end
 
@@ -124,7 +124,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN branch = 19 THEN sales_quantity END) makasar,
       SUM(CASE WHEN branch = 20 THEN sales_quantity END) pekanbaru
       FROM sales_mart.RET1ARTICLE WHERE fiscal_month = '#{date.month}' AND
-      fiscal_year = '#{date.year}' AND brand = '#{brand}' GROUP BY kodeartikel
+      fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' GROUP BY kodeartikel
     ) as lc
     ")
   end
@@ -145,14 +145,14 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{2.month.ago.month}' THEN sales_amount END) val_2
       FROM sales_mart.RET1BRAND WHERE fiscal_month BETWEEN '#{Date.yesterday.last_month.beginning_of_year.to_date.month}'
       AND '#{Date.yesterday.last_month.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.beginning_of_year.to_date.year}'
-      AND '#{Date.yesterday.last_month.year}' AND brand = '#{brand}' GROUP BY branch
+      AND '#{Date.yesterday.last_month.year}' AND brand REGEXP '#{brand}' GROUP BY branch
     ) as lc
     LEFT JOIN
       (
         SELECT SUM(sales_amount) AS revenue, brand AS jenisbrgdisc FROM sales_mart.RET1BRAND WHERE
         fiscal_month = '#{Date.yesterday.last_month.last_year.month}' AND
         fiscal_year = '#{Date.yesterday.last_month.last_year.year}'
-        AND brand = '#{brand}' GROUP BY brand
+        AND brand REGEXP '#{brand}' GROUP BY brand
       ) AS ly ON lc.jenisbrgdisc = ly.jenisbrgdisc
     LEFT JOIN
       (
@@ -161,7 +161,7 @@ class Penjualan::Sale < ActiveRecord::Base
         SUM(CASE WHEN month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
         '#{Date.yesterday.last_month.end_of_year.month}' THEN target END) year_target
         FROM dbmarketing.sales_target_values WHERE
-        brand = '#{brand}' AND
+        brand REGEXP '#{brand}' AND
         month BETWEEN '#{Date.yesterday.last_month.beginning_of_year.month}' AND
         '#{Date.yesterday.last_month.end_of_year.month}'
         AND year BETWEEN '#{Date.yesterday.last_month.beginning_of_year.year}' AND
@@ -188,12 +188,12 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
       FROM sales_mart.RET1BRAND WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}')
       AND fiscal_year BETWEEN '#{date.last_month.year}' AND '#{date.year}'
-      AND brand = '#{brand}' GROUP BY brand
+      AND brand REGEXP '#{brand}' GROUP BY brand
     ) as lc
     LEFT JOIN
       (
         SELECT SUM(sales_amount) AS revenue, brand as jenisbrgdisc FROM sales_mart.RET1BRAND WHERE
-        fiscal_month = '#{date.last_year.month}' AND fiscal_year = '#{date.last_year.year}' AND brand = '#{brand}' GROUP BY brand
+        fiscal_month = '#{date.last_year.month}' AND fiscal_year = '#{date.last_year.year}' AND brand REGEXP '#{brand}' GROUP BY brand
       ) AS ly ON lc.jenisbrgdisc = ly.jenisbrgdisc
     LEFT JOIN
       (
@@ -202,7 +202,7 @@ class Penjualan::Sale < ActiveRecord::Base
         SUM(CASE WHEN month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
         '#{date.end_of_year.month}' THEN target END) year_target
         FROM sales_target_values WHERE
-        brand = '#{brand}' AND
+        brand REGEXP '#{brand}' AND
         month BETWEEN '#{Date.yesterday.beginning_of_year.month}' AND
         '#{Date.yesterday.end_of_year.month}'
         AND year BETWEEN '#{Date.yesterday.beginning_of_year.year}' AND
@@ -229,13 +229,13 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
       FROM sales_mart.RET1BRAND WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}')
       AND fiscal_year BETWEEN '#{date.last_month.year}' AND '#{date.year}'
-      AND brand = '#{brand}' GROUP BY branch
+      AND brand REGEXP '#{brand}' GROUP BY branch
     ) as lc
     LEFT JOIN
       (
         SELECT SUM(sales_amount) AS revenue, branch as area_id FROM sales_mart.RET1BRAND WHERE
         fiscal_month = '#{date.last_year.month}' AND fiscal_year = '#{date.last_year.year}'
-        AND brand = '#{brand}' GROUP BY branch
+        AND brand REGEXP '#{brand}' GROUP BY branch
       ) AS ly ON lc.area_id = ly.area_id
     LEFT JOIN
       (
@@ -244,7 +244,7 @@ class Penjualan::Sale < ActiveRecord::Base
         SUM(CASE WHEN month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
         '#{date.end_of_year.month}' THEN target END) year_target
         FROM dbmarketing.sales_target_values WHERE
-        brand = '#{brand}' AND
+        brand REGEXP '#{brand}' AND
         month BETWEEN '#{date.beginning_of_year.month}' AND
         '#{date.end_of_year.month}'
         AND year BETWEEN '#{date.beginning_of_year.year}' AND
@@ -260,7 +260,7 @@ class Penjualan::Sale < ActiveRecord::Base
     SELECT SUM(sales_amount) AS harga, branch FROM sales_mart.RET4CITYBRAND
     WHERE fiscal_month = '#{date.month}'
     AND fiscal_year = '#{date.year}' AND branch NOT IN(1,5)
-    AND brand = '#{brand}' GROUP BY branch) AS lc
+    AND brand REGEXP '#{brand}' GROUP BY branch) AS lc
     LEFT JOIN dbmarketing.areas AS cb ON lc.branch = cb.id
     ")
   end
@@ -269,7 +269,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT SUM(target) AS jumlah, month FROM sales_targets
     WHERE branch = '#{branch}' AND month BETWEEN '#{1.month.ago.beginning_of_year.month}'
     AND '#{Date.yesterday.month}' AND year = '#{1.month.ago.beginning_of_year.year}'
-    AND brand = '#{brand}' AND area_id IS NOT NULL
+    AND brand REGEXP '#{brand}' AND area_id IS NOT NULL
     GROUP BY month, branch")
   end
 
@@ -316,7 +316,7 @@ class Penjualan::Sale < ActiveRecord::Base
         SUM(CASE WHEN month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
         '#{Date.yesterday.end_of_year.month}' THEN target END) year_target
         FROM sales_target_values WHERE
-        brand = '#{brand}' AND
+        brand REGEXP '#{brand}' AND
         month BETWEEN '#{Date.yesterday.beginning_of_year.month}' AND
         '#{Date.yesterday.end_of_year.month}'
         AND year BETWEEN '#{Date.yesterday.beginning_of_year.year}' AND
@@ -344,7 +344,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT SUM(target) AS jumlah, month FROM sales_targets
     WHERE branch = '#{branch}' AND month BETWEEN '#{1.month.ago.beginning_of_year.month}'
     AND '#{Date.yesterday.last_month.month}' AND year = '#{1.month.ago.beginning_of_year.year}'
-    AND brand = '#{brand}'
+    AND brand REGEXP '#{brand}'
     GROUP BY month, branch")
   end
 
@@ -392,7 +392,7 @@ class Penjualan::Sale < ActiveRecord::Base
         '#{date.year}' THEN sales_amount END) val_2
       FROM sales_mart.RET1ARTICLE WHERE fiscal_month BETWEEN '#{date.last_month.month}' AND
         '#{date.month}' AND fiscal_year BETWEEN '#{date.last_month.year}' AND
-        '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
+        '#{date.year}' AND branch = '#{branch}' AND brand REGEXP '#{brand}'
       GROUP BY article, size
       ) as sub")
   end
@@ -408,7 +408,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
       FROM sales_mart.RET3SALBRAND WHERE fiscal_day <= '#{date.day}' AND
       fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
-      AND '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
+      AND '#{date.year}' AND branch = '#{branch}' AND brand REGEXP '#{brand}'
       GROUP BY salesmen
     ) AS lc")
   end
@@ -429,7 +429,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) total_2
       FROM sales_mart.RET4CITYPRODUCT WHERE fiscal_day <= '#{date.day}' AND
       fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
-      AND '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
+      AND '#{date.year}' AND branch = '#{branch}' AND brand REGEXP '#{brand}'
       GROUP BY city
       ) as sub")
   end
@@ -450,7 +450,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) total_2
       FROM sales_mart.RET2CUSPRODUCT WHERE fiscal_day <= '#{date.day}' AND
       fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
-      AND '#{date.year}' AND branch = '#{branch}' AND brand = '#{brand}'
+      AND '#{date.year}' AND branch = '#{branch}' AND brand REGEXP '#{brand}'
       GROUP BY customer
       ) as sub")
   end
@@ -471,7 +471,7 @@ class Penjualan::Sale < ActiveRecord::Base
         '#{date.last_month.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) y_qty
       FROM sales_mart.RET1BRAND WHERE fiscal_day <= '#{date.day}' AND fiscal_month IN ('#{date.last_month.month}','#{date.month}')
       AND fiscal_year IN ('#{date.last_year.year}', '#{date.year}')
-      AND branch = '#{branch}' AND brand = '#{brand}'
+      AND branch = '#{branch}' AND brand REGEXP '#{brand}'
     ) as lc
       LEFT JOIN
       (
@@ -481,7 +481,7 @@ class Penjualan::Sale < ActiveRecord::Base
         '#{date.end_of_year.month}' and year = '#{date.year}' THEN target END) year_target
         FROM sales_target_values WHERE
         branch = '#{branch}' AND
-        (brand = '#{brand}' OR brand IS NULL)
+        (brand REGEXP '#{brand}' OR brand IS NULL)
         AND month BETWEEN '#{date.beginning_of_year.month}' AND
         '#{date.end_of_year.month}'
         AND (year = '#{Date.yesterday.year}' OR year IS NULL)
@@ -493,7 +493,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT SUM(target) AS jumlah, month FROM sales_targets
     WHERE branch = '#{branch}' AND month BETWEEN '#{1.month.ago.beginning_of_year.month}'
     AND '#{Date.yesterday.last_month.month}' AND year = '#{1.month.ago.beginning_of_year.year}'
-    AND brand = '#{brand}'
+    AND brand REGEXP '#{brand}'
     GROUP BY month, branch")
   end
 
@@ -501,7 +501,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT SUM(sales_quantity) AS jumlah, fiscal_month FROM sales_mart.RET1BRAND
     WHERE branch = '#{branch}' AND fiscal_month BETWEEN '#{ 1.month.ago.beginning_of_year.month}'
     AND '#{Date.yesterday.last_month.month}' AND fiscal_year = '#{1.month.ago.beginning_of_year.year}'
-    AND brand = '#{brand}' GROUP BY branch, fiscal_month")
+    AND brand REGEXP '#{brand}' GROUP BY branch, fiscal_month")
   end
 
   def self.monthly_product_summary(date, branch, brand)
@@ -516,11 +516,11 @@ class Penjualan::Sale < ActiveRecord::Base
     # SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_quantity END) qty_2,
     # SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
     # FROM sales_mart.RET1PRODUCT WHERE fiscal_month BETWEEN '#{date.last_month.month}'
-    # AND '#{date.month}' AND branch = '#{branch}' AND brand = '#{brand}'
+    # AND '#{date.month}' AND branch = '#{branch}' AND brand REGEXP '#{brand}'
     # GROUP BY product
     # ) as lc
     # RIGHT JOIN sales_targets AS st
-    # ON lc.product = st.product AND (st.brand = '#{brand}' OR st.brand IS NULL) AND
+    # ON lc.product = st.product AND (st.brand REGEXP '#{brand}' OR st.brand IS NULL) AND
     # (st.branch = '#{branch}' OR st.branch IS NULL)
     # AND (st.month = '#{date.month}' OR st.month IS NULL)
     # AND (st.year = '#{date.year}' OR st.year IS NULL) GROUP BY st.product
@@ -536,7 +536,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
       FROM sales_mart.RET1PRODUCT WHERE fiscal_day <= '#{date.day}' AND
       fiscal_month IN ('#{date.last_month.month}','#{date.month}')
-      AND '#{date.month}' AND branch = '#{branch}' AND brand = '#{brand}'
+      AND '#{date.month}' AND branch = '#{branch}' AND brand REGEXP '#{brand}'
       GROUP BY product
       ) as lc
       ")

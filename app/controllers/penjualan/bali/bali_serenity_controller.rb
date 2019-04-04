@@ -76,7 +76,7 @@ class Penjualan::Bali::BaliSerenityController < ApplicationController
   end
   
   def initialize_brand
-    "SERENITY"
+    "SERENITY|CLASSIC"
   end
   
   def initialize_brach_id

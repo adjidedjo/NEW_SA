@@ -1,4 +1,5 @@
 class AccountReceivable < ActiveRecord::Base
+
   def self.customer_collectable(date, brand, branch)
     find_by_sql("SELECT ar.customer, ar.salesman, ar.open_amount, bd.bad_debt FROM
       (
