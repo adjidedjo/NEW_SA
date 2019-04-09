@@ -29,10 +29,12 @@ module RolesHelper
   end
   
   def nsm(user, brand)
+    brand = brand.splite("|").first
     (user.position == "nsm" || user.position == "sales support") && user.brand1 == brand
   end
   
   def bm(user, branch, brand)
+    brand = brand.splite("|").first
     (user.position == "bm" || user.position == "admin sales" || user.position == "accounting") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
   end
   
@@ -41,6 +43,7 @@ module RolesHelper
   end
   
   def sales(user, branch, brand)
+    brand = brand.splite("|").first
     user.position == "sales" && (user.brand1 == brand || user.brand2 == brand || user.brand3 == brand || user.brand4 == brand) && 
     (user.branch1 == branch || user.branch2 == branch) 
   end
@@ -50,6 +53,7 @@ module RolesHelper
   end
   
   def sales_page(user, brand)
+    brand = brand.splite("|").first
     user.position == "sales" && (user.brand1 == brand || user.brand2 == brand || user.brand3 == brand || user.brand4 == brand)
   end
 end

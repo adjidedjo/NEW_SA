@@ -8,7 +8,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SELECT s.tanggalsj, s.nosj_so, s.nofaktur, s.orty, s.noso, s.kode_customer, s.customer,
         s.salesman, s.alamat_so,
         s.kodebrg, s.namabrg, s.kodejenis, s.jenisbrgdisc, s.namaartikel, s.namakain, s.panjang, s.lebar,
-        s.jumlah, s.harganetto1,
+        SUM(s.jumlah) jumlah, s.harganetto1,
         SUM(s.harganetto2) harganetto2, s.diskon1, s.diskon2, s.diskon3, s.diskon4, s.diskon5, s.diskonsum,
         s.diskonrp, s.cashback, s.nupgrade, s.kota,
         (CASE WHEN orty = 'RM' THEN s.reference ELSE s.nofaktur END) AS reference,
