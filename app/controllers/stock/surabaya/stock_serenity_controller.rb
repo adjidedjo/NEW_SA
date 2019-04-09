@@ -1,5 +1,12 @@
 class Stock::Surabaya::StockSerenityController < ApplicationController
   before_action :set_branch_plant, :initialize_brand
+    
+  def stock_unnormal
+    @stock = Stock::JdeItemAvailability.stock_real_unnormal(@branch_plant, "S|C")
+    @brand = initialize_brand
+    @state = "UNNORMAL"
+    render template: "stock/template_stock/stock_unnormal"
+  end
   
   def stock_normal
     @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "S")

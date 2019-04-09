@@ -14,6 +14,13 @@ class Stock::Surabaya::StockEliteController < ApplicationController
     @state = "NORMAL"
     render template: "stock/template_stock/stock_normal"
   end
+    
+  def stock_unnormal
+    @stock = Stock::JdeItemAvailability.stock_real_unnormal(@branch_plant, "E")
+    @brand = initialize_brand
+    @state = "UNNORMAL"
+    render template: "stock/template_stock/stock_unnormal"
+  end
   
   def stock_normal
     @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "E")
