@@ -15,7 +15,8 @@ class PagesController < ApplicationController
 
   # set another layout for a specific action
   def template
-    if current_user.position = 'sales'
+    if current_user.position == 'sales'
+    raise current_user.position.inspect
       redirect_to forecasts_dash_sales_path
     else
       render :layout => 'application'
