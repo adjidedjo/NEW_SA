@@ -1,4 +1,9 @@
 class ForecastsController < ApplicationController
+  
+  def dash_sales
+    @sales_month = Penjualan::SalesmanSales.revenue_sales(current_user) if current_user.position == 'sales'
+  end
+  
   def rkm_sales_page
     @rkm_sales = Forecast.calculate_rkm_sales(Date.today.cweek, Date.today.year, current_user.address_number)
   end

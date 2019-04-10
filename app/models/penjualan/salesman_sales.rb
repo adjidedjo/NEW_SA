@@ -37,14 +37,14 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY jenisbrgdisc
     ) as lc
       LEFT JOIN
       (
         SELECT SUM(harganetto1) AS v_last_year, area_id, nopo FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_year.beginning_of_month}'
-        AND '#{Date.yesterday.last_year}' AND jenisbrgdisc = '#{brand}' AND nopo = '#{sales.address_number}' AND
+        AND '#{Date.yesterday.last_year}' AND jenisbrgdisc REGEXP '#{brand}' AND nopo = '#{sales.address_number}' AND
         tipecust = 'RETAIL'
         GROUP BY jenisbrgdisc
       ) AS ly ON lc.nopo = '#{sales.address_number}'
@@ -68,7 +68,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
         SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN harganetto1 END) AS val_2
         FROM tblaporancabang AS lc
         WHERE tanggalsj BETWEEN '#{2.day.ago.to_date}'
-        AND '#{1.day.ago.to_date}' AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+        AND '#{1.day.ago.to_date}' AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
         tipecust = 'RETAIL'
         GROUP BY kodejenis WITH ROLLUP
       ) AS lc
@@ -93,7 +93,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY namaartikel, lebar
       ) as sub")
@@ -122,7 +122,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) total_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY customer
       ) as sub")
@@ -151,7 +151,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) total_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY kota
       ) as sub")
@@ -172,7 +172,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_week}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}'
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY kodejenis WITH ROLLUP
       ) as sub")
@@ -195,7 +195,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY kodejenis WITH ROLLUP
       ) as lc
@@ -221,7 +221,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{sales.brand1}' AND
       tipecust = 'RETAIL'
       GROUP BY namaartikel, lebar
       ) as sub")
@@ -250,7 +250,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) total_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{sales.brand1}' AND
       tipecust = 'RETAIL'
       GROUP BY customer
       ) as sub")
@@ -279,7 +279,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) total_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{sales.brand1}' AND
       tipecust = 'RETAIL'
       GROUP BY kota
       ) as sub")
@@ -300,7 +300,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{sales.brand1}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{sales.brand1}' AND
       tipecust = 'RETAIL'
       GROUP BY kodejenis WITH ROLLUP
       ) as sub")
@@ -417,7 +417,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
         SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN harganetto1 END) AS val_2
         FROM tblaporancabang AS lc
         WHERE tanggalsj BETWEEN '#{2.day.ago.to_date}'
-        AND '#{1.day.ago.to_date}' AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+        AND '#{1.day.ago.to_date}' AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
         tipecust = 'RETAIL'
         GROUP BY kodejenis WITH ROLLUP
       ) AS lc
@@ -442,7 +442,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY namaartikel, lebar
       ) as sub")
@@ -471,7 +471,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) total_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY customer
       ) as sub")
@@ -500,7 +500,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) total_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY kota
       ) as sub")
@@ -521,7 +521,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_week}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}'
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY kodejenis WITH ROLLUP
       ) as sub")
@@ -544,7 +544,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
-      AND nopo = '#{sales.address_number}' AND jenisbrgdisc = '#{brand}' AND
+      AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY kodejenis WITH ROLLUP
       ) as lc
