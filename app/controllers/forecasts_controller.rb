@@ -91,6 +91,11 @@ class ForecastsController < ApplicationController
   def upload_forecast
   end
 
+  def import_target_sales
+    SalesTarget.import(params[:file])
+    redirect_to forecasts_upload_forecast_url, notice: 'Salesmen Targets imported.'
+  end
+
   def import
     Forecast.import(params[:file])
     redirect_to forecasts_upload_forecast_url, notice: 'Forecasts imported.'

@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   get 'forecasts/upload_forecast'
   post 'forecasts/import'
   post 'forecasts/import_weekly'
+  post 'forecasts/import_target_sales'
   get 'forecasts/rkm_sales_page'
   get 'forecasts/rekap_report_rkm'
   get 'forecasts/report_rkm'
