@@ -50,7 +50,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       ) AS ly ON lc.nopo = '#{sales.address_number}'
       LEFT JOIN
       (
-        SELECT SUM(target) AS target_val, branch, address_number FROM sales_target_values WHERE month = '#{Date.yesterday.month}'
+        SELECT SUM(amount) AS target_val, branch, address_number FROM sales_target_values WHERE month = '#{Date.yesterday.month}'
         AND year = '#{Date.yesterday.year}' AND brand REGEXP '#{brand}' AND address_number = '#{sales.address_number}'
         GROUP BY branch, brand
       ) AS tv ON lc.nopo = '#{sales.address_number}'

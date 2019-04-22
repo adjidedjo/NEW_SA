@@ -51,9 +51,9 @@ class Penjualan::SaleDaily < Penjualan::Sale
       LEFT JOIN
       (
         SELECT branch,
-        SUM(CASE WHEN month = '#{Date.yesterday.month}' THEN target END) target_val,
+        SUM(CASE WHEN month = '#{Date.yesterday.month}' THEN amount END) target_val,
         SUM(CASE WHEN month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
-        '#{Date.yesterday.end_of_year.month}' THEN target END) year_target
+        '#{Date.yesterday.end_of_year.month}' THEN amount END) year_target
         FROM sales_target_values WHERE
         branch = '#{branch}' AND
         (brand REGEXP '#{brand}' OR brand IS NULL)
