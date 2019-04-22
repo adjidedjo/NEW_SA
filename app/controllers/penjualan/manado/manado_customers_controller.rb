@@ -29,7 +29,7 @@ class Penjualan::Manado::ManadoCustomersController < ApplicationController
   end
 
   def initialize_branch_id
-    2
+    26
   end
 
   def authorize_user
