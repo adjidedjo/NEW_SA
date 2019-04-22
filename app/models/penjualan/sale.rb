@@ -94,9 +94,9 @@ class Penjualan::Sale < ActiveRecord::Base
       (
         SELECT branch, brand,
         SUM(CASE WHEN month = '#{date.month}' AND year = '#{date.year}'
-          THEN target END) target_val,
+          THEN amount END) target_val,
         SUM(CASE WHEN month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
-        '#{date.end_of_year.month}' THEN target END) year_target
+        '#{date.end_of_year.month}' THEN amount END) year_target
         FROM sales_target_values WHERE
         branch = '#{branch}'
         AND month BETWEEN '#{date.beginning_of_year.month}' AND
@@ -157,9 +157,9 @@ class Penjualan::Sale < ActiveRecord::Base
     LEFT JOIN
       (
         SELECT branch, brand,
-        SUM(CASE WHEN month = '#{Date.yesterday.last_month.month}' THEN target END) month_target,
+        SUM(CASE WHEN month = '#{Date.yesterday.last_month.month}' THEN amount END) month_target,
         SUM(CASE WHEN month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
-        '#{Date.yesterday.last_month.end_of_year.month}' THEN target END) year_target
+        '#{Date.yesterday.last_month.end_of_year.month}' THEN amount END) year_target
         FROM dbmarketing.sales_target_values WHERE
         brand REGEXP '#{brand}' AND
         month BETWEEN '#{Date.yesterday.last_month.beginning_of_year.month}' AND
@@ -198,9 +198,9 @@ class Penjualan::Sale < ActiveRecord::Base
     LEFT JOIN
       (
         SELECT branch, brand,
-        SUM(CASE WHEN month = '#{date.month}' THEN target END) month_target,
+        SUM(CASE WHEN month = '#{date.month}' THEN amount END) month_target,
         SUM(CASE WHEN month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
-        '#{date.end_of_year.month}' THEN target END) year_target
+        '#{date.end_of_year.month}' THEN amount END) year_target
         FROM sales_target_values WHERE
         brand REGEXP '#{brand}' AND
         month BETWEEN '#{Date.yesterday.beginning_of_year.month}' AND
@@ -240,9 +240,9 @@ class Penjualan::Sale < ActiveRecord::Base
     LEFT JOIN
       (
         SELECT branch, brand,
-        SUM(CASE WHEN month = '#{date.month}' THEN target END) month_target,
+        SUM(CASE WHEN month = '#{date.month}' THEN amount END) month_target,
         SUM(CASE WHEN month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
-        '#{date.end_of_year.month}' THEN target END) year_target
+        '#{date.end_of_year.month}' THEN amount END) year_target
         FROM dbmarketing.sales_target_values WHERE
         brand REGEXP '#{brand}' AND
         month BETWEEN '#{date.beginning_of_year.month}' AND
@@ -312,9 +312,9 @@ class Penjualan::Sale < ActiveRecord::Base
     LEFT JOIN
       (
         SELECT branch, brand,
-        SUM(CASE WHEN month = '#{Date.yesterday.last_month.month}' THEN target END) month_target,
+        SUM(CASE WHEN month = '#{Date.yesterday.last_month.month}' THEN amount END) month_target,
         SUM(CASE WHEN month BETWEEN '#{Date.yesterday.beginning_of_year.to_date.month}' AND
-        '#{Date.yesterday.end_of_year.month}' THEN target END) year_target
+        '#{Date.yesterday.end_of_year.month}' THEN amount END) year_target
         FROM sales_target_values WHERE
         brand REGEXP '#{brand}' AND
         month BETWEEN '#{Date.yesterday.beginning_of_year.month}' AND
@@ -476,9 +476,9 @@ class Penjualan::Sale < ActiveRecord::Base
       LEFT JOIN
       (
         SELECT branch,
-        SUM(CASE WHEN month = '#{date.month}' and year = '#{date.year}' THEN target END) month_target,
+        SUM(CASE WHEN month = '#{date.month}' and year = '#{date.year}' THEN amount END) month_target,
         SUM(CASE WHEN month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
-        '#{date.end_of_year.month}' and year = '#{date.year}' THEN target END) year_target
+        '#{date.end_of_year.month}' and year = '#{date.year}' THEN amount END) year_target
         FROM sales_target_values WHERE
         branch = '#{branch}' AND
         (brand REGEXP '#{brand}' OR brand IS NULL)
