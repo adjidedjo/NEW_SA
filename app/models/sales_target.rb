@@ -9,7 +9,6 @@ class SalesTarget < ApplicationRecord
       month: row["month"], year: row["year"]) || new
       unless row["amount"].nil? || row["amount"] == 0
         if target.id.nil?
-          item = JdeItemMaster.get_desc_forecast(row["item_number"])
           sales_name = Jde.get_sales_rkb(row["address_number"].to_i)
           row["name"] = sales_name.nil? ? ' ' : sales_name.abalph.strip
         target.attributes = row.to_hash
