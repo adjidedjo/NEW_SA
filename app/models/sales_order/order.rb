@@ -144,7 +144,7 @@ class SalesOrder::Order < ActiveRecord::Base
   def self.order_summary
   end
   
-  def self.outstand_order(branch, brand)
+  def self.outstand_order(branch, brand, sales, anumber)
     Jde.find_by_sql("SELECT so.sddoco AS order_no, so.sddrqj as promised_delivery, so.sdnxtr as status, 
     so.sduorg AS jumlah, so.sdtrdj AS sdtrdj,
     so.sdsrp1 AS sdsrp1, so.sdmcu AS sdmcu, so.sditm, so.sdlitm AS sdlitm, 
@@ -164,7 +164,7 @@ class SalesOrder::Order < ActiveRecord::Base
     ) CM1 ON TRIM(SM.SASLSM) = TRIM(CM1.ABAN8)
     WHERE so.sdcomm NOT LIKE '%K%' AND so.sdmcu LIKE '%#{branch}%' AND REGEXP_LIKE(so.sdsrp1, '#{brand}')
     AND REGEXP_LIKE(so.sddcto,'SO|ZO') AND itm.imtmpl LIKE '%BJ MATRASS%' AND
-    so.sdnxtr <= '560'")
+    so.sdnxtr <= '560' AND cm1.aban8 = (CASE WHEN 'sales' = '#{sales}' THEN #{anumber} ELSE cm1.aban8 END)")
   end
   
   def self.pick_order(branch, brand)
