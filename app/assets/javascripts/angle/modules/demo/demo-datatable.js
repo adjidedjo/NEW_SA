@@ -743,9 +743,9 @@
         'ordering': true,  // Column ordering
         'info':     true,  // Bottom left status text
         'responsive': false, // https://datatables.net/extensions/responsive/examples/
-        'order': [[ 9, "desc" ]],
+        'order': [[ 8, "desc" ]],
         'aoColumnsDefs': [
-            { "sType": "numeric", "aTargets": [ 9 ] }
+            { "sType": "numeric", "aTargets": [ 8 ] }
          ],
         // Text translation options
         // Note the required keywords between underscores (e.g _MENU_)
