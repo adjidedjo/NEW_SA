@@ -2,7 +2,7 @@ module OrderDailyConcern
   extend ActiveSupport::Concern
   
   def outstanding_order
-    @out_daily = SalesOrder::Order.outstand_order(initialize_brach_id, initialize_brand)
+    # @out_daily = SalesOrder::Order.outstand_order(initialize_brach_id, initialize_brand, current_user.position, current_user.address_number.nil? ? '0' : current_user.address_number.nil?)
   end
   
   def held_orders_by_credit

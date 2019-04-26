@@ -1,28 +1,77 @@
 <li class="<%= 'active' if controller?('order/bandung') %>">
-  <a href="#bdg-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Bandung</span> </a>
-  <ul id="bdg-order" class="nav sidebar-subnav collapse">
+  <a href="#order-bandung" title="Level 1" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Bandung</span> </a>
+  <ul id="order-bandung" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
-      BANDUNG
+      Bandung
     </li>
     <li class="<%= 'active' if controller?('order/bandung/bandung_elites') %>">
-      <li class="<%= 'active' if controller?('order/bandung/bandung_elites') && action?('order') %>">
-        <a href="/order/bandung/bandung_elites/order" title="Order"> <em class="icon-chart"></em> <span>Elite</span> </a>
-      </li>
+      <a href="#order-bandung-elite" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Elite</span> </a>
+      <ul id="order-bandung-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/bandung_elites') && action?('order_normal') %>">
+          <a href="/order/bandung/bandung_elites/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/bandung_elites') && action?('order_clearence') %>">
+          <a href="/order/bandung/bandung_elites/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/bandung_elites') && action?('order_display') %>">
+          <a href="/order/bandung/bandung_elites/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/bandung/bandung_serenity') %>">
-      <li class="<%= 'active' if controller?('order/bandung/bandung_serenity') && action?('order') %>">
-        <a href="/order/bandung/bandung_serenity/order" title="Order"> <em class="icon-chart"></em> <span>Serenity</span> </a>
-      </li>
+      <a href="#order-bandung-serenity" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Serenity</span> </a>
+      <ul id="order-bandung-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/bandung_serenity') && action?('order_normal') %>">
+          <a href="/order/bandung/bandung_serenity/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/bandung_serenity') && action?('order_clearence') %>">
+          <a href="/order/bandung/bandung_serenity/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/bandung_serenity') && action?('order_display') %>">
+          <a href="/order/bandung/bandung_serenity/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/bandung/bandung_lady') %>">
-      <li class="<%= 'active' if controller?('order/bandung/bandung_lady') && action?('order') %>">
-        <a href="/order/bandung/bandung_lady/order" title="Order"> <em class="icon-chart"></em> <span>Lady</span> </a>
-      </li>
+      <a href="#order-bandung-lady" title="Lady" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Lady</span> </a>
+      <ul id="order-bandung-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/bandung_lady') && action?('order_normal') %>">
+          <a href="/order/bandung/bandung_lady/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/bandung_lady') && action?('order_clearence') %>">
+          <a href="/order/bandung/bandung_lady/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/bandung_lady') && action?('order_display') %>">
+          <a href="/order/bandung/bandung_lady/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/bandung/bandung_royal') %>">
-      <li class="<%= 'active' if controller?('order/bandung/bandung_royal') && action?('order') %>">
-        <a href="/order/bandung/bandung_royal/order" title="Order"> <em class="icon-chart"></em> <span>Royal</span> </a>
-      </li>
+      <a href="#order-bandung-royal" title="Royal" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Royal</span> </a>
+      <ul id="order-bandung-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/order_royal') && action?('order_normal') %>">
+          <a href="/order/bandung/bandung_royal/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/order_royal') && action?('order_clearence') %>">
+          <a href="/order/bandung/bandung_royal/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/bandung/order_royal') && action?('order_display') %>">
+          <a href="/order/bandung/bandung_royal/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
+    
   </ul>
 </li>

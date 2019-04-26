@@ -11,8 +11,8 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
       FROM PRODDTA.F41021 IA 
       JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm
       WHERE (LIHCOM > 0 or LIPQOH > 0)
-      AND IM.imsrp1 LIKE '%#{brand}%' AND IA.limcu LIKE '%#{branch}'
-      AND (IM.imseg5 != '200' OR IM.imseg6 NOT IN ('000', '090', '100', '120', '140', '160', '180', '200'))
+      AND REGEXP_LIKE(IM.imsrp1, '#{brand}') AND IA.limcu LIKE '%#{branch}'
+      AND (IM.imseg5 NOT IN ('000', '200') OR IM.imseg6 NOT IN ('000', '090', '100', '120', '140', '160', '180', '200'))
       GROUP BY IM.imseg2, IM.imseg3, IM.imseg5")
   end
   

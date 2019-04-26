@@ -1,28 +1,77 @@
 <li class="<%= 'active' if controller?('order/manado') %>">
-  <a href="#mnd-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Manado</span> </a>
-  <ul id="mnd-order" class="nav sidebar-subnav collapse">
+  <a href="#order-manado" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Manado</span> </a>
+  <ul id="order-manado" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
-      MANADO
+      Manado
     </li>
     <li class="<%= 'active' if controller?('order/manado/manado_elites') %>">
-      <li class="<%= 'active' if controller?('order/manado/manado_elites') && action?('order') %>">
-          <a href="/order/manado/manado_elites/order" title="Order"> <em class="icon-chart"></em><span>Elite</span> </a>
+      <a href="#order-manado-elite" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Elite</span> </a>
+      <ul id="order-manado-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
         </li>
+        <li class="<%= 'active' if controller?('order/manado/manado_elites') && action?('order_normal') %>">
+          <a href="/order/manado/manado_elites/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/manado/manado_elites') && action?('order_clearence') %>">
+          <a href="/order/manado/manado_elites/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/manado/manado_elites') && action?('order_display') %>">
+          <a href="/order/manado/manado_elites/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/manado/manado_serenity') %>">
-      <li class="<%= 'active' if controller?('order/manado/manado_serenity') && action?('order') %>">
-          <a href="/order/manado/manado_serenity/order" title="Order"> <em class="icon-chart"></em><span>Serenity</span> </a>
+      <a href="#order-manado-serenity" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Serenity</span> </a>
+      <ul id="order-manado-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
         </li>
+        <li class="<%= 'active' if controller?('order/manado/manado_serenity') && action?('order_normal') %>">
+          <a href="/order/manado/manado_serenity/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/manado/manado_serenity') && action?('order_clearence') %>">
+          <a href="/order/manado/manado_serenity/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/manado/manado_serenity') && action?('order_display') %>">
+          <a href="/order/manado/manado_serenity/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/manado/manado_lady') %>">
-      <li class="<%= 'active' if controller?('order/manado/manado_lady') && action?('order') %>">
-          <a href="/order/manado/manado_lady/order" title="Order"> <em class="icon-chart"></em><span>Lady</span> </a>
+      <a href="#order-manado-lady" title="Lady" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Lady</span> </a>
+      <ul id="order-manado-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
         </li>
+        <li class="<%= 'active' if controller?('order/manado/manado_lady') && action?('order_normal') %>">
+          <a href="/order/manado/manado_lady/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/manado/manado_lady') && action?('order_clearence') %>">
+          <a href="/order/manado/manado_lady/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/manado/manado_lady') && action?('order_display') %>">
+          <a href="/order/manado/manado_lady/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/manado/manado_royal') %>">
-      <li class="<%= 'active' if controller?('order/manado/manado_royal') && action?('order') %>">
-          <a href="/order/manado/manado_royal/order" title="Order"> <em class="icon-chart"></em><span>Royal</span> </a>
+      <a href="#order-manado-royal" title="Royal" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Royal</span> </a>
+      <ul id="order-manado-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
         </li>
+        <li class="<%= 'active' if controller?('order/manado/order_royal') && action?('order_normal') %>">
+          <a href="/order/manado/manado_royal/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/manado/order_royal') && action?('order_clearence') %>">
+          <a href="/order/manado/manado_royal/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/manado/order_royal') && action?('order_display') %>">
+          <a href="/order/manado/manado_royal/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
+    
   </ul>
 </li>

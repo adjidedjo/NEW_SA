@@ -1,28 +1,77 @@
 <li class="<%= 'active' if controller?('order/palembang') %>">
-  <a href="#plb-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Palembang</span> </a>
-  <ul id="plb-order" class="nav sidebar-subnav collapse">
+  <a href="#order-palembang" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Palembang</span> </a>
+  <ul id="order-palembang" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
-      PALEMBANG
+      Palembang
     </li>
     <li class="<%= 'active' if controller?('order/palembang/palembang_elites') %>">
-      <li class="<%= 'active' if controller?('order/palembang/palembang_elites') && action?('order') %>">
-          <a href="/order/palembang/palembang_elites/order" title="Order"> <em class="icon-chart"></em><span>Elite</span> </a>
+      <a href="#order-palembang-elite" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Elite</span> </a>
+      <ul id="order-palembang-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
         </li>
+        <li class="<%= 'active' if controller?('order/palembang/palembang_elites') && action?('order_normal') %>">
+          <a href="/order/palembang/palembang_elites/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/palembang/palembang_elites') && action?('order_clearence') %>">
+          <a href="/order/palembang/palembang_elites/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/palembang/palembang_elites') && action?('order_display') %>">
+          <a href="/order/palembang/palembang_elites/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/palembang/palembang_serenity') %>">
-      <li class="<%= 'active' if controller?('order/palembang/palembang_serenity') && action?('order') %>">
-          <a href="/order/palembang/palembang_serenity/order" title="Order"> <em class="icon-chart"></em><span>Serenity</span> </a>
+      <a href="#order-palembang-serenity" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Serenity</span> </a>
+      <ul id="order-palembang-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
         </li>
+        <li class="<%= 'active' if controller?('order/palembang/palembang_serenity') && action?('order_normal') %>">
+          <a href="/order/palembang/palembang_serenity/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/palembang/palembang_serenity') && action?('order_clearence') %>">
+          <a href="/order/palembang/palembang_serenity/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/palembang/palembang_serenity') && action?('order_display') %>">
+          <a href="/order/palembang/palembang_serenity/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/palembang/palembang_lady') %>">
-      <li class="<%= 'active' if controller?('order/palembang/palembang_lady') && action?('order') %>">
-          <a href="/order/palembang/palembang_lady/order" title="Order"> <em class="icon-chart"></em><span>Lady</span> </a>
+      <a href="#order-palembang-lady" title="Lady" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Lady</span> </a>
+      <ul id="order-palembang-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
         </li>
+        <li class="<%= 'active' if controller?('order/palembang/palembang_lady') && action?('order_normal') %>">
+          <a href="/order/palembang/palembang_lady/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/palembang/palembang_lady') && action?('order_clearence') %>">
+          <a href="/order/palembang/palembang_lady/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/palembang/palembang_lady') && action?('order_display') %>">
+          <a href="/order/palembang/palembang_lady/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/palembang/palembang_royal') %>">
-      <li class="<%= 'active' if controller?('order/palembang/palembang_royal') && action?('order') %>">
-          <a href="/order/palembang/palembang_royal/order" title="Order"> <em class="icon-chart"></em><span>Royal</span> </a>
+      <a href="#order-palembang-royal" title="Royal" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Royal</span> </a>
+      <ul id="order-palembang-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
         </li>
+        <li class="<%= 'active' if controller?('order/palembang/order_royal') && action?('order_normal') %>">
+          <a href="/order/palembang/palembang_royal/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/palembang/order_royal') && action?('order_clearence') %>">
+          <a href="/order/palembang/palembang_royal/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/palembang/order_royal') && action?('order_display') %>">
+          <a href="/order/palembang/palembang_royal/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
+    
   </ul>
 </li>

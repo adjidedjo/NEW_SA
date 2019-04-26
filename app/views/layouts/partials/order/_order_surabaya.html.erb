@@ -1,28 +1,77 @@
 <li class="<%= 'active' if controller?('order/surabaya') %>">
-  <a href="#sby-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Surabaya</span> </a>
-  <ul id="sby-order" class="nav sidebar-subnav collapse">
+  <a href="#order-surabaya" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Surabaya</span> </a>
+  <ul id="order-surabaya" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
-      SURABAYA
+      Surabaya
     </li>
     <li class="<%= 'active' if controller?('order/surabaya/surabaya_elites') %>">
-      <li class="<%= 'active' if controller?('order/surabaya/surabaya_elites') && action?('order') %>">
-          <a href="/order/surabaya/surabaya_elites/order" title="Order"> <em class="icon-chart"></em><span>Elite</span> </a>
+      <a href="#order-surabaya-elite" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Elite</span> </a>
+      <ul id="order-surabaya-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
         </li>
+        <li class="<%= 'active' if controller?('order/surabaya/surabaya_elites') && action?('order_normal') %>">
+          <a href="/order/surabaya/surabaya_elites/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/surabaya/surabaya_elites') && action?('order_clearence') %>">
+          <a href="/order/surabaya/surabaya_elites/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/surabaya/surabaya_elites') && action?('order_display') %>">
+          <a href="/order/surabaya/surabaya_elites/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/surabaya/surabaya_serenity') %>">
-       <li class="<%= 'active' if controller?('order/surabaya/surabaya_serenity') && action?('order') %>">
-          <a href="/order/surabaya/surabaya_serenity/order" title="Order"> <em class="icon-chart"></em><span>Serenity & Classic</span> </a>
+      <a href="#order-surabaya-serenity" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Serenity</span> </a>
+      <ul id="order-surabaya-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
         </li>
+        <li class="<%= 'active' if controller?('order/surabaya/surabaya_serenity') && action?('order_normal') %>">
+          <a href="/order/surabaya/surabaya_serenity/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/surabaya/surabaya_serenity') && action?('order_clearence') %>">
+          <a href="/order/surabaya/surabaya_serenity/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/surabaya/surabaya_serenity') && action?('order_display') %>">
+          <a href="/order/surabaya/surabaya_serenity/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/surabaya/surabaya_lady') %>">
-      <li class="<%= 'active' if controller?('order/surabaya/surabaya_lady') && action?('order') %>">
-          <a href="/order/surabaya/surabaya_lady/order" title="Order"> <em class="icon-chart"></em><span>Lady</span> </a>
+      <a href="#order-surabaya-lady" title="Lady" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Lady</span> </a>
+      <ul id="order-surabaya-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
         </li>
+        <li class="<%= 'active' if controller?('order/surabaya/surabaya_lady') && action?('order_normal') %>">
+          <a href="/order/surabaya/surabaya_lady/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/surabaya/surabaya_lady') && action?('order_clearence') %>">
+          <a href="/order/surabaya/surabaya_lady/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/surabaya/surabaya_lady') && action?('order_display') %>">
+          <a href="/order/surabaya/surabaya_lady/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/surabaya/surabaya_royal') %>">
-      <li class="<%= 'active' if controller?('order/surabaya/surabaya_royal') && action?('order') %>">
-          <a href="/order/surabaya/surabaya_royal/order" title="Order"> <em class="icon-chart"></em><span>Royal</span> </a>
+      <a href="#order-surabaya-royal" title="Royal" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Royal</span> </a>
+      <ul id="order-surabaya-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
         </li>
+        <li class="<%= 'active' if controller?('order/surabaya/order_royal') && action?('order_normal') %>">
+          <a href="/order/surabaya/surabaya_royal/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/surabaya/order_royal') && action?('order_clearence') %>">
+          <a href="/order/surabaya/surabaya_royal/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/surabaya/order_royal') && action?('order_display') %>">
+          <a href="/order/surabaya/surabaya_royal/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
+    
   </ul>
 </li>

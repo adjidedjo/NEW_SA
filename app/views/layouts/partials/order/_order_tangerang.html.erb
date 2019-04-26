@@ -1,28 +1,77 @@
 <li class="<%= 'active' if controller?('order/tangerang') %>">
-  <a href="#tng-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Tangerang</span> </a>
-  <ul id="tng-order" class="nav sidebar-subnav collapse">
+  <a href="#order-tangerang" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Tangerang</span> </a>
+  <ul id="order-tangerang" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
-      TANGERANG
+      Tangerang
     </li>
     <li class="<%= 'active' if controller?('order/tangerang/tangerang_elites') %>">
-      <li class="<%= 'active' if controller?('order/tangerang/tangerang_elites') && action?('order') %>">
-          <a href="/order/tangerang/tangerang_elites/order" title="Order"> <em class="icon-chart"></em><span>Elite</span> </a>
+      <a href="#order-tangerang-elite" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Elite</span> </a>
+      <ul id="order-tangerang-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
         </li>
+        <li class="<%= 'active' if controller?('order/tangerang/tangerang_elites') && action?('order_normal') %>">
+          <a href="/order/tangerang/tangerang_elites/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/tangerang/tangerang_elites') && action?('order_clearence') %>">
+          <a href="/order/tangerang/tangerang_elites/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/tangerang/tangerang_elites') && action?('order_display') %>">
+          <a href="/order/tangerang/tangerang_elites/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/tangerang/tangerang_serenity') %>">
-      <li class="<%= 'active' if controller?('order/tangerang/tangerang_serenity') && action?('order') %>">
-          <a href="/order/tangerang/tangerang_serenity/order" title="Order"> <em class="icon-chart"></em><span>Serenity</span> </a>
+      <a href="#order-tangerang-serenity" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Serenity</span> </a>
+      <ul id="order-tangerang-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
         </li>
+        <li class="<%= 'active' if controller?('order/tangerang/tangerang_serenity') && action?('order_normal') %>">
+          <a href="/order/tangerang/tangerang_serenity/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/tangerang/tangerang_serenity') && action?('order_clearence') %>">
+          <a href="/order/tangerang/tangerang_serenity/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/tangerang/tangerang_serenity') && action?('order_display') %>">
+          <a href="/order/tangerang/tangerang_serenity/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/tangerang/tangerang_lady') %>">
-      <li class="<%= 'active' if controller?('order/tangerang/tangerang_lady') && action?('order') %>">
-          <a href="/order/tangerang/tangerang_lady/order" title="Order"> <em class="icon-chart"></em><span>Lady</span> </a>
+      <a href="#order-tangerang-lady" title="Lady" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Lady</span> </a>
+      <ul id="order-tangerang-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
         </li>
+        <li class="<%= 'active' if controller?('order/tangerang/tangerang_lady') && action?('order_normal') %>">
+          <a href="/order/tangerang/tangerang_lady/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/tangerang/tangerang_lady') && action?('order_clearence') %>">
+          <a href="/order/tangerang/tangerang_lady/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/tangerang/tangerang_lady') && action?('order_display') %>">
+          <a href="/order/tangerang/tangerang_lady/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/tangerang/tangerang_royal') %>">
-      <li class="<%= 'active' if controller?('order/tangerang/tangerang_royal') && action?('order') %>">
-          <a href="/order/tangerang/tangerang_royal/order" title="Order"> <em class="icon-chart"></em><span>Royal</span> </a>
+      <a href="#order-tangerang-royal" title="Royal" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Royal</span> </a>
+      <ul id="order-tangerang-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
         </li>
+        <li class="<%= 'active' if controller?('order/tangerang/order_royal') && action?('order_normal') %>">
+          <a href="/order/tangerang/tangerang_royal/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/tangerang/order_royal') && action?('order_clearence') %>">
+          <a href="/order/tangerang/tangerang_royal/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/tangerang/order_royal') && action?('order_display') %>">
+          <a href="/order/tangerang/tangerang_royal/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
+    
   </ul>
 </li>

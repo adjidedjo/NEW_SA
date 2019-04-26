@@ -162,7 +162,7 @@ class SalesOrder::Order < ActiveRecord::Base
     (
      SELECT * FROM PRODDTA.F0101
     ) CM1 ON TRIM(SM.SASLSM) = TRIM(CM1.ABAN8)
-    WHERE so.sdcomm NOT LIKE '%K%' AND so.sdmcu LIKE '%#{branch}%' AND REGEXP_LIKE(so.sdsrp1, '#{brand}')
+    WHERE so.sdcomm NOT LIKE '%K%' AND so.sdmcu LIKE '%#{branch}' AND REGEXP_LIKE(so.sdsrp1, '#{brand}')
     AND REGEXP_LIKE(so.sddcto,'SO|ZO') AND itm.imtmpl LIKE '%BJ MATRASS%' AND
     so.sdnxtr <= '560' AND cm1.aban8 = (CASE WHEN 'sales' = '#{sales}' THEN #{anumber} ELSE cm1.aban8 END)")
   end

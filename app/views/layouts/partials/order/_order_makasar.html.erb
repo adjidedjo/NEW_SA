@@ -1,28 +1,77 @@
 <li class="<%= 'active' if controller?('order/makasar') %>">
-  <a href="#mks-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Makasar</span> </a>
-  <ul id="mks-order" class="nav sidebar-subnav collapse">
+  <a href="#order-makasar" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Makassar</span> </a>
+  <ul id="order-makasar" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
-      MAKASAR
+      Makassar
     </li>
     <li class="<%= 'active' if controller?('order/makasar/makasar_elites') %>">
-      <li class="<%= 'active' if controller?('order/makasar/makasar_elites') && action?('order') %>">
-          <a href="/order/makasar/makasar_elites/order" title="Order"> <em class="icon-chart"></em><span>Elite</span> </a>
+      <a href="#order-makasar-elite" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Elite</span> </a>
+      <ul id="order-makasar-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
         </li>
+        <li class="<%= 'active' if controller?('order/makasar/makasar_elites') && action?('order_normal') %>">
+          <a href="/order/makasar/makasar_elites/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/makasar/makasar_elites') && action?('order_clearence') %>">
+          <a href="/order/makasar/makasar_elites/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/makasar/makasar_elites') && action?('order_display') %>">
+          <a href="/order/makasar/makasar_elites/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/makasar/makasar_serenity') %>">
-      <li class="<%= 'active' if controller?('order/makasar/makasar_serenity') && action?('order') %>">
-          <a href="/order/makasar/makasar_serenity/order" title="Order"> <em class="icon-chart"></em><span>Serenity</span> </a>
+      <a href="#order-makasar-serenity" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Serenity</span> </a>
+      <ul id="order-makasar-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
         </li>
+        <li class="<%= 'active' if controller?('order/makasar/makasar_serenity') && action?('order_normal') %>">
+          <a href="/order/makasar/makasar_serenity/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/makasar/makasar_serenity') && action?('order_clearence') %>">
+          <a href="/order/makasar/makasar_serenity/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/makasar/makasar_serenity') && action?('order_display') %>">
+          <a href="/order/makasar/makasar_serenity/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/makasar/makasar_lady') %>">
-      <li class="<%= 'active' if controller?('order/makasar/makasar_lady') && action?('order') %>">
-          <a href="/order/makasar/makasar_lady/order" title="Order"> <em class="icon-chart"></em><span>Lady</span> </a>
+      <a href="#order-makasar-lady" title="Lady" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Lady</span> </a>
+      <ul id="order-makasar-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
         </li>
+        <li class="<%= 'active' if controller?('order/makasar/makasar_lady') && action?('order_normal') %>">
+          <a href="/order/makasar/makasar_lady/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/makasar/makasar_lady') && action?('order_clearence') %>">
+          <a href="/order/makasar/makasar_lady/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/makasar/makasar_lady') && action?('order_display') %>">
+          <a href="/order/makasar/makasar_lady/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/makasar/makasar_royal') %>">
-      <li class="<%= 'active' if controller?('order/makasar/makasar_royal') && action?('order') %>">
-          <a href="/order/makasar/makasar_royal/order" title="Order"> <em class="icon-chart"></em><span>Royal</span> </a>
+      <a href="#order-makasar-royal" title="Royal" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Royal</span> </a>
+      <ul id="order-makasar-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
         </li>
+        <li class="<%= 'active' if controller?('order/makasar/order_royal') && action?('order_normal') %>">
+          <a href="/order/makasar/makasar_royal/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/makasar/order_royal') && action?('order_clearence') %>">
+          <a href="/order/makasar/makasar_royal/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/makasar/order_royal') && action?('order_display') %>">
+          <a href="/order/makasar/makasar_royal/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
+    
   </ul>
 </li>

@@ -1,28 +1,77 @@
 <li class="<%= 'active' if controller?('order/medan') %>">
-  <a href="#mdn-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Medan</span> </a>
-  <ul id="mdn-order" class="nav sidebar-subnav collapse">
+  <a href="#order-medan" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Medan</span> </a>
+  <ul id="order-medan" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
-      MEDAN
+      Medan
     </li>
     <li class="<%= 'active' if controller?('order/medan/medan_elites') %>">
-      <li class="<%= 'active' if controller?('order/medan/medan_elites') && action?('order') %>">
-          <a href="/order/medan/medan_elites/order" title="Order"> <em class="icon-chart"></em><span>Elite</span> </a>
+      <a href="#order-medan-elite" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Elite</span> </a>
+      <ul id="order-medan-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
         </li>
+        <li class="<%= 'active' if controller?('order/medan/medan_elites') && action?('order_normal') %>">
+          <a href="/order/medan/medan_elites/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/medan/medan_elites') && action?('order_clearence') %>">
+          <a href="/order/medan/medan_elites/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/medan/medan_elites') && action?('order_display') %>">
+          <a href="/order/medan/medan_elites/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/medan/medan_serenity') %>">
-      <li class="<%= 'active' if controller?('order/medan/medan_serenity') && action?('order') %>">
-          <a href="/order/medan/medan_serenity/order" title="Order"> <em class="icon-chart"></em><span>Serenity</span> </a>
+      <a href="#order-medan-serenity" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Serenity</span> </a>
+      <ul id="order-medan-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
         </li>
+        <li class="<%= 'active' if controller?('order/medan/medan_serenity') && action?('order_normal') %>">
+          <a href="/order/medan/medan_serenity/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/medan/medan_serenity') && action?('order_clearence') %>">
+          <a href="/order/medan/medan_serenity/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/medan/medan_serenity') && action?('order_display') %>">
+          <a href="/order/medan/medan_serenity/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/medan/medan_lady') %>">
-      <li class="<%= 'active' if controller?('order/medan/medan_lady') && action?('order') %>">
-          <a href="/order/medan/medan_lady/order" title="Order"> <em class="icon-chart"></em><span>Lady</span> </a>
+      <a href="#order-medan-lady" title="Lady" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Lady</span> </a>
+      <ul id="order-medan-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
         </li>
+        <li class="<%= 'active' if controller?('order/medan/medan_lady') && action?('order_normal') %>">
+          <a href="/order/medan/medan_lady/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/medan/medan_lady') && action?('order_clearence') %>">
+          <a href="/order/medan/medan_lady/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/medan/medan_lady') && action?('order_display') %>">
+          <a href="/order/medan/medan_lady/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/medan/medan_royal') %>">
-      <li class="<%= 'active' if controller?('order/medan/medan_royal') && action?('order') %>">
-          <a href="/order/medan/medan_royal/order" title="Order"> <em class="icon-chart"></em><span>Royal</span> </a>
+      <a href="#order-medan-royal" title="Royal" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Royal</span> </a>
+      <ul id="order-medan-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
         </li>
+        <li class="<%= 'active' if controller?('order/medan/order_royal') && action?('order_normal') %>">
+          <a href="/order/medan/medan_royal/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/medan/order_royal') && action?('order_clearence') %>">
+          <a href="/order/medan/medan_royal/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/medan/order_royal') && action?('order_display') %>">
+          <a href="/order/medan/medan_royal/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
+    
   </ul>
 </li>

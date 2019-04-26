@@ -1,28 +1,77 @@
 <li class="<%= 'active' if controller?('order/cirebon') %>">
-  <a href="#crb-order" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Cirebon</span> </a>
-  <ul id="crb-order" class="nav sidebar-subnav collapse">
+  <a href="#order-cirebon" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Cirebon</span> </a>
+  <ul id="order-cirebon" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
-      CIREBON
+      Cirebon
     </li>
     <li class="<%= 'active' if controller?('order/cirebon/cirebon_elites') %>">
-      <li class="<%= 'active' if controller?('order/cirebon/cirebon_elites') && action?('order') %>">
-          <a href="/order/cirebon/cirebon_elites/order" title="Order"> <em class="icon-chart"></em><span>Elite</span> </a>
+      <a href="#order-cirebon-elite" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Elite</span> </a>
+      <ul id="order-cirebon-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
         </li>
+        <li class="<%= 'active' if controller?('order/cirebon/cirebon_elites') && action?('order_normal') %>">
+          <a href="/order/cirebon/cirebon_elites/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/cirebon/cirebon_elites') && action?('order_clearence') %>">
+          <a href="/order/cirebon/cirebon_elites/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/cirebon/cirebon_elites') && action?('order_display') %>">
+          <a href="/order/cirebon/cirebon_elites/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/cirebon/cirebon_serenity') %>">
-      <li class="<%= 'active' if controller?('order/cirebon/cirebon_serenity') && action?('order') %>">
-          <a href="/order/cirebon/cirebon_serenity/order" title="Order">  <em class="icon-chart"></em><span>Serenity</span> </a>
+      <a href="#order-cirebon-serenity" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Serenity</span> </a>
+      <ul id="order-cirebon-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
         </li>
+        <li class="<%= 'active' if controller?('order/cirebon/cirebon_serenity') && action?('order_normal') %>">
+          <a href="/order/cirebon/cirebon_serenity/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/cirebon/cirebon_serenity') && action?('order_clearence') %>">
+          <a href="/order/cirebon/cirebon_serenity/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/cirebon/cirebon_serenity') && action?('order_display') %>">
+          <a href="/order/cirebon/cirebon_serenity/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/cirebon/cirebon_lady') %>">
-      <li class="<%= 'active' if controller?('order/cirebon/cirebon_lady') && action?('order') %>">
-          <a href="/order/cirebon/cirebon_lady/order" title="Order"> <em class="icon-chart"></em><span>Lady</span> </a>
+      <a href="#order-cirebon-lady" title="Lady" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Lady</span> </a>
+      <ul id="order-cirebon-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
         </li>
+        <li class="<%= 'active' if controller?('order/cirebon/cirebon_lady') && action?('order_normal') %>">
+          <a href="/order/cirebon/cirebon_lady/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/cirebon/cirebon_lady') && action?('order_clearence') %>">
+          <a href="/order/cirebon/cirebon_lady/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/cirebon/cirebon_lady') && action?('order_display') %>">
+          <a href="/order/cirebon/cirebon_lady/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('order/cirebon/cirebon_royal') %>">
-      <li class="<%= 'active' if controller?('order/cirebon/cirebon_royal') && action?('order') %>">
-          <a href="/order/cirebon/cirebon_royal/order" title="Order"> <em class="icon-chart"></em><span>Royal</span> </a>
+      <a href="#order-cirebon-royal" title="Royal" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Royal</span> </a>
+      <ul id="order-cirebon-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
         </li>
+        <li class="<%= 'active' if controller?('order/cirebon/order_royal') && action?('order_normal') %>">
+          <a href="/order/cirebon/cirebon_royal/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/cirebon/order_royal') && action?('order_clearence') %>">
+          <a href="/order/cirebon/cirebon_royal/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/cirebon/order_royal') && action?('order_display') %>">
+          <a href="/order/cirebon/cirebon_royal/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
     </li>
+    
   </ul>
 </li>
