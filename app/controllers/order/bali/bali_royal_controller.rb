@@ -16,7 +16,7 @@ class Order::Bali::BaliRoyalController < ApplicationController
   end
   
   def order_normal
-    @out_daily = SalesOrder::Order.outstand_order(initialize_brach_id, initialize_brand, current_user.position, current_user.address_number.nil? ? '0' : current_user.address_number.nil?)
+    @out_daily = SalesOrder::Order.outstand_order(initialize_brach_id, initialize_brand, current_user.position, current_user.address_number.nil? ? '0' : current_user.address_number)
     
     respond_to do |format|
       format.html {render template: "order/template_order/order"}
@@ -24,7 +24,7 @@ class Order::Bali::BaliRoyalController < ApplicationController
   end
   
   def order_display
-    @out_daily = SalesOrder::Order.outstand_order(initialize_brach_id  + "D", initialize_brand, current_user.position, current_user.address_number.nil? ? '0' : current_user.address_number.nil?)
+    @out_daily = SalesOrder::Order.outstand_order(initialize_brach_id  + "D", initialize_brand, current_user.position, current_user.address_number.nil? ? '0' : current_user.address_number)
     
     respond_to do |format|
       format.html {render template: "order/template_order/order"}
@@ -32,7 +32,7 @@ class Order::Bali::BaliRoyalController < ApplicationController
   end
   
   def order_clearence
-    @out_daily = SalesOrder::Order.outstand_order(initialize_brach_id  + "C", initialize_brand, current_user.position, current_user.address_number.nil? ? '0' : current_user.address_number.nil?)
+    @out_daily = SalesOrder::Order.outstand_order(initialize_brach_id  + "C", initialize_brand, current_user.position, current_user.address_number.nil? ? '0' : current_user.address_number)
     
     respond_to do |format|
       format.html {render template: "order/template_order/order"}
