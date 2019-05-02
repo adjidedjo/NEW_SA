@@ -22,6 +22,7 @@ class Order::Surabaya::SurabayaRoyalController < ApplicationController
       format.html {render template: "order/template_order/order"}
       format.xlsx {render template: "order/template_order/pbj",
         :xlsx => "pbj", :filename => "pbj #{initialize_brach_id}#{initialize_brand}.xlsx"}
+    end
   end
   
   def order_display
@@ -32,6 +33,7 @@ class Order::Surabaya::SurabayaRoyalController < ApplicationController
       format.html {render template: "order/template_order/order"}
       format.xlsx {render template: "order/template_order/pbj",
         :xlsx => "pbj", :filename => "pbj #{initialize_brach_id}#{initialize_brand}.xlsx"}
+    end
   end
   
   def order_clearence
@@ -42,6 +44,7 @@ class Order::Surabaya::SurabayaRoyalController < ApplicationController
       format.html {render template: "order/template_order/order"}
       format.xlsx {render template: "order/template_order/pbj",
         :xlsx => "pbj", :filename => "pbj #{initialize_brach_id}#{initialize_brand}.xlsx"}
+    end
   end
 
   private
