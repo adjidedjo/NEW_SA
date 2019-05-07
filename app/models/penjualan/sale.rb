@@ -3,21 +3,35 @@ class Penjualan::Sale < ActiveRecord::Base
   ########## START MONTHLY
   def self.export_sales_report(from, to, area)
     find_by_sql("
-    SELECT ri.* FROM
+    SELECT ri.*, IFNULL((ri.harganetto2 + IFNULL(rm.harganetto2,0)),0) AS net FROM
     (
       SELECT s.tanggalsj, s.nosj_so, s.nofaktur, s.orty, s.noso, s.kode_customer, s.customer,
         s.salesman, s.alamat_so,
         s.kodebrg, s.namabrg, s.kodejenis, s.jenisbrgdisc, s.namaartikel, s.namakain, s.panjang, s.lebar,
         SUM(s.jumlah) jumlah, s.harganetto1,
         SUM(s.harganetto2) harganetto2, s.diskon1, s.diskon2, s.diskon3, s.diskon4, s.diskon5, s.diskonsum,
-        s.diskonrp, s.cashback, s.nupgrade, s.kota,
-        (CASE WHEN orty = 'RM' THEN s.reference ELSE s.nofaktur END) AS reference,
+        s.diskonrp, s.cashback, s.nupgrade, s.kota, s.reference,
         s.customerpo_so, s.ketppb, s.tipecust
         FROM dbmarketing.tblaporancabang AS s
         WHERE s.tanggalsj BETWEEN '#{from.to_date}' AND '#{to.to_date}'
-        AND s.area_id = '#{area}' GROUP BY s.kodebrg, s.nofaktur, s.kode_customer, s.noso
+        AND s.area_id = '#{area}' AND orty IN ('RI', 'RO', 'RX') GROUP BY s.kodebrg, s.nofaktur, s.kode_customer, s.noso
         ORDER BY reference DESC
-    ) ri")
+    ) ri
+    LEFT JOIN
+    (
+      SELECT s.tanggalsj, s.nosj_so, s.nofaktur, s.orty, s.noso, s.kode_customer, s.customer,
+        s.salesman, s.alamat_so,
+        s.kodebrg, s.namabrg, s.kodejenis, s.jenisbrgdisc, s.namaartikel, s.namakain, s.panjang, s.lebar,
+        SUM(s.jumlah) jumlah, s.harganetto1,
+        SUM(s.harganetto2) harganetto2, s.diskon1, s.diskon2, s.diskon3, s.diskon4, s.diskon5, s.diskonsum,
+        s.diskonrp, s.cashback, s.nupgrade, s.kota, s.reference,
+        s.customerpo_so, s.ketppb, s.tipecust
+        FROM dbmarketing.tblaporancabang AS s
+        WHERE s.tanggalsj BETWEEN '#{from.to_date}' AND '#{to.to_date}'
+        AND s.area_id = '#{area}' AND orty = ('RM') GROUP BY s.kodebrg, s.nofaktur, s.kode_customer, s.noso
+        ORDER BY reference DESC
+    ) rm ON rm.reference = ri.nofaktur AND rm.kodebrg = ri.kodebrg AND rm.kode_customer = ri.kode_customer
+    ")
   end
 
   def self.channel_nasional_this_month(date)
