@@ -47,7 +47,7 @@ class Forecast < ActiveRecord::Base
     ")
   end
 
-  def self.calculate_rkm_recap_admin(week, year, brand)
+  def self.calculate_rkm_recap_admin(week, year, brand, area)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("
       SELECT * FROM(
@@ -57,17 +57,22 @@ class Forecast < ActiveRecord::Base
       f1.branch, (IFNULL(SUM(fw.quantity), 0)+IFNULL(SUM(rh.quantity),0)) AS total_target, rh.quantity AS sisa FROM
       (
         SELECT item_number, address_number, branch FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}'
+        AND (CASE WHEN '#{area}' = '' THEN branch >= 0 ELSE branch = '#{area}' END)
         GROUP BY address_number, item_number, branch
 
         UNION
 
         SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
         WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND nopo IS NOT NULL
-        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO') GROUP BY area_id, kodebrg, nopo
+        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO') AND
+        (CASE WHEN '#{area}' = '' THEN area_id >= 0 ELSE area_id = '#{area}' END)
+        GROUP BY area_id, kodebrg, nopo
       ) f1
       LEFT JOIN
       (
-        SELECT * FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}' GROUP BY branch, brand, address_number, item_number
+        SELECT * FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}' AND
+        (CASE WHEN '#{area}' = '' THEN branch >= 0 ELSE branch = '#{area}' END)
+        GROUP BY branch, brand, address_number, item_number
       ) fw ON fw.branch = f1.branch AND fw.address_number = f1.address_number AND fw.item_number = f1.item_number
       LEFT JOIN
       (
@@ -101,19 +106,19 @@ class Forecast < ActiveRecord::Base
       IFNULL(fw.quantity, 0) AS target_penjualan, IFNULL(tl.jumlah,0) AS jumlah_penjualan, IFNULL(st.onhand, 0) AS stock,
       f1.branch, (IFNULL(fw.quantity, 0)+IFNULL(rh.quantity,0)) AS total_target, rh.quantity AS sisa FROM
       (
-        SELECT item_number, address_number, branch FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}'
+        SELECT item_number, address_number, branch, brand FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}'
         AND brand = '#{brand}' GROUP BY address_number, item_number, branch
 
         UNION
 
-        SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
+        SELECT DISTINCT(kodebrg), nopo, area_id, jenisbrgdisc FROM dbmarketing.tblaporancabang
         WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND nopo IS NOT NULL AND jenisbrgdisc = '#{brand}'
         AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO') GROUP BY area_id, kodebrg, nopo
       ) f1
       LEFT JOIN
       (
         SELECT * FROM forecast_weeklies WHERE WEEK = '#{week}' AND YEAR = '#{year}' GROUP BY branch, brand, address_number, item_number
-      ) fw ON fw.branch = f1.branch AND fw.address_number = f1.address_number AND fw.item_number = f1.item_number
+      ) fw ON fw.branch = f1.branch AND fw.address_number = f1.address_number AND fw.item_number = f1.item_number AND fw.brand = f1.brand
       LEFT JOIN
       (
         SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo, salesman, lebar, jenisbrgdisc, namaartikel, namakain, SUM(jumlah) AS jml, WEEK

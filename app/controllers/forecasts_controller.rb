@@ -9,7 +9,7 @@ class ForecastsController < ApplicationController
   end
   
   def rekap_report_rkm
-    @pbj_recap_mingguan_admin = Forecast.calculate_rkm_recap_admin(params[:week], params[:year], params[:brand]) if params[:week].present? && params[:typ] == 'recap' && params[:format] == 'xlsx'
+    @pbj_recap_mingguan_admin = Forecast.calculate_rkm_recap_admin(params[:week], params[:year], params[:brand], params[:areas]) if params[:week].present? && params[:typ] == 'recap' && params[:format] == 'xlsx'
     @week = Date.commercial(params[:year].to_i, params[:week].to_i).to_date if params[:week].present?
 
     respond_to do |format|
