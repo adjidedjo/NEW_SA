@@ -15,6 +15,7 @@
                 <th style="width: auto;">CITY</th>
                 <th style="width: auto;">PERIOD</th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tfoot></tfoot>
@@ -24,8 +25,9 @@
                 <td><%= find_customer(marketshare.customer_id).name %></td>
                 <td><%= marketshare.brand %></td>
                 <td><%= marketshare.city %></td>
-                <td><%= marketshare.start_date.to_date.strftime("%B") %> - <%= marketshare.end_date.to_date.strftime("%B") %></td>
+                <td><%= marketshare.start_date.to_date.strftime("%B %y") %> - <%= marketshare.end_date.to_date.strftime("%B %y") %></td>
                 <td><%= link_to 'Edit', edit_marketshare_path(marketshare), class: "mb-sm btn-xs btn btn-primary btn-outline" %></td>
+                <td><%= link_to 'Hapus', marketshare_path(marketshare), method: :delete, data: { confirm: "Yakin?"}, class: "mb-sm btn-xs btn btn-danger btn-outline" %></td>
               </tr>
               <% end %>
             </tbody>

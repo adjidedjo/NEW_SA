@@ -6,7 +6,6 @@ class Marketshare < ActiveRecord::Base
   validates :start_date, :end_date, presence: true
   validates :city, presence: true, on: :create
   validate :checking_city, on: :create
-
   def checking_city
     id = IndonesiaCity.find_by_city(self.city)
     return errors.add(:city, "Kota yang anda pilih tidak terdaftar") if id.nil?
@@ -44,10 +43,10 @@ class Marketshare < ActiveRecord::Base
   def self.list_customers(user)
     user = User.find(user)
     if user.branch1.nil?
-      find_by_sql("SELECT ms.* FROM marketshares ms")
+      find_by_sql("SELECT ms.* FROM marketshares ms WHERE DATE(created_at) >= '#{3.months.ago.beginning_of_month}'")
     else
       find_by_sql("SELECT ms.* FROM marketshares ms
-        WHERE '#{user.branch1.nil? ? 'ms.area_id >= 0' : user.branch1}'")
+        WHERE '#{user.branch1.nil? ? 'ms.area_id >= 0' : user.branch1}' AND DATE(created_at) = '#{3.months.ago}'")
     end
   end
 
