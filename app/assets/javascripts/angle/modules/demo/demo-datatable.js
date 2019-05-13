@@ -767,6 +767,35 @@
         ]
     });
     
+    $('#outs_order_all_brand').dataTable({
+        'paging':   true,  // Table pagination
+        'ordering': true,  // Column ordering
+        'info':     true,  // Bottom left status text
+        'responsive': false, // https://datatables.net/extensions/responsive/examples/
+        'order': [[ 9, "desc" ]],
+        'aoColumnsDefs': [
+            { "sType": "numeric", "aTargets": [ 9 ] }
+         ],
+        // Text translation options
+        // Note the required keywords between underscores (e.g _MENU_)
+        oLanguage: {
+            sSearch:      'Search:',
+            sLengthMenu:  '_MENU_ records per page',
+            info:         'Showing page _PAGE_ of _PAGES_',
+            zeroRecords:  'Nothing found - sorry',
+            infoEmpty:    'No records available',
+            infoFiltered: '(filtered from _MAX_ total records)'
+        },
+        // Datatable Buttons setup
+        dom: '<"html5buttons"B>frtip',
+        buttons: [
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
+        ]
+    });
+    
     $('#datatable_customer').dataTable({
         'paging':   true,  // Table pagination
         'ordering': true,  // Column ordering

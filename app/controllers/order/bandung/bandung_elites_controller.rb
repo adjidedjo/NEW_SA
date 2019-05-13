@@ -3,6 +3,14 @@ class Order::Bandung::BandungElitesController < ApplicationController
   before_action :initialize_brand, :initialize_brach_id, :authorize_user
   before_action :order_daily
   
+  def all_brand
+    @out_daily = SalesOrder::Order.outstand_order_all(initialize_brach_id, current_user.position, current_user.address_number.nil? ? '0' : current_user.address_number)
+    
+    respond_to do |format|
+      format.html {render template: "order/template_order/all_brand"}
+    end
+  end
+  
   def order
     @branch = "BANDUNG"
     @brand = "ELITE"

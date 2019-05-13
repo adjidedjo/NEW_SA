@@ -4,6 +4,9 @@
     <li class="sidebar-subnav-header">
       Bandung
     </li>
+    <li class="<%= 'active' if controller?('order/bandung/bandung_elites') && action?('all_brand') %>">
+      <a href="/order/bandung/bandung_elites/all_brand" title="all brand"> <em class="fa fa-angle-right"></em> <span>All Brand</span> </a>
+    </li>
     <li class="<%= 'active' if controller?('order/bandung/bandung_elites') %>">
       <a href="#order-bandung-elite" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Elite</span> </a>
       <ul id="order-bandung-elite" class="nav sidebar-subnav collapse">

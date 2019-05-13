@@ -190,6 +190,7 @@ Rails.application.routes.draw do
   get 'credit_limits/bandung/credit_checks/credit_checks'
   get 'credit_limits/bandung/credit_checks/credit_details'
 
+  get 'order/bandung/bandung_elites/all_brand'
   get 'order/bandung/bandung_elites/order'
   get 'order/bandung/bandung_elites/order_normal'
   get 'order/bandung/bandung_elites/order_display'
