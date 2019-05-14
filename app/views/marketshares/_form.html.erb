@@ -14,22 +14,12 @@
 <% end %>
 
 <div class="col-lg-12">
-  <div class="col-lg-4">
+  <div class="col-lg-4 col-lg-offset-2">
     <fieldset>
       <div class="form-group">
         <label class="col-sm-3 control-label">Customer</label>
         <div class="col-sm-8">
           <%= f.text_field :customer_name, data: { autocomplete_source: @customer.order(:name).map(&:name)} %>
-        </div>
-      </div>
-    </fieldset>
-  </div>
-  <div class="col-lg-4">
-    <fieldset>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Internal Brand</label>
-        <div class="col-sm-8">
-          <%= f.select :brand, @int_brand.collect {|p| [p.name, p.name]}, {}, {class: "form-control m-b"} %>
         </div>
       </div>
     </fieldset>
@@ -47,10 +37,10 @@
 </div>
 
 <div class="col-lg-12">
-  <div class="col-lg-4 col-lg-offset-1">
+  <div class="col-lg-4 col-lg-offset-2">
     <fieldset>
       <div class="form-group">
-        <label class="col-lg-5 control-label">Bulan Awal</label>
+        <label class="col-lg-3 control-label">Bulan Awal</label>
         <div class="col-lg-7">
           <div id="datetimepicker3" class="input-group date">
             <%= f.text_field "start_date", class: 'form-control' %>
@@ -63,7 +53,7 @@
   <div class="col-lg-4">
     <fieldset>
       <div class="form-group">
-        <label class="col-sm-5 control-label">Bulan Akhir</label>
+        <label class="col-sm-3 control-label">Bulan Akhir</label>
         <div class="col-sm-7">
           <div id="datems2" class="input-group date">
             <%= f.text_field "end_date", value: f.object.present? ? f.object.end_date : Date.today, class: 'form-control' %>
@@ -76,11 +66,12 @@
 </div>
 
 <div class="col-lg-12">
-  <div class="col-lg-4 col-lg-offset-3">
+  <div class="col-lg-4 col-lg-offset-2">
     <table class='table'>
       <thead>
         <tr>
-          <th>Brand</th>
+          <th>Int Brand</th>
+          <th>Ext Brand</th>
           <th>Amount</th>
           <th></th>
         </tr>

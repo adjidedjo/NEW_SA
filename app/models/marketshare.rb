@@ -16,15 +16,15 @@ class Marketshare < ActiveRecord::Base
   def upcase_fields
     id = IndonesiaCity.find_by_city(self.city)
     internal_brand = Brand.find_by_sql("SELECT * FROM brands WHERE name like '#{self.brand}'").first
-    raise internal_brand.inspect
     self.marketshare_brands.each do |bv|
       bv.area_id = id.area_id
-      bv.internal_brand = self.brand
       bv.customer_name = self.customer_name
       bv.city = id.name
       bv.start_date = self.start_date
       bv.end_date = self.end_date
       bv.name.upcase!
+      bv.internal_brand.upcase!
+      bv.created_at = Time.now
       new_brand = Brand.where(name: bv.name).first
       Brand.create!(name: bv.name, brand_type_id: internal_brand.brand_type_id, external: 1) if new_brand.nil?
     end
@@ -43,10 +43,13 @@ class Marketshare < ActiveRecord::Base
   def self.list_customers(user)
     user = User.find(user)
     if user.branch1.nil?
-      find_by_sql("SELECT ms.* FROM marketshares ms WHERE DATE(created_at) >= '#{3.months.ago.beginning_of_month}'")
+      find_by_sql("SELECT marketshare_id, name, city, customer_name as cust, internal_brand, start_date, end_date FROM marketshare_brands ms WHERE
+      DATE(created_at) >= '#{3.months.ago.beginning_of_month}'
+      GROUP BY customer_name, area_id, internal_brand")
     else
-      find_by_sql("SELECT ms.* FROM marketshares ms
-        WHERE '#{user.branch1.nil? ? 'ms.area_id >= 0' : user.branch1}' AND DATE(created_at) = '#{3.months.ago}'")
+      find_by_sql("SELECT marketshare_id, name, city, customer_name as cust, internal_brand, start_date, end_date FROM marketshare_brands ms
+        WHERE '#{user.branch1.nil? ? 'ms.area_id >= 0' : user.branch1}' AND DATE(created_at) = '#{3.months.ago}'
+        GROUP BY customer_name, area_id, internal_brand")
     end
   end
 
