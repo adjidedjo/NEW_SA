@@ -48,7 +48,7 @@ class Marketshare < ActiveRecord::Base
       GROUP BY customer_name, area_id, internal_brand")
     else
       find_by_sql("SELECT marketshare_id, name, city, customer_name as cust, internal_brand, start_date, end_date FROM marketshare_brands ms
-        WHERE '#{user.branch1.nil? ? 'ms.area_id >= 0' : user.branch1}' AND DATE(created_at) = '#{3.months.ago}'
+        WHERE '#{user.branch1.nil? ? 'ms.area_id >= 0' : user.branch1}' AND DATE(created_at) >= '#{3.months.ago}'
         GROUP BY customer_name, area_id, internal_brand")
     end
   end
