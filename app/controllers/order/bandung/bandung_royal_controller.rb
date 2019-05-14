@@ -20,6 +20,8 @@ class Order::Bandung::BandungRoyalController < ApplicationController
     
     respond_to do |format|
       format.html {render template: "order/template_order/order"}
+      format.xlsx {render template: "order/template_order/pbj", 
+        :xlsx => "pbj", :filename => "pbj #{initialize_brach_id}#{initialize_brand}.xlsx"}
     end
   end
   
