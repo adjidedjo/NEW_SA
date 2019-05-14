@@ -15,7 +15,6 @@ class Marketshare < ActiveRecord::Base
 
   def upcase_fields
     id = IndonesiaCity.find_by_city(self.city)
-    internal_brand = Brand.find_by_sql("SELECT * FROM brands WHERE name like '#{self.brand}'").first
     self.marketshare_brands.each do |bv|
       bv.area_id = id.area_id
       bv.customer_name = self.customer_name
@@ -26,7 +25,8 @@ class Marketshare < ActiveRecord::Base
       bv.internal_brand.upcase!
       bv.created_at = Time.now
       new_brand = Brand.where(name: bv.name).first
-      Brand.create!(name: bv.name, brand_type_id: internal_brand.brand_type_id, external: 1) if new_brand.nil?
+      ib = Brand.find_by_sql("SELECT * FROM brands WHERE name like '#{bv.internal_brand}'").first if new_brand.nil?
+      Brand.create!(name: bv.name, brand_type_id: ib.brand_type_id, external: 1) if new_brand.nil?
     end
     self.city = id.name
     self.area_id = id.area_id
