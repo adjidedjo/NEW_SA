@@ -1,7 +1,7 @@
 class Order::Bandung::BandungRoyalController < ApplicationController
   include RolesHelper
   before_action :initialize_brand, :initialize_brach_id, :authorize_user
-  before_action :order_daily, only: :order
+  before_action :order_daily
   
   def order
     @branch = "BANDUNG"
