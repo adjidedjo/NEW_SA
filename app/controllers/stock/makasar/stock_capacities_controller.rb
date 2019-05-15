@@ -11,6 +11,6 @@ class Stock::Makasar::StockCapacitiesController < ApplicationController
   def set_branch_plant
     @caps = 19
     @mat = "19"
-    @branch = "BANDUNG"
+    @branch = "MAKASAR"
   end
 end
