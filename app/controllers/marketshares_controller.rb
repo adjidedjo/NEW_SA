@@ -6,7 +6,7 @@ class MarketsharesController < ApplicationController
   def by_store
     @areas = Area.all
     @brand = Brand.where(external: 0)
-    @ms_by_store = MarketshareBrand.customers(current_user, params[:areas], params[:brand]) if params[:areas].present?
+    @ms_by_store = MarketshareBrand.customers(params[:areas], params[:brand]) if params[:areas].present?
   end
   
   def index

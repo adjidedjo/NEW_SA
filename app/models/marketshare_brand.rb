@@ -1,11 +1,10 @@
 class MarketshareBrand < ActiveRecord::Base
   belongs_to :marketshare,  inverse_of: :marketshares
-  
-  def self.customers(user, area, brand)
+  def self.customers(area, brand)
     find_by_sql("
-      SELECT mb.customer_name, mb.city, mb.amount, ms.start_date, ms.end_date, ms.brand, mb.name
-      FROM marketshares ms INNER JOIN marketshare_brands mb ON mb.marketshare_id = ms.id
-      WHERE ms.created_at >= '2018-01-01' AND ms.area_id = '#{area}' and ms.brand = '#{brand}';
+      SELECT * FROM marketshare_brands ms WHERE
+      ms.created_at >= '#{1.months.ago.to_date}' AND ms.area_id = '#{area}' and ms.internal_brand = '#{brand}'
+      GROUP BY ms.internal_brand, ms.customer_name;
     ")
   end
 end
