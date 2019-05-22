@@ -1,0 +1,52 @@
+xlsx_package = Axlsx::Package.new
+wb = xlsx_package.workbook
+
+percent = wb.styles.add_style(:format_code => "0%", :sz => 11)
+money = wb.styles.add_style(:format_code => '0,000', :border => Axlsx::STYLE_THIN_BORDER)
+status = wb.styles.add_style(:border => Axlsx::STYLE_THIN_BORDER)
+more = wb.styles.add_style( :bg_color=> "FFFF99", :fg_color => "999900", :type => :dxf )
+less = wb.styles.add_style( :bg_color=> "FFC0CB", :fg_color => "FF0000", :type => :dxf )
+margins = {:left => 0.75, :right => 0.75, :top => 1, :bottom => 1, :header => 0.7, :footer => 0.7}
+setup = {:fit_to_width => 1, :orientation => :landscape, :paper_width => "11.69cm", :paper_height => "8.27cm"}
+options = {:grid_lines => true, :headings => true, :horizontal_centered => true}
+
+wb.add_worksheet(name: "SOURCE PBJM", page_margins: margins, page_setup: setup, print_options: options) do |sheet|
+  sheet.add_row ["PBJM"]
+  sheet.add_row ["#{params[:start_date]} - #{params[:end_date]}"]
+  sheet.add_row []
+  sheet.add_row ["BP ASAL", "PBJ", "BP TUJUAN", "TUJUAN", "TOTAL", "TIPE", "OUTS/SENT"]
+  
+  @pbjm.each do |p|
+    sheet.add_row [p.sdmcu, p.pbj, p.sdshan, p.des, p.total, 
+      (
+       case p.wc
+       when "HEND"
+         "HIGH END"
+       when "MEND"
+         "MIDDLE END"
+       when "LEND"
+         "LOW END"
+       when "ASDV"
+         "DIVAN"
+       when "ASHB"
+         "HEADBOARD"
+       when "ASAC"
+         "ACCESORIES"
+       when "KBQT"
+         "KASUR BUSA QUILTING"
+       when "KBSR"
+         "KASUR BUSA SARONG"
+       else
+         p.wc
+       end
+      ), p.stat]
+  end
+end
+
+wb.add_worksheet(:name => "Summary") do |sheet|
+  pivot_table = Axlsx::PivotTable.new 'A4:M150', "A4:G200", wb.worksheets[0]
+  pivot_table.rows = ['TUJUAN', 'PBJ', 'OUTS/SENT']
+  pivot_table.columns = ['TIPE']
+  pivot_table.data = [{:ref => "TOTAL", :subtotal => "sum"}]
+  sheet.pivot_tables << pivot_table
+end

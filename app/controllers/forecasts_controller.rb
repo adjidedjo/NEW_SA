@@ -1,5 +1,14 @@
 class ForecastsController < ApplicationController
   
+  def report_pbjm
+    @pbjm = Jde.calculate_pbjm(params[:start_date], params[:end_date])
+    
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "pbjm", :filename => "pbjm week #{params[:start_date].to_date.cweek}.xlsx"}
+    end
+  end
+  
   def dash_sales
     @sales_month = Penjualan::SalesmanSales.revenue_sales(current_user) if current_user.position == 'sales'
   end

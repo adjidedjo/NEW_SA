@@ -1,4 +1,5 @@
 class Forecast < ActiveRecord::Base
+
   def self.calculate_rkm_sales(week, year, address)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("

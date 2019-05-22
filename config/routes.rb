@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   get 'sources/sold_as_order'
 
   # FORECAST
+  get 'forecasts/report_pbjm'
   get 'forecasts/upload_forecast'
   post 'forecasts/import'
   post 'forecasts/import_weekly'

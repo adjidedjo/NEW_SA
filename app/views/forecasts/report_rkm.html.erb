@@ -2,11 +2,36 @@
   Dashboard NASIONAL RKM
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    PBJM FORM
+  </div>
+  <div class="panel-body">
+    <%= form_tag(forecasts_report_pbjm_path, {method: :get, :class => "form-inline"}) do %>
+      <div class="form-group">
+        From:
+      </div>
+      <div id="dateffore" class="input-group date" style="size: 10px;">
+        <%= text_field_tag "start_date", (params[:start_date].present? ? params[:start_date].to_date.strftime("%F") : Date.today), class: 'form-control' %>
+        <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+      </div>
+      <div class="form-group">
+        To:
+      </div>
+      <div id="datetfore" class="input-group date" style="size: 10px;">
+        <%= text_field_tag "end_date", (params[:end_date].present? ? params[:end_date].to_date.strftime("%F") : Date.today), class: 'form-control' %>
+        <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+      </div>
+    <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn btn-info" %>
+    <% end %>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Search by Detail Form
+        Search RKM by Detail Form
       </div>
       <div class="panel-body">
         <%= form_tag(request.fullpath, {method: :get}) do %>
@@ -52,7 +77,7 @@
   <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Search by Recap Form
+        Search RKM by Recap Form
       </div>
       <div class="panel-body">
         <%= form_tag(forecasts_rekap_report_rkm_path, {method: :get}) do %>
