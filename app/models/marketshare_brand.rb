@@ -4,7 +4,7 @@ class MarketshareBrand < ActiveRecord::Base
     find_by_sql("
       SELECT * FROM marketshare_brands ms WHERE
       ms.created_at >= '#{1.months.ago.to_date}' AND ms.area_id = '#{area}' and ms.internal_brand = '#{brand}'
-      GROUP BY ms.internal_brand, ms.customer_name;
+      GROUP BY ms.name, ms.customer_name;
     ")
   end
 end
