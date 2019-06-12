@@ -6,7 +6,7 @@ class MarketshareBrand < ActiveRecord::Base
       AND ms.area_id = '#{area}' AND IF('#{user}' = 'admin', ms.internal_brand = 0, ms.internal_brand = '#{brand}')
       GROUP BY ms.name, ms.customer_name
       UNION
-      SELECT r.customer_desc, '-', CONCAT('0',fiscal_month,'/',fiscal_year) ,
+      SELECT r.customer_desc, r.city, CONCAT('0',fiscal_month,'/',fiscal_year) ,
       CONCAT('0', fiscal_month,'/',fiscal_year), brand, brand, SUM(r.sales_amount)
       FROM sales_mart.RET2CUSBRAND r WHERE branch = '#{area}' AND IF('admin' = 'admin', brand = 0, brand = '#{brand}')
       AND fiscal_month = 5 AND fiscal_year = 2019 GROUP BY branch, customer, brand;
