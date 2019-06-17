@@ -8,7 +8,7 @@ class Jde < ActiveRecord::Base
         MAX(PBJ.IBSRP6) AS WC, (CASE WHEN PBJ.SDLTTR = 580 THEN 'SENT' ELSE 'OUTS' END) AS STAT FROM (
           SELECT ORD.*, IBC.IBSRP6 FROM(
             SELECT * FROM PRODDTA.F4211
-            WHERE SDDRQJ BETWEEN '#{date_to_julian(from)}' AND '#{date_to_julian(to)}' AND SDSRP1 != 'K'
+            WHERE REGEXP_LIKE(SDSRP2, 'KM|DV|HB|KB') AND SDDRQJ BETWEEN '#{date_to_julian(from)}' AND '#{date_to_julian(to)}' AND SDSRP1 != 'K'
             AND SDLTTR != '980' AND SDDCTO IN ('SK', 'ST') AND SDPRP4 != 'RM'
             ) ORD
             LEFT OUTER JOIN
