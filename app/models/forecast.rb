@@ -1,5 +1,4 @@
 class Forecast < ActiveRecord::Base
-
   def self.calculate_rkm_sales(week, year, address)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("
@@ -36,7 +35,7 @@ class Forecast < ActiveRecord::Base
       ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number
       LEFT JOIN
       (
-        SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.to_date}'
+        SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.beginning_of_week.to_date}'
         GROUP BY item_number, branch_code
       ) st ON st.item_number = f1.item_number AND st.branch_code = f1.branch
       LEFT JOIN
@@ -134,7 +133,7 @@ class Forecast < ActiveRecord::Base
       ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number
       LEFT JOIN
       (
-        SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.to_date}'
+        SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.beginning_of_week.to_date}'
         GROUP BY item_number, branch_code
       ) st ON st.item_number = f1.item_number AND st.branch_code = f1.branch
       LEFT JOIN
@@ -183,7 +182,7 @@ class Forecast < ActiveRecord::Base
       ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number
       LEFT JOIN
       (
-        SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.to_date}'
+        SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.beginning_of_week.to_date}'
         GROUP BY item_number, branch_code
       ) st ON st.item_number = f1.item_number AND st.branch_code = f1.branch
       LEFT JOIN
