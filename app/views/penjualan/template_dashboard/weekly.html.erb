@@ -43,12 +43,14 @@
               </thead>
               <tbody>
                 <% @all_week_brand.each do |cs| %>
+                <% if cs.present? %>
                 <tr class="gradeX">
                   <td><%= cs.tanggalsj.cweek %></td>
                   <td><%= cs.tanggalsj.beginning_of_week.strftime("%d/%m/%Y") %> - <%= cs.tanggalsj.end_of_week.strftime("%d/%m/%Y") %></td>
                   <td><%= cs.jumlah %></td>
                   <td><%= currency(cs.price) %></td>
                 </tr>
+                <% end %>
                 <% end %>
               </tbody>
             </table>
