@@ -579,7 +579,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.beginning_of_week.to_date}' AND '#{1.week.ago.end_of_week.to_date}' THEN harganetto1 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{4.weeks.ago.beginning_of_week.to_date}' AND '#{1.week.ago.end_of_week.to_date}' THEN jumlah END) most
       FROM tblaporancabang WHERE tanggalsj BETWEEN '#{4.weeks.ago.to_date}' AND
-      '#{1.week.ago.end_of_week.to_date}' AND jenisbrgdisc = '#{brand}' AND area_id = '#{branch}' AND
+      '#{1.week.ago.end_of_week.to_date}' AND jenisbrgdisc REGEXP '#{brand}' AND area_id = '#{branch}' AND
       tipecust = 'RETAIL'
       GROUP BY namaartikel ORDER BY most DESC LIMIT 10
       ) as lc")
@@ -589,7 +589,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT namaartikel, ordered, lebar, value FROM (
     SELECT kodejenis, namaartikel, lebar, SUM(jumlah) AS ordered, SUM(harganetto1) AS value FROM tblaporancabang
     WHERE area_id = '#{branch}' AND MONTH(tanggalsj) = '#{1.month.ago.to_date.month}' AND
-    YEAR(tanggalsj) = '#{1.month.ago.to_date.year}' AND tipecust = 'RETAIL' AND AND jenisbrgdisc = '#{brand}'
+    YEAR(tanggalsj) = '#{1.month.ago.to_date.year}' AND tipecust = 'RETAIL' AND AND jenisbrgdisc regexp '#{brand}'
     GROUP BY namaartikel, lebar) totals ORDER BY ordered DESC LIMIT 10")
   end
   ########## END MOST ITEMS
@@ -598,7 +598,7 @@ class Penjualan::Sale < ActiveRecord::Base
   def self.customer_summary_monthly(branch, brand)
     self.find_by_sql("SELECT customer, salesman, SUM(jumlah) AS ordered, SUM(harganetto1) AS price,
     jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND MONTH(tanggalsj) = '#{1.month.ago.to_date.month}' AND
-    YEAR(tanggalsj) = '#{1.month.ago.to_date.year}' AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' GROUP BY customer")
+    YEAR(tanggalsj) = '#{1.month.ago.to_date.year}' AND tipecust = 'RETAIL' AND jenisbrgdisc regexp '#{brand}' GROUP BY customer")
   end
 
   def self.customer_summary(branch, brand)
@@ -606,14 +606,14 @@ class Penjualan::Sale < ActiveRecord::Base
     end_of_week = 1.week.ago.to_date.end_of_week.to_date
     self.find_by_sql("SELECT customer, salesman, SUM(jumlah) AS ordered, SUM(harganetto1) AS price,
     jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{beginning_of_week}'
-    AND '#{end_of_week}' AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}' GROUP BY customer")
+    AND '#{end_of_week}' AND tipecust = 'RETAIL' AND jenisbrgdisc regexp '#{brand}' GROUP BY customer")
   end
   ########## END CUSTOMER
 
   ########## CHANNEL
   def self.monthly_channel(branch, brand)
     self.find_by_sql("SELECT SUM(jumlah) AS jumlah, tipecust FROM tblaporancabang WHERE area_id = '#{branch}' AND
-    MONTH(tanggalsj) = '#{1.month.ago.month}' AND YEAR(tanggalsj) = '#{1.month.ago.year}' AND jenisbrgdisc = '#{brand}' AND
+    MONTH(tanggalsj) = '#{1.month.ago.month}' AND YEAR(tanggalsj) = '#{1.month.ago.year}' AND jenisbrgdisc regexp '#{brand}' AND
     tipecust = 'RETAIL' GROUP BY tipecust")
   end
 
@@ -621,7 +621,7 @@ class Penjualan::Sale < ActiveRecord::Base
     beginning_of_week = 1.week.ago.to_date.beginning_of_week.to_date
     end_of_week = 1.week.ago.to_date.end_of_week.to_date
     self.find_by_sql("SELECT SUM(jumlah) AS jumlah, tipecust FROM tblaporancabang WHERE area_id = '#{branch}' AND
-    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
+    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc regexp '#{brand}' AND
     tipecust = 'RETAIL' GROUP BY tipecust")
   end
   ########## END CHANNEL
@@ -632,7 +632,7 @@ class Penjualan::Sale < ActiveRecord::Base
     self.find_by_sql("SELECT SUM(harganetto1) AS val, CONCAT('WEEK ', week) AS weekly_name FROM tblaporancabang
     WHERE week BETWEEN '#{5.weeks.ago.to_date.cweek}'
     AND '#{1.weeks.ago.to_date.cweek}' AND fiscal_year BETWEEN '#{5.weeks.ago.to_date.year}' AND '#{1.weeks.ago.to_date.year}'
-    AND tipecust = 'RETAIL' AND jenisbrgdisc = '#{brand}'
+    AND tipecust = 'RETAIL' AND jenisbrgdisc REGEXP '#{brand}'
     GROUP BY week")
   end
 
@@ -652,7 +652,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.to_date}' AND '#{1.week.ago.end_of_week.to_date}' THEN harganetto1 END) val_1
       FROM tblaporancabang WHERE week BETWEEN '#{4.week.ago.to_date.cweek}'
       AND '#{1.week.ago.to_date.cweek}' AND fiscal_year BETWEEN '#{4.week.ago.year}'
-      AND '#{1.week.ago.year}' AND jenisbrgdisc = '#{brand}' AND area_id != 1 AND
+      AND '#{1.week.ago.year}' AND jenisbrgdisc REGEXP '#{brand}' AND area_id != 1 AND
       tipecust = 'RETAIL'
       GROUP BY area_id
       ) as lc
@@ -671,7 +671,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{this_week_start}' AND '#{this_week_end}' THEN jumlah END) AS qty_this_week,
       SUM(CASE WHEN tanggalsj BETWEEN '#{this_week_start}' AND '#{this_week_end}' THEN harganetto1 END) AS val_this_week
       FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{last_week_start}' AND '#{this_week_end}'
-      AND jenisbrgdisc = '#{brand}' AND
+      AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL' GROUP BY kota")
   end
 
@@ -686,7 +686,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{this_week_start}' AND '#{this_week_end}' THEN jumlah END) AS qty_this_week,
       SUM(CASE WHEN tanggalsj BETWEEN '#{this_week_start}' AND '#{this_week_end}' THEN harganetto1 END) AS val_this_week
       FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{last_week_start}' AND '#{this_week_end}'
-      AND jenisbrgdisc = '#{brand}' AND
+      AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL' GROUP BY kodejenis")
   end
 
@@ -694,7 +694,7 @@ class Penjualan::Sale < ActiveRecord::Base
     beginning_of_week = Date.today.beginning_of_week
     end_of_week = Date.today.end_of_week
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND
-    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
+    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc REGEXP '#{brand}' AND
     tipecust = 'RETAIL' GROUP BY jenisbrgdisc")
   end
 
@@ -702,7 +702,7 @@ class Penjualan::Sale < ActiveRecord::Base
     beginning_of_week = 1.week.ago.beginning_of_week.to_date
     end_of_week = 1.week.ago.end_of_week.to_date
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND
-    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
+    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc REGEXP '#{brand}' AND
     tipecust = 'RETAIL' GROUP BY jenisbrgdisc")
   end
 
@@ -710,7 +710,7 @@ class Penjualan::Sale < ActiveRecord::Base
     beginning_of_week = 2.week.ago.beginning_of_week.to_date
     end_of_week = 2.week.ago.end_of_week.to_date
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND
-    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
+    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc REGEXP '#{brand}' AND
     tipecust = 'RETAIL' GROUP BY jenisbrgdisc")
   end
 
@@ -718,7 +718,7 @@ class Penjualan::Sale < ActiveRecord::Base
     beginning_of_week = 3.week.ago.beginning_of_week.to_date
     end_of_week = 3.week.ago.end_of_week.to_date
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND
-    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
+    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc REGEXP '#{brand}' AND
     tipecust = 'RETAIL' GROUP BY jenisbrgdisc")
   end
 
@@ -726,7 +726,7 @@ class Penjualan::Sale < ActiveRecord::Base
     beginning_of_week = 4.week.ago.beginning_of_week.to_date
     end_of_week = 4.week.ago.end_of_week.to_date
     self.find_by_sql("SELECT tanggalsj, SUM(jumlah) AS jumlah, SUM(harganetto1) AS price, jenisbrgdisc FROM tblaporancabang WHERE area_id = '#{branch}' AND
-    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc = '#{brand}' AND
+    tanggalsj BETWEEN '#{beginning_of_week}' AND '#{end_of_week}' AND jenisbrgdisc REGEXP '#{brand}' AND
     tipecust = 'RETAIL' GROUP BY jenisbrgdisc")
   end
   ########## END WEEKLY
