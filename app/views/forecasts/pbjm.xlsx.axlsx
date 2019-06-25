@@ -29,7 +29,7 @@ lp = []
 ck = []
 
 @pbjm.each do |pbjm|
-  jb << pbjm if pbjm.sdshan == '18011'
+  jb << pbjm if (pbjm.sdshan == '18011' || pbjm.sdshan == '11002')
   ckp << pbjm if (pbjm.sdshan == '1801101' || pbjm.sdshan == '1801201')
   ckp << pbjm if (pbjm.sdshan == '1801103' || pbjm.sdshan == '1801203')
   skb << pbjm if (pbjm.sdshan == '1801102' || pbjm.sdshan == '1801202')
@@ -51,42 +51,13 @@ wb.add_worksheet(name: "SOURCE PBJM") do |sheet|
   sheet.add_row ["PBJM"]
   sheet.add_row ["#{params[:start_date]} - #{params[:end_date]}"]
   sheet.add_row []
-  sheet.add_row ["BP ASAL", "PBJ", "BP TUJUAN", "TUJUAN", "TOTAL", "TIPE", "OUTS/SENT"]
+  sheet.add_row ["BP ASAL", "PBJ", "BP TUJUAN", "TUJUAN", "TOTAL", "OUTS/SENT"]
   
   @pbjm.each do |p|
-    sheet.add_row [p.sdmcu, p.pbj, p.sdshan, p.des, p.total, 
-      (
-       case p.wc
-       when "HEND"
-         "HIGH END"
-       when "MEND"
-         "MIDDLE END"
-       when "LEND"
-         "LOW END"
-       when "ASDV"
-         "DIVAN"
-       when "ASHB"
-         "HEADBOARD"
-       when "ASAC"
-         "ACCESORIES"
-       when "KBQT"
-         "KASUR BUSA QUILTING"
-       when "KBSR"
-         "KASUR BUSA SARONG"
-       else
-         p.wc
-       end
-      ), p.stat]
+    sheet.add_row [p.sdmcu, p.pbj, p.sdshan, p.des, p.total, p.stat]
   end
 end
 
-wb.add_worksheet(:name => "Summary") do |sheet|
-  pivot_table = Axlsx::PivotTable.new 'A4:M150', "A4:G200", wb.worksheets[0]
-  pivot_table.rows = ['TUJUAN', 'PBJ', 'OUTS/SENT']
-  pivot_table.columns = ['TIPE']
-  pivot_table.data = [{:ref => "TOTAL", :subtotal => "sum"}]
-  sheet.pivot_tables << pivot_table
-end
 ##BANDUNG#####################################################################################################
 wb.add_worksheet(:name => "BANDUNG") do |sheet|
   jb_mat = jb.select {|c| c[:sdshan] == '18011'}
