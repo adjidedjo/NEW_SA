@@ -9,7 +9,7 @@ class MarketshareBrand < ActiveRecord::Base
       SELECT r.customer_desc, r.city, CONCAT('0',fiscal_month,'/',fiscal_year) ,
       CONCAT('0', fiscal_month,'/',fiscal_year), brand, brand, SUM(r.sales_amount)
       FROM sales_mart.RET2CUSBRAND r WHERE branch = '#{area}' AND IF('admin' = 'admin', brand = 0, brand = '#{brand}')
-      AND fiscal_month = 5 AND fiscal_year = 2019 GROUP BY branch, customer, brand;
+      AND fiscal_month = '#{1.month.ago.month}' AND fiscal_year = 2019 GROUP BY branch, customer, brand;
     ")
   end
 end

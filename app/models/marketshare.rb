@@ -44,7 +44,7 @@ class Marketshare < ActiveRecord::Base
     user = User.find(user)
     if user.branch1.nil?
       find_by_sql("SELECT marketshare_id, name, city, customer_name as cust, internal_brand, start_date, end_date FROM marketshare_brands ms WHERE
-      DATE(created_at) >= '#{3.months.ago.beginning_of_month}'
+      DATE(created_at) >= '#{2.month.ago.beginning_of_month}'
       GROUP BY customer_name, area_id, internal_brand, city, marketshare_id, end_date")
     else
       find_by_sql("SELECT marketshare_id, name, city, customer_name as cust, internal_brand, start_date, end_date FROM marketshare_brands ms
