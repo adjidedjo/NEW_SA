@@ -41,7 +41,7 @@
                   <td align="center" class="<%= coloring(cus.growth_customer) %>"><b><%= cpercent(cus.growth_customer.abs) %></b></td>
                   <td align="center" class="<%= coloring(cus.growth_active) %>"><b><%= cpercent(cus.growth_active.abs) %></b></td>
                   <td align="center" class="<%= coloring(cus.growth_inactive) %>"><b><%= cpercent(cus.growth_inactive.abs) %></b></td>
-                  <td><%= link_to "See Detail", '/penjualan/bandung/bandung_customers/customer_active'+'?branch='+cus.area_id.to_s+'&brand='+cus.brand %></td>
+                  <td><%= link_to "See Detail", request.fullpath+'?branch='+cus.area_id.to_s+'&brand='+cus.brand %></td>
                 </tr>
                 <% end %>
               </tbody>
