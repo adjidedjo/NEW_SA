@@ -49,6 +49,7 @@
           </div>
         </fieldset>
         <% else %>
+        <%= raise f.object.salesmen_id.inspect%>
         <fieldset>
           <div class="form-group">
             <label class="col-lg-2 control-label">NAMA</label>
@@ -146,9 +147,11 @@
         
         <% if f.object.new_record? %>
           <%= f.submit "CREATE", class: "btn btn-primary" %>
+          <%= link_to "BACK", sales_productivities_path, class: "btn" %>
         <% else %>
           <%= button_to "UPDATE", sales_productivities_path(:id => f.object.id),
         method: :put, class: "btn btn-primary" %>
+          <%= link_to "BACK", sales_productivities_path, class: "btn" %>
         <% end %>
         <% end %>
       </div>

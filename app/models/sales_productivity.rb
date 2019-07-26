@@ -1,6 +1,9 @@
 class SalesProductivity < ActiveRecord::Base
-  has_many :sales_productivity_customers, dependent: :destroy
-  accepts_nested_attributes_for :sales_productivity_customers, reject_if: :all_blank, allow_destroy: true
+  has_many :sales_productivity_customers, inverse_of: :sales_productivity, dependent: :destroy
+  accepts_nested_attributes_for :sales_productivity_customers, allow_destroy: true
+  
+  validates_associated :sales_productivity_customers
+  validate :customer_must_be_fill, on: :create
   
   def self.import(file)
     spreadsheet = Roo::Spreadsheet.open(file.path)
@@ -161,5 +164,13 @@ class SalesProductivity < ActiveRecord::Base
     ) AS cb ON cb.id = lc.cabang_id
     WHERE cb.Cabang IS NOT NULL
     ")
+  end
+  
+  def customer_must_be_fill
+    errors.add(:base, "Silahkan Isi Customer") if self.sales_productivity_customers.empty?
+  end
+  
+  def reject_customers(attributes)
+    attributes['customer'].blank?
   end
 end

@@ -1,14 +1,22 @@
 class SalesProductivitiesController < ApplicationController
   # GET /sales_productivities
   # GET /sales_productivities.json
+
+  def import
+    SalesProductivity.import(params[:file])
+    redirect_to upload_rkb_sales_productivities_url, notice: 'RKB imported.'
+  end
+  
+  def upload_rkb
+    
+  end
+  
   def index
     month = params[:date].nil? ? Date.today.month : params[:date][:month]
     year = params[:date].nil? ? Date.today.year : params[:date][:year]
     @sales_productivities = current_user.branch1.present? ? SalesProductivity.where("MONTH(date) = ? AND YEAR(date) = ? AND branch_id = ?",
     month, year, current_user.branch1) : SalesProductivity.where("MONTH(date) = ? AND YEAR(date) = ?",
     month, year)
-    @sales = SalesProductivity.retail_success_rate_branch(current_user.branch1, month, year)
-    @sales_prod = SalesProductivity.retail_productivity_branch(current_user.branch1, month, year)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -31,6 +39,7 @@ class SalesProductivitiesController < ApplicationController
   # GET /sales_productivities/new.json
   def new
     @sales_productivity = SalesProductivity.new
+    @sales_productivity.sales_productivity_customers.build
     @salesman = current_user.branch1.present? ?
     SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen
     WHERE branch_id = '#{current_user.branch1}' ORDER BY nama ASC") : SalesProductivity.find_by_sql("SELECT nama, id FROM salesmen ORDER BY nama ASC")
@@ -54,13 +63,10 @@ class SalesProductivitiesController < ApplicationController
 
     respond_to do |format|
       if @sales_productivity.save
-        format.html { redirect_to sales_productivities_path, notice: 'Sales productivity was successfully created.' }
+        format.html { redirect_to new_sales_productivity_path, notice: "Sales productivity sukses dibuat" }
         format.json { render json: @sales_productivity, status: :created, location: @sales_productivity }
       else
-        @salesman = Salesman.where(id: params[:sales_productivity]["salesmen_id"])
-        @brand = Merk.all
-        format.html { render action: "new" }
-        format.json { render json: @sales_productivity.errors, status: :unprocessable_entity }
+        format.html { redirect_to new_sales_productivity_path, flash: {alert: "Pembuatan Gagal. Isi Customer atau cek kembali inputan anda"} }
       end
     end
   end
@@ -75,8 +81,7 @@ class SalesProductivitiesController < ApplicationController
         format.html { redirect_to sales_productivities_path, notice: 'Sales productivity was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @sales_productivity.errors, status: :unprocessable_entity }
+        render action: :new
       end
     end
   end
@@ -104,6 +109,6 @@ class SalesProductivitiesController < ApplicationController
   def sales_productivity_params
     params.require(:sales_productivity).permit(:id, :date, :salesmen_id, :branch_id, :brand,
     :npvnc, :nvc, :ncdv, :ncc, :ncdc,
-    sales_productivity_customers_attributes: [:id, :customer, :_destroy])
+    sales_productivity_customers_attributes: [:customer, :_destroy])
   end
 end
