@@ -25,9 +25,10 @@ class Penjualan::Customer < Penjualan::Sale
 
   def self.list_customers(branch, brand)
     find_by_sql("
-      SELECT customer, MAX(last_invoice) AS last_invoice, cust_status, brand
+      SELECT customer, MAX(last_invoice) AS last_invoice, cust_status, brand, salesman
       FROM sales_mart.CUSTOMER_DETGROWTHS WHERE
-      branch = '#{branch}' AND brand REGEXP '#{brand}' GROUP BY customer, brand")
+      branch = '#{branch}' AND brand REGEXP '#{brand}' and fmonth = '#{3.days.ago.month - 1}'
+      and fyear = '#{3.days.ago.year}' GROUP BY customer, brand")
   end
 
   def self.list_customers_inactive(branch, state, brand)
