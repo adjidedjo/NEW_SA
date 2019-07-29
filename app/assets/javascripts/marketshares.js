@@ -60,7 +60,11 @@ jQuery(function() {
         regexp = new RegExp($(this).data('id'), 'g');
         $('.fields').append($(this).data('fields').replace(regexp, time));
         $('#marketshare_marketshare_brands_attributes_' + time + '_name').autocomplete({
-            source : $('#marketshare_marketshare_brands_attributes_' + time + '_name').data('brand-source')
+            source : $('#marketshare_marketshare_brands_attributes_' + time + '_name').data('brand-source'),
+            messages: {
+                noResults: '',
+                results: ''
+            }
         });
         return event.preventDefault();
 

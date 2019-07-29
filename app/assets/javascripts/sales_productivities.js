@@ -54,6 +54,14 @@ jQuery(function() {
         $(this).closest('tr').hide();
         return event.preventDefault();
     });
+    
+    $('#sales_productivity_sales_productivity_attributes_' + 0 + '_customer').autocomplete({
+        source : $('#sales_productivity_attributes_' + 0 + '_customer').data('cus-source'),
+        messages: {
+          noResults: '',
+          results: ''
+        }
+    });
 
     $('form').on('click', '.add_fields', function(event) {
         var regexp,
@@ -61,17 +69,16 @@ jQuery(function() {
         time = new Date().getTime();
         regexp = new RegExp($(this).data('id'), 'g');
         $('.fields').append($(this).data('fields').replace(regexp, time));
+        $('#sales_productivity_sales_productivity_attributes_' + time + '_customer').autocomplete({
+            source : $('#sales_productivity_attributes_' + time + '_customer').data('cus-source'),
+            messages: {
+                noResults: '',
+                results: ''
+            }
+        });
         return event.preventDefault();
 
         
-    });
-    
-    $('#marketshare_city').autocomplete({
-        source : $('#marketshare_city').data('city-source')
-    });
-
-    $('#marketshare_customer_name').autocomplete({
-        source : $('#marketshare_customer_name').data('autocomplete-source')
     });
 });
 
