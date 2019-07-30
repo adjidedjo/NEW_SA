@@ -9,7 +9,7 @@ class User < ApplicationRecord
     old_signin = self.last_sign_in_at
     super
     if self.last_sign_in_at != old_signin && self.id != 27
-      UserAudit.create :user_id => self.id, :nama => self.nama, :action => "login"
+      UserAudit.create :user_id => self.id, :jabatan => self.position, :nama => self.nama, :action => "login"
     end
   end
 end
