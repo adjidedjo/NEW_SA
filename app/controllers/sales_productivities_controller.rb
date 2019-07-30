@@ -38,6 +38,7 @@ class SalesProductivitiesController < ApplicationController
   # GET /sales_productivities/new
   # GET /sales_productivities/new.json
   def new
+    @customer = Customer.where("i_class = 'RET'").group(:name)
     @sales_productivity = SalesProductivity.new
     @sales_productivity.sales_productivity_customers.build
     @salesman = current_user.branch1.present? ?

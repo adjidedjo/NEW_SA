@@ -55,8 +55,8 @@ jQuery(function() {
         return event.preventDefault();
     });
     
-    $('#sales_productivity_sales_productivity_attributes_' + 0 + '_customer').autocomplete({
-        source : $('#sales_productivity_attributes_' + 0 + '_customer').data('cus-source'),
+    $('#sales_productivity_sales_productivity_customers_attributes_' + 0 + '_customer').autocomplete({
+        source : $('#sales_productivity_sales_productivity_customers_attributes_' + 0 + '_customer').data('cus-source'),
         messages: {
           noResults: '',
           results: ''
@@ -69,8 +69,8 @@ jQuery(function() {
         time = new Date().getTime();
         regexp = new RegExp($(this).data('id'), 'g');
         $('.fields').append($(this).data('fields').replace(regexp, time));
-        $('#sales_productivity_sales_productivity_attributes_' + time + '_customer').autocomplete({
-            source : $('#sales_productivity_attributes_' + time + '_customer').data('cus-source'),
+        $('#sales_productivity_sales_productivity_customers_attributes_' + time + '_customer').autocomplete({
+            source : $('#sales_productivity_sales_productivity_customers_attributes_' + time + '_customer').data('cus-source'),
             messages: {
                 noResults: '',
                 results: ''

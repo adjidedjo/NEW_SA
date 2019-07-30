@@ -1,5 +1,5 @@
 <tr>
-  <td><%= f.text_field :customer %></td>
+  <td><%= f.text_field :customer, data: { cus_source: @customer.order(:name).map(&:name)} %></td>
   <td>
     <%= f.hidden_field :_destroy %>
     <%= link_to 'Delete', '#', class: 'remove_record' %>

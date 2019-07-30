@@ -24,9 +24,12 @@
 
 .ui-autocomplete {
   position: absolute;
+  max-height: 200px;
   top: 100%;
   left: 0;
-  z-index: 1000;
+  overflow-y: auto;   /* prevent horizontal scrollbar */
+  overflow-x: hidden; /* add padding to account for vertical scrollbar */
+  z-index:1000 !important;
   float: left;
   display: none;
   min-width: 160px;
