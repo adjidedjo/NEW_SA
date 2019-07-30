@@ -8,7 +8,7 @@ class User < ApplicationRecord
   def update_tracked_fields!(request)
     old_signin = self.last_sign_in_at
     super
-    if self.last_sign_in_at != old_signin
+    if self.last_sign_in_at != old_signin && self.id != 27
       UserAudit.create :user_id => self.id, :nama => self.nama, :action => "login"
     end
   end
