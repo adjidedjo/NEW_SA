@@ -1,0 +1,2 @@
+class UserAudit < ApplicationRecord
+end
