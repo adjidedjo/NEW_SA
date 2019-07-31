@@ -111,6 +111,6 @@ class SalesProductivitiesController < ApplicationController
   def sales_productivity_params
     params.require(:sales_productivity).permit(:id, :date, :salesmen_id, :branch_id, :brand,
     :npvnc, :nvc, :ncdv, :ncc, :ncdc,
-    sales_productivity_customers_attributes: [:customer, :_destroy])
+    sales_productivity_customers_attributes: [:customer, :call_visit, :_destroy])
   end
 end
