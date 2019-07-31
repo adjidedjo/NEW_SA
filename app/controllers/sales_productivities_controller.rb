@@ -51,6 +51,7 @@ class SalesProductivitiesController < ApplicationController
   def edit
     @sales_productivity = SalesProductivity.find(params[:id])
     @salesman = Salesman.find(@sales_productivity.salesmen_id)
+    @customer = Customer.where("i_class = 'RET'").group(:name)
   end
 
   # POST /sales_productivities
