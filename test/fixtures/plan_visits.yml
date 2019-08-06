@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sales_id: 1
+  brand: MyString
+  city: MyString
+  date_visit: 2019-08-06
+  customer: MyString
+  hotel: MyString
+  accomodation: MyString
+  allowance: MyString
+
+two:
+  sales_id: 1
+  brand: MyString
+  city: MyString
+  date_visit: 2019-08-06
+  customer: MyString
+  hotel: MyString
+  accomodation: MyString
+  allowance: MyString

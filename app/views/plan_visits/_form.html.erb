@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      Form Rencana Kerja Bulanan
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <%= form_for(plan_visit, {:class => "form-horizontal"}) do |f| %>
+        <% if plan_visit.errors.any? %>
+        <div id="error_explanation">
+          <h4>Not Saved. Click <%= link_to "this", new_sales_productivity_path %> for a new productivity
+          or fill correctly Form Below </h4>
+
+          <ul>
+            <% plan_visit.errors.full_messages.each do |msg| %>
+            <li>
+              <%= msg %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+        <% if f.object.sales_id == 0 %>
+        <fieldset>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">NAMA</label>
+            <div class="col-lg-10">
+              <%= f.select "sales_id", options_for_select(@salesman.map {|a| [a.nama, a.id]}), class: 'form-control' %>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">BRAND</label>
+            <div class="col-lg-10">
+              <%= f.select "brand", options_for_select(@brand.map {|a| [a.jde_brand, a.jde_brand]}), class: 'form-control m-b' %>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div class="form-group mb">
+            <label class="col-sm-2 control-label mb">DATE</label>
+            <div class="col-sm-5">
+              <div id="datepicker1" class="input-group date">
+                <%= f.text_field "date_visit", class: 'form-control' %>
+                <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <% else %>
+        <fieldset>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">NAMA</label>
+            <div class="col-lg-10">
+              <%= f.text_field "salesmen_id", value: @salesman.nama, disabled: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">BRAND</label>
+            <div class="col-lg-10">
+              <%= f.text_field "brand", value: f.object.brand, disabled: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">DATE</label>
+            <div class="col-lg-10">
+              <%= f.text_field "date", value: f.object.created_at.strftime("%d %B %Y"), disabled: true, class: 'form-control' %>
+            </div>
+          </div>
+        </fieldset>
+        <% end %>
+        
+        <fieldset>
+          <div class="col-lg-4 col-lg-offset-3">
+            <table class='table'>
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class='fields'>
+                <%= f.fields_for :customer_plan_visits do |builder| %>
+                  <%= render 'customer_plan_visit', f: builder %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-lg-4 col-lg-offset-7">
+            <%= link_to_add_row('Add', f, :customer_plan_visits, class: 'btn btn-primary') %>
+          </div>
+        </fieldset>
+        
+        <% if f.object.new_record? %>
+          <%= f.submit "CREATE", class: "btn btn-primary" %>
+          <%= link_to "BACK", plan_visits_path, class: "btn" %>
+        <% else %>
+          <%= button_to "UPDATE", plan_visits_path(:id => f.object.id),
+        method: :put, class: "btn btn-primary" %>
+          <%= link_to "BACK", plan_visits_path, class: "btn" %>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

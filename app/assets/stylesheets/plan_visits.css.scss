@@ -1,0 +1,76 @@
+// Place all the styles related to the marketshares controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// --- Tags Input
+//= require bootstrap-tagsinput
+// --- Slider Ctrl
+//= require seiyria-bootstrap-slider/dist/css/bootstrap-slider.min
+// --- Chosen
+//= require chosen_v1.2.0/chosen.min
+// --- xEditable
+//= require x-editable/dist/bootstrap3-editable/css/bootstrap-editable
+// --- Upload
+//= require blueimp-file-upload/css/jquery.fileupload
+// --- DatetimePicker
+//= require eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min
+// --- ColorPicker
+//= require mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css
+// --- CropperCss
+//= require cropper/dist/cropper.css
+// --- Select2
+//= require select2/dist/css/select2.css
+//= require select2-bootstrap-theme/dist/select2-bootstrap.css
+
+.ui-autocomplete {
+  position: absolute;
+  max-height: 200px;
+  top: 100%;
+  left: 0;
+  overflow-y: auto;   /* prevent horizontal scrollbar */
+  overflow-x: hidden; /* add padding to account for vertical scrollbar */
+  z-index:1000 !important;
+  float: left;
+  display: none;
+  min-width: 160px;
+  _width: 160px;
+  padding: 4px 0;
+  margin: 2px 0 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+}
+.ui-autocomplete .ui-menu-item > a.ui-corner-all {
+  display: block;
+  padding: 3px 15px;
+  clear: both;
+  font-weight: normal;
+  line-height: 18px;
+  color: #555555;
+  white-space: nowrap;
+}
+.ui-autocomplete .ui-menu-item > a.ui-corner-all.ui-state-hover, .ui-autocomplete .ui-menu-item > a.ui-corner-all.ui-state-active, .ui-autocomplete .ui-menu-item > a.ui-corner-all.ui-state-focus {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #0088cc;
+  border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  background-image: none;
+}
+
+.ui-helper-hidden-accessible { display:none; }

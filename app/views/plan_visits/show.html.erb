@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sales:</strong>
+  <%= @plan_visit.sales_id %>
+</p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @plan_visit.brand %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @plan_visit.city %>
+</p>
+
+<p>
+  <strong>Date visit:</strong>
+  <%= @plan_visit.date_visit %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @plan_visit.customer %>
+</p>
+
+<p>
+  <strong>Hotel:</strong>
+  <%= @plan_visit.hotel %>
+</p>
+
+<p>
+  <strong>Accomodation:</strong>
+  <%= @plan_visit.accomodation %>
+</p>
+
+<p>
+  <strong>Allowance:</strong>
+  <%= @plan_visit.allowance %>
+</p>
+
+<%= link_to 'Edit', edit_plan_visit_path(@plan_visit) %> |
+<%= link_to 'Back', plan_visits_path %>

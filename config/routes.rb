@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :plan_visits
   #planning orders
   get 'order/production/planning/aging_orders'
 

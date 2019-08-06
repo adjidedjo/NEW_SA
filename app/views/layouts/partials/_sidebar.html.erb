@@ -338,6 +338,12 @@
         <a href="#success" title="success" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Success Rate</b></span> </a>
         <ul id="success" class="nav sidebar-subnav collapse">
           <li class="sidebar-subnav-header">
+            RKBulanan
+          </li>
+          <li class="<%= 'active' if controller?('plan_visits') && action?('index') %>">
+            <a href="/plan_visits/" title="Plan Visit"> <span>RKBulanan</span> </a>
+          </li>
+          <li class="sidebar-subnav-header">
             Success Rate
           </li>
           <li class="<%= 'active' if controller?('sales_productivities') && action?('index') %>">
