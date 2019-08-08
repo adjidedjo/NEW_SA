@@ -25,10 +25,32 @@ class Penjualan::Customer < Penjualan::Sale
 
   def self.list_customers(branch, brand)
     find_by_sql("
-      SELECT customer, MAX(last_invoice) AS last_invoice, cust_status, brand, salesman
-      FROM sales_mart.CUSTOMER_DETGROWTHS WHERE
-      branch = '#{branch}' AND brand REGEXP '#{brand}' and fmonth = '#{3.days.ago.month - 1}'
-      and fyear = '#{3.days.ago.year}' GROUP BY customer, brand")
+      SELECT cd.customer, cd.city, cd.cust_status, cd.salesman, cd.brand,
+        IFNULL(lkh.customer, 'NOT VISITED') AS customer_visit,
+        lkh.brand AS customer_brand_visit, SUM(IF(lkh.cv IS NULL, 0, 1)) AS 'is_visit?',
+        lkh.date_visit AS 'tanggal visit', MAX(cd.last_invoice) AS last_invoice FROM
+        (
+          SELECT * FROM sales_mart.CUSTOMER_DETGROWTHS
+          WHERE branch = '#{branch}' AND brand REGEXP '#{brand}' and fmonth = '#{3.days.ago.month - 1}'
+          and fyear = '#{3.days.ago.year}' GROUP BY customer, brand
+        ) AS cd
+        LEFT JOIN
+        (
+          SELECT spc.*, sales.nama, spc.call_visit AS cv, sp.date AS date_visit, sp.brand FROM
+          (
+            SELECT * FROM sales_productivities WHERE MONTH = '#{3.days.ago.month - 1}' AND YEAR = '#{3.days.ago.year}'
+            AND branch_id = '#{branch}' AND brand REGEXP '#{brand}'
+          ) AS sp
+          LEFT JOIN
+          (
+            SELECT * FROM sales_productivity_customers
+          ) AS spc ON spc.sales_productivity_id = sp.id
+          LEFT JOIN
+          (
+            SELECT * FROM salesmen
+          ) AS sales ON sales.id = sp.salesmen_id
+        ) AS lkh ON lkh.customer = cd.customer
+      GROUP BY customer")
   end
 
   def self.list_customers_inactive(branch, state, brand)
