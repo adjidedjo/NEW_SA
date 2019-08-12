@@ -1,5 +1,5 @@
 class ApiController < ActionController::Base
-  
+  # api controller
   def documentation
     render file: "app/assets/documentation/readme.md"
   end
