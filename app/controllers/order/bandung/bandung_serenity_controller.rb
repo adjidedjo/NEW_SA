@@ -1,7 +1,6 @@
 class Order::Bandung::BandungSerenityController < ApplicationController
   include RolesHelper
-  before_action :initialize_brand, :initialize_brach_id, :authorize_user
-  before_action :order_daily
+  before_action :initialize_brand, :initialize_brach_id, :authorize_user, :order_daily
   
   def order
     @branch = "BANDUNG"
@@ -18,6 +17,8 @@ class Order::Bandung::BandungSerenityController < ApplicationController
   def order_normal
     @out_daily = SalesOrder::Order.outstand_order(initialize_brach_id, initialize_brand, current_user.position, current_user.address_number.nil? ? '0' : current_user.address_number)
     @pbj = SalesOrder::Order.generate_pbj(initialize_brach_id, initialize_brand) if params["format"] == "xlsx"
+    @held_order_credit = SalesOrder::Order.held_orders_by_credit(initialize_brach_id, initialize_brand)
+    @held_order_approve = SalesOrder::Order.held_orders_by_approval(initialize_brach_id, initialize_brand)
     
     respond_to do |format|
       format.html {render template: "order/template_order/order"}
