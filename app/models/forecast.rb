@@ -15,8 +15,8 @@ class Forecast < ActiveRecord::Base
         UNION
 
         SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND nopo = '#{address}'
-        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO')  GROUP BY area_id, kodebrg, jenisbrgdisc
+        WHERE WEEK = '#{week}' AND fiscal_year = '#{year}' AND nopo = '#{address}' AND ketppb NOT LIKE '%D'
+        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO', 'RX')  GROUP BY area_id, kodebrg, jenisbrgdisc
       ) f1
       LEFT JOIN
       (
@@ -26,7 +26,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo, salesman, lebar, jenisbrgdisc, namaartikel, namakain, SUM(jumlah) AS jml, WEEK
         FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO')
+        WHERE WEEK = '#{week}' AND fiscal_year = '#{year}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO', 'RX')
         AND ketppb NOT LIKE '%D' GROUP BY area_id, kodebrg, nopo
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
@@ -63,8 +63,8 @@ class Forecast < ActiveRecord::Base
         UNION
 
         SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND nopo IS NOT NULL
-        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO') AND
+        WHERE WEEK = '#{week}' AND fiscal_year = '#{year}' AND nopo IS NOT NULL
+        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO', 'RX') AND
         (CASE WHEN '#{area}' = '' THEN area_id >= 0 ELSE area_id = '#{area}' END)
         GROUP BY area_id, kodebrg, nopo
       ) f1
@@ -78,7 +78,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo, salesman, lebar, jenisbrgdisc, namaartikel, namakain, SUM(jumlah) AS jml, WEEK
         FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO')
+        WHERE tanggalsj WEEK = '#{week}' AND fiscal_year = '#{year}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO', 'RX')
         AND ketppb NOT LIKE '%D'
         GROUP BY area_id, kodebrg, nopo
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
@@ -112,8 +112,8 @@ class Forecast < ActiveRecord::Base
         UNION
 
         SELECT DISTINCT(kodebrg), nopo, area_id, jenisbrgdisc FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND nopo IS NOT NULL AND jenisbrgdisc = '#{brand}'
-        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO') GROUP BY area_id, kodebrg, nopo
+        WHERE WEEK = '#{week}' AND fiscal_year = '#{year}' AND nopo IS NOT NULL AND jenisbrgdisc = '#{brand}'
+        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO', 'RX') GROUP BY area_id, kodebrg, nopo
       ) f1
       LEFT JOIN
       (
@@ -123,7 +123,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo, salesman, lebar, jenisbrgdisc, namaartikel, namakain, SUM(jumlah) AS jml, WEEK
         FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO')
+        WHERE WEEK = '#{week}' AND fiscal_year = '#{year}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO', 'RX')
         AND ketppb NOT LIKE '%D'
         GROUP BY area_id, kodebrg, nopo
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
@@ -162,8 +162,8 @@ class Forecast < ActiveRecord::Base
         UNION
 
         SELECT DISTINCT(kodebrg), nopo, area_id FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND area_id = '#{area}' AND nopo IS NOT NULL AND jenisbrgdisc = '#{brand}'
-        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO') GROUP BY area_id, kodebrg, nopo
+        WHERE WEEK = '#{week}' AND fiscal_year = '#{year}' AND area_id = '#{area}' AND nopo IS NOT NULL AND jenisbrgdisc = '#{brand}'
+        AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO', 'RX') GROUP BY area_id, kodebrg, nopo
       ) f1
       LEFT JOIN
       (
@@ -173,7 +173,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo, salesman, lebar, jenisbrgdisc, namaartikel, namakain, SUM(jumlah) AS jml, WEEK
         FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj BETWEEN '#{date}' AND '#{date+6}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO')
+        WHERE WEEK = '#{week}' AND fiscal_year = '#{year}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO', 'RX')
         AND area_id = '#{area}' AND ketppb NOT LIKE '%D' GROUP BY area_id, kodebrg, nopo
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
@@ -359,7 +359,7 @@ class Forecast < ActiveRecord::Base
         SELECT DISTINCT(kodebrg), nopo FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO')
+        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO', 'RX')
 
         UNION ALL
 
@@ -374,7 +374,7 @@ class Forecast < ActiveRecord::Base
         fiscal_month, fiscal_year, nopo, salesman FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO')
+        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO', 'RX')
         GROUP BY kodebrg, area_id, jenisbrgdisc, nopo
       ) AS lp ON lp.kodebrg = f1.kodebrg AND lp.nopo = f1.nopo
       LEFT JOIN
@@ -412,7 +412,7 @@ class Forecast < ActiveRecord::Base
         SELECT DISTINCT(kodebrg) FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO')
+        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO', 'RX')
 
         UNION ALL
 
@@ -427,7 +427,7 @@ class Forecast < ActiveRecord::Base
         fiscal_month, fiscal_year FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
         ('KM', 'DV', 'HB', 'KB', 'SB', 'SA')  AND tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO')
+        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO', 'RX')
         GROUP BY kodebrg, area_id, jenisbrgdisc
       ) AS lp ON lp.kodebrg = f1.kodebrg
       LEFT JOIN
