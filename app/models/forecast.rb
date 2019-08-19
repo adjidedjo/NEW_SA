@@ -78,7 +78,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT area_id, kodebrg, SUM(jumlah) AS jumlah, nopo, salesman, lebar, jenisbrgdisc, namaartikel, namakain, SUM(jumlah) AS jml, WEEK
         FROM dbmarketing.tblaporancabang
-        WHERE tanggalsj WEEK = '#{week}' AND fiscal_year = '#{year}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO', 'RX')
+        WHERE WEEK = '#{week}' AND fiscal_year = '#{year}' AND tipecust = 'RETAIL' AND orty IN ('RI', 'RO', 'RX')
         AND ketppb NOT LIKE '%D'
         GROUP BY area_id, kodebrg, nopo
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
