@@ -68,7 +68,7 @@ wb.add_worksheet(:name => "BANDUNG") do |sheet|
   jb_fos = jb_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ BANDUNG"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} BANDUNG"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -140,7 +140,7 @@ wb.add_worksheet(:name => "CIREBON") do |sheet|
   crb_fos = crb_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ CIREBON"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} CIREBON"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -214,7 +214,7 @@ wb.add_worksheet(:name => "JAKARTA") do |sheet|
   jk_fos = jk_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ JAKARTA"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} JAKARTA"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -288,7 +288,7 @@ wb.add_worksheet(:name => "YOGYA") do |sheet|
   yk_fos = yk_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ YOGYAKARTA"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} YOGYAKARTA"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -362,7 +362,7 @@ wb.add_worksheet(:name => "SEMARANG") do |sheet|
   smg_fos = smg_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ SEMARANG"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} SEMARANG"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -436,7 +436,7 @@ wb.add_worksheet(:name => "SURABAYA") do |sheet|
   sby_fos = sby_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ SURABAYA"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} SURABAYA"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -510,7 +510,7 @@ wb.add_worksheet(:name => "BALI") do |sheet|
   bl_fos = bl_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ BALI"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} BALI"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -584,7 +584,7 @@ wb.add_worksheet(:name => "MAKASAR") do |sheet|
   mk_fos = mk_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ MAKASAR"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} MAKASAR"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -656,7 +656,7 @@ wb.add_worksheet(:name => "MANADO") do |sheet|
   mnd_fos = mnd_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ MANADO"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} MANADO"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -728,7 +728,7 @@ wb.add_worksheet(:name => "MEDAN") do |sheet|
   md_fos = md_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ MEDAN"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} MEDAN"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -800,7 +800,7 @@ wb.add_worksheet(:name => "PALEMBANG") do |sheet|
   pl_fos = pl_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ PALEMBANG"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} PALEMBANG"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -874,7 +874,7 @@ wb.add_worksheet(:name => "PEKANBARU") do |sheet|
   pk_fos = pk_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ PEKANBARU"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} PEKANBARU"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -948,7 +948,7 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
   lp_fos = lp_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ LAMPUNG"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} LAMPUNG"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -1022,7 +1022,7 @@ wb.add_worksheet(:name => "ACA") do |sheet|
   ck_fos = ck_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ ACA"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} ACA"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -1094,7 +1094,7 @@ wb.add_worksheet(:name => "TASIK") do |sheet|
   ckp_fos = ckp_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ TASIK"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} TASIK"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -1168,7 +1168,7 @@ wb.add_worksheet(:name => "CIKAMPEK") do |sheet|
   ckp_fos = ckp_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ CIKAMPEK"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} CIKAMPEK"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -1240,7 +1240,7 @@ wb.add_worksheet(:name => "SUKABUMI") do |sheet|
   skb_fos = skb_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ SUKABUMI"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} SUKABUMI"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
