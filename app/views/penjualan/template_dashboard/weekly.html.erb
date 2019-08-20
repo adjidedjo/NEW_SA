@@ -1,6 +1,10 @@
 <div class="content-heading">
-  Dashboard <%= @brand_name %> WEEK(<%= 1.week.ago.to_date.cweek %>) REPORT for <%= @branch %> BRANCH
-  <small>FROM <%= 1.week.ago.to_date.strftime("%d %B %Y") %> - <%= 1.week.ago.to_date.strftime("%d %B %Y") %></small>
+  <center>
+    <%= @brand_name %> WEEK(<%= 1.week.ago.to_date.cweek %>) REPORT for <%= @branch %> BRANCH
+  </center>
+  <center>
+    <small>FROM <%= 1.week.ago.to_date.strftime("%d %B %Y") %> - <%= 1.week.ago.to_date.strftime("%d %B %Y") %></small>
+  </center>
 </div>
 <!-- START widgets box-->
 <!-- END widgets box-->
@@ -182,7 +186,7 @@
               <tbody>
                 <% @most_item.each do |cws| %>
                 <tr class="gradeX">
-                  <td><%= cws.article %></td>
+                  <td><%= cws.jenis %> <%= cws.article %></td>
                   <td><%= cws.qty_4 %></td>
                   <td><%= currency(cws.val_4) %></td>
                   <td><%= cws.qty_3 %></td>
