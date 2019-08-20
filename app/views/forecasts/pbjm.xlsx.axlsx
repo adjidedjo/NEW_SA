@@ -103,7 +103,7 @@ wb.add_worksheet(:name => "BANDUNG") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
+  if rows2 > 1
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
@@ -175,7 +175,7 @@ wb.add_worksheet(:name => "CIREBON") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
+  if rows2 > 1
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
@@ -249,7 +249,7 @@ wb.add_worksheet(:name => "JAKARTA") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
+  if rows2 > 1
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
@@ -323,7 +323,7 @@ wb.add_worksheet(:name => "YOGYA") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
+  if rows2 > 1
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
@@ -397,7 +397,7 @@ wb.add_worksheet(:name => "SEMARANG") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
+  if rows2 > 1
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
@@ -471,7 +471,7 @@ wb.add_worksheet(:name => "SURABAYA") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
+  if rows2 > 1
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
@@ -545,7 +545,7 @@ wb.add_worksheet(:name => "BALI") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
+  if rows2 > 1
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
@@ -619,7 +619,7 @@ wb.add_worksheet(:name => "MAKASAR") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
+  if rows2 > 1
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
@@ -691,7 +691,7 @@ wb.add_worksheet(:name => "MANADO") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
+  if rows2 > 1
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
