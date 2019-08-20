@@ -1,7 +1,8 @@
 class Jde < ActiveRecord::Base
   establish_connection :jdeoracle
   self.table_name = "PRODDTA.F0006"
-  def self.calculate_pbjm(from, to)
+  def self.calculate_pbjm(from, to, brand)
+    brand = brand.at(0)
     find_by_sql("
       SELECT PF.SDMCU, PF.PBJ, TRIM(PF.SDSHAN) AS SDSHAN, PF.DES, SUM(PF.TOTAL_PBJM) AS TOTAL, PF.STAT FROM(
         SELECT PBJ.SDMCU, MAX(SUBSTR(PBJ.SDVR01, 0, 4)) AS PBJ, TRIM(PBJ.SDSHAN) AS SDSHAN, MAX(ABM.ABALPH) AS DES, SUM(PBJ.SDUORG)/10000 AS TOTAL_PBJM,
@@ -9,7 +10,7 @@ class Jde < ActiveRecord::Base
           SELECT ORD.* FROM(
             SELECT * FROM PRODDTA.F4211
             WHERE REGEXP_LIKE(SDSRP2, 'KM|DV|HB|SA|ST|SB|KB') AND SDDRQJ BETWEEN '#{date_to_julian(from)}' AND '#{date_to_julian(to)}' AND SDSRP1 != 'K'
-            AND SDLTTR != '980' AND SDDCTO IN ('SK', 'ST') AND SDPRP4 != 'RM' AND REGEXP_LIKE(SDVR01, '^PBJ')
+            AND SDLTTR != '980' AND SDDCTO IN ('SK', 'ST') AND SDPRP4 != 'RM' AND SDSRP1 = '#{brand}' AND REGEXP_LIKE(SDVR01, '^PBJ')
             ) ORD
         ) PBJ LEFT JOIN
         (

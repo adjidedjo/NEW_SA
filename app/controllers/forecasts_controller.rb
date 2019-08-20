@@ -1,11 +1,11 @@
 class ForecastsController < ApplicationController
   
   def report_pbjm
-    @pbjm = Jde.calculate_pbjm(params[:start_date], params[:end_date])
+    @pbjm = Jde.calculate_pbjm(params[:start_date], params[:end_date], params[:brand])
     
     respond_to do |format|
       format.html
-      format.xlsx {render :xlsx => "pbjm", :filename => "pbjm week #{params[:start_date].to_date.cweek}.xlsx"}
+      format.xlsx {render :xlsx => "pbjm", :filename => "pbjm #{params[:brand]} week #{params[:start_date].to_date.cweek}.xlsx"}
     end
   end
   
