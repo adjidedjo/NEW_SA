@@ -1264,8 +1264,8 @@ wb.add_worksheet(:name => "SUKABUMI") do |sheet|
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
-    fsrows = skb_fos.group_by(&:pbj).count
   end
+  fsrows = skb_fos.group_by(&:pbj).count
   if fsrows > 0
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
