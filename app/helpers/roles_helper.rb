@@ -56,4 +56,8 @@ module RolesHelper
     brand = brand.split("|").first
     user.position == "sales" && (user.brand1 == brand || user.brand2 == brand || user.brand3 == brand || user.brand4 == brand)
   end
+  
+  def nsm_direct(user)
+    (user.position == "direct_mng" || user.position == "sales support")
+  end
 end

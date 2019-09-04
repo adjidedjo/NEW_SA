@@ -163,14 +163,17 @@
               <%= render "layouts/partials/sidebar_manado" if branch(current_user, 26) %>
             </ul>
           </li>
+          <% if current_user.position == 'admin' || general_manager(current_user) || nsm_direct(current_user) %>
           <li class="<%= 'active' if controller?('penjualan/direct') %>">
             <a href="#direct" title="Direct" data-toggle="collapse"> <em class="icon-people"></em> <span>Direct</span> </a>
             <ul id="direct" class="nav sidebar-subnav collapse">
               <li class="sidebar-subnav-header">
                 Direct
               </li>
+              <%= render "layouts/partials/p_direct/sidebar_nasdirect" if branch(current_user, nil) %>
             </ul>
           </li>
+          <% end %>
           <li class="<%= 'active' if controller?('penjualan/project') %>">
             <a href="#project" title="Project" data-toggle="collapse"> <em class="icon-people"></em> <span>Project</span> </a>
             <ul id="project" class="nav sidebar-subnav collapse">

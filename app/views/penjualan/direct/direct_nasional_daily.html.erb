@@ -1,0 +1,220 @@
+<div class="content-heading">
+  OVERVIEW NASIONAL DIRECT
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Search by Month Form
+  </div>
+  <div class="panel-body">
+    <%= form_tag(request.fullpath, {method: :get, :class => "form-inline"}) do %>
+    <div class="form-group">
+      <%= select_month(params[:date].present? ? params[:date][:month].to_i : Date.today.month, {prompt: 'Choose month'}, class: "form-control") %>
+    </div>
+    <div class="form-group">
+      <%= select_year(Date.today, {start_year: 2017, end_year: Date.today.year, prompt: 'Choose year'}, {class: "form-control"}) %>
+    </div>
+    <%= submit_tag 'Search', name: nil, class: "btn btn-info" %>
+    <% end %>
+  </div>
+</div>
+<!-- START widgets box-->
+<!-- END widgets box-->
+<div class="row">
+  <!-- START dashboard main content-->
+  <div class="col-lg-12">
+    <!-- START chart-->
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- START widget-->
+        <div id="panelChart9" class="panel panel-default panel-demo">
+          <div class="panel-heading">
+            <div class="panel-title" style="text-align: center">
+              DIRECT Nasional <%= @brand_name %> <b><%= @date.to_date.strftime('%B %Y') %></b> sales statistics by Branch
+              <br />
+              (x10.000.000)
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="chart-bar-monthlynas flot-chart" style="width:100%;height:250px;">></div>
+          </div>
+        </div>
+        <!-- END widget-->
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-12">
+    <!-- START content-->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-warning">
+          <div class="panel-heading" style="text-align: center">
+            Total Revenue <%= @date.to_date.strftime('%B %Y') %>
+          </div>
+          <div class="panel-body">
+            <table id="datatable1" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th><%= @date.to_date.strftime('%b %y') %></th>
+                  <th><%= (@date.to_date - 1.month).strftime('%b %y') %></th>
+                  <th>Change</th>
+                  <th><%= @date.to_date.yesterday.last_year.strftime('%b %y') %></th>
+                  <th>YoY</th>
+                  <th>Target Month Amount</th>
+                  <th>Target <%= @date.to_date.yesterday.strftime('%b %y') %></th>
+                  <th>Target to Year</th>
+                  <th>Target Year Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @monthnas_summary.each do |dp| %>
+                <tr class="gradeX">
+                  <td><%= currency(dp.val_1) %></td>
+                  <td><%= currency(dp.val_2) %></td>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
+                  <td><%= currency(dp.revenue) %></td>
+                  <td class="<%= coloring(dp.y_percentage) %>"><%= dp.y_percentage.nil? ? 0 : cpercent(dp.y_percentage.abs) %></td>
+                  <td><%= currency(dp.month_target) %></td>
+                  <td class="<%= coloring_target(dp.t_percentage) %>"><%= dp.t_percentage.nil? ? 0 : cpercent(dp.t_percentage.abs) %></td>
+                  <td class="<%= coloring_target(dp.ty_percentage) %>"><%= dp.ty_percentage.nil? ? 0 : cpercent(dp.ty_percentage) %></td>
+                  <td><%= currency(dp.year_target) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END content-->
+  </div>
+  
+  <!-- Dev-->
+  <div class="col-lg-12">
+    <!-- START content-->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+          <div class="panel-heading" style="text-align: center">
+            Total Revenue <%= @date.to_date.strftime('%B %Y') %> By Stores
+          </div>
+          <div class="panel-body">
+            <table id="datatable_city" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Branch</th>
+                  <th>Store</th>
+                  <th>Amount <%= @date.strftime('%b %y') %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @branches_monthnasstore_summary.each do |dp| %>
+                <tr class="gradeX">
+                  <td><%= dp.cabang.gsub('Cabang', '') unless dp.cabang.nil? %></td>
+                  <td><%= dp.customer_desc %></td>
+                  <td><%= currency(dp.total) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END content-->
+  </div>
+  <!-- end Dev-->
+  
+  
+  <div class="col-lg-12">
+    <!-- START content-->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+          <div class="panel-heading" style="text-align: center">
+            Total Revenue <%= @date.to_date.strftime('%B %Y') %> By Branches
+          </div>
+          <div class="panel-body">
+            <table id="table-revenue-branches-national" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Branch</th>
+                  <th><%= @date.to_date.strftime('%b %y') %></th>
+                  <th><%= (@date.to_date - 1.month).strftime('%b %y') %></th>
+                  <th>Change</th>
+                  <th><%= @date.to_date.yesterday.last_year.strftime('%b %y') %></th>
+                  <th>YoY</th>
+                  <th>Target <%= @date.strftime('%b %y') %></th>
+                  <th>Acv <%= @date.strftime('%b %y') %></th>
+                  <th>Target <%= @date.strftime('%Y') %></th>
+                  <th>Acv <%= @date.strftime('%Y') %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @branches_monthnas_summary.each do |dp| %>
+                <tr class="gradeX">
+                  <td><%= dp.cabang.gsub('Cabang', '') unless dp.cabang.nil? %></td>
+                  <td><%= currency(dp.val_1) %></td>
+                  <td><%= currency(dp.val_2) %></td>
+                  <td class="<%= coloring(dp.percentage) %>"><%= dp.percentage.nil? ? 0 : cpercent(dp.percentage.abs) %></td>
+                  <td><%= currency(dp.revenue) %></td>
+                  <td class="<%= coloring(dp.y_percentage) %>"><%= dp.y_percentage.nil? ? 0 : cpercent(dp.y_percentage.abs) %></td>
+                  <td><%= currency(dp.month_target) %></td>
+                  <td class="<%= coloring_target(dp.t_percentage) %>"><%= dp.t_percentage.nil? ? 0 : cpercent(dp.t_percentage) %></td>
+                  <td><%= currency(dp.year_target) %></td>
+                  <td class="<%= coloring_target(dp.ty_percentage) %>"><%= dp.ty_percentage.nil? ? 0 : cpercent(dp.ty_percentage) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END content-->
+  </div>
+  <div class="col-lg-12">
+    <!-- START content-->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+          <div class="panel-heading" style="text-align: center">
+            Total Sales Quantity <%= @date.to_date.strftime('%B %Y') %> By Products
+          </div>
+          <div class="panel-body">
+            <table id="table-revenue-products" class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Name</th>
+                  <th>Jakarta</th>
+                  <th>Jabar</th>
+                  <th>Jatim</th>
+                  <th>Bali</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>Name</th>
+                </tr>
+              </tfoot>
+              <tbody>
+                <% @products_monthnas_summary.each do |dp| %>
+                <tr class="gradeX">
+                  <td><%= dp.kodejenis %></td>
+                  <td><%= dp.namaartikel %></td>
+                  <td><%= dp.jakarta %></td>
+                  <td><%= dp.jabar %></td>
+                  <td><%= dp.jatim %></td>
+                  <td><%= dp.bali %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END content-->
+  </div>
+</div>

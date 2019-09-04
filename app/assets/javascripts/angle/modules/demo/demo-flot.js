@@ -294,6 +294,18 @@
       "data": gon.summaries
     }];
     
+    var data_monthlynas = [{
+        "label": "Sales",
+        "color": "#0000CD",
+        "data": gon.summaries_branch
+    }];
+    
+     var data_monthlynasdir = [{
+        "label": "Sales",
+        "color": "#0000CD",
+        "data": gon.summaries
+    }];
+    
     var options_royal = {
                     series: {
                         bars: {
@@ -391,14 +403,39 @@
                     },
                     shadowSize: 0
                 };
-    
-    var data_monthlynas = [{
-        "label": "Sales",
-        "color": "#0000CD",
-        "data": gon.summaries_branch
-    }];
 
     var options_monthly = {
+                    series: {
+                        bars: {
+                            align: 'center',
+                            lineWidth: 0,
+                            show: true,
+                            barWidth: 0.3,
+                            fill: 0.6
+                        }
+                    },
+                    grid: {
+                        borderColor: '#eee',
+                        borderWidth: 0.3,
+                        hoverable: true,
+                        backgroundColor: '#fcfcfc'
+                    },
+                    tooltip: true,
+                    tooltipOpts: {
+                        content: function (label, x, y) { return x + ' : ' + y; }
+                    },
+                    xaxis: {
+                        tickColor: '#fcfcfc',
+                        mode: 'categories'
+                    },
+                    yaxis: {
+                        // position: 'right' or 'left'
+                        tickColor: '#eee'
+                    },
+                    shadowSize: 0
+                };
+                
+    var options_monthlydir = {
                     series: {
                         bars: {
                             align: 'center',
@@ -452,6 +489,10 @@
     var chart_monthly_nasional = $('.chart-bar-monthlynas');
     if(chart_monthly_nasional.length)
       $.plot(chart_monthly_nasional, data_monthlynas, options_monthly);
+      
+    var chart_monthly_nasionaldir = $('.chart-bar-monthlynasdir');
+    if(chart_monthly_nasionaldir.length)
+      $.plot(chart_monthly_nasionaldir, data_monthlynasdir, options_monthlydir);
 
   });
 

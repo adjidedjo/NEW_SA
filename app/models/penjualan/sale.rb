@@ -120,6 +120,21 @@ class Penjualan::Sale < ActiveRecord::Base
     ")
   end
 
+  def self.direct_nasional_this_month_products(date, brand)
+    self.find_by_sql("SELECT lc.kodejenis, lc.namaartikel, lc.jabar, lc.jakarta, lc.jakarta, lc.bali,
+    lc.jatim  FROM
+    (
+      SELECT article AS kodeartikel, article_desc AS namaartikel, product AS kodejenis,
+      SUM(CASE WHEN branch = 2 THEN sales_quantity END) jabar,
+      SUM(CASE WHEN branch = 23 THEN sales_quantity END) jakarta,
+      SUM(CASE WHEN branch = 4 THEN sales_quantity END) bali,
+      SUM(CASE WHEN branch = 7 THEN sales_quantity END) jatim
+      FROM sales_mart.SH1ARTICLE WHERE fiscal_month = '#{date.month}' AND
+      fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' GROUP BY kodeartikel
+    ) as lc
+    ")
+  end
+
   def self.retail_nasional_this_month_products(date, brand)
     self.find_by_sql("SELECT lc.kodejenis, lc.namaartikel, lc.jabar, lc.jakarta, lc.jakarta, lc.bali, lc.medan,
     lc.jatim, lc.semarang, lc.cirebon, lc.yogya, lc.palembang, lc.lampung, lc.makasar, lc.pekanbaru  FROM
@@ -184,6 +199,47 @@ class Penjualan::Sale < ActiveRecord::Base
     ")
   end
 
+  def self.direct_nasional_this_month_total(date, brand)
+    self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue, st.month_target, st.year_target,
+    ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
+    ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage,
+    ROUND(((lc.val1_1 / st.month_target) * 100.0), 0) AS t_percentage,
+    ROUND(((lc.y_qty / st.year_target) * 100), 0) AS ty_percentage FROM
+    (
+      SELECT branch as area_id, brand as jenisbrgdisc,
+      SUM(CASE WHEN
+        fiscal_month IN ('#{date.last_month.month}','#{date.month}')
+        AND fiscal_year BETWEEN '#{date.beginning_of_year.to_date.year}' AND '#{date.year}'
+        THEN sales_amount END) y_qty,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_quantity END) qty_1,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val1_1,
+      SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
+      FROM sales_mart.SH1BRAND WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}')
+      AND fiscal_year BETWEEN '#{date.last_month.year}' AND '#{date.year}'
+      AND brand REGEXP '#{brand}' GROUP BY brand
+    ) as lc
+    LEFT JOIN
+      (
+        SELECT SUM(sales_amount) AS revenue, brand as jenisbrgdisc FROM sales_mart.SH1BRAND WHERE
+        fiscal_month = '#{date.last_year.month}' AND fiscal_year = '#{date.last_year.year}' AND brand REGEXP '#{brand}' GROUP BY brand
+      ) AS ly ON lc.jenisbrgdisc = ly.jenisbrgdisc
+    LEFT JOIN
+      (
+        SELECT branch, brand,
+        SUM(CASE WHEN month = '#{date.month}' THEN amount END) month_target,
+        SUM(CASE WHEN month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
+        '#{date.end_of_year.month}' THEN amount END) year_target
+        FROM sales_target_values WHERE
+        brand REGEXP '#{brand}' AND
+        month BETWEEN '#{Date.yesterday.beginning_of_year.month}' AND
+        '#{Date.yesterday.end_of_year.month}'
+        AND year BETWEEN '#{Date.yesterday.beginning_of_year.year}' AND
+        '#{Date.yesterday.end_of_year.year}' GROUP BY brand
+      ) AS st ON lc.jenisbrgdisc = st.brand
+    ")
+  end
+
   def self.retail_nasional_this_month_total(date, brand)
     self.find_by_sql("SELECT lc.val_1, lc.val_2, ly.revenue, st.month_target, st.year_target,
     ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
@@ -222,6 +278,62 @@ class Penjualan::Sale < ActiveRecord::Base
         AND year BETWEEN '#{Date.yesterday.beginning_of_year.year}' AND
         '#{Date.yesterday.end_of_year.year}' GROUP BY brand
       ) AS st ON lc.jenisbrgdisc = st.brand
+    ")
+  end
+
+  def self.direct_nasional_this_month_branches_store(date, brand)
+    self.find_by_sql("SELECT st.area AS cabang, lc.customer, lc.customer_desc, lc.total FROM
+    (
+      SELECT branch as area_id, brand as jenisbrgdisc, SUM(sales_amount) as total, customer, customer_desc
+      FROM sales_mart.SH2CUSBRAND WHERE fiscal_month = '#{date.month}'
+      AND fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' GROUP BY branch, customer
+    ) as lc
+    LEFT JOIN direct_areas AS st
+      ON lc.area_id = st.id
+    ")
+  end
+
+  def self.direct_nasional_this_month_branches(date, brand)
+    self.find_by_sql("SELECT st.area AS cabang, lc.val_1, lc.val_2, ly.revenue, st.month_target, st.year_target,
+    ROUND((((lc.val_1 - lc.val_2) / lc.val_2) * 100), 0) AS percentage,
+    ROUND((((lc.val_1 - ly.revenue) / ly.revenue) * 100), 0) AS y_percentage,
+    ROUND(((lc.val1_1 / st.month_target) * 100.0), 0) AS t_percentage,
+    ROUND(((lc.y_qty / st.year_target) * 100), 0) AS ty_percentage FROM
+    (
+      SELECT branch as area_id, brand as jenisbrgdisc,
+      SUM(CASE WHEN
+        fiscal_month BETWEEN '#{date.beginning_of_year.to_date.month}' AND '#{date.month}'
+        AND fiscal_year BETWEEN '#{date.beginning_of_year.to_date.year}' AND '#{date.year}'
+        THEN sales_amount END) y_qty,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_quantity END) qty_1,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
+      SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val1_1,
+      SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
+      FROM sales_mart.SH1BRAND WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}')
+      AND fiscal_year BETWEEN '#{date.last_month.year}' AND '#{date.year}'
+      AND brand REGEXP '#{brand}' GROUP BY branch
+    ) as lc
+    LEFT JOIN
+      (
+        SELECT SUM(sales_amount) AS revenue, branch as area_id FROM sales_mart.SH1BRAND WHERE
+        fiscal_month = '#{date.last_year.month}' AND fiscal_year = '#{date.last_year.year}'
+        AND brand REGEXP '#{brand}' GROUP BY branch
+      ) AS ly ON lc.area_id = ly.area_id
+    LEFT JOIN
+      (
+        SELECT branch, brand,
+        SUM(CASE WHEN month = '#{date.month}' THEN amount END) month_target,
+        SUM(CASE WHEN month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
+        '#{date.end_of_year.month}' THEN amount END) year_target
+        FROM dbmarketing.sales_target_values WHERE
+        brand REGEXP '#{brand}' AND
+        month BETWEEN '#{date.beginning_of_year.month}' AND
+        '#{date.end_of_year.month}'
+        AND year BETWEEN '#{date.beginning_of_year.year}' AND
+        '#{date.end_of_year.year}' GROUP BY branch
+      ) AS st ON lc.area_id = st.branch
+    LEFT JOIN direct_areas AS st
+      ON lc.area_id = st.id
     ")
   end
 
@@ -269,13 +381,25 @@ class Penjualan::Sale < ActiveRecord::Base
     ")
   end
 
+  def self.direct_nasional_this_month_branch(date, brand)
+    self.find_by_sql("SELECT lc.harga, cb.area AS branch FROM (
+    SELECT SUM(sales_amount) AS harga, branch FROM sales_mart.SH1BRAND
+    WHERE fiscal_month = '#{date.month}'
+    AND fiscal_year = '#{date.year}' AND branch NOT IN(1,5)
+    AND brand REGEXP '#{brand}' GROUP BY branch) AS lc
+    LEFT JOIN dbmarketing.direct_areas AS cb ON lc.branch = cb.id
+    ORDER BY lc.harga DESC
+    ")
+  end
+
   def self.retail_nasional_this_month_branch(date, brand)
     self.find_by_sql("SELECT lc.harga, cb.area AS branch FROM (
-    SELECT SUM(sales_amount) AS harga, branch FROM sales_mart.RET4CITYBRAND
+    SELECT SUM(sales_amount) AS harga, branch FROM sales_mart.RET1BRAND
     WHERE fiscal_month = '#{date.month}'
     AND fiscal_year = '#{date.year}' AND branch NOT IN(1,5)
     AND brand REGEXP '#{brand}' GROUP BY branch) AS lc
     LEFT JOIN dbmarketing.areas AS cb ON lc.branch = cb.id
+    ORDER BY lc.harga DESC
     ")
   end
 
@@ -285,6 +409,15 @@ class Penjualan::Sale < ActiveRecord::Base
     AND '#{Date.yesterday.month}' AND year = '#{1.month.ago.beginning_of_year.year}'
     AND brand REGEXP '#{brand}' AND area_id IS NOT NULL
     GROUP BY month, branch")
+  end
+
+  def self.direct_nasional_this_month(brand)
+    self.find_by_sql("SELECT SUM(harganetto1) AS harga, fiscal_month FROM tblaporancabang
+    WHERE fiscal_month BETWEEN '#{date.beginning_of_year.month}'
+    AND '#{date.month}' AND fiscal_year = '#{date.beginning_of_year.year}'
+    AND tipecust IN ('DIRECT', 'SHOWROOM') AND jenisbrgdisc = '#{brand}' AND area_id IS NOT NULL
+
+    GROUP BY fiscal_month")
   end
 
   def self.retail_nasional_this_month(brand)
@@ -360,6 +493,15 @@ class Penjualan::Sale < ActiveRecord::Base
     AND '#{Date.yesterday.last_month.month}' AND year = '#{1.month.ago.beginning_of_year.year}'
     AND brand REGEXP '#{brand}'
     GROUP BY month, branch")
+  end
+
+  def self.direct_nasional_monthly(brand)
+    self.find_by_sql("SELECT SUM(harganetto1) AS harga, fiscal_month FROM tblaporancabang
+    WHERE fiscal_month BETWEEN '#{1.month.ago.beginning_of_year.month}'
+    AND '#{Date.yesterday.last_month.month}' AND fiscal_year = '#{1.month.ago.beginning_of_year.year}'
+    AND tipecust IN ('DIRECT', 'SHOWROOM') AND jenisbrgdisc = '#{brand}'
+
+    GROUP BY fiscal_month")
   end
 
   def self.retail_nasional_monthly(brand)
@@ -635,6 +777,37 @@ class Penjualan::Sale < ActiveRecord::Base
     AND '#{1.weeks.ago.to_date.cweek}' AND fiscal_year BETWEEN '#{5.weeks.ago.to_date.year}' AND '#{1.weeks.ago.to_date.year}'
     AND tipecust = 'RETAIL' AND jenisbrgdisc REGEXP '#{brand}' and kodejenis IN ('KM', 'HB', 'DV', 'SA', 'SB', 'ST')
     GROUP BY week")
+  end
+
+  def self.direct_nasional_weekly(brand)
+    self.find_by_sql("SELECT SUM(sales_amount) AS val, CONCAT('WEEK ', week) AS weekly_name FROM sales_mart.SH1BRAND
+    WHERE week BETWEEN '#{5.weeks.ago.to_date.cweek}'
+    AND '#{1.weeks.ago.to_date.cweek}' AND fiscal_year BETWEEN '#{5.weeks.ago.to_date.year}' AND '#{1.weeks.ago.to_date.year}'
+    AND brand REGEXP '#{brand}'
+    GROUP BY week")
+  end
+
+  def self.direct_nasional_weekly_branch(brand)
+    self.find_by_sql("SELECT st.area AS cabang, lc.qty_4, lc.val_4, lc.qty_3, lc.val_3,
+    lc.qty_2, lc.val_2, lc.qty_1, lc.val_1, ROUND((((val_3 - val_4)/val_4) * 100)) AS chg_3,
+    ROUND((((val_2 - val_3)/val_3) * 100)) AS chg_2, ROUND((((val_1 - val_2)/val_2) * 100)) AS chg_1 FROM
+    (
+      SELECT branch,
+      SUM(CASE WHEN week = '#{4.weeks.ago.to_date.cweek}' AND fiscal_year = '#{4.weeks.ago.year}' THEN sales_quantity END) qty_4,
+      SUM(CASE WHEN week = '#{4.weeks.ago.to_date.cweek}' AND fiscal_year = '#{4.weeks.ago.year}' THEN sales_amount END) val_4,
+      SUM(CASE WHEN week = '#{3.weeks.ago.to_date.cweek}' AND fiscal_year = '#{3.weeks.ago.year}' THEN sales_quantity END) qty_3,
+      SUM(CASE WHEN week = '#{3.weeks.ago.to_date.cweek}' AND fiscal_year = '#{3.weeks.ago.year}' THEN sales_amount END) val_3,
+      SUM(CASE WHEN week = '#{2.weeks.ago.to_date.cweek}' AND fiscal_year = '#{2.weeks.ago.year}' THEN sales_quantity END) qty_2,
+      SUM(CASE WHEN week = '#{2.weeks.ago.to_date.cweek}' AND fiscal_year = '#{2.weeks.ago.year}' THEN sales_amount END) val_2,
+      SUM(CASE WHEN week = '#{1.week.ago.to_date.cweek}' AND fiscal_year = '#{1.weeks.ago.year}' THEN sales_quantity END) qty_1,
+      SUM(CASE WHEN week = '#{1.week.ago.to_date.cweek}' AND fiscal_year = '#{1.weeks.ago.year}' THEN sales_amount END) val_1
+      FROM sales_mart.SH1BRAND WHERE week BETWEEN '#{4.week.ago.to_date.cweek}'
+      AND '#{1.week.ago.to_date.cweek}' AND fiscal_year BETWEEN '#{4.week.ago.year}'
+      AND '#{1.week.ago.year}' AND brand REGEXP '#{brand}' AND branch != 1
+      GROUP BY branch
+      ) as lc
+      LEFT JOIN direct_areas AS st
+      ON lc.branch = st.id")
   end
 
   def self.retail_nasional_weekly_branch(brand)
