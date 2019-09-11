@@ -97,7 +97,7 @@ wb.add_worksheet(:name => "BANDUNG") do |sheet|
   rows = jb_mat.group_by(&:pbj).count
   rows2 = jb_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,2], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -105,7 +105,7 @@ wb.add_worksheet(:name => "BANDUNG") do |sheet|
   end
   if rows2 > 0
     rows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -124,7 +124,7 @@ wb.add_worksheet(:name => "BANDUNG") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -172,7 +172,7 @@ wb.add_worksheet(:name => "CIREBON") do |sheet|
   rows = crb_mat.group_by(&:pbj).count
   rows2 = crb_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -180,7 +180,7 @@ wb.add_worksheet(:name => "CIREBON") do |sheet|
   end
   if rows2 > 0
     rows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -199,7 +199,7 @@ wb.add_worksheet(:name => "CIREBON") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -247,7 +247,7 @@ wb.add_worksheet(:name => "NAROGONG") do |sheet|
   rows = jk_mat.group_by(&:pbj).count
   rows2 = jk_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -255,11 +255,11 @@ wb.add_worksheet(:name => "NAROGONG") do |sheet|
   end
   if rows2 > 0
     rows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
-      chart.valAxis.label_rotation = -45
-      chart.catAxis.label_rotation = 45
+      chart.valAxis.label_rotation = -25
+      chart.catAxis.label_rotation = 25
       chart.d_lbls.d_lbl_pos = :outEnd
       chart.d_lbls.show_val = true
     end
@@ -274,7 +274,7 @@ wb.add_worksheet(:name => "NAROGONG") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -322,7 +322,7 @@ wb.add_worksheet(:name => "YOGYA") do |sheet|
   rows = yk_mat.group_by(&:pbj).count
   rows2 = yk_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -330,7 +330,7 @@ wb.add_worksheet(:name => "YOGYA") do |sheet|
   end
   if rows2 > 0
     rows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -349,7 +349,7 @@ wb.add_worksheet(:name => "YOGYA") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -397,7 +397,7 @@ wb.add_worksheet(:name => "SEMARANG") do |sheet|
   rows = smg_mat.group_by(&:pbj).count
   rows2 = smg_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -405,7 +405,7 @@ wb.add_worksheet(:name => "SEMARANG") do |sheet|
   end
   if rows2 > 0
     rows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -424,7 +424,7 @@ wb.add_worksheet(:name => "SEMARANG") do |sheet|
     end
   end
   if fsrows > 0
-	sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+	sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
 	  chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
 	  :colors => ['FF0000', '00FF00', '0000FF']
 	  chart.valAxis.label_rotation = -45
@@ -472,7 +472,7 @@ wb.add_worksheet(:name => "SURABAYA") do |sheet|
   rows = sby_mat.group_by(&:pbj).count
   rows2 = sby_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -480,7 +480,7 @@ wb.add_worksheet(:name => "SURABAYA") do |sheet|
   end
   if rows2 > 0
     rows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -499,7 +499,7 @@ wb.add_worksheet(:name => "SURABAYA") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -547,7 +547,7 @@ wb.add_worksheet(:name => "BALI") do |sheet|
   rows = bl_mat.group_by(&:pbj).count
   rows2 = bl_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -555,7 +555,7 @@ wb.add_worksheet(:name => "BALI") do |sheet|
   end
   if rows2 > 0	
     rows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -574,7 +574,7 @@ wb.add_worksheet(:name => "BALI") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -622,7 +622,7 @@ wb.add_worksheet(:name => "MAKASAR") do |sheet|
   rows = mk_mat.group_by(&:pbj).count
   rows2 = mk_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -630,7 +630,7 @@ wb.add_worksheet(:name => "MAKASAR") do |sheet|
   end
   if rows2 > 0
     rows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{8+rows+1}:B#{8+rows2}"], :labels => sheet["A#{8+rows+1}:A#{8+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -649,7 +649,7 @@ wb.add_worksheet(:name => "MAKASAR") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -697,7 +697,7 @@ wb.add_worksheet(:name => "MANADO") do |sheet|
   rows = mnd_mat.group_by(&:pbj).count
   rows2 = mnd_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -705,7 +705,7 @@ wb.add_worksheet(:name => "MANADO") do |sheet|
   end
   if rows2 > 0
     rows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -724,7 +724,7 @@ wb.add_worksheet(:name => "MANADO") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -772,7 +772,7 @@ wb.add_worksheet(:name => "MEDAN") do |sheet|
   rows = md_mat.group_by(&:pbj).count
   rows2 = md_mats.group_by(&:pbj).count
   if rows > 0
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -780,7 +780,7 @@ wb.add_worksheet(:name => "MEDAN") do |sheet|
   end
   if rows2 > 0
       rows2 = rows2 + rows
-	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
 	    chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
 	    :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.valAxis.label_rotation = -45
@@ -799,7 +799,7 @@ wb.add_worksheet(:name => "MEDAN") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -847,7 +847,7 @@ wb.add_worksheet(:name => "PALEMBANG") do |sheet|
   rows = pl_mat.group_by(&:pbj).count
   rows2 = pl_mats.group_by(&:pbj).count
   if rows > 0 && pl_mat.present?
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -855,7 +855,7 @@ wb.add_worksheet(:name => "PALEMBANG") do |sheet|
   end
   if pl_mats.present? && rows2 > 0
       rows2 = rows2 + rows
-	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
 	    chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
 	    :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.valAxis.label_rotation = -45
@@ -874,7 +874,7 @@ wb.add_worksheet(:name => "PALEMBANG") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -922,7 +922,7 @@ wb.add_worksheet(:name => "PEKANBARU") do |sheet|
   rows = pk_mat.group_by(&:pbj).count
   rows2 = pk_mats.group_by(&:pbj).count
   if rows > 0 && pk_mat.present?
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -930,7 +930,7 @@ wb.add_worksheet(:name => "PEKANBARU") do |sheet|
   end
   if pk_mats.present? && rows2 > 0
       rows2 = rows2 + rows
-	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
 	    chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
 	    :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.valAxis.label_rotation = -45
@@ -949,7 +949,7 @@ wb.add_worksheet(:name => "PEKANBARU") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -997,7 +997,7 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
   rows = lp_mat.group_by(&:pbj).count
   rows2 = lp_mats.group_by(&:pbj).count
   if rows > 0 && lp_mat.present?
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -1005,7 +1005,7 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
   end
   if lp_mats.present? && rows2 > 0
       rows2 = rows2 + rows
-	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
 	    chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
 	    :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.valAxis.label_rotation = -45
@@ -1024,7 +1024,7 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -1072,7 +1072,7 @@ wb.add_worksheet(:name => "TANGERANG") do |sheet|
   rows = ck_mat.group_by(&:pbj).count
   rows2 = ck_mats.group_by(&:pbj).count
   if rows > 0
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -1080,7 +1080,7 @@ wb.add_worksheet(:name => "TANGERANG") do |sheet|
   end
   if rows2 > 0
     rows2 = rows2 + rows
-	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
 	    chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
 	    :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.valAxis.label_rotation = -45
@@ -1099,7 +1099,7 @@ wb.add_worksheet(:name => "TANGERANG") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -1147,7 +1147,7 @@ wb.add_worksheet(:name => "TASIK") do |sheet|
   rows = ckp_mat.group_by(&:pbj).count
   rows2 = ckp_mats.group_by(&:pbj).count
   if rows > 0
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -1155,7 +1155,7 @@ wb.add_worksheet(:name => "TASIK") do |sheet|
   end
   if rows2 > 0
       rows2 = rows2 + rows
-	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
 	    chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
 	    :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.valAxis.label_rotation = -45
@@ -1174,7 +1174,7 @@ wb.add_worksheet(:name => "TASIK") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -1222,7 +1222,7 @@ wb.add_worksheet(:name => "CIKAMPEK") do |sheet|
   rows = ckp_mat.group_by(&:pbj).count
   rows2 = ckp_mats.group_by(&:pbj).count
   if rows > 0
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -1230,7 +1230,7 @@ wb.add_worksheet(:name => "CIKAMPEK") do |sheet|
   end
   if rows2 > 0
       rows2 = rows2 + rows
-	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
 	    chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
 	    :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.valAxis.label_rotation = -45
@@ -1249,7 +1249,7 @@ wb.add_worksheet(:name => "CIKAMPEK") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -1297,7 +1297,7 @@ wb.add_worksheet(:name => "SUKABUMI") do |sheet|
   rows = skb_mat.group_by(&:pbj).count
   rows2 = skb_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [8,11], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -1305,7 +1305,7 @@ wb.add_worksheet(:name => "SUKABUMI") do |sheet|
   end
   if rows2 > 0
     rows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "H3", :end_at => "M13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
@@ -1324,7 +1324,7 @@ wb.add_worksheet(:name => "SUKABUMI") do |sheet|
     end
   end
   if fsrows > 0
-    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
+    sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "M26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.valAxis.label_rotation = -45
