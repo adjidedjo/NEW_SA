@@ -210,7 +210,7 @@ wb.add_worksheet(:name => "CIREBON") do |sheet|
   end
   sheet.merge_cells("A2:M2")
 end
-##JAKARTA#####################################################################################################
+##NAROGONG#####################################################################################################
 wb.add_worksheet(:name => "NAROGONG") do |sheet|
   jk_mat = jk.select {|c| c[:sdshan] == '18031' || c[:sdshan] == '11031'}
   jk_mats = jk_mat.select {|c| c[:stat] == 'SENT'}
@@ -265,6 +265,7 @@ wb.add_worksheet(:name => "NAROGONG") do |sheet|
     end
   end
   frows = jk_fo.group_by(&:pbj).count
+  fsrows = jk_fos.group_by(&:pbj).count
   if frows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,15], :end_at => [8,24], :title => "TOTAL PBJ FOAM") do |chart|
       chart.add_series :data => sheet["B#{12+rows2}:B#{12+rows2+frows-1}"], :labels => sheet["A#{12+rows2}:A#{12+rows2+frows-1}"],  :colors => ['FF0000', '00FF00', '0000FF']
@@ -272,7 +273,6 @@ wb.add_worksheet(:name => "NAROGONG") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  fsrows = jk_fos.group_by(&:pbj).count
   if fsrows > 0
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
@@ -640,13 +640,15 @@ wb.add_worksheet(:name => "MAKASAR") do |sheet|
     end
   end
   frows = mk_fo.group_by(&:pbj).count
+  fsrows = mk_fos.group_by(&:pbj).count
   if frows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,15], :end_at => [8,24], :title => "TOTAL PBJ FOAM") do |chart|
       chart.add_series :data => sheet["B#{12+rows2}:B#{12+rows2+frows-1}"], :labels => sheet["A#{12+rows2}:A#{12+rows2+frows-1}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
-    fsrows = mk_fos.group_by(&:pbj).count
+  end
+  if fsrows > 0
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
@@ -713,13 +715,15 @@ wb.add_worksheet(:name => "MANADO") do |sheet|
     end
   end
   frows = mnd_fo.group_by(&:pbj).count
+  fsrows = mnd_fos.group_by(&:pbj).count
   if frows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,15], :end_at => [8,24], :title => "TOTAL PBJ FOAM") do |chart|
       chart.add_series :data => sheet["B#{12+rows2}:B#{12+rows2+frows-1}"], :labels => sheet["A#{12+rows2}:A#{12+rows2+frows-1}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
-    fsrows = mnd_fos.group_by(&:pbj).count
+  end
+  if fsrows > 0
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
@@ -936,13 +940,13 @@ wb.add_worksheet(:name => "PEKANBARU") do |sheet|
 	  end
   end
   frows = pk_fo.group_by(&:pbj).count
+  fsrows = pk_fos.group_by(&:pbj).count
   if frows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,15], :end_at => [8,24], :title => "TOTAL PBJ FOAM") do |chart|
       chart.add_series :data => sheet["B#{12+rows2}:B#{12+rows2+frows-1}"], :labels => sheet["A#{12+rows2}:A#{12+rows2+frows-1}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
-    fsrows = pk_fos.group_by(&:pbj).count
   end
   if fsrows.present?
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
@@ -1011,13 +1015,13 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
 	  end
   end
   frows = lp_fo.group_by(&:pbj).count
+  fsrows = lp_fos.group_by(&:pbj).count
   if frows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,15], :end_at => [8,24], :title => "TOTAL PBJ FOAM") do |chart|
       chart.add_series :data => sheet["B#{12+rows2}:B#{12+rows2+frows-1}"], :labels => sheet["A#{12+rows2}:A#{12+rows2+frows-1}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
-    fsrows = lp_fos.group_by(&:pbj).count
   end
   if fsrows.present?
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
@@ -1031,7 +1035,7 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
   end
   sheet.merge_cells("A2:M2")
 end
-##ACA#####################################################################################################
+##TANGERANG#####################################################################################################
 wb.add_worksheet(:name => "TANGERANG") do |sheet|
   ck_mat = ck.select {|c| c[:sdshan] == '18151'}
   ck_mats = ck_mat.select {|c| c[:stat] == 'SENT'}
@@ -1075,7 +1079,7 @@ wb.add_worksheet(:name => "TANGERANG") do |sheet|
 	  end
   end
   if rows2 > 0
-      rows2 = rows2 + rows
+    rows2 = rows2 + rows
 	  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I3", :end_at => "O13", :title => "PBJ MATRAS TERKIRIM", ) do |chart|
 	    chart.add_series :data => sheet["B#{offset+rows+1}:B#{offset+rows2}"], :labels => sheet["A#{offset+rows+1}:A#{offset+rows2}"], 
 	    :colors => ['FF0000', '00FF00', '0000FF']
@@ -1086,6 +1090,7 @@ wb.add_worksheet(:name => "TANGERANG") do |sheet|
 	  end
   end
   frows = ck_fo.group_by(&:pbj).count
+  fsrows = ck_fos.group_by(&:pbj).count
   if frows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,15], :end_at => [8,24], :title => "TOTAL PBJ FOAM") do |chart|
       chart.add_series :data => sheet["B#{12+rows2}:B#{12+rows2+frows-1}"], :labels => sheet["A#{12+rows2}:A#{12+rows2+frows-1}"],  :colors => ['FF0000', '00FF00', '0000FF']
@@ -1093,7 +1098,6 @@ wb.add_worksheet(:name => "TANGERANG") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  fsrows = ck_fos.group_by(&:pbj).count
   if fsrows > 0
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
@@ -1161,15 +1165,15 @@ wb.add_worksheet(:name => "TASIK") do |sheet|
 	  end
   end
   frows = ckp_fo.group_by(&:pbj).count
-  if frows > 2
+  fsrows = ckp_fos.group_by(&:pbj).count
+  if frows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,15], :end_at => [8,24], :title => "TOTAL PBJ FOAM") do |chart|
       chart.add_series :data => sheet["B#{12+rows2}:B#{12+rows2+frows-1}"], :labels => sheet["A#{12+rows2}:A#{12+rows2+frows-1}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
-    fsrows = ckp_fos.group_by(&:pbj).count
   end
-  if fsrows.present?
+  if fsrows > 0
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
