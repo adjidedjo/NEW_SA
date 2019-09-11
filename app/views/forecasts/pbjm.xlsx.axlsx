@@ -97,7 +97,7 @@ wb.add_worksheet(:name => "BANDUNG") do |sheet|
   rows = jb_mat.group_by(&:pbj).count
   rows2 = jb_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,2], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -172,7 +172,7 @@ wb.add_worksheet(:name => "CIREBON") do |sheet|
   rows = crb_mat.group_by(&:pbj).count
   rows2 = crb_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -247,7 +247,7 @@ wb.add_worksheet(:name => "NAROGONG") do |sheet|
   rows = jk_mat.group_by(&:pbj).count
   rows2 = jk_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -322,7 +322,7 @@ wb.add_worksheet(:name => "YOGYA") do |sheet|
   rows = yk_mat.group_by(&:pbj).count
   rows2 = yk_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -397,7 +397,7 @@ wb.add_worksheet(:name => "SEMARANG") do |sheet|
   rows = smg_mat.group_by(&:pbj).count
   rows2 = smg_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -472,7 +472,7 @@ wb.add_worksheet(:name => "SURABAYA") do |sheet|
   rows = sby_mat.group_by(&:pbj).count
   rows2 = sby_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -547,7 +547,7 @@ wb.add_worksheet(:name => "BALI") do |sheet|
   rows = bl_mat.group_by(&:pbj).count
   rows2 = bl_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -622,7 +622,7 @@ wb.add_worksheet(:name => "MAKASAR") do |sheet|
   rows = mk_mat.group_by(&:pbj).count
   rows2 = mk_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -697,7 +697,7 @@ wb.add_worksheet(:name => "MANADO") do |sheet|
   rows = mnd_mat.group_by(&:pbj).count
   rows2 = mnd_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
@@ -772,7 +772,7 @@ wb.add_worksheet(:name => "MEDAN") do |sheet|
   rows = md_mat.group_by(&:pbj).count
   rows2 = md_mats.group_by(&:pbj).count
   if rows > 0
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -847,7 +847,7 @@ wb.add_worksheet(:name => "PALEMBANG") do |sheet|
   rows = pl_mat.group_by(&:pbj).count
   rows2 = pl_mats.group_by(&:pbj).count
   if rows > 0 && pl_mat.present?
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -922,7 +922,7 @@ wb.add_worksheet(:name => "PEKANBARU") do |sheet|
   rows = pk_mat.group_by(&:pbj).count
   rows2 = pk_mats.group_by(&:pbj).count
   if rows > 0 && pk_mat.present?
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -997,7 +997,7 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
   rows = lp_mat.group_by(&:pbj).count
   rows2 = lp_mats.group_by(&:pbj).count
   if rows > 0 && lp_mat.present?
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -1072,7 +1072,7 @@ wb.add_worksheet(:name => "TANGERANG") do |sheet|
   rows = ck_mat.group_by(&:pbj).count
   rows2 = ck_mats.group_by(&:pbj).count
   if rows > 0
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -1147,7 +1147,7 @@ wb.add_worksheet(:name => "TASIK") do |sheet|
   rows = ckp_mat.group_by(&:pbj).count
   rows2 = ckp_mats.group_by(&:pbj).count
   if rows > 0
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -1222,7 +1222,7 @@ wb.add_worksheet(:name => "CIKAMPEK") do |sheet|
   rows = ckp_mat.group_by(&:pbj).count
   rows2 = ckp_mats.group_by(&:pbj).count
   if rows > 0
-	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+	  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
 	    chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
@@ -1297,7 +1297,7 @@ wb.add_worksheet(:name => "SUKABUMI") do |sheet|
   rows = skb_mat.group_by(&:pbj).count
   rows2 = skb_mats.group_by(&:pbj).count
   if rows > 0
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [2,1], :end_at => [6,10], :title => "TOTAL PBJ MATRAS") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,2], :end_at => [7,11], :title => "TOTAL PBJ MATRAS") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
