@@ -115,13 +115,15 @@ wb.add_worksheet(:name => "BANDUNG") do |sheet|
     end
   end
   frows = jb_fo.group_by(&:pbj).count
+  fsrows = jb_fos.group_by(&:pbj).count
   if frows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => [3,15], :end_at => [8,24], :title => "TOTAL PBJ FOAM") do |chart|
       chart.add_series :data => sheet["B#{12+rows2}:B#{12+rows2+frows-1}"], :labels => sheet["A#{12+rows2}:A#{12+rows2+frows-1}"],  :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
-    fsrows = jb_fos.group_by(&:pbj).count
+  end
+  if fsrows > 0
     sheet.add_chart(Axlsx::Bar3DChart, :start_at => "I16", :end_at => "O26", :title => "PBJ FOAM TERKIRIM", ) do |chart|
       chart.add_series :data => sheet["B#{15+rows2+frows}:B#{15+rows2+frows+fsrows-1}"], :labels => sheet["A#{15+rows2+frows}:A#{15+rows2+frows+fsrows-1}"], 
       :colors => ['FF0000', '00FF00', '0000FF']
