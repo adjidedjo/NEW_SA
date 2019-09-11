@@ -209,7 +209,7 @@ wb.add_worksheet(:name => "CIREBON") do |sheet|
   sheet.merge_cells("A2:M2")
 end
 ##JAKARTA#####################################################################################################
-wb.add_worksheet(:name => "JAKARTA") do |sheet|
+wb.add_worksheet(:name => "NAROGONG") do |sheet|
   jk_mat = jk.select {|c| c[:sdshan] == '18031' || c[:sdshan] == '11031'}
   jk_mats = jk_mat.select {|c| c[:stat] == 'SENT'}
   jk_fo = jk.select {|c| c[:sdshan] == '11032'}
@@ -1030,7 +1030,7 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
   sheet.merge_cells("A2:M2")
 end
 ##ACA#####################################################################################################
-wb.add_worksheet(:name => "ACA") do |sheet|
+wb.add_worksheet(:name => "TANGERANG") do |sheet|
   ck_mat = ck.select {|c| c[:sdshan] == '18151'}
   ck_mats = ck_mat.select {|c| c[:stat] == 'SENT'}
   ck_fo = ck.select {|c| c[:sdshan] == '18152'}
