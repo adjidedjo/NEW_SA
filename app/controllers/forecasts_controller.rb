@@ -114,4 +114,9 @@ class ForecastsController < ApplicationController
     ForecastWeekly.import_weekly(params[:file])
     redirect_to forecasts_upload_forecast_url, notice: "RKM with file name '#{params[:file].original_filename}' imported."
   end
+
+  def import_rkb
+    MonthlyVisitPlan.import_rkb(params[:file])
+    redirect_to forecasts_upload_forecast_url, notice: "RKB with file name '#{params[:file].original_filename}' imported."
+  end
 end

@@ -25,7 +25,7 @@ class Jde < ActiveRecord::Base
   end
 
   def self.get_customer_rkb(customer)
-    find_by_sql("SELECT ABALPH FROM PRODDTA.F0101 WHERE ABAN8 LIKE '%#{customer}%' AND ABAT1 = 'C'")
+    find_by_sql("SELECT ABALPH FROM PRODDTA.F0101 WHERE ABAN8 LIKE '%#{customer}%' AND ABAT1 = 'C'").first
   end
 
   def self.get_sales_rkb(sales)

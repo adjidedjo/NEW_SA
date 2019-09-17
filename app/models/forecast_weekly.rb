@@ -5,7 +5,8 @@ class ForecastWeekly < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      forecast = find_by(brand: row["brand"].upcase, address_number: row["address_number"], item_number: row["item_number"].strip, branch: row["branch"],
+      forecast = find_by(brand: row["brand"].upcase, address_number: row["address_number"], 
+      item_number: row["item_number"].strip, branch: row["branch"],
       week: row["week"], year: row["year"]) || ForecastWeekly.new
       unless row["quantity"].nil? || row["quantity"] == 0
         if forecast.id.nil?
@@ -20,7 +21,7 @@ class ForecastWeekly < ActiveRecord::Base
           row["description"] = item.nil? ? 'UNLISTED ITEM NUMBER' : (item.imdsc1.strip + ' ' + item.imdsc2.strip)
           row["planner"] = '-'
           row["sales_name"] = sales_name.nil? ? ' ' : sales_name.abalph.strip
-        forecast.attributes = row.to_hash
+          forecast.attributes = row.to_hash
         else
           forecast["quantity"] = row["quantity"]
         end
