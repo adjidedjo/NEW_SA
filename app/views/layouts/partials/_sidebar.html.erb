@@ -31,7 +31,7 @@
           <%= render "layouts/partials/base_prices/fourth_regional"  if reg1(current_user, 4) %>
         </ul>
       </li>
-      <% if current_user.position != 'sales' %>
+      <% if current_user.position != 'sales' || retail_users(current_user) %>
       <li class="<%= 'active' if controller?('order') %>">
         <a href="#order" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Order</b></span> </a>
         <ul id="order" class="nav sidebar-subnav collapse">
@@ -44,47 +44,50 @@
               <li class="sidebar-subnav-header">
                 Retail
               </li>
-
-              <li class="<%= 'active' if controller?('order/production/planning') && action?('aging_orders') %>">
-                <a href="/order/production/planning/aging_orders" title="outstanding orders"> <em class="icon-chart"></em> <span><b>National Outstanding Order</b></span> </a>
-              </li>
-              <%= render "layouts/partials/order/order_bandung" if branch(current_user, 2) %>
-              <%= render "layouts/partials/order/order_bekasi" if branch(current_user, 3) %>
-              <%= render "layouts/partials/order/order_cirebon" if branch(current_user, 9) %>
-              <%= render "layouts/partials/order/order_tangerang" if branch(current_user, 23) %>
-              <%= render "layouts/partials/order/order_semarang" if branch(current_user, 8) %>
-              <%= render "layouts/partials/order/order_yogya" if branch(current_user, 10) %>
-              <%= render "layouts/partials/order/order_surabaya" if branch(current_user, 7) %>
-              <%= render "layouts/partials/order/order_bali" if branch(current_user, 4) %>
-              <%= render "layouts/partials/order/order_makasar" if branch(current_user, 19) %>
-              <%= render "layouts/partials/order/order_manado" if branch(current_user, 26) %>
-              <%= render "layouts/partials/order/order_palembang" if branch(current_user, 11) %>
-              <%= render "layouts/partials/order/order_lampung" if branch(current_user, 13) %>
-              <%= render "layouts/partials/order/order_medan" if branch(current_user, 5) %>
-              <%= render "layouts/partials/order/order_pekanbaru" if branch(current_user, 20) %>
-              <%= render "layouts/partials/order/order_jember" if branch(current_user, 22) %>
+  
+              <% if retail_users(current_user) %>
+                <li class="<%= 'active' if controller?('order/production/planning') && action?('aging_orders') %>">
+                  <a href="/order/production/planning/aging_orders" title="outstanding orders"> <em class="icon-chart"></em> <span><b>National Outstanding Order</b></span> </a>
+                </li>
+                <%= render "layouts/partials/order/order_bandung" if branch(current_user, 2) %>
+                <%= render "layouts/partials/order/order_bekasi" if branch(current_user, 3) %>
+                <%= render "layouts/partials/order/order_cirebon" if branch(current_user, 9) %>
+                <%= render "layouts/partials/order/order_tangerang" if branch(current_user, 23) %>
+                <%= render "layouts/partials/order/order_semarang" if branch(current_user, 8) %>
+                <%= render "layouts/partials/order/order_yogya" if branch(current_user, 10) %>
+                <%= render "layouts/partials/order/order_surabaya" if branch(current_user, 7) %>
+                <%= render "layouts/partials/order/order_bali" if branch(current_user, 4) %>
+                <%= render "layouts/partials/order/order_makasar" if branch(current_user, 19) %>
+                <%= render "layouts/partials/order/order_manado" if branch(current_user, 26) %>
+                <%= render "layouts/partials/order/order_palembang" if branch(current_user, 11) %>
+                <%= render "layouts/partials/order/order_lampung" if branch(current_user, 13) %>
+                <%= render "layouts/partials/order/order_medan" if branch(current_user, 5) %>
+                <%= render "layouts/partials/order/order_pekanbaru" if branch(current_user, 20) %>
+                <%= render "layouts/partials/order/order_jember" if branch(current_user, 22) %>
+              <% end %>
             </ul>
           </li>
         </ul>
       </li>
-
-      <li class="<%= 'active' if controller?('credit_limits') %>">
-        <a href="#cl" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Credit Limits</b></span> </a>
-        <ul id="cl" class="nav sidebar-subnav collapse">
-          <li class="sidebar-subnav-header">
-            Credit Limits
-          </li>
-          <li class="<%= 'active' if controller?('credit_limits') %>">
-            <a href="#retail_cl" title="Credit Limits" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
-            <ul id="retail_cl" class="nav sidebar-subnav collapse">
-              <li class="sidebar-subnav-header">
-                Retail
-              </li>
-              <%= render "layouts/partials/sidebar_credit" %>
-            </ul>
-          </li>
-        </ul>
-      </li>
+      <% if retail_users(current_user) %>
+        <li class="<%= 'active' if controller?('credit_limits') %>">
+          <a href="#cl" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Credit Limits</b></span> </a>
+          <ul id="cl" class="nav sidebar-subnav collapse">
+            <li class="sidebar-subnav-header">
+              Credit Limits
+            </li>
+            <li class="<%= 'active' if controller?('credit_limits') %>">
+              <a href="#retail_cl" title="Credit Limits" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+              <ul id="retail_cl" class="nav sidebar-subnav collapse">
+                <li class="sidebar-subnav-header">
+                  Retail
+                </li>
+                <%= render "layouts/partials/sidebar_credit" %>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      <% end %>
 
       <% if bm_customers(current_user, current_user.branch1) || current_user.position == 'admin' ||
       general_manager(current_user) || nsm_customers(current_user) %>
@@ -138,6 +141,7 @@
           <li class="sidebar-subnav-header">
             Sales
           </li>
+          <% if retail_users(current_user) %>
           <li class="<%= 'active' if controller?('penjualan/nasional/nasional_channels') && action?('all_channel') %>">
             <a href="/penjualan/nasional/nasional_channels/all_channel" title="Channels"> <em class="icon-people"></em><span>National Channels</span> </a>
           </li>
@@ -163,7 +167,8 @@
               <%= render "layouts/partials/sidebar_manado" if branch(current_user, 26) %>
             </ul>
           </li>
-          <% if current_user.position == 'admin' || general_manager(current_user) || nsm_direct(current_user) %>
+          <% end %>
+          <% if direct_users(current_user) %>
           <li class="<%= 'active' if controller?('penjualan/direct') %>">
             <a href="#direct" title="Direct" data-toggle="collapse"> <em class="icon-people"></em> <span>Direct</span> </a>
             <ul id="direct" class="nav sidebar-subnav collapse">
@@ -171,6 +176,17 @@
                 Direct
               </li>
               <%= render "layouts/partials/p_direct/sidebar_nasdirect" if branch(current_user, nil) %>
+            </ul>
+          </li>
+          <% end %>
+          <% if modern_users(current_user) %>
+          <li class="<%= 'active' if controller?('penjualan/modern') %>">
+            <a href="#modern" title="Modern" data-toggle="collapse"> <em class="icon-people"></em> <span>Modern</span> </a>
+            <ul id="modern" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Modern
+              </li>
+              <%= render "layouts/partials/p_modern/sidebar_nasmodern" if branch(current_user, nil) %>
             </ul>
           </li>
           <% end %>
@@ -182,17 +198,6 @@
               </li>
             </ul>
           </li>
-          <% if current_user.position == 'admin' || general_manager(current_user) || nsm_modern(current_user) %>
-          <li class="<%= 'active' if controller?('penjualan/modern') %>">
-            <a href="#modern" title="Modern" data-toggle="collapse"> <em class="icon-people"></em> <span>Modern</span> </a>
-            <ul id="modern" class="nav sidebar-subnav collapse">
-              <li class="sidebar-subnav-header">
-                Modern
-              </li>
-              <%= render "layouts/partials/p_modern/sidebar_nasmodern" if branch(current_user, nil) %>
-            </ul>
-          </li>
-          <% end %>
           <li class="<%= 'active' if controller?('penjualan/uncategorized') %>">
             <a href="#uncategorized" title="Uncategorized" data-toggle="collapse"> <em class="icon-people"></em> <span>Uncategorized</span> </a>
             <ul id="uncategorized" class="nav sidebar-subnav collapse">
@@ -203,6 +208,7 @@
           </li>
         </ul>
       </li>
+      <% if retail_users(current_user) %>
       <li class="<%= 'active' if controller?('account_receivables') %>">
         <a href="#ar" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Collectable AR</b></span> </a>
         <ul id="ar" class="nav sidebar-subnav collapse">
@@ -234,6 +240,7 @@
           </li>
         </ul>
       </li>
+      <% end %>
       <!-- END SA Project-->
       <% else %>
       <li class="<%= 'active' if controller?('forecasts') && action?('rkm_sales_page') %>">

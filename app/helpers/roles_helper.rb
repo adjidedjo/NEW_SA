@@ -15,6 +15,22 @@ module RolesHelper
     end  
   end
   
+  def retail_users(user)
+    user.position != "direct_mng" || user.position != "direct_mng"
+  end
+  
+  def direct_users(user)
+    user.position == "gm" || user.position == "owner" || user.position == "admin" || 
+    user.position == "marketing pusat" || user.position == "admin marketing" || 
+    user.position == "akunting pusat" || user.position == "direct_mng"
+  end
+  
+  def modern_users(user)
+    user.position == "gm" || user.position == "owner" || user.position == "admin" || 
+    user.position == "marketing pusat" || user.position == "admin marketing" || 
+    user.position == "akunting pusat" || user.position == "modern_mng"
+  end
+  
   def general_manager(user)
     user.position == "gm" || user.position == "owner" || user.position == "admin" || 
     user.position == "marketing pusat" || user.position == "admin marketing" || user.position == "akunting pusat"
