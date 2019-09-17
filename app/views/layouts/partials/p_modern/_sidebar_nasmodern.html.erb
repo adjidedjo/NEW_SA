@@ -1,0 +1,64 @@
+<li class="<%= 'active' if controller?('penjualan/nasional') %>">
+  <a href="#nasmodern" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Nasional</span> </a>
+  <ul id="nasmodern" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      NASIONAL
+    </li>
+    <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_elites') %>">
+      <a href="#nasmodern-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      <ul id="nasmodern-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          ELITE
+        </li>
+        <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_elites') && action?('weekly') %>">
+          <a href="/penjualan_modern/nasional/nasional_elites/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_elites') && action?('daily') %>">
+          <a href="/penjualan_modern/nasional/nasional_elites/daily" title="Daily"> <span>Monthly</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_serenity') %>">
+      <a href="#nasmodern-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      <ul id="nasmodern-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_serenity') && action?('weekly') %>">
+          <a href="/penjualan_modern/nasional/nasional_serenity/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_serenity') && action?('daily') %>">
+          <a href="/penjualan_modern/nasional/nasional_serenity/daily" title="Daily"> <span>Monthly</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_lady') %>">
+      <a href="#nasmodern-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      <ul id="nasmodern-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_lady') && action?('weekly') %>">
+          <a href="/penjualan_modern/nasional/nasional_lady/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_lady') && action?('daily') %>">
+          <a href="/penjualan_modern/nasional/nasional_lady/daily" title="Daily"> <span>Monthly</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_royal') %>">
+      <a href="#nasmodern-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      <ul id="nasmodern-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_royal') && action?('weekly') %>">
+          <a href="/penjualan_modern/nasional/nasional_royal/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan_modern/nasional/nasional_royal') && action?('daily') %>">
+          <a href="/penjualan_modern/nasional/nasional_royal/daily" title="Daily"> <span>Monthly</span> </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>

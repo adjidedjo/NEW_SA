@@ -182,14 +182,17 @@
               </li>
             </ul>
           </li>
+          <% if current_user.position == 'admin' || general_manager(current_user) || nsm_modern(current_user) %>
           <li class="<%= 'active' if controller?('penjualan/modern') %>">
             <a href="#modern" title="Modern" data-toggle="collapse"> <em class="icon-people"></em> <span>Modern</span> </a>
             <ul id="modern" class="nav sidebar-subnav collapse">
               <li class="sidebar-subnav-header">
                 Modern
               </li>
+              <%= render "layouts/partials/p_modern/sidebar_nasmodern" if branch(current_user, nil) %>
             </ul>
           </li>
+          <% end %>
           <li class="<%= 'active' if controller?('penjualan/uncategorized') %>">
             <a href="#uncategorized" title="Uncategorized" data-toggle="collapse"> <em class="icon-people"></em> <span>Uncategorized</span> </a>
             <ul id="uncategorized" class="nav sidebar-subnav collapse">

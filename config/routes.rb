@@ -102,6 +102,22 @@ Rails.application.routes.draw do
   get 'penjualan_salesman/weekly'
   get 'penjualan_salesman/monthly'
 
+  #Nasional MODERN
+  get 'penjualan/nasional/nasional_channels/all_channel'
+  get 'penjualan/nasional/nasional_customers/national_customer'
+  get 'penjualan_modern/nasional/nasional_elites/daily'
+  get 'penjualan_modern/nasional/nasional_elites/weekly'
+  get 'penjualan_modern/nasional/nasional_elites/monthly'
+  get 'penjualan_modern/nasional/nasional_lady/daily'
+  get 'penjualan_modern/nasional/nasional_lady/weekly'
+  get 'penjualan_modern/nasional/nasional_lady/monthly'
+  get 'penjualan_modern/nasional/nasional_serenity/daily'
+  get 'penjualan_modern/nasional/nasional_serenity/weekly'
+  get 'penjualan_modern/nasional/nasional_serenity/monthly'
+  get 'penjualan_modern/nasional/nasional_royal/daily'
+  get 'penjualan_modern/nasional/nasional_royal/weekly'
+  get 'penjualan_modern/nasional/nasional_royal/monthly'
+
   #Nasional DIRECT
   get 'penjualan/nasional/nasional_channels/all_channel'
   get 'penjualan/nasional/nasional_customers/national_customer'

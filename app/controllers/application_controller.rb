@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  include PenjualanModernConcern
   include PenjualanDirectConcern
   include PenjualanConcern
   include PenjualanDailyConcern
@@ -15,7 +16,19 @@ class ApplicationController < ActionController::Base
   :retail_salesman_daily, :retail_sales_stock_rate, :retail_sales_through,
   :retail_nasional_weekly, :retail_nasional_monthly, :retail_success_rate,
   :retail_uncollectable_ar, :retail_collectable_ar, :retail_nasional_this_month,
-  :retail_recap, :direct_nasional_this_month, :direct_nasional_weekly
+  :retail_recap, :direct_nasional_this_month, :direct_nasional_weekly, :modern_nasional_this_month,
+  :modern_nasional_weekly
+  
+  def modern_nasional_weekly
+    modern_nasional_weekly_conc
+    modern_nasional_weekly_branch_conc
+  end
+  
+  def modern_nasional_this_month
+    modern_nasional_this_month_branches_conc
+    modern_nasional_this_month_branch_conc
+    # retail_nasional_this_month_conc
+  end
   
   def direct_nasional_this_month
     direct_nasional_this_month_branches_conc

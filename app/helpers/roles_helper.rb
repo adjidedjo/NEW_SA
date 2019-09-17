@@ -60,4 +60,8 @@ module RolesHelper
   def nsm_direct(user)
     (user.position == "direct_mng" || user.position == "sales support")
   end
+  
+  def nsm_direct(user)
+    (user.position == "modern_mng" || user.position == "sales support")
+  end
 end
