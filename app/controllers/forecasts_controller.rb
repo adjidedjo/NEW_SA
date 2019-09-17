@@ -96,27 +96,4 @@ class ForecastsController < ApplicationController
 
   def index
   end
-
-  def upload_forecast
-  end
-
-  def import_target_sales
-    SalesTarget.import(params[:file])
-    redirect_to forecasts_upload_forecast_url, notice: 'Salesmen Targets imported.'
-  end
-
-  def import
-    Forecast.import(params[:file])
-    redirect_to forecasts_upload_forecast_url, notice: 'Forecasts imported.'
-  end
-
-  def import_weekly
-    ForecastWeekly.import_weekly(params[:file])
-    redirect_to forecasts_upload_forecast_url, notice: "RKM with file name '#{params[:file].original_filename}' imported."
-  end
-
-  def import_rkb
-    MonthlyVisitPlan.import_rkb(params[:file])
-    redirect_to forecasts_upload_forecast_url, notice: "RKB with file name '#{params[:file].original_filename}' imported."
-  end
 end

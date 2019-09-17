@@ -7,7 +7,7 @@
     Import RKB
   </div>
   <div class="panel-body">
-    <%= form_tag(forecasts_import_rkb_path, {multipart: true, :class => "form-inline"}) do %>
+    <%= form_tag(sources_import_rkb_path, {multipart: true, :class => "form-inline"}) do %>
     <div class="form-group">
       <%= file_field_tag :file %>
     </div>
@@ -21,7 +21,7 @@
     Import TARGET by Salesman
   </div>
   <div class="panel-body">
-    <%= form_tag(forecasts_import_target_sales_path, {multipart: true, :class => "form-inline"}) do %>
+    <%= form_tag(sources_import_target_sales_path, {multipart: true, :class => "form-inline"}) do %>
     <div class="form-group">
       <%= file_field_tag :file %>
     </div>
@@ -35,7 +35,7 @@
     Import Master Forecasts
   </div>
   <div class="panel-body">
-    <%= form_tag(forecasts_import_path, {multipart: true, :class => "form-inline"}) do %>
+    <%= form_tag(sources_import_path, {multipart: true, :class => "form-inline"}) do %>
     <div class="form-group">
       <%= file_field_tag :file %>
     </div>
@@ -49,7 +49,7 @@
     Import RKM
   </div>
   <div class="panel-body">
-    <%= form_tag(forecasts_import_weekly_path, {multipart: true, :class => "form-inline"}) do %>
+    <%= form_tag(sources_import_weekly_path, {multipart: true, :class => "form-inline"}) do %>
     <div class="form-group">
       <%= file_field_tag :file %>
     </div>

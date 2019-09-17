@@ -97,9 +97,6 @@
           <li class="sidebar-subnav-header">
             Forecasts
           </li>
-          <li class="<%= 'active' if controller?('forecasts') && action?('upload_forecast') %>">
-            <a href="/forecasts/upload_forecast" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Upload Master Forecast</b></span> </a>
-          </li>
           <li class="<%= 'active' if controller?('forecasts') && action?('report_rkm') %>">
             <a href="/forecasts/report_rkm" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>RKM & PBJM</b></span> </a>
           </li>
@@ -413,6 +410,9 @@
         <ul id="isources" class="nav sidebar-subnav collapse">
           <li class="sidebar-subnav-header">
             Summary Item Ledger
+          </li>
+          <li class="<%= 'active' if controller?('sources') && action?('upload_forecast') %>">
+            <a href="/sources/upload_forecast" title="Forecasts"> <span><b>Upload Master</b></span> </a>
           </li>
           <li class="<%= 'active' if controller?('sources') && action?('item_ledger') %>">
             <a href="/sources/item_ledger" title="Item Ledger"> <span>Summary Item Ledger</span> </a>
