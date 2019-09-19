@@ -15,8 +15,30 @@ module RolesHelper
     end  
   end
   
-  def retail_users(user)
-    user.position != "direct_mng" || user.position != "direct_mng"
+  def administrator(current_user)
+    user.position == "admin"
+  end
+  
+  def entry_users(user)
+    user.position == "admin sales"
+  end
+  
+  def managerial_users(user)
+    user.position == "gm" || user.position == "owner" || user.position == "admin" || user.position == "nsm" ||  
+    user.position == "marketing pusat" || user.position == "admin marketing" || 
+    user.position == "akunting pusat"
+  end
+  
+  def sales_users(user)
+    user.position == 'sales'
+  end
+  
+  def sales_counter_users(user)
+    user.position == 'sales_counter'
+  end
+  
+  def retail_users(user, branch)
+    (user.position == "bm") && (user.branch1.to_i == branch || user.branch2.to_i == branch)
   end
   
   def direct_users(user)

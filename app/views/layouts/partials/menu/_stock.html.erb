@@ -1,0 +1,26 @@
+<li class="<%= 'active' if controller?('stock') %>">
+  <a href="#stock" title="stock" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Stock</b></span> </a>
+  <ul id="stock" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Stock
+    </li>
+    <%= render "layouts/partials/stock_pusat" %>
+    <%= render "layouts/partials/stock_pusat_bcp" %>
+    <%= render "layouts/partials/stock_bandung" %>
+    <%= render "layouts/partials/stock_cirebon" %>
+    <%= render "layouts/partials/stock_bekasi" %>
+    <%= render "layouts/partials/stock_tangerang" %>
+    <%= render "layouts/partials/stock_semarang" %>
+    <%= render "layouts/partials/stock_yogya" %>
+    <%= render "layouts/partials/stock_bestari" %>
+    <%= render "layouts/partials/stock_surabaya" %>
+    <%= render "layouts/partials/stock_jember" %>
+    <%= render "layouts/partials/stock_bali" %>
+    <%= render "layouts/partials/stock_makasar" %>
+    <%= render "layouts/partials/stock_palembang" %>
+    <%= render "layouts/partials/stock_lampung" %>
+    <%= render "layouts/partials/stock_medan" %>
+    <%= render "layouts/partials/stock_pekanbaru" %>
+    <%= render "layouts/partials/stock_manado" %>
+  </ul>
+</li>

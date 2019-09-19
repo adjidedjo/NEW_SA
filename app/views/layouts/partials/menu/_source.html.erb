@@ -1,0 +1,20 @@
+<li class="<%= 'active' if controller?('sources') %>">
+  <a href="#isources" title="isources" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Data Source</b></span> </a>
+  <ul id="isources" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Summary Item Ledger
+    </li>
+    <li class="<%= 'active' if controller?('sources') && action?('upload_forecast') %>">
+      <a href="/sources/upload_forecast" title="Forecasts"> <span><b>Upload Master</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('sources') && action?('item_ledger') %>">
+      <a href="/sources/item_ledger" title="Item Ledger"> <span>Summary Item Ledger</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('sources') && action?('sales_report') %>">
+      <a href="/sources/sales_report" title="Sales Report"> <span>Sales Report</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('sources') && action?('sold_as_order') %>">
+      <a href="/sources/sold_as_order" title="Proving Report"> <span>Proving Report</span> </a>
+    </li>
+  </ul>
+</li>

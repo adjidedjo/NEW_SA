@@ -1,0 +1,6 @@
+<li class="<%= 'active' if controller?('penjualan/modern') %>">
+  <a href="#modern" title="Modern" data-toggle="collapse"> <em class="icon-people"></em> <span><b>Modern Penjualan</b></span> </a>
+  <ul id="modern" class="nav sidebar-subnav collapse">
+    <%= render "layouts/partials/p_modern/sidebar_nasmodern" if branch(current_user, nil) %>
+  </ul>
+</li>

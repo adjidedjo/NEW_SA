@@ -1,0 +1,443 @@
+<!-- START Sidebar (left)-->
+<div class="aside-inner">
+  <nav class="sidebar" data-sidebar-anyclick-close="">
+    <!-- START sidebar nav-->
+    <ul class="nav">
+      <!-- START user info-->
+      <li class="has-user-block">
+        <div id="user-block" class="collapse">
+          <div class="item user-block">
+            <!-- User picture-->
+            <!-- Name and Job-->
+            <div class="user-block-info">
+              <span class="user-block-name">Hello, <%= current_user.username %></span>
+              <span class="user-block-role"><%= current_user.position.upcase %></span>
+            </div>
+          </div>
+        </div>
+      </li>
+      <!-- END user info-->
+      <li class="nav-heading"></li>
+      <!-- SA Project except sales-->
+      <li class="<%= 'active' if controller?('base_prices') %>">
+        <a href="#base_prices" title="base_prices" data-toggle="collapse"> <em class="fa fa-money"></em> <span><b>Base Prices</b></span> </a>
+        <ul id="base_prices" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Base Prices
+          </li>
+          <%= render "layouts/partials/base_prices/first_regional" if reg1(current_user, 1) %>
+          <%= render "layouts/partials/base_prices/second_regional"  if reg1(current_user, 2) %>
+          <%= render "layouts/partials/base_prices/third_regional"  if reg1(current_user, 3) %>
+          <%= render "layouts/partials/base_prices/fourth_regional"  if reg1(current_user, 4) %>
+        </ul>
+      </li>
+      <% if current_user.position != 'sales' || retail_users(current_user) %>
+      <li class="<%= 'active' if controller?('order') %>">
+        <a href="#order" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Order</b></span> </a>
+        <ul id="order" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Order
+          </li>
+          <li class="<%= 'active' if controller?('order') %>">
+            <a href="#retail_order" title="Retail Order" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail_order" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+  
+              <% if retail_users(current_user) %>
+                <li class="<%= 'active' if controller?('order/production/planning') && action?('aging_orders') %>">
+                  <a href="/order/production/planning/aging_orders" title="outstanding orders"> <em class="icon-chart"></em> <span><b>National Outstanding Order</b></span> </a>
+                </li>
+                <%= render "layouts/partials/order/order_bandung" if branch(current_user, 2) %>
+                <%= render "layouts/partials/order/order_bekasi" if branch(current_user, 3) %>
+                <%= render "layouts/partials/order/order_cirebon" if branch(current_user, 9) %>
+                <%= render "layouts/partials/order/order_tangerang" if branch(current_user, 23) %>
+                <%= render "layouts/partials/order/order_semarang" if branch(current_user, 8) %>
+                <%= render "layouts/partials/order/order_yogya" if branch(current_user, 10) %>
+                <%= render "layouts/partials/order/order_surabaya" if branch(current_user, 7) %>
+                <%= render "layouts/partials/order/order_bali" if branch(current_user, 4) %>
+                <%= render "layouts/partials/order/order_makasar" if branch(current_user, 19) %>
+                <%= render "layouts/partials/order/order_manado" if branch(current_user, 26) %>
+                <%= render "layouts/partials/order/order_palembang" if branch(current_user, 11) %>
+                <%= render "layouts/partials/order/order_lampung" if branch(current_user, 13) %>
+                <%= render "layouts/partials/order/order_medan" if branch(current_user, 5) %>
+                <%= render "layouts/partials/order/order_pekanbaru" if branch(current_user, 20) %>
+                <%= render "layouts/partials/order/order_jember" if branch(current_user, 22) %>
+              <% end %>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <% if retail_users(current_user) %>
+        <li class="<%= 'active' if controller?('credit_limits') %>">
+          <a href="#cl" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Credit Limits</b></span> </a>
+          <ul id="cl" class="nav sidebar-subnav collapse">
+            <li class="sidebar-subnav-header">
+              Credit Limits
+            </li>
+            <li class="<%= 'active' if controller?('credit_limits') %>">
+              <a href="#retail_cl" title="Credit Limits" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+              <ul id="retail_cl" class="nav sidebar-subnav collapse">
+                <li class="sidebar-subnav-header">
+                  Retail
+                </li>
+                <%= render "layouts/partials/sidebar_credit" %>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      <% end %>
+
+      <% if bm_customers(current_user, current_user.branch1) || current_user.position == 'admin' ||
+      general_manager(current_user) || nsm_customers(current_user) %>
+      <li class="<%= 'active' if controller?('forecasts') %>">
+        <a href="#forcast" title="forecast" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Forecasts</b></span> </a>
+        <ul id="forcast" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Forecasts
+          </li>
+          <li class="<%= 'active' if controller?('forecasts') && action?('report_rkm') %>">
+            <a href="/forecasts/report_rkm" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>RKM & PBJM</b></span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_salesman') %>">
+            <a href="/forecasts/report_forecasts_salesman" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report by Sales</b></span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_items') %>">
+            <a href="/forecasts/report_forecasts_items" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report by Item</b></span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_branches') %>">
+            <a href="/forecasts/report_forecasts_branches" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report by Branch</b></span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_years') %>">
+            <a href="/forecasts/report_forecasts_years" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report Year on Year</b></span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_directs') %>">
+            <a href="/forecasts/report_forecasts_directs" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report Direct Div</b></span> </a>
+          </li>
+        </ul>
+      </li>
+      <% end %>
+      <% if bm_customers(current_user, current_user.branch1) || current_user.position == 'admin' ||
+      general_manager(current_user) || nsm_customers(current_user) %>
+      <li class="<%= 'active' if controller?('asong') %>">
+        <a href="#asong" title="asong" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Asong</b></span> </a>
+        <ul id="asong" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Asong
+          </li>
+          <li class="<%= 'active' if controller?('asong') && action?('report_by_branch') %>">
+            <a href="/asong/report_by_branch" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report by Branch</b></span> </a>
+          </li>
+        </ul>
+      </li>
+      <% end %>
+      <li class="<%= 'active' if controller?('penjualan') %>">
+        <a href="#penjualan" title="Penjualan" data-toggle="collapse"> <em class="fa fa-area-chart"></em> <span><b>Sales</b></span> </a>
+        <ul id="penjualan" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Sales
+          </li>
+          <% if retail_users(current_user) %>
+          <li class="<%= 'active' if controller?('penjualan/nasional/nasional_channels') && action?('all_channel') %>">
+            <a href="/penjualan/nasional/nasional_channels/all_channel" title="Channels"> <em class="icon-people"></em><span>National Channels</span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('penjualan') %>">
+            <a href="#retail" title="Penjualan" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+              <%= render "layouts/partials/sidebar_nasional" if branch(current_user, nil) %>
+              <%= render "layouts/partials/sidebar_bandung" if branch(current_user, 2) %>
+              <%= render "layouts/partials/sidebar_cirebon" if branch(current_user, 9) %>
+              <%= render "layouts/partials/sidebar_tangerang" if branch(current_user, 23) %>
+              <%= render "layouts/partials/sidebar_semarang" if branch(current_user, 8) %>
+              <%= render "layouts/partials/sidebar_yogya" if branch(current_user, 10) %>
+              <%= render "layouts/partials/sidebar_surabaya" if branch(current_user, 7) %>
+              <%= render "layouts/partials/sidebar_bali" if branch(current_user, 4) %>
+              <%= render "layouts/partials/sidebar_makasar" if branch(current_user, 19) %>
+              <%= render "layouts/partials/sidebar_palembang" if branch(current_user, 11) %>
+              <%= render "layouts/partials/sidebar_lampung" if branch(current_user, 13) %>
+              <%= render "layouts/partials/sidebar_medan" if branch(current_user, 5) %>
+              <%= render "layouts/partials/sidebar_pekanbaru" if branch(current_user, 20) %>
+              <%= render "layouts/partials/sidebar_manado" if branch(current_user, 26) %>
+            </ul>
+          </li>
+          <% end %>
+          <% if direct_users(current_user) %>
+          <li class="<%= 'active' if controller?('penjualan/direct') %>">
+            <a href="#direct" title="Direct" data-toggle="collapse"> <em class="icon-people"></em> <span>Direct</span> </a>
+            <ul id="direct" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Direct
+              </li>
+              <%= render "layouts/partials/p_direct/sidebar_nasdirect" if branch(current_user, nil) %>
+            </ul>
+          </li>
+          <% end %>
+          <% if modern_users(current_user) %>
+          <li class="<%= 'active' if controller?('penjualan/modern') %>">
+            <a href="#modern" title="Modern" data-toggle="collapse"> <em class="icon-people"></em> <span>Modern</span> </a>
+            <ul id="modern" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Modern
+              </li>
+              <%= render "layouts/partials/p_modern/sidebar_nasmodern" if branch(current_user, nil) %>
+            </ul>
+          </li>
+          <% end %>
+          <li class="<%= 'active' if controller?('penjualan/project') %>">
+            <a href="#project" title="Project" data-toggle="collapse"> <em class="icon-people"></em> <span>Project</span> </a>
+            <ul id="project" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Project
+              </li>
+            </ul>
+          </li>
+          <li class="<%= 'active' if controller?('penjualan/uncategorized') %>">
+            <a href="#uncategorized" title="Uncategorized" data-toggle="collapse"> <em class="icon-people"></em> <span>Uncategorized</span> </a>
+            <ul id="uncategorized" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Uncategorized
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <% if retail_users(current_user) %>
+      <li class="<%= 'active' if controller?('account_receivables') %>">
+        <a href="#ar" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Collectable AR</b></span> </a>
+        <ul id="ar" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Collectable AR
+          </li>
+          <li class="<%= 'active' if controller?('account_receivables') %>">
+            <a href="#retail_ar" title="Retail AR" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail_ar" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+              <%= render "layouts/partials/ar/ar_bandung" if branch(current_user, 2) %>
+              <%= render "layouts/partials/ar/ar_cirebon" if branch(current_user, 9) %>
+              <%= render "layouts/partials/ar/ar_bekasi" if branch(current_user, 3) %>
+              <%= render "layouts/partials/ar/ar_tangerang" if branch(current_user, 23) %>
+              <%= render "layouts/partials/ar/ar_semarang" if branch(current_user, 8) %>
+              <%= render "layouts/partials/ar/ar_yogya" if branch(current_user, 10) %>
+              <%= render "layouts/partials/ar/ar_surabaya" if branch(current_user, 7) %>
+              <%= render "layouts/partials/ar/ar_jember" if branch(current_user, 22) %>
+              <%= render "layouts/partials/ar/ar_bali" if branch(current_user, 4) %>
+              <%= render "layouts/partials/ar/ar_makasar" if branch(current_user, 19) %>
+              <%= render "layouts/partials/ar/ar_palembang" if branch(current_user, 11) %>
+              <%= render "layouts/partials/ar/ar_lampung" if branch(current_user, 13) %>
+              <%= render "layouts/partials/ar/ar_medan" if branch(current_user, 5) %>
+              <%= render "layouts/partials/ar/ar_pekanbaru" if branch(current_user, 20) %>
+              <%= render "layouts/partials/ar/ar_manado" if branch(current_user, 26) %>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <% end %>
+      <!-- END SA Project-->
+      <% else %>
+      <li class="<%= 'active' if controller?('forecasts') && action?('rkm_sales_page') %>">
+        <a href="/forecasts/rkm_sales_page" title="RKM"> <em class="fa fa-bullseye"></em> <span>RKM</span> </a>
+      </li>
+
+      <li class="<%= 'active' if controller?('order') %>">
+        <a href="#order" title="Order" data-toggle="collapse"> <em class="fa fa-share-square"></em> <span><b>Order</b></span> </a>
+        <ul id="order" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Order
+          </li>
+          <li class="<%= 'active' if controller?('order') %>">
+            <a href="#retail_order" title="Retail Order" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail_order" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+              <%= render "layouts/partials/order/order_bandung" if branch(current_user, 2) %>
+              <%= render "layouts/partials/order/order_cirebon" if branch(current_user, 9) %>
+              <%= render "layouts/partials/order/order_tangerang" if branch(current_user, 23) %>
+              <%= render "layouts/partials/order/order_semarang" if branch(current_user, 8) %>
+              <%= render "layouts/partials/order/order_yogya" if branch(current_user, 10) %>
+              <%= render "layouts/partials/order/order_surabaya" if branch(current_user, 7) %>
+              <%= render "layouts/partials/order/order_bali" if branch(current_user, 4) %>
+              <%= render "layouts/partials/order/order_makasar" if branch(current_user, 19) %>
+              <%= render "layouts/partials/order/order_palembang" if branch(current_user, 11) %>
+              <%= render "layouts/partials/order/order_lampung" if branch(current_user, 13) %>
+              <%= render "layouts/partials/order/order_medan" if branch(current_user, 5) %>
+              <%= render "layouts/partials/order/order_pekanbaru" if branch(current_user, 20) %>
+              <%= render "layouts/partials/order/order_manado" if branch(current_user, 26) %>
+              <%= render "layouts/partials/order/order_jember" if branch(current_user, 22) %>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li class="<%= 'active' if controller?('credit_limits') %>">
+        <a href="#cl" title="Order" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Credit Limits</b></span> </a>
+        <ul id="cl" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Credit Limits
+          </li>
+          <li class="<%= 'active' if controller?('credit_limits') %>">
+            <a href="#retail_cl" title="Credit Limits" data-toggle="collapse"> <em class="icon-people"></em> <span>Retail</span> </a>
+            <ul id="retail_cl" class="nav sidebar-subnav collapse">
+              <li class="sidebar-subnav-header">
+                Retail
+              </li>
+              <%= render "layouts/partials/sidebar_credit" %>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li class="<%= 'active' if controller?('penjualan_salesman') %>">
+        <a href="#penjualan_salesman" title="Penjualan Salesman" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Sales</b></span> </a>
+        <ul id="penjualan_salesman" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Penjualan
+          </li>
+          <li class="<%= 'active' if controller?('penjualan_salesman') && action?('elite') %>">
+            <a href="/penjualan_salesman/elite" title="Elite"> <span>Elite</span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('penjualan_salesman') && action?('lady') %>">
+            <a href="/penjualan_salesman/lady" title="Lady"> <span>Lady</span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('penjualan_salesman') && action?('serenity') %>">
+            <a href="/penjualan_salesman/serenity" title="Serenity"> <span>Serenity</span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('penjualan_salesman') && action?('royal') %>">
+            <a href="/penjualan_salesman/royal" title="Royal"> <span>Royal</span> </a>
+          </li>
+        </ul>
+      </li>
+      <li class="<%= 'active' if controller?('marketshare/brand_values') && action?('index') %>">
+        <a href="/marketshare/brand_values/" title="Elite"> <em class="fa fa-cubes"></em> <span><b>MarketShare</b></span> </a>
+      </li>
+      <% end %>
+      <li class="<%= 'active' if controller?('stock') %>">
+        <a href="#stock" title="stock" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Stock</b></span> </a>
+        <ul id="stock" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Stock
+          </li>
+          <%= render "layouts/partials/stock_pusat" %>
+          <%= render "layouts/partials/stock_pusat_bcp" %>
+          <%= render "layouts/partials/stock_bandung" %>
+          <%= render "layouts/partials/stock_cirebon" %>
+          <%= render "layouts/partials/stock_bekasi" %>
+          <%= render "layouts/partials/stock_tangerang" %>
+          <%= render "layouts/partials/stock_semarang" %>
+          <%= render "layouts/partials/stock_yogya" %>
+          <%= render "layouts/partials/stock_bestari" %>
+          <%= render "layouts/partials/stock_surabaya" %>
+          <%= render "layouts/partials/stock_jember" %>
+          <%= render "layouts/partials/stock_bali" %>
+          <%= render "layouts/partials/stock_makasar" %>
+          <%= render "layouts/partials/stock_palembang" %>
+          <%= render "layouts/partials/stock_lampung" %>
+          <%= render "layouts/partials/stock_medan" %>
+          <%= render "layouts/partials/stock_pekanbaru" %>
+          <%= render "layouts/partials/stock_manado" %>
+        </ul>
+      </li>
+      <% if bm_customers(current_user, current_user.branch1) || current_user.position == 'admin' || general_manager(current_user) || nsm_customers(current_user)  %>
+      <li class="<%= 'active' if controller?('sales_productivities') %>">
+        <a href="#success" title="success" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Success Rate</b></span> </a>
+        <ul id="success" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            RKBulanan
+          </li>
+          <li class="<%= 'active' if controller?('plan_visits') && action?('index') %>">
+            <a href="/plan_visits/" title="Plan Visit"> <span>RKBulanan</span> </a>
+          </li>
+          <li class="sidebar-subnav-header">
+            Success Rate
+          </li>
+          <li class="<%= 'active' if controller?('sales_productivities') && action?('index') %>">
+            <a href="/sales_productivities/" title="Daily"> <span>Success Rate</span> </a>
+          </li>
+          <% if current_user.branch1.nil? %>
+          <li class="<%= 'active' if controller?('rates') && action?('index') %>">
+            <a href="/rates/index" title="rates"> <span>Report All Branches</span> </a>
+          </li>
+          <% end %>
+        </ul>
+      </li>
+      <li class="<%= 'active' if controller?('marketshares') %>">
+        <a href="#marketshare" title="marketshare" data-toggle="collapse"> <em class="fa fa-tasks"></em> <span><b>MarketShare</b></span> </a>
+        <ul id="marketshare" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            MarketShare
+          </li>
+          <li class="<%= 'active' if controller?('marketshares') && action?('index') %>">
+            <a href="/marketshares/" title="Marketshare"> <em class="fa fa-cubes"></em> <span><b>MarketShares</b></span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('marketshares') && action?('by_store') %>">
+            <a href="/marketshares/by_store" title="Marketshare"> <em class="fa fa-bell-o"></em> <span><b>By Customers</b></span> </a>
+          </li>
+        </ul>
+      </li>
+      <% end %>
+      <% if current_user.position == 'admin' %>
+      <li class="<%= 'active' if controller?('salesmen') %>">
+        <a href="#salesman" title="salesman" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Salesman</b></span> </a>
+        <ul id="salesman" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            National Salesman
+          </li>
+          <li class="<%= 'active' if controller?('salesmen') && action?('index') %>">
+            <a href="/salesmen/" title="Daily"> <span>Salesman</span> </a>
+          </li>
+        </ul>
+      </li>
+      <li class="<%= 'active' if controller?('indonesia_cities') %>">
+        <a href="#city" title="city" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>City</b></span> </a>
+        <ul id="city" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            City
+          </li>
+          <li class="<%= 'active' if controller?('indonesia_cities') && action?('index') %>">
+            <a href="/indonesia_cities/" title="Daily"> <span>CIty</span> </a>
+          </li>
+        </ul>
+      </li>
+      <% end %>
+      <li class="<%= 'active' if controller?('sources') %>">
+        <a href="#isources" title="isources" data-toggle="collapse"> <em class="fa fa-folder-open-o"></em> <span><b>Data Source</b></span> </a>
+        <ul id="isources" class="nav sidebar-subnav collapse">
+          <li class="sidebar-subnav-header">
+            Summary Item Ledger
+          </li>
+          <li class="<%= 'active' if controller?('sources') && action?('upload_forecast') %>">
+            <a href="/sources/upload_forecast" title="Forecasts"> <span><b>Upload Master</b></span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('sources') && action?('item_ledger') %>">
+            <a href="/sources/item_ledger" title="Item Ledger"> <span>Summary Item Ledger</span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('sources') && action?('sales_report') %>">
+            <a href="/sources/sales_report" title="Sales Report"> <span>Sales Report</span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('sources') && action?('sold_as_order') %>">
+            <a href="/sources/sold_as_order" title="Proving Report"> <span>Proving Report</span> </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <%= link_to "Change your password", edit_user_registration_path %>
+      </li>
+      <!-- Iterates over all sidebar items-->
+    </ul>
+    <!-- END sidebar nav-->
+  </nav>
+</div>
+<!-- END Sidebar (left)-->
+
+<style type="text/css">
+    .scrollable {
+        height: 100%;
+        overflow: auto;
+    }
+</style>

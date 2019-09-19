@@ -1,0 +1,12 @@
+<li class="<%= 'active' if controller?('base_prices') %>">
+  <a href="#base_prices" title="base_prices" data-toggle="collapse"> <em class="fa fa-money"></em> <span><b>Base Prices</b></span> </a>
+  <ul id="base_prices" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Base Prices
+    </li>
+      <%= render "layouts/partials/base_prices/first_regional" if reg1(current_user, 1) %>
+      <%= render "layouts/partials/base_prices/second_regional"  if reg1(current_user, 2) %>
+      <%= render "layouts/partials/base_prices/third_regional"  if reg1(current_user, 3) %>
+      <%= render "layouts/partials/base_prices/fourth_regional"  if reg1(current_user, 4) %>
+  </ul>
+</li>

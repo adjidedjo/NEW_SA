@@ -1,0 +1,6 @@
+<li class="<%= 'active' if controller?('penjualan/direct') %>">
+  <a href="#direct" title="Direct" data-toggle="collapse"> <em class="icon-people"></em> <span><b>Penjualan Direct</b></span> </a>
+  <ul id="direct" class="nav sidebar-subnav collapse">
+    <%= render "layouts/partials/p_direct/sidebar_nasdirect" if branch(current_user, nil) %>
+  </ul>
+</li>
