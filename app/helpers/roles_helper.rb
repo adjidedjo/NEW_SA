@@ -16,7 +16,7 @@ module RolesHelper
   end
   
   def administrator(current_user)
-    user.position == "admin"
+    current_user.position == "admin"
   end
   
   def entry_users(user)
@@ -24,7 +24,7 @@ module RolesHelper
   end
   
   def managerial_users(user)
-    user.position == "gm" || user.position == "owner" || user.position == "admin" || user.position == "nsm" ||  
+    user.position == "gm" || user.position == "owner" || user.position == "nsm" ||  
     user.position == "marketing pusat" || user.position == "admin marketing" || 
     user.position == "akunting pusat"
   end
@@ -42,19 +42,15 @@ module RolesHelper
   end
   
   def direct_users(user)
-    user.position == "gm" || user.position == "owner" || user.position == "admin" || 
-    user.position == "marketing pusat" || user.position == "admin marketing" || 
-    user.position == "akunting pusat" || user.position == "direct_mng"
+    user.position == "direct_mng"
   end
   
   def modern_users(user)
-    user.position == "gm" || user.position == "owner" || user.position == "admin" || 
-    user.position == "marketing pusat" || user.position == "admin marketing" || 
-    user.position == "akunting pusat" || user.position == "modern_mng"
+    user.position == "modern_mng"
   end
   
   def general_manager(user)
-    user.position == "gm" || user.position == "owner" || user.position == "admin" || 
+    user.position == "gm" || user.position == "owner" || 
     user.position == "marketing pusat" || user.position == "admin marketing" || user.position == "akunting pusat"
   end
   
@@ -63,7 +59,7 @@ module RolesHelper
   end
   
   def bm_customers(user, branch)
-    (user.position == "bm" || user.position == "admin sales" || user.position == "accounting") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
+    (user.position == "bm" || user.position == "admin sales") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
   end
   
   def nsm(user, brand)
@@ -73,7 +69,7 @@ module RolesHelper
   
   def bm(user, branch, brand)
     brand = brand.split("|").first
-    (user.position == "bm" || user.position == "admin sales" || user.position == "accounting") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
+    (user.position == "bm" || user.position == "admin sales") && (user.branch1.to_i == branch || user.branch2.to_i == branch) 
   end
   
   def report_all_brand(user)

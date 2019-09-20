@@ -34,7 +34,7 @@
         <% elsif entry_users(current_user) %>
           <%= render "layouts/partials/entry_sidebar" %>
         <% elsif administrator(current_user) %>
-          <%= render "layouts/partials/administrator_sidebar" %>
+          <%= render "layouts/partials/administrator" %>
         <% end %>
       <!-- Iterates over all sidebar items-->
     </ul>
