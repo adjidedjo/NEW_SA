@@ -53,6 +53,6 @@ class Penjualan::Nasional::NasionalRoyalController < ApplicationController
   end
   
   def authorize_user
-    render template: "pages/notfound" unless general_manager(current_user) || nsm(current_user, initialize_brand)
+    render template: "pages/notfound" unless administrator(current_user) || general_manager(current_user) || nsm(current_user, initialize_brand)
   end
 end
