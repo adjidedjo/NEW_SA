@@ -1,4 +1,12 @@
 class SourcesController < ApplicationController
+  
+  def budget
+    
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "budget", :filename => "budget.xlsx"}
+    end
+  end
 
   def upload_forecast
   end
