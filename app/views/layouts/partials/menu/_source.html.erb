@@ -5,7 +5,10 @@
       Summary Item Ledger
     </li>
     <li class="<%= 'active' if controller?('sources') && action?('upload_forecast') %>">
-      <a href="/sources/upload_forecast" title="Forecasts"> <span><b>Upload Master</b></span> </a>
+      <a href="/sources/upload_forecast" title="Forecasts"> <span>Upload Master</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('sources') && action?('budget') %>">
+      <a href="/sources/budget" title="Proving Report"> <span>Budget</span> </a>
     </li>
     <li class="<%= 'active' if controller?('sources') && action?('item_ledger') %>">
       <a href="/sources/item_ledger" title="Item Ledger"> <span>Summary Item Ledger</span> </a>
