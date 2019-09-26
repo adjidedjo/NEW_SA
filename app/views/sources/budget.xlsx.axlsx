@@ -1,0 +1,62 @@
+xlsx_package = Axlsx::Package.new
+wb = xlsx_package.workbook
+
+styles      = wb.styles
+header      = styles.add_style :sz => 14, :b => true, :alignment => {:horizontal => :center}
+tbl_header  = styles.add_style :b => true, :alignment => { :horizontal => :center }
+ind_header  = styles.add_style :bg_color => "FFDFDEDF", :b => true, :alignment => {:indent => 1}
+col_header  = styles.add_style :bg_color => "FFDFDEDF", :b => true, :alignment => { :horizontal => :center }
+label       = styles.add_style :alignment => { :indent => 1 }
+money       = styles.add_style :num_fmt => 5
+t_label     = styles.add_style :b => true, :bg_color => "FFDFDEDF"
+t_money     = styles.add_style :b => true, :num_fmt => 5, :bg_color => "FFDFDEDF"
+
+
+wb.add_worksheet(name: "Budget") do |sheet|
+  # this is the head row of your spreadsheet
+  sheet.add_row ["PERMINTAAN BUDGET BULANAN SALES MARKETING"], :style => header
+  sheet.merge_cells "A1:C1"
+  sheet.add_row ["PT ROYAL ABADI SEJAHTERA"], :style => tbl_header
+  sheet.merge_cells "A2:C2"
+  sheet.add_row ["Area:", @cab.area], :b => true
+  sheet.merge_cells "B3:C3"
+  sheet.add_row ["Periode:", "#{params[:start_date]} - #{params[:end_date]}"], :b => true
+  sheet.merge_cells "B4:C4"
+  sheet.add_row ["No", "Deskripsi", "Total"]
+  sheet.add_row ["1", "Gaji Staff Penjualan", 0]
+  sheet.add_row ["2", "Tunjangan HP Staff Penjualan", 0]
+  sheet.add_row ["3", "Tunjangan Sewa Kendaraan Staff Penjualan", 0]
+  sheet.add_row ["4", "Tunjangan Lain-lain Staff Penjualan", 0]
+  sheet.add_row ["5", "Insentif Salesman, SPV, dan BM", 0]
+  sheet.add_row ["6", "Insentif SPG Toko/Showroom", 0]
+  sheet.add_row ["7", "Insentif pelayan toko", 0]
+  sheet.add_row ["8", "Bi. Entertainment Penj.", 0]
+  sheet.add_row ["9", "Bi. Perjalanan Dinas Dalam Kota Staff Penjualan", 0]
+  sheet.add_row ["10", "Bi. Perjalanan Dinas Luar Kota Staff Penjualan", (@bug.ums+@bug.hotel+@bug.akomodasi)]
+  sheet.add_row ["11", "Bi. Kendaraan Dept. Penjualan - Service", 0]
+  sheet.add_row ["12", "Bi. Kendaraan Dept. Penjualan - Lain-lain", 0]
+  sheet.add_row ["13", "Bi. Angkut Penjualan - Solar/Bensin", 0]
+  sheet.add_row ["14", "Bi. Angkut Penjualan - Lain-lain", 0]
+  sheet.add_row ["15", "Gaji Transportation/Distribution/Warehouse", 0]
+  sheet.add_row ["16", "Lembur Transportation/Distribution/Warehouse", 0]
+  sheet.add_row ["17", "THR Staff Penjualan", 0]
+  sheet.add_row ["18", "THR Transportation/Distribution/Warehouse", 0]
+  sheet.add_row ["19", "Uang Set/Rit (bonus pengiriman) Transportation/Distribution/Warehouse", 0]
+  sheet.add_row ["20", "Rupa-2 Biaya Penjualan", 0]
+  sheet.add_row ["21", "Bi. Perjalanan Dinas Dalam Kota Staff Gudang", 0]
+  sheet.add_row ["22", "Bi. Perjalanan Dinas Luar Kota Staff Gudang", 0]
+  sheet.add_row ["", "Total Budget Bulan Ini", "=SUM(C6:C27"], :b => true
+  sheet.add_row ["", "Target Penjualan Bulan ini", 0], :b => true
+  sheet.add_row ["", "% Biaya Thd Target", 0], :b => true
+  sheet.add_row
+  sheet.add_row
+  sheet.add_row ["", "", "....................20....."]
+  sheet.add_row ["", "Disetujui", "Dibuat Oleh"]
+  sheet.add_row
+  sheet.add_row
+  sheet.add_row
+  sheet.add_row ["", "Direksi", "...................."]
+  sheet['A5:C30'].each { |c| c.style = Axlsx::STYLE_THIN_BORDER }
+  
+  # each user is a row on your spreadsheet
+end

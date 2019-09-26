@@ -5,6 +5,14 @@ class SalesProductivity < ActiveRecord::Base
   validates_associated :sales_productivity_customers
   validate :customer_must_be_fill, on: :create
   
+  def self.budget_cont(branch, from, to)
+    self.find_by_sql("
+      SELECT SUM(ums) AS ums, SUM(hotel) AS hotel,
+      SUM(akomodasi) AS akomodasi FROM monthly_visit_plans 
+      WHERE date BETWEEN '#{from}' AND '#{to}' AND branch = '#{branch}'
+    ")
+  end
+  
   def self.import(file)
     spreadsheet = Roo::Spreadsheet.open(file.path)
     header = spreadsheet.row(1)

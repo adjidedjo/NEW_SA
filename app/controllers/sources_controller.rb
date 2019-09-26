@@ -1,6 +1,14 @@
 class SourcesController < ApplicationController
   
   def budget
+    if current_user.branch1 != nil || current_user.branch2 != nil
+      @areas = Area.where("id IN ('#{current_user.branch1}','#{current_user.branch2}')")
+    else
+      @areas = Area.all
+    end
+    @brand = Brand.where(external: 0)
+    @bug = SalesProductivity.budget_cont(params[:areas], params[:start_date], params[:end_date]).first if params[:start_date].present?
+    @cab = Area.find_by_id(params[:areas])
     
     respond_to do |format|
       format.html
