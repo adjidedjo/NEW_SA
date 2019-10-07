@@ -1,4 +1,4 @@
-class Stock::Surabaya::StockSerenityController < ApplicationController
+class Stock::Kediri::StockSerenityController < ApplicationController
   before_action :set_branch_plant, :initialize_brand
     
   def stock_unnormal
@@ -50,11 +50,11 @@ class Stock::Surabaya::StockSerenityController < ApplicationController
   end
   
   def initialize_brach_id
-    7
+    54
   end
   
   def set_branch_plant
-    @branch_plant = "12061"
-    @branch = "SURABAYA"
+    @branch_plant = "1206104"
+    @branch = "KEDIRI"
   end
 end

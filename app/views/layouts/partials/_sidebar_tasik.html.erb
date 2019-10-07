@@ -1,0 +1,153 @@
+<li class="<%= 'active' if controller?('penjualan/tasik') %>">
+  <a href="#tasik" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Tasikmalaya</span> </a>
+  <ul id="tasik" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Tasikmalaya
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/tasik/tasik_customers') && action?('customer') %>">
+      <a href="/penjualan/tasik/tasik_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/tasik/tasik_customers') && action?('customer_active') %>">
+      <a href="/penjualan/tasik/tasik_customers/customer_active" title="Customer"> <em class="icon-people"></em> <span>Customer Active</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/tasik/tasik_recaps') && action?('recap') %>">
+      <a href="/penjualan/tasik/tasik_recaps/recap" title="Recap"> <em class="icon-people"></em> <span>Recap</span></a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/tasik/tasik_elites') %>">
+      <a href="#tasik-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      <ul id="tasik-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          ELITE
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_elites') && action?('daily') %>">
+          <a href="/penjualan/tasik/tasik_elites/daily" title="Daily"> <span>Daily</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_elites') && action?('weekly') %>">
+          <a href="/penjualan/tasik/tasik_elites/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_elites') && action?('monthly') %>">
+          <a href="/penjualan/tasik/tasik_elites/monthly" title="Monthly"> <span>Monthly</span> </a>
+        </li>
+        <!-- <li class="<%= 'active' if controller?('penjualan/tasik/tasik_elites') && action?('sales_stock_rate') %>">
+          <a href="/penjualan/tasik/tasik_elites/sales_stock_rate" title="Stock Sales Rate"> <span>Stock Sales Ratio</span> </a>
+        </li> -->
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_elites') && action?('success_rate') %>">
+          <a href="/penjualan/tasik/tasik_elites/success_rate" title="Success Rate"> <span>Success Rate</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_elites') && action?('marketshare') %>">
+          <a href="/penjualan/tasik/tasik_elites/marketshare" title="Marketshare"> <span>Marketshare</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_elites') && action?('customer_monthly') %>">
+          <a href="/penjualan/tasik/tasik_elites/customer_monthly" title="Marketshare"> <span>Customer Monthly</span> </a>
+        </li>
+        <!--
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_elites') && action?('yearly') %>">
+        <a href="/penjualan/tasik/tasik_elites" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/tasik/tasik_serenity') %>">
+      <a href="#tasik-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      <ul id="tasik-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_serenity') && action?('daily') %>">
+          <a href="/penjualan/tasik/tasik_serenity/daily" title="Daily"> <span>Daily</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_serenity') && action?('weekly') %>">
+          <a href="/penjualan/tasik/tasik_serenity/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_serenity') && action?('monthly') %>">
+          <a href="/penjualan/tasik/tasik_serenity/monthly" title="Monthly"> <span>Monthly</span> </a>
+        </li>
+        <!-- <li class="<%= 'active' if controller?('penjualan/tasik/tasik_serenity') && action?('sales_stock_rate') %>">
+          <a href="/penjualan/tasik/tasik_serenity/sales_stock_rate" title="Stock Sales Rate"> <span>Stock Sales Ratio</span> </a>
+        </li> -->
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_serenity') && action?('success_rate') %>">
+          <a href="/penjualan/tasik/tasik_serenity/success_rate" title="Success Rate"> <span>Success Rate</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_serenity') && action?('marketshare') %>">
+          <a href="/penjualan/tasik/tasik_serenity/marketshare" title="Marketshare"> <span>Marketshare</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_serenity') && action?('customer_monthly') %>">
+          <a href="/penjualan/tasik/tasik_serenity/customer_monthly" title="Marketshare"> <span>Customer Monthly</span> </a>
+        </li>
+        <!--
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_serenity') && action?('yearly') %>">
+        <a href="/penjualan/tasik/serenity" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/tasik/tasik_lady') %>">
+      <a href="#tasik-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      <ul id="tasik-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_lady') && action?('daily') %>">
+          <a href="/penjualan/tasik/tasik_lady/daily" title="Daily"> <span>Daily</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_lady') && action?('weekly') %>">
+          <a href="/penjualan/tasik/tasik_lady/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_lady') && action?('monthly') %>">
+          <a href="/penjualan/tasik/tasik_lady/monthly" title="Monthly"> <span>Monthly</span> </a>
+        </li>
+        <!-- <li class="<%= 'active' if controller?('penjualan/tasik/tasik_lady') && action?('sales_stock_rate') %>">
+          <a href="/penjualan/tasik/tasik_lady/sales_stock_rate" title="Stock Sales Rate"> <span>Stock Sales Ratio</span> </a>
+        </li> -->
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_lady') && action?('success_rate') %>">
+          <a href="/penjualan/tasik/tasik_lady/success_rate" title="Success Rate"> <span>Success Rate</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_lady') && action?('marketshare') %>">
+          <a href="/penjualan/tasik/tasik_lady/marketshare" title="Marketshare"> <span>Marketshare</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_lady') && action?('customer_monthly') %>">
+          <a href="/penjualan/tasik/tasik_lady/customer_monthly" title="Marketshare"> <span>Customer Monthly</span> </a>
+        </li>
+        <!--
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_lady') && action?('yearly') %>">
+        <a href="/penjualan/tasik/tasik_lady" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/tasik/tasik_royal') %>">
+      <a href="#tasik-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      <ul id="tasik-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_royal') && action?('daily') %>">
+          <a href="/penjualan/tasik/tasik_royal/daily" title="Daily"> <span>Daily</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_royal') && action?('weekly') %>">
+          <a href="/penjualan/tasik/tasik_royal/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_royal') && action?('monthly') %>">
+          <a href="/penjualan/tasik/tasik_royal/monthly" title="Monthly"> <span>Monthly</span> </a>
+        </li>
+        <!-- <li class="<%= 'active' if controller?('penjualan/tasik/tasik_royal') && action?('sales_stock_rate') %>">
+          <a href="/penjualan/tasik/tasik_royal/sales_stock_rate" title="Stock Sales Rate"> <span>Stock Sales Ratio</span> </a>
+        </li> -->
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_royal') && action?('success_rate') %>">
+          <a href="/penjualan/tasik/tasik_royal/success_rate" title="Success Rate"> <span>Success Rate</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_royal') && action?('marketshare') %>">
+          <a href="/penjualan/tasik/tasik_royal/marketshare" title="Marketshare"> <span>Marketshare</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/tasik/tasik_royal') && action?('customer_monthly') %>">
+          <a href="/penjualan/tasik/tasik_royal/customer_monthly" title="Marketshare"> <span>Customer Monthly</span> </a>
+        </li>
+        <!--
+        <li class="<%= 'active' if controller?('penjualan/tasik/royal') && action?('yearly') %>">
+        <a href="/penjualan/tasik/royal" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
+      </ul>
+    </li>
+  </ul>
+</li>
