@@ -1,0 +1,77 @@
+<li class="<%= 'active' if controller?('order/kediri') %>">
+  <a href="#order-kediri" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Kediri</span> </a>
+  <ul id="order-kediri" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Kediri
+    </li>
+    <li class="<%= 'active' if controller?('order/kediri/kediri_elites') %>">
+      <a href="#order-kediri-elite" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Elite</span> </a>
+      <ul id="order-kediri-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/kediri_elites') && action?('order_normal') %>">
+          <a href="/order/kediri/kediri_elites/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/kediri_elites') && action?('order_clearence') %>">
+          <a href="/order/kediri/kediri_elites/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/kediri_elites') && action?('order_display') %>">
+          <a href="/order/kediri/kediri_elites/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/kediri/kediri_serenity') %>">
+      <a href="#order-kediri-serenity" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Serenity</span> </a>
+      <ul id="order-kediri-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/kediri_serenity') && action?('order_normal') %>">
+          <a href="/order/kediri/kediri_serenity/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/kediri_serenity') && action?('order_clearence') %>">
+          <a href="/order/kediri/kediri_serenity/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/kediri_serenity') && action?('order_display') %>">
+          <a href="/order/kediri/kediri_serenity/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/kediri/kediri_lady') %>">
+      <a href="#order-kediri-lady" title="Lady" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Lady</span> </a>
+      <ul id="order-kediri-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/kediri_lady') && action?('order_normal') %>">
+          <a href="/order/kediri/kediri_lady/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/kediri_lady') && action?('order_clearence') %>">
+          <a href="/order/kediri/kediri_lady/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/kediri_lady') && action?('order_display') %>">
+          <a href="/order/kediri/kediri_lady/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/kediri/kediri_royal') %>">
+      <a href="#order-kediri-royal" title="Royal" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Royal</span> </a>
+      <ul id="order-kediri-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/order_royal') && action?('order_normal') %>">
+          <a href="/order/kediri/kediri_royal/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/order_royal') && action?('order_clearence') %>">
+          <a href="/order/kediri/kediri_royal/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/kediri/order_royal') && action?('order_display') %>">
+          <a href="/order/kediri/kediri_royal/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+    
+  </ul>
+</li>

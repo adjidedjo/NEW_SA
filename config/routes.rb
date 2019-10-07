@@ -1789,11 +1789,27 @@ Rails.application.routes.draw do
   get 'account_receivables/manado/royal_ar/collectable_ar'
   
   # Kediri
+
   get 'credit_limits/kediri/credit_checks/credit_checks'
+  get 'credit_limits/kediri/credit_checks/credit_details'
+
+  get 'order/kediri/kediri_elites/all_brand'
   get 'order/kediri/kediri_elites/order'
+  get 'order/kediri/kediri_elites/order_normal'
+  get 'order/kediri/kediri_elites/order_display'
+  get 'order/kediri/kediri_elites/order_clearence'
   get 'order/kediri/kediri_serenity/order'
+  get 'order/kediri/kediri_serenity/order_normal'
+  get 'order/kediri/kediri_serenity/order_display'
+  get 'order/kediri/kediri_serenity/order_clearence'
   get 'order/kediri/kediri_lady/order'
+  get 'order/kediri/kediri_lady/order_normal'
+  get 'order/kediri/kediri_lady/order_display'
+  get 'order/kediri/kediri_lady/order_clearence'
   get 'order/kediri/kediri_royal/order'
+  get 'order/kediri/kediri_royal/order_normal'
+  get 'order/kediri/kediri_royal/order_display'
+  get 'order/kediri/kediri_royal/order_clearence'
   get 'penjualan/kediri/kediri_customers/customer'
   get 'penjualan/kediri/kediri_customers/customer_active'
   get 'penjualan/kediri/kediri_recaps/recap'
