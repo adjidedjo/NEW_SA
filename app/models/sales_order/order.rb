@@ -186,10 +186,15 @@ class SalesOrder::Order < ActiveRecord::Base
     so.sdsrp1 AS sdsrp1, so.sdmcu AS sdmcu, so.sditm, so.sdlitm AS sdlitm, 
     so.sddsc1 AS sddsc1, so.sddsc2 AS sddsc2, itm.imseg1 AS imseg1,
     cus.abalph AS abalph, so.sdshan, cus.abat1 AS abat1,
-    so.sdtorg AS sdtorg, so.sdpsn, so.sdlttr, so.sddcto, so.sdlotn, so.sdvr01, CM1.ABALPH AS NAMASALES
+    so.sdtorg AS sdtorg, so.sdpsn, so.sdlttr, so.sddcto, so.sdlotn, so.sdvr01, CM1.ABALPH AS NAMASALES, 
+    art.drdl01 as article
     FROM PRODDTA.F4211 so
     JOIN PRODDTA.F4101 itm ON so.sditm = itm.imitm
     JOIN PRODDTA.F0101 cus ON so.sdshan = cus.aban8
+    LEFT JOIN
+    (
+      SELECT * FROM PRODCTL.F0005 WHERE DRSY = '55' AND DRRT = 'AT'
+    ) art ON art.drky LIKE '%'||TRIM(itm.imseg2)
     LEFT JOIN
     (
       SELECT SASLSM, SAIT44, SAAN8 FROM PRODDTA.F40344 WHERE SAEXDJ > (select 1000*(to_char(sysdate, 'yyyy')-1900)+to_char(sysdate, 'ddd') as julian from dual)
