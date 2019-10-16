@@ -59,7 +59,7 @@ class Order::Kediri::KediriLadyController < ApplicationController
   end
 
   def authorize_user
-    render template: "pages/notfound" unless general_manager(current_user) || nsm(current_user, "ELITE") ||
-    bm(current_user, 7, "ELITE") || sales(current_user, 54, "ELITE")
+    render template: "pages/notfound" unless general_manager(current_user) || nsm(current_user, "LADY") ||
+    bm(current_user, 7, "LADY") || sales(current_user, 54, "LADY")
   end
 end
