@@ -1,5 +1,14 @@
 class ForecastsController < ApplicationController
   
+  def report_rkb
+    @rkb = Forecast.calculate_rkb_report(params[:start_date], params[:end_date], params[:areas])
+    
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "rkb", :filename => "rkb #{params[:areas]}.xlsx"}
+    end
+  end
+  
   def report_pbjm
     @pbjm = Jde.calculate_pbjm(params[:start_date], params[:end_date], params[:brand])
     

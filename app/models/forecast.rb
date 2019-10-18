@@ -493,4 +493,114 @@ class Forecast < ActiveRecord::Base
     ")
   end
 
+  def self.calculate_rkb_report(from, to , branch)
+    find_by_sql("
+      SELECT mas.aa, mas.cs, mas.sales_name, mas.dt,
+      IFNULL((CASE WHEN DAY(mas.dt) = 1 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb1',
+      IFNULL((CASE WHEN DAY(mas.dt) = 1 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh1',
+      IFNULL((CASE WHEN DAY(mas.dt) = 2 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb2',
+      IFNULL((CASE WHEN DAY(mas.dt) = 2 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh2',
+      IFNULL((CASE WHEN DAY(mas.dt) = 3 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb3',
+      IFNULL((CASE WHEN DAY(mas.dt) = 3 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh3',
+      IFNULL((CASE WHEN DAY(mas.dt) = 4 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb4',
+      IFNULL((CASE WHEN DAY(mas.dt) = 4 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh4',
+      IFNULL((CASE WHEN DAY(mas.dt) = 5 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb5',
+      IFNULL((CASE WHEN DAY(mas.dt) = 5 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh5',
+      IFNULL((CASE WHEN DAY(mas.dt) = 6 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb6',
+      IFNULL((CASE WHEN DAY(mas.dt) = 6 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh6',
+      IFNULL((CASE WHEN DAY(mas.dt) = 7 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb7',
+      IFNULL((CASE WHEN DAY(mas.dt) = 7 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh7',
+      IFNULL((CASE WHEN DAY(mas.dt) = 8 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb8',
+      IFNULL((CASE WHEN DAY(mas.dt) = 8 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh8',
+      IFNULL((CASE WHEN DAY(mas.dt) = 9 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb9',
+      IFNULL((CASE WHEN DAY(mas.dt) = 9 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh9',
+      IFNULL((CASE WHEN DAY(mas.dt) = 10 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb10',
+      IFNULL((CASE WHEN DAY(mas.dt) = 10 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh10',
+      IFNULL((CASE WHEN DAY(mas.dt) = 11 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb11',
+      IFNULL((CASE WHEN DAY(mas.dt) = 11 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh11',
+      IFNULL((CASE WHEN DAY(mas.dt) = 12 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb12',
+      IFNULL((CASE WHEN DAY(mas.dt) = 12 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh12',
+      IFNULL((CASE WHEN DAY(mas.dt) = 13 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb13',
+      IFNULL((CASE WHEN DAY(mas.dt) = 13 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh13',
+      IFNULL((CASE WHEN DAY(mas.dt) = 14 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb14',
+      IFNULL((CASE WHEN DAY(mas.dt) = 14 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh14',
+      IFNULL((CASE WHEN DAY(mas.dt) = 15 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb15',
+      IFNULL((CASE WHEN DAY(mas.dt) = 15 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh15',
+      IFNULL((CASE WHEN DAY(mas.dt) = 16 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb16',
+      IFNULL((CASE WHEN DAY(mas.dt) = 16 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh16',
+      IFNULL((CASE WHEN DAY(mas.dt) = 17 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb17',
+      IFNULL((CASE WHEN DAY(mas.dt) = 17 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh17',
+      IFNULL((CASE WHEN DAY(mas.dt) = 18 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb18',
+      IFNULL((CASE WHEN DAY(mas.dt) = 18 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh18',
+      IFNULL((CASE WHEN DAY(mas.dt) = 19 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb19',
+      IFNULL((CASE WHEN DAY(mas.dt) = 19 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh19',
+      IFNULL((CASE WHEN DAY(mas.dt) = 20 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb20',
+      IFNULL((CASE WHEN DAY(mas.dt) = 20 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh20',
+      IFNULL((CASE WHEN DAY(mas.dt) = 21 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb21',
+      IFNULL((CASE WHEN DAY(mas.dt) = 21 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh21',
+      IFNULL((CASE WHEN DAY(mas.dt) = 22 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb22',
+      IFNULL((CASE WHEN DAY(mas.dt) = 22 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh22',
+      IFNULL((CASE WHEN DAY(mas.dt) = 23 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb23',
+      IFNULL((CASE WHEN DAY(mas.dt) = 23 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh23',
+      IFNULL((CASE WHEN DAY(mas.dt) = 24 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb24',
+      IFNULL((CASE WHEN DAY(mas.dt) = 24 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh24',
+      IFNULL((CASE WHEN DAY(mas.dt) = 25 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb25',
+      IFNULL((CASE WHEN DAY(mas.dt) = 25 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh25',
+      IFNULL((CASE WHEN DAY(mas.dt) = 26 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb26',
+      IFNULL((CASE WHEN DAY(mas.dt) = 26 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh26',
+      IFNULL((CASE WHEN DAY(mas.dt) = 27 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb27',
+      IFNULL((CASE WHEN DAY(mas.dt) = 27 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh27',
+      IFNULL((CASE WHEN DAY(mas.dt) = 28 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb28',
+      IFNULL((CASE WHEN DAY(mas.dt) = 28 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh28',
+      IFNULL((CASE WHEN DAY(mas.dt) = 29 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb29',
+      IFNULL((CASE WHEN DAY(mas.dt) = 29 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh29',
+      IFNULL((CASE WHEN DAY(mas.dt) = 30 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb30',
+      IFNULL((CASE WHEN DAY(mas.dt) = 30 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh30',
+      IFNULL((CASE WHEN DAY(mas.dt) = 31 AND mas.aa = mvp1.aa1 AND mas.cs = mvp1.cs1 AND mas.dt = mvp1.dt1 THEN 1 ELSE 0 END), '0') AS 'rkb31',
+      IFNULL((CASE WHEN DAY(mas.dt) = 31 AND mas.aa = spc.nik AND mas.cs = spc.customer AND mas.dt = spc.date THEN 1 ELSE 0 END), '0') AS 'lkh31'
+      FROM
+       (
+         SELECT address_number AS aa, customer AS cs, DATE AS dt, brand AS br, sales_name FROM dbmarketing.monthly_visit_plans WHERE MONTH(DATE) = 10 AND YEAR(DATE) = 2019
+         AND branch = 1 GROUP BY address_number, customer, DATE, brand
+         UNION ALL
+         SELECT sales.nik, spc.customer, sp.date, sp.brand, sales.nama FROM
+        (
+          (
+            SELECT * FROM dbmarketing.sales_productivities WHERE date between '#{from}' and '#{to}' AND branch_id = '#{branch}'
+          ) AS sp
+          LEFT JOIN
+          (
+            SELECT * FROM dbmarketing.sales_productivity_customers WHERE call_visit = 'visit'
+          ) AS spc ON spc.sales_productivity_id = sp.id
+          LEFT JOIN
+          (
+            SELECT * FROM salesmen
+          ) AS sales ON sales.id =  sp.salesmen_id
+        ) GROUP BY sales.nik, spc.customer
+        ) AS mas
+        LEFT JOIN
+        (
+          SELECT sales.nik, spc.customer, sp.date, sp.brand FROM
+        (
+          (
+            SELECT * FROM dbmarketing.sales_productivities WHERE date between '#{from}' and '#{to}' AND branch_id = '#{branch}'
+          ) AS sp
+          LEFT JOIN
+          (
+            SELECT * FROM dbmarketing.sales_productivity_customers WHERE call_visit = 'visit'
+          ) AS spc ON spc.sales_productivity_id = sp.id
+          LEFT JOIN
+          (
+            SELECT * FROM salesmen
+          ) AS sales ON sales.id =  sp.salesmen_id
+        ) GROUP BY sales.nik, sp.date, spc.customer
+        ) AS spc ON spc.customer = mas.cs AND spc.date = mas.dt AND spc.nik = mas.aa
+        LEFT JOIN
+        (
+          SELECT address_number AS aa1, customer AS cs1, DATE AS dt1, brand AS br1 FROM dbmarketing.monthly_visit_plans WHERE MONTH(DATE) = 10 AND YEAR(DATE) = 2019
+        ) mvp1 ON mvp1.aa1 = mas.aa AND mvp1.cs1 = mas.cs AND mvp1.dt1 = mas.dt
+      GROUP BY mas.aa, mas.cs
+    ")
+  end
+
 end

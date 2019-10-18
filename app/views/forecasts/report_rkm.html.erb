@@ -4,30 +4,64 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
+    RKM VS LKH REPORT FORM
+  </div>
+  <div class="panel-body">
+    <%= form_tag(forecasts_report_rkb_path, {method: :get, :class => "form-inline"}) do %>
+    <div class="form-group">
+      From:
+    </div>
+    <div id="dateffore" class="input-group date" style="size: 10px;">
+      <%= text_field_tag "start_date", (params[:start_date].present? ? params[:start_date].to_date.strftime("%F") : Date.today), class: 'form-control' %>
+      <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+    </div>
+    <div class="form-group">
+      To:
+    </div>
+    <div id="datetfore" class="input-group date" style="size: 10px;">
+      <%= text_field_tag "end_date", (params[:end_date].present? ? params[:end_date].to_date.strftime("%F") : Date.today), class: 'form-control' %>
+      <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+    </div>
+    <div class="form-group">
+      Branch:
+    </div>
+    <div class="form-group">
+      <%= select_tag "areas", options_from_collection_for_select(@areas, "id", "area", params[:areas]), {class: "form-control"} %>
+    </div>
+    <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn btn-info" %>
+    <% end %>
+  </div>
+  <div class="panel-footer">
+    WAJIB DIAWALI DARI TANGGAL 1
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
     PBJM FORM
   </div>
   <div class="panel-body">
     <%= form_tag(forecasts_report_pbjm_path, {method: :get, :class => "form-inline"}) do %>
-      <div class="form-group">
-        From:
-      </div>
-      <div id="dateffore" class="input-group date" style="size: 10px;">
-        <%= text_field_tag "start_date", (params[:start_date].present? ? params[:start_date].to_date.strftime("%F") : Date.today), class: 'form-control' %>
-        <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
-      </div>
-      <div class="form-group">
-        To:
-      </div>
-      <div id="datetfore" class="input-group date" style="size: 10px;">
-        <%= text_field_tag "end_date", (params[:end_date].present? ? params[:end_date].to_date.strftime("%F") : Date.today), class: 'form-control' %>
-        <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
-      </div>
-      <div class="form-group">
-        Brand:
-      </div>
-      <div id="datetfore" class="input-group date" style="size: 10px;">
-        <%= select_tag "brand", options_from_collection_for_select(@brand, "name", "name", params[:brand]), {class: "form-control"} %>
-      </div>
+    <div class="form-group">
+      From:
+    </div>
+    <div id="dateffore" class="input-group date" style="size: 10px;">
+      <%= text_field_tag "start_date", (params[:start_date].present? ? params[:start_date].to_date.strftime("%F") : Date.today), class: 'form-control' %>
+      <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+    </div>
+    <div class="form-group">
+      To:
+    </div>
+    <div id="datetfore" class="input-group date" style="size: 10px;">
+      <%= text_field_tag "end_date", (params[:end_date].present? ? params[:end_date].to_date.strftime("%F") : Date.today), class: 'form-control' %>
+      <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+    </div>
+    <div class="form-group">
+      Brand:
+    </div>
+    <div id="datetfore" class="input-group date" style="size: 10px;">
+      <%= select_tag "brand", options_from_collection_for_select(@brand, "name", "name", params[:brand]), {class: "form-control"} %>
+    </div>
     <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn btn-info" %>
     <% end %>
   </div>
@@ -47,7 +81,7 @@
         <div class="form-group">
           <%= select_tag "areas", options_from_collection_for_select(@areas, "id", "area", params[:areas]), {class: "form-control"} %>
         </div>
-        
+
         <% if current_user != 'admin' %>
         <div class="form-group">
           Brand:
@@ -56,14 +90,14 @@
           <%= select_tag "brand", options_from_collection_for_select(@brand, "name", "name", params[:brand]), {class: "form-control"} %>
         </div>
         <% end %>
-    
+
         <div class="form-group">
           Week:
         </div>
         <div class="form-group">
           <%= select_tag "week", options_for_select((1..53), params[:week].nil? ? 1.week.ago.to_date.cweek : params[:week]), {class: "form-control"} %>
         </div>
-        
+
         <div class="form-group">
           Year:
         </div>
@@ -73,13 +107,13 @@
         <%= hidden_field_tag :typ, 'detail' %>
         <%= button_tag 'Search', name: nil, class: "btn btn-info" %>
         <% if current_user.position == 'admin' %>
-          <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn" %>
+        <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn" %>
         <% end %>
         <% end %>
       </div>
     </div>
   </div>
-  
+
   <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -88,12 +122,12 @@
       <div class="panel-body">
         <%= form_tag(forecasts_rekap_report_rkm_path, {method: :get}) do %>
         <% if current_user.position == 'bm' %>
-          <div class="form-group">
-            Branch:
-          </div>
-          <div class="form-group">
-            <%= select_tag "areas", options_from_collection_for_select(@areas, "id", "area", params[:areas]), {class: "form-control"} %>
-          </div>
+        <div class="form-group">
+          Branch:
+        </div>
+        <div class="form-group">
+          <%= select_tag "areas", options_from_collection_for_select(@areas, "id", "area", params[:areas]), {class: "form-control"} %>
+        </div>
         <% end %>
         <div class="form-group">
           Week:
@@ -101,7 +135,7 @@
         <div class="form-group">
           <%= select_tag "week", options_for_select((1..53), params[:week].nil? ? 1.week.ago.to_date.cweek : params[:week]), {class: "form-control"} %>
         </div>
-          
+
         <div class="form-group">
           Year:
         </div>
@@ -110,14 +144,12 @@
         </div>
         <%= hidden_field_tag :typ, 'recap' %>
         <%= button_tag 'Search', name: nil, class: "btn btn-info" %>
-          <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn" %>
+        <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn" %>
         <% end %>
       </div>
     </div>
   </div>
 </div>
-
-
 
 <!-- START widgets box-->
 <!-- END widgets box-->
@@ -149,7 +181,7 @@
                   <th style="text-align: center;">TOTAL TARGET</th>
                   <th style="text-align: center;">STOCK GUDANG MINGGU <%= params[:week] %></th>
                   <th style="text-align: center;">REALISASI PENJUALAN <%= params[:week] %></th>
-                  </tr>
+                </tr>
               </thead>
               <tfoot></tfoot>
               <tbody>
