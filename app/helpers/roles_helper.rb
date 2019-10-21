@@ -70,7 +70,9 @@ module RolesHelper
 
   def bm(user, branch, brand)
     brand = brand.split("|").first
-    (user.position == "bm" || user.position == "admin sales") && (user.branch1.to_i == branch || user.branch2.to_i == branch)
+    (user.position == "bm" || user.position == "admin sales") && 
+    (user.branch1.to_i == branch || user.branch2.to_i == branch) &&
+    (user.brand1 == brand || user.brand2 == brand || user.brand3 == brand || user.brand4 == brand)
   end
 
   def report_all_brand(user)
