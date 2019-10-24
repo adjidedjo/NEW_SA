@@ -22,16 +22,12 @@ class Penjualan::Makasar::MakasarRecapsController < ApplicationController
     end
   end
 
-  def initialize_brand
-    "ELITE"
-  end
-
   def initialize_brach_id
     19
   end
   
   def authorize_bm
     render template: "pages/notfound" unless general_manager(current_user) || nsm(current_user, initialize_brand) || 
-    bm(current_user, initialize_brach_id, initialize_brand)
+    bm_customers(current_user, initialize_brach_id)
   end
 end
