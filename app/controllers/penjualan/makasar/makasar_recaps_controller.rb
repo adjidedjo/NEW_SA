@@ -22,6 +22,10 @@ class Penjualan::Makasar::MakasarRecapsController < ApplicationController
     end
   end
 
+  def initialize_brand
+    "ELITE"
+  end
+
   def initialize_brach_id
     19
   end
