@@ -86,11 +86,11 @@ class Penjualan::Kediri::KediriSerenityController < ApplicationController
   end
   
   def initialize_brach_id
-    7
+    54
   end
   
   def authorize_user
     render template: "pages/notfound" unless general_manager(current_user) || nsm(current_user, initialize_brand) || 
-    bm_customers(current_user, initialize_brach_id, initialize_brand) || sales(current_user, initialize_brach_id, initialize_brand)
+    bm_customers(current_user, initialize_brach_id) || sales(current_user, initialize_brach_id, initialize_brand)
   end
 end

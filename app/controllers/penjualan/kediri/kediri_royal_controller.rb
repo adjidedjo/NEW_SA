@@ -86,7 +86,7 @@ class Penjualan::Kediri::KediriRoyalController < ApplicationController
   end
   
   def initialize_brach_id
-    7
+    54
   end
   
   def authorize_user
