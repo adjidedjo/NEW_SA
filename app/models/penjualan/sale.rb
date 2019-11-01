@@ -496,6 +496,32 @@ class Penjualan::Sale < ActiveRecord::Base
     ")
   end
 
+  def self.retail_nasional_year_branches(date, brand)
+    self.find_by_sql("SELECT st.area AS cabang, lc.val_1, lc.val_2, lc.val_3, lc.val_4, lc.val_5,
+    lc.val_6, lc.val_7, lc.val_8, lc.val_9, lc.val_10, lc.val_11, lc.val_12 FROM
+    (
+      SELECT branch as area_id, brand as jenisbrgdisc,
+      SUM(CASE WHEN fiscal_month = '#{1.month.ago.month}' AND fiscal_year = '#{1.month.ago.year}' THEN sales_amount END) val_1,
+      SUM(CASE WHEN fiscal_month = '#{2.month.ago.month}' AND fiscal_year = '#{2.month.ago.year}' THEN sales_amount END) val_2,
+      SUM(CASE WHEN fiscal_month = '#{3.month.ago.month}' AND fiscal_year = '#{3.month.ago.year}' THEN sales_amount END) val_3,
+      SUM(CASE WHEN fiscal_month = '#{4.month.ago.month}' AND fiscal_year = '#{4.month.ago.year}' THEN sales_amount END) val_4,
+      SUM(CASE WHEN fiscal_month = '#{5.month.ago.month}' AND fiscal_year = '#{5.month.ago.year}' THEN sales_amount END) val_5,
+      SUM(CASE WHEN fiscal_month = '#{6.month.ago.month}' AND fiscal_year = '#{6.month.ago.year}' THEN sales_amount END) val_6,
+      SUM(CASE WHEN fiscal_month = '#{7.month.ago.month}' AND fiscal_year = '#{7.month.ago.year}' THEN sales_amount END) val_7,
+      SUM(CASE WHEN fiscal_month = '#{8.month.ago.month}' AND fiscal_year = '#{8.month.ago.year}' THEN sales_amount END) val_8,
+      SUM(CASE WHEN fiscal_month = '#{9.month.ago.month}' AND fiscal_year = '#{9.month.ago.year}' THEN sales_amount END) val_9,
+      SUM(CASE WHEN fiscal_month = '#{10.month.ago.month}' AND fiscal_year = '#{10.month.ago.year}' THEN sales_amount END) val_10,
+      SUM(CASE WHEN fiscal_month = '#{11.month.ago.month}' AND fiscal_year = '#{11.month.ago.year}' THEN sales_amount END) val_11,
+      SUM(CASE WHEN fiscal_month = '#{12.month.ago.month}' AND fiscal_year = '#{12.month.ago.year}' THEN sales_amount END) val_12
+      FROM sales_mart.RET1BRAND WHERE fiscal_month BETWEEN 1 AND 12
+      AND fiscal_year BETWEEN '#{12.month.ago.year}' AND '#{date.year}'
+      AND brand REGEXP '#{brand}' and branch != 23 GROUP BY branch
+    ) as lc
+    LEFT JOIN areas AS st
+      ON lc.area_id = st.id
+    ")
+  end
+
   def self.modern_nasional_this_month_branch(date, brand)
     self.find_by_sql("SELECT lc.harga, cb.area AS branch FROM (
     SELECT SUM(sales_amount) AS harga, branch FROM sales_mart.MM1BRAND
