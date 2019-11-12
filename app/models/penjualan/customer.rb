@@ -13,6 +13,7 @@ class Penjualan::Customer < Penjualan::Sale
             SELECT jenisbrgdisc, area_id, customer, kode_customer, kota, harganetto2, WEEK, fiscal_year
             FROM dbmarketing.tblaporancabang
             WHERE WEEK >= '#{date.cweek - 4}' AND fiscal_year = '#{date.year}' AND jenisbrgdisc REGEXP '#{brand}' AND tipecust = 'RETAIL'
+            AND area_id IS NOT NULL
           ) a GROUP BY a.customer, a.jenisbrgdisc
       ) b
       LEFT JOIN
