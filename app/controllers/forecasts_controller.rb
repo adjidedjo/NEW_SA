@@ -1,5 +1,14 @@
 class ForecastsController < ApplicationController
   
+  def customer_prog
+    @cust_prog = Forecast.calculate_customer_prog(params[:areas])
+    
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "customer_prog", :filename => "customer progress #{params[:areas]}.xlsx"}
+    end
+  end
+  
   def report_rkb
     @rkb = Forecast.calculate_rkb_report(params[:start_date], params[:end_date], params[:areas])
     

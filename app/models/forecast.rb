@@ -1,4 +1,24 @@
 class Forecast < ActiveRecord::Base
+  def self.calculate_customer_prog(area)
+    find_by_sql("
+      SELECT customer, customer_desc, brand,
+      SUM(CASE WHEN fiscal_month = #{12.months.ago.month} AND fiscal_year = #{12.months.ago.year} THEN sales_amount ELSE 0 END) AS 'aa',
+      SUM(CASE WHEN fiscal_month = #{11.months.ago.month} AND fiscal_year = #{11.months.ago.year} THEN sales_amount ELSE 0 END) AS 'bb',
+      SUM(CASE WHEN fiscal_month = #{10.months.ago.month} AND fiscal_year = #{10.months.ago.year} THEN sales_amount ELSE 0 END) AS 'cc',
+      SUM(CASE WHEN fiscal_month = #{9.months.ago.month} AND fiscal_year = #{9.months.ago.year} THEN sales_amount ELSE 0 END) AS 'dd',
+      SUM(CASE WHEN fiscal_month = #{8.months.ago.month} AND fiscal_year = #{8.months.ago.year} THEN sales_amount ELSE 0 END) AS 'ee',
+      SUM(CASE WHEN fiscal_month = #{7.months.ago.month} AND fiscal_year = #{7.months.ago.year} THEN sales_amount ELSE 0 END) AS 'ff',
+      SUM(CASE WHEN fiscal_month = #{6.months.ago.month} AND fiscal_year = #{6.months.ago.year} THEN sales_amount ELSE 0 END) AS 'gg',
+      SUM(CASE WHEN fiscal_month = #{5.months.ago.month} AND fiscal_year = #{5.months.ago.year} THEN sales_amount ELSE 0 END) AS 'hh',
+      SUM(CASE WHEN fiscal_month = #{4.months.ago.month} AND fiscal_year = #{4.months.ago.year} THEN sales_amount ELSE 0 END) AS 'ii',
+      SUM(CASE WHEN fiscal_month = #{3.months.ago.month} AND fiscal_year = #{3.months.ago.year} THEN sales_amount ELSE 0 END) AS 'tigabulan',
+      SUM(CASE WHEN fiscal_month = #{2.months.ago.month} AND fiscal_year = #{2.months.ago.year} THEN sales_amount ELSE 0 END) AS 'kk',
+      SUM(CASE WHEN fiscal_month = #{1.month.ago.month} AND fiscal_year = #{1.months.ago.year} THEN sales_amount ELSE 0 END) AS 'll'
+      FROM sales_mart.RET2CUSBRAND WHERE branch = #{area} AND fiscal_year BETWEEN #{12.months.ago.year} AND #{1.months.ago.year}
+      GROUP BY customer, brand
+    ")
+  end
+
   def self.calculate_rkm_sales(week, year, address)
     date = Date.commercial(year.to_i, week.to_i).to_date
     find_by_sql("

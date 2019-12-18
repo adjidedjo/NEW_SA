@@ -1,0 +1,41 @@
+xlsx_package = Axlsx::Package.new
+wb = xlsx_package.workbook
+
+styles = wb.styles
+header = styles.add_style :bg_color => "DD", :sz => 16, :b => true, :alignment => {:horizontal => :center}
+tbl_header = styles.add_style :b => true, :alignment => { :horizontal => :center }
+ind_header = styles.add_style :bg_color => "FFDFDEDF", :b => true, :alignment => {:indent => 1}
+col_header  = styles.add_style :bg_color => "FFDFDEDF", :b => true, :alignment => { :horizontal => :center }
+label       = styles.add_style :alignment => { :indent => 1 }
+money       = styles.add_style :num_fmt => 5
+t_label       = styles.add_style :b => true, :bg_color => "FFDFDEDF"
+t_money = styles.add_style :b => true, :num_fmt => 5, :bg_color => "FFDFDEDF"
+wrap_text = styles.add_style :alignment => { :horizontal => :center, :vertical => :center, :wrap_text => true}
+profitable = wb.styles.add_style( :fg_color => "FF428751", :type => :dxf )
+
+elite = []
+lady = []
+serenity = []
+royal = []
+
+@cust_prog.each do |cp|
+  elite << cp if cp.brand == 'ELITE'
+  lady << cp if  cp.brand == 'LADY'
+  serenity << cp if  cp.brand == 'SERENITY'
+  royal << cp if cp.brand == 'ROYAL'
+end
+
+wb.add_worksheet(name: "ELITE") do |sheet|
+  sheet.add_row ["CUSTOMER PROGRES #{params[:area]}"]
+  sheet.add_row ["FROM 1 YEAR AGO"]
+  sheet.add_row []
+  sheet.add_row ["KODE", "CUSTOMER", "#{12.months.ago.strftime('%B%y')}", "#{11.months.ago.strftime('%B%y')}", "#{10.months.ago.strftime('%B%y')}", 
+    "#{9.months.ago.strftime('%B%y')}", "#{8.months.ago.strftime('%B%y')}", "#{7.months.ago.strftime('%B%y')}", "#{6.months.ago.strftime('%B%y')}",
+    "#{5.months.ago.strftime('%B%y')}", "#{4.months.ago.strftime('%B%y')}", "#{3.months.ago.strftime('%B%y')}", "#{2.months.ago.strftime('%B%y')}",
+    "#{1.month.ago.strftime('%B%y')}", "STATUS"]
+  
+  elite.each do |p|
+    sheet.add_row [p.customer, p.customer_desc, p.aa, p.bb, p.cc, p.dd, p.ee, p.ff, p.gg, p.hh, p.ii, p.tigabulan, p.kk, p.ii, 
+    '=IF(SUM(L5:N5)=0, "INACTIVE", "ACTIVE")']
+  end
+end

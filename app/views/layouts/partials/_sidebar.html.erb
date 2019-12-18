@@ -21,16 +21,16 @@
       <!-- SA Project except sales-->
         <% if managerial_users(current_user) %>
           <%= render "layouts/partials/managerial" %>
+        <% elsif direct_users(current_user) %>
+          <%= render "layouts/partials/direct_sidebar" %>
+        <% elsif modern_users(current_user) %>
+          <%= render "layouts/partials/modern_sidebar" %>
         <% elsif retail_users(current_user, current_user.branch1) %>
           <%= render "layouts/partials/retail_sidebar" %>
         <% elsif sales_users(current_user) %>
           <%= render "layouts/partials/retail_salesman_sidebar" %>
         <% elsif sales_counter_users(current_user) %>
           <%= render "layouts/partials/sales_counter" %>
-        <% elsif direct_users(current_user) %>
-          <%= render "layouts/partials/direct_sidebar" %>
-        <% elsif modern_users(current_user) %>
-          <%= render "layouts/partials/modern_sidebar" %>
         <% elsif entry_users(current_user) %>
           <%= render "layouts/partials/entry_sidebar" %>
         <% elsif administrator(current_user) %>
