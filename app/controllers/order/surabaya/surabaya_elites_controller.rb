@@ -59,6 +59,6 @@ class Order::Surabaya::SurabayaElitesController < ApplicationController
 
   def authorize_user
     render template: "pages/notfound" unless general_manager(current_user) || nsm(current_user, "ELITE") ||
-    bm(current_user, 7, "ELITE") || sales(current_user, 7, "ELITE")
+    bm(current_user, 7, "ELITE") || sales(current_user, 7, "ELITE") || nsm_direct(current_user)
   end
 end
