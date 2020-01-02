@@ -21,10 +21,10 @@
                   <th>Brand</th>
                   <th>Customer</th>
                   <th>City</th>
-                  <th>Week <%= Date.today.cweek - 4 %> <br /><%= week_c(4) %></th>
-                  <th>Week <%= Date.today.cweek - 3 %> <br /><%= week_c(3) %></th>
-                  <th>Week <%= Date.today.cweek - 2 %> <br /><%= week_c(2) %></th>
-                  <th>Week <%= Date.today.cweek - 1 %> <br /><%= week_c(1) %></th>
+                  <th>Week <%= 4.weeks.ago.to_date.cweek %> <br /><%= week_c(4) %></th>
+                  <th>Week <%= 3.weeks.ago.to_date.cweek %> <br /><%= week_c(3) %></th>
+                  <th>Week <%= 2.weeks.ago.to_date.cweek %> <br /><%= week_c(2) %></th>
+                  <th>Week <%= 1.weeks.ago.to_date.cweek %> <br /><%= week_c(1) %></th>
                 </tr>
               </thead>
               <tbody>

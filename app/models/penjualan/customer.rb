@@ -5,14 +5,14 @@ class Penjualan::Customer < Penjualan::Sale
 
       SELECT cb.Cabang AS cabang, b.* FROM (
         SELECT a.area_id, a.customer, a.kode_customer, a.jenisbrgdisc, a.kota,
-          IFNULL(SUM(CASE WHEN a.week = '#{date.cweek - 4}' AND fiscal_year = '#{date.year}' THEN a.harganetto2 END), 0) AS w4,
-          IFNULL(SUM(CASE WHEN a.week = '#{date.cweek - 3}' AND fiscal_year = '#{date.year}' THEN a.harganetto2 END), 0) AS w3,
-          IFNULL(SUM(CASE WHEN a.week = '#{date.cweek - 2}' AND fiscal_year = '#{date.year}' THEN a.harganetto2 END), 0) AS w2,
-          IFNULL(SUM(CASE WHEN a.week = '#{date.cweek - 1}' AND fiscal_year = '#{date.year}' THEN a.harganetto2 END), 0) AS w1
+          IFNULL(SUM(CASE WHEN a.week = '#{4.weeks.ago.to_date.cweek}' AND fiscal_year = '#{4.weeks.ago.year}' THEN a.harganetto2 END), 0) AS w4,
+          IFNULL(SUM(CASE WHEN a.week = '#{3.weeks.ago.to_date.cweek}' AND fiscal_year = '#{3.weeks.ago.year}' THEN a.harganetto2 END), 0) AS w3,
+          IFNULL(SUM(CASE WHEN a.week = '#{2.weeks.ago.to_date.cweek}' AND fiscal_year = '#{2.weeks.ago.year}' THEN a.harganetto2 END), 0) AS w2,
+          IFNULL(SUM(CASE WHEN a.week = '#{1.weeks.ago.to_date.cweek}' AND fiscal_year = '#{1.weeks.ago.year}' THEN a.harganetto2 END), 0) AS w1
           FROM (
             SELECT jenisbrgdisc, area_id, customer, kode_customer, kota, harganetto2, WEEK, fiscal_year
             FROM dbmarketing.tblaporancabang
-            WHERE WEEK >= '#{date.cweek - 4}' AND fiscal_year = '#{date.year}' AND jenisbrgdisc REGEXP '#{brand}' AND tipecust = 'RETAIL'
+            WHERE WEEK >= '#{4.weeks.ago.to_date.cweek}' AND fiscal_year >= '#{4.weeks.ago.year}' AND jenisbrgdisc REGEXP '#{brand}' AND tipecust = 'RETAIL'
             AND area_id IS NOT NULL
           ) a GROUP BY a.customer, a.jenisbrgdisc
       ) b
