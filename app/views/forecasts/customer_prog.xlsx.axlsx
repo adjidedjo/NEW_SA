@@ -39,3 +39,48 @@ wb.add_worksheet(name: "ELITE") do |sheet|
     '=IF(SUM(L5:N5)=0, "INACTIVE", "ACTIVE")']
   end
 end
+
+wb.add_worksheet(name: "LADY") do |sheet|
+  sheet.add_row ["CUSTOMER PROGRES #{params[:area]}"]
+  sheet.add_row ["FROM 1 YEAR AGO"]
+  sheet.add_row []
+  sheet.add_row ["KODE", "CUSTOMER", "#{12.months.ago.strftime('%B%y')}", "#{11.months.ago.strftime('%B%y')}", "#{10.months.ago.strftime('%B%y')}", 
+    "#{9.months.ago.strftime('%B%y')}", "#{8.months.ago.strftime('%B%y')}", "#{7.months.ago.strftime('%B%y')}", "#{6.months.ago.strftime('%B%y')}",
+    "#{5.months.ago.strftime('%B%y')}", "#{4.months.ago.strftime('%B%y')}", "#{3.months.ago.strftime('%B%y')}", "#{2.months.ago.strftime('%B%y')}",
+    "#{1.month.ago.strftime('%B%y')}", "STATUS"]
+  
+  elite.each do |p|
+    sheet.add_row [p.customer, p.customer_desc, p.aa, p.bb, p.cc, p.dd, p.ee, p.ff, p.gg, p.hh, p.ii, p.tigabulan, p.kk, p.ll, 
+    '=IF(SUM(L5:N5)=0, "INACTIVE", "ACTIVE")']
+  end
+end
+
+wb.add_worksheet(name: "SERENITY") do |sheet|
+  sheet.add_row ["CUSTOMER PROGRES #{params[:area]}"]
+  sheet.add_row ["FROM 1 YEAR AGO"]
+  sheet.add_row []
+  sheet.add_row ["KODE", "CUSTOMER", "#{12.months.ago.strftime('%B%y')}", "#{11.months.ago.strftime('%B%y')}", "#{10.months.ago.strftime('%B%y')}", 
+    "#{9.months.ago.strftime('%B%y')}", "#{8.months.ago.strftime('%B%y')}", "#{7.months.ago.strftime('%B%y')}", "#{6.months.ago.strftime('%B%y')}",
+    "#{5.months.ago.strftime('%B%y')}", "#{4.months.ago.strftime('%B%y')}", "#{3.months.ago.strftime('%B%y')}", "#{2.months.ago.strftime('%B%y')}",
+    "#{1.month.ago.strftime('%B%y')}", "STATUS"]
+  
+  serenity.each do |p|
+    sheet.add_row [p.customer, p.customer_desc, p.aa, p.bb, p.cc, p.dd, p.ee, p.ff, p.gg, p.hh, p.ii, p.tigabulan, p.kk, p.ll, 
+    '=IF(SUM(L5:N5)=0, "INACTIVE", "ACTIVE")']
+  end
+end
+
+wb.add_worksheet(name: "ROYAL") do |sheet|
+  sheet.add_row ["CUSTOMER PROGRES #{params[:area]}"]
+  sheet.add_row ["FROM 1 YEAR AGO"]
+  sheet.add_row []
+  sheet.add_row ["KODE", "CUSTOMER", "#{12.months.ago.strftime('%B%y')}", "#{11.months.ago.strftime('%B%y')}", "#{10.months.ago.strftime('%B%y')}", 
+    "#{9.months.ago.strftime('%B%y')}", "#{8.months.ago.strftime('%B%y')}", "#{7.months.ago.strftime('%B%y')}", "#{6.months.ago.strftime('%B%y')}",
+    "#{5.months.ago.strftime('%B%y')}", "#{4.months.ago.strftime('%B%y')}", "#{3.months.ago.strftime('%B%y')}", "#{2.months.ago.strftime('%B%y')}",
+    "#{1.month.ago.strftime('%B%y')}", "STATUS"]
+  
+  royal.each do |p|
+    sheet.add_row [p.customer, p.customer_desc, p.aa, p.bb, p.cc, p.dd, p.ee, p.ff, p.gg, p.hh, p.ii, p.tigabulan, p.kk, p.ll, 
+    '=IF(SUM(L5:N5)=0, "INACTIVE", "ACTIVE")']
+  end
+end
