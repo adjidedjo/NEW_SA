@@ -35,7 +35,7 @@ wb.add_worksheet(name: "ELITE") do |sheet|
     "#{1.month.ago.strftime('%B%y')}", "STATUS"]
   
   elite.each do |p|
-    sheet.add_row [p.customer, p.customer_desc, p.aa, p.bb, p.cc, p.dd, p.ee, p.ff, p.gg, p.hh, p.ii, p.tigabulan, p.kk, p.ii, 
+    sheet.add_row [p.customer, p.customer_desc, p.aa, p.bb, p.cc, p.dd, p.ee, p.ff, p.gg, p.hh, p.ii, p.tigabulan, p.kk, p.ll, 
     '=IF(SUM(L5:N5)=0, "INACTIVE", "ACTIVE")']
   end
 end
