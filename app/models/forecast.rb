@@ -584,42 +584,42 @@ class Forecast < ActiveRecord::Base
          AND branch = 1 GROUP BY address_number, customer, DATE, brand
          UNION ALL
          SELECT sales.nik, spc.customer, sp.date, sp.brand, sales.nama FROM
-        (
-          (
-            SELECT * FROM dbmarketing.sales_productivities WHERE date between '#{from}' and '#{to}' AND branch_id = '#{branch}'
-          ) AS sp
-          LEFT JOIN
-          (
-            SELECT * FROM dbmarketing.sales_productivity_customers WHERE call_visit = 'visit'
-          ) AS spc ON spc.sales_productivity_id = sp.id
-          LEFT JOIN
-          (
-            SELECT * FROM salesmen
-          ) AS sales ON sales.id =  sp.salesmen_id
-        ) GROUP BY sales.nik, spc.customer
+           (
+            (
+              SELECT * FROM dbmarketing.sales_productivities WHERE date between '#{from}' and '#{to}' AND branch_id = '#{branch}'
+            ) AS sp
+            LEFT JOIN
+            (
+              SELECT * FROM dbmarketing.sales_productivity_customers WHERE call_visit = 'visit'
+            ) AS spc ON spc.sales_productivity_id = sp.id
+            LEFT JOIN
+            (
+              SELECT * FROM salesmen
+            ) AS sales ON sales.id =  sp.salesmen_id
+          ) GROUP BY sales.nik, sp.date, spc.customer
         ) AS mas
         LEFT JOIN
-        (
-          SELECT sales.nik, spc.customer, sp.date, sp.brand FROM
-        (
           (
-            SELECT * FROM dbmarketing.sales_productivities WHERE date between '#{from}' and '#{to}' AND branch_id = '#{branch}'
-          ) AS sp
+            SELECT sales.nik, spc.customer, sp.date, sp.brand FROM
+          (
+            (
+              SELECT * FROM dbmarketing.sales_productivities WHERE date between '#{from}' and '#{to}' AND branch_id = '#{branch}'
+            ) AS sp
+            LEFT JOIN
+            (
+              SELECT * FROM dbmarketing.sales_productivity_customers WHERE call_visit = 'visit'
+            ) AS spc ON spc.sales_productivity_id = sp.id
+            LEFT JOIN
+            (
+              SELECT * FROM salesmen
+            ) AS sales ON sales.id =  sp.salesmen_id
+          ) GROUP BY sales.nik, sp.date, spc.customer
+          ) AS spc ON spc.customer = mas.cs AND spc.date = mas.dt AND spc.nik = mas.aa
           LEFT JOIN
           (
-            SELECT * FROM dbmarketing.sales_productivity_customers WHERE call_visit = 'visit'
-          ) AS spc ON spc.sales_productivity_id = sp.id
-          LEFT JOIN
-          (
-            SELECT * FROM salesmen
-          ) AS sales ON sales.id =  sp.salesmen_id
-        ) GROUP BY sales.nik, sp.date, spc.customer
-        ) AS spc ON spc.customer = mas.cs AND spc.date = mas.dt AND spc.nik = mas.aa
-        LEFT JOIN
-        (
-          SELECT address_number AS aa1, customer AS cs1, DATE AS dt1, brand AS br1 FROM dbmarketing.monthly_visit_plans WHERE MONTH(DATE) = 10 AND YEAR(DATE) = 2019
-        ) mvp1 ON mvp1.aa1 = mas.aa AND mvp1.cs1 = mas.cs AND mvp1.dt1 = mas.dt
-      GROUP BY mas.aa, mas.dt, mas.cs
+            SELECT address_number AS aa1, customer AS cs1, DATE AS dt1, brand AS br1 FROM dbmarketing.monthly_visit_plans WHERE MONTH(DATE) = 10 AND YEAR(DATE) = 2019
+          ) mvp1 ON mvp1.aa1 = mas.aa AND mvp1.cs1 = mas.cs AND mvp1.dt1 = mas.dt
+        GROUP BY mas.aa, mas.dt, mas.cs
     ")
   end
 
