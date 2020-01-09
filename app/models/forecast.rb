@@ -619,7 +619,7 @@ class Forecast < ActiveRecord::Base
         (
           SELECT address_number AS aa1, customer AS cs1, DATE AS dt1, brand AS br1 FROM dbmarketing.monthly_visit_plans WHERE MONTH(DATE) = 10 AND YEAR(DATE) = 2019
         ) mvp1 ON mvp1.aa1 = mas.aa AND mvp1.cs1 = mas.cs AND mvp1.dt1 = mas.dt
-      GROUP BY mas.aa, mas.cs
+      GROUP BY mas.aa, mas.dt, mas.cs
     ")
   end
 
