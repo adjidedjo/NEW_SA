@@ -1,0 +1,80 @@
+<li class="<%= 'active' if controller?('order/samarinda') %>">
+  <a href="#order-samarinda" title="Level 1" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Samarinda</span> </a>
+  <ul id="order-samarinda" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Samarinda
+    </li>
+    <li class="<%= 'active' if controller?('order/samarinda/samarinda_elites') && action?('all_brand') %>">
+      <a href="/order/samarinda/samarinda_elites/all_brand" title="all brand"> <em class="fa fa-angle-right"></em> <span>All Brand</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('order/samarinda/samarinda_elites') %>">
+      <a href="#order-samarinda-elite" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Elite</span> </a>
+      <ul id="order-samarinda-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Elite
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/samarinda_elites') && action?('order_normal') %>">
+          <a href="/order/samarinda/samarinda_elites/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/samarinda_elites') && action?('order_clearence') %>">
+          <a href="/order/samarinda/samarinda_elites/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/samarinda_elites') && action?('order_display') %>">
+          <a href="/order/samarinda/samarinda_elites/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/samarinda/samarinda_serenity') %>">
+      <a href="#order-samarinda-serenity" title="Elite" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Serenity</span> </a>
+      <ul id="order-samarinda-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/samarinda_serenity') && action?('order_normal') %>">
+          <a href="/order/samarinda/samarinda_serenity/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/samarinda_serenity') && action?('order_clearence') %>">
+          <a href="/order/samarinda/samarinda_serenity/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/samarinda_serenity') && action?('order_display') %>">
+          <a href="/order/samarinda/samarinda_serenity/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/samarinda/samarinda_lady') %>">
+      <a href="#order-samarinda-lady" title="Lady" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Lady</span> </a>
+      <ul id="order-samarinda-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/samarinda_lady') && action?('order_normal') %>">
+          <a href="/order/samarinda/samarinda_lady/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/samarinda_lady') && action?('order_clearence') %>">
+          <a href="/order/samarinda/samarinda_lady/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/samarinda_lady') && action?('order_display') %>">
+          <a href="/order/samarinda/samarinda_lady/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('order/samarinda/samarinda_royal') %>">
+      <a href="#order-samarinda-royal" title="Royal" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Royal</span> </a>
+      <ul id="order-samarinda-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/order_royal') && action?('order_normal') %>">
+          <a href="/order/samarinda/samarinda_royal/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/order_royal') && action?('order_clearence') %>">
+          <a href="/order/samarinda/samarinda_royal/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/samarinda/order_royal') && action?('order_display') %>">
+          <a href="/order/samarinda/samarinda_royal/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
+    
+  </ul>
+</li>

@@ -1,0 +1,153 @@
+<li class="<%= 'active' if controller?('penjualan/samarinda') %>">
+  <a href="#samarinda" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Samarinda</span> </a>
+  <ul id="samarinda" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Samarinda
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_customers') && action?('customer') %>">
+      <a href="/penjualan/samarinda/samarinda_customers/customer" title="Customer"> <em class="icon-people"></em> <span>Customer</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_customers') && action?('customer_active') %>">
+      <a href="/penjualan/samarinda/samarinda_customers/customer_active" title="Customer"> <em class="icon-people"></em> <span>Customer Active</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_recaps') && action?('recap') %>">
+      <a href="/penjualan/samarinda/samarinda_recaps/recap" title="Recap"> <em class="icon-people"></em> <span>Recap</span></a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_elites') %>">
+      <a href="#samarinda-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
+      <ul id="samarinda-elite" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          ELITE
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_elites') && action?('daily') %>">
+          <a href="/penjualan/samarinda/samarinda_elites/daily" title="Daily"> <span>Daily</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_elites') && action?('weekly') %>">
+          <a href="/penjualan/samarinda/samarinda_elites/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_elites') && action?('monthly') %>">
+          <a href="/penjualan/samarinda/samarinda_elites/monthly" title="Monthly"> <span>Monthly</span> </a>
+        </li>
+        <!-- <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_elites') && action?('sales_stock_rate') %>">
+          <a href="/penjualan/samarinda/samarinda_elites/sales_stock_rate" title="Stock Sales Rate"> <span>Stock Sales Ratio</span> </a>
+        </li> -->
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_elites') && action?('success_rate') %>">
+          <a href="/penjualan/samarinda/samarinda_elites/success_rate" title="Success Rate"> <span>Success Rate</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_elites') && action?('marketshare') %>">
+          <a href="/penjualan/samarinda/samarinda_elites/marketshare" title="Marketshare"> <span>Marketshare</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_elites') && action?('customer_monthly') %>">
+          <a href="/penjualan/samarinda/samarinda_elites/customer_monthly" title="Marketshare"> <span>Customer Monthly</span> </a>
+        </li>
+        <!--
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_elites') && action?('yearly') %>">
+        <a href="/penjualan/samarinda/samarinda_elites" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_serenity') %>">
+      <a href="#samarinda-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-chart"></em> <span>Serenity</span> </a>
+      <ul id="samarinda-serenity" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Serenity
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_serenity') && action?('daily') %>">
+          <a href="/penjualan/samarinda/samarinda_serenity/daily" title="Daily"> <span>Daily</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_serenity') && action?('weekly') %>">
+          <a href="/penjualan/samarinda/samarinda_serenity/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_serenity') && action?('monthly') %>">
+          <a href="/penjualan/samarinda/samarinda_serenity/monthly" title="Monthly"> <span>Monthly</span> </a>
+        </li>
+        <!-- <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_serenity') && action?('sales_stock_rate') %>">
+          <a href="/penjualan/samarinda/samarinda_serenity/sales_stock_rate" title="Stock Sales Rate"> <span>Stock Sales Ratio</span> </a>
+        </li> -->
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_serenity') && action?('success_rate') %>">
+          <a href="/penjualan/samarinda/samarinda_serenity/success_rate" title="Success Rate"> <span>Success Rate</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_serenity') && action?('marketshare') %>">
+          <a href="/penjualan/samarinda/samarinda_serenity/marketshare" title="Marketshare"> <span>Marketshare</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_serenity') && action?('customer_monthly') %>">
+          <a href="/penjualan/samarinda/samarinda_serenity/customer_monthly" title="Marketshare"> <span>Customer Monthly</span> </a>
+        </li>
+        <!--
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_serenity') && action?('yearly') %>">
+        <a href="/penjualan/samarinda/serenity" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_lady') %>">
+      <a href="#samarinda-lady" title="Lady" data-toggle="collapse"> <em class="icon-chart"></em> <span>Lady</span> </a>
+      <ul id="samarinda-lady" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Lady
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_lady') && action?('daily') %>">
+          <a href="/penjualan/samarinda/samarinda_lady/daily" title="Daily"> <span>Daily</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_lady') && action?('weekly') %>">
+          <a href="/penjualan/samarinda/samarinda_lady/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_lady') && action?('monthly') %>">
+          <a href="/penjualan/samarinda/samarinda_lady/monthly" title="Monthly"> <span>Monthly</span> </a>
+        </li>
+        <!-- <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_lady') && action?('sales_stock_rate') %>">
+          <a href="/penjualan/samarinda/samarinda_lady/sales_stock_rate" title="Stock Sales Rate"> <span>Stock Sales Ratio</span> </a>
+        </li> -->
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_lady') && action?('success_rate') %>">
+          <a href="/penjualan/samarinda/samarinda_lady/success_rate" title="Success Rate"> <span>Success Rate</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_lady') && action?('marketshare') %>">
+          <a href="/penjualan/samarinda/samarinda_lady/marketshare" title="Marketshare"> <span>Marketshare</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_lady') && action?('customer_monthly') %>">
+          <a href="/penjualan/samarinda/samarinda_lady/customer_monthly" title="Marketshare"> <span>Customer Monthly</span> </a>
+        </li>
+        <!--
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_lady') && action?('yearly') %>">
+        <a href="/penjualan/samarinda/samarinda_lady" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
+      </ul>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_royal') %>">
+      <a href="#samarinda-royal" title="Royal" data-toggle="collapse"> <em class="icon-chart"></em> <span>Royal</span> </a>
+      <ul id="samarinda-royal" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_royal') && action?('daily') %>">
+          <a href="/penjualan/samarinda/samarinda_royal/daily" title="Daily"> <span>Daily</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_royal') && action?('weekly') %>">
+          <a href="/penjualan/samarinda/samarinda_royal/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_royal') && action?('monthly') %>">
+          <a href="/penjualan/samarinda/samarinda_royal/monthly" title="Monthly"> <span>Monthly</span> </a>
+        </li>
+        <!-- <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_royal') && action?('sales_stock_rate') %>">
+          <a href="/penjualan/samarinda/samarinda_royal/sales_stock_rate" title="Stock Sales Rate"> <span>Stock Sales Ratio</span> </a>
+        </li> -->
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_royal') && action?('success_rate') %>">
+          <a href="/penjualan/samarinda/samarinda_royal/success_rate" title="Success Rate"> <span>Success Rate</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_royal') && action?('marketshare') %>">
+          <a href="/penjualan/samarinda/samarinda_royal/marketshare" title="Marketshare"> <span>Marketshare</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/samarinda/samarinda_royal') && action?('customer_monthly') %>">
+          <a href="/penjualan/samarinda/samarinda_royal/customer_monthly" title="Marketshare"> <span>Customer Monthly</span> </a>
+        </li>
+        <!--
+        <li class="<%= 'active' if controller?('penjualan/samarinda/royal') && action?('yearly') %>">
+        <a href="/penjualan/samarinda/royal" title="Tahunan"> <span>Tahunan</span> </a>
+        </li>-->
+
+      </ul>
+    </li>
+  </ul>
+</li>
