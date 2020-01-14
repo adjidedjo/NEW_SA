@@ -41,7 +41,7 @@ mnd = []
   yk << pbjm if (pbjm.sdshan == '18041' || pbjm.sdshan == '11041' || pbjm.sdshan == '11042')
   smg << pbjm if (pbjm.sdshan == '18051' || pbjm.sdshan == '11051' || pbjm.sdshan == '11052')
   sby << pbjm if (pbjm.sdshan == '18061' || pbjm.sdshan == '12061' || pbjm.sdshan == '12062')
-  kdr << pbjm if (pbjm.sdshan == '1806104' || pbjm.sdshan == '1206204') || pbjm.sdshan == '1206104')
+  kdr << pbjm if (pbjm.sdshan == '1806104' || pbjm.sdshan == '1206204' || pbjm.sdshan == '1206104')
   jmb << pbjm if (pbjm.sdshan == '18131' || pbjm.sdshan == '12131' || pbjm.sdshan == '12132')
   bl << pbjm if (pbjm.sdshan == '18071' || pbjm.sdshan == '12071' || pbjm.sdshan == '12072')
   mk << pbjm if (pbjm.sdshan == '18111' || pbjm.sdshan == '12111' || pbjm.sdshan == '12112')
