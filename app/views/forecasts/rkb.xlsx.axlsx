@@ -17,59 +17,20 @@ wb.add_worksheet(name: "DETAIL RKB VS LKH") do |sheet|
   sheet.add_row ["RKB VS LKH"]
   sheet.add_row ["#{params[:start_date]} - #{params[:end_date]}"]
   sheet.add_row []
-  sheet.merge_cells("D4:E4")
-  sheet.merge_cells("F4:G4")
-  sheet.merge_cells("H4:I4")
-  sheet.merge_cells("J4:K4")
-  sheet.merge_cells("L4:M4")
-  sheet.merge_cells("N4:O4")
-  sheet.merge_cells("P4:Q4")
-  sheet.merge_cells("R4:S4")
-  sheet.merge_cells("T4:U4")
-  sheet.merge_cells("V4:W4")
-  sheet.merge_cells("X4:Y4")
-  sheet.merge_cells("Z4:AA4")
-  sheet.merge_cells("AB4:AC4")
-  sheet.merge_cells("AD4:AE4")
-  sheet.merge_cells("AF4:AG4")
-  sheet.merge_cells("AH4:AI4")
-  sheet.merge_cells("AJ4:AK4")
-  sheet.merge_cells("AL4:AM4")
-  sheet.merge_cells("AN4:AO4")
-  sheet.merge_cells("AP4:AQ4")
-  sheet.merge_cells("AR4:AS4")
-  sheet.merge_cells("AT4:AU4")
-  sheet.merge_cells("AV4:AW4")
-  sheet.merge_cells("AX4:AY4")
-  sheet.merge_cells("AZ4:BA4")
-  sheet.merge_cells("BB4:BC4")
-  sheet.merge_cells("BD4:BE4")
-  sheet.merge_cells("BF4:BG4")
-  sheet.merge_cells("BH4:BI4")
-  sheet.merge_cells("BJ4:BK4")
-  sheet.merge_cells("BL4:BM4")
-  sheet.add_row ["NIK", "NAMA", "TOKO", "1", "", "2", "", "3", "", "4", "", "5", "", "6", "", "7", "", "8", "",
-    "9", "", "10", "", "11", "", "12", "", "13", "", "14", "", "15", "", "16", "", "17", "", "18", "", "19", "", "20", 
-    "", "21", "", "22", "", "23", "", "24", "", "25", "", "26", "", "27", "", "28", "", "29", "", "30", "", 
-    "31", ""], :style => wrap_text 
-  sheet.add_row ["", "", "", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH",
-     "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH",
-     "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH",
-     "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH", "RKB", "LKH",
-     "RKB", "LKH",], :style => wrap_text
+  sheet.add_row ["NIK", "NAMA", "TOKO", "BRAND", "TANGGAL", "RKB", "LKH"]
   @rkb.each do |rk|
-    sheet.add_row [rk.aa, rk.sales_name, rk.cs, rk.rkb1, rk.lkh1, rk.rkb2, rk.lkh2, rk.rkb3, rk.lkh3, rk.rkb4, rk.lkh4, 
-    rk.rkb5, rk.lkh5, rk.rkb6, rk.lkh6, rk.rkb7, rk.lkh7, rk.rkb8, rk.lkh8, rk.rkb9, rk.lkh9, rk.rkb10, rk.lkh10, 
-    rk.rkb11, rk.lkh11, rk.rkb12, rk.lkh12, rk.rkb13, rk.lkh13, rk.rkb14, rk.lkh14, rk.rkb15, rk.lkh15, rk.rkb16, rk.lkh16, 
-    rk.rkb17, rk.lkh17, rk.rkb18, rk.lkh18, rk.rkb19, rk.lkh19, rk.rkb20, rk.lkh20, rk.rkb21, rk.lkh21, rk.rkb22, rk.lkh22, 
-    rk.rkb23, rk.lkh23, rk.rkb24, rk.lkh24, rk.rkb25, rk.lkh25, rk.rkb26, rk.lkh26, rk.rkb27, rk.lkh27, rk.rkb28, rk.lkh28, 
-    rk.rkb29, rk.lkh29, rk.rkb30, rk.lkh30, rk.rkb31, rk.lkh31]
+    sheet.add_row [rk.aa, rk.sales_name, rk.cs, rk.br, rk.dt, rk.source_rkb, rk.source_lkh]
   end
   color_scale = Axlsx::ColorScale.three_tone
   sheet.add_conditional_formatting("D6:BM1000", { :type => :colorScale, :operator => :greaterThan, 
     :formula => "0", :dxfId => profitable, 
     :priority => 1, :color_scale => color_scale })
-  sheet.merge_cells("A4:A5")
-  sheet.merge_cells("B4:B5")
-  sheet.merge_cells("C4:C5")
+end
+
+wb.add_worksheet(:name => "Data Sheet") do |sheet|
+  pivot_table = Axlsx::PivotTable.new 'A1:H8', "B4:G500", wb.worksheets[0]
+  pivot_table.rows = ["NAMA", "TOKO", "BRAND"]
+  pivot_table.columns = ["TANGGAL"]
+  pivot_table.data = ["RKB", "LKH"]
+  sheet.pivot_tables << pivot_table
 end
