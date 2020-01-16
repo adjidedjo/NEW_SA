@@ -32,7 +32,7 @@
               <tbody>
                 <% @stock.each do |cs| %>
                 <tr class="gradeX">
-                  <td><%= cs.dsc1.strip + ' ' + cs.dsc2.strip[0..-10] %></td>
+                  <td><%= cs.dsc1.strip + ' ' + (cs.dsc2.nil? ? '' : cs.dsc2.strip[0..-10]) %></td>
                   <td><%= cs.panjang %></td>
                   <td><%= cs.ah.to_i %></td>
                   <td><%= cs.aa.to_i %></td>
