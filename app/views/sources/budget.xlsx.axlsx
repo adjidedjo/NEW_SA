@@ -45,7 +45,11 @@ wb.add_worksheet(name: "Budget") do |sheet|
   sheet.add_row ["20", "Rupa-2 Biaya Penjualan", 0]
   sheet.add_row ["21", "Bi. Perjalanan Dinas Dalam Kota Staff Gudang", 0]
   sheet.add_row ["22", "Bi. Perjalanan Dinas Luar Kota Staff Gudang", 0]
-  sheet.add_row ["", "Total Budget Bulan Ini", "=SUM(C6:C27"], :b => true
+  sheet.add_row ["23", "Biaya Fixed Cost ( Listrik , Air , Telepon , Internet , Iuran Sampah , Iuran Lain ,dll )", 0]
+  sheet.add_row ["24", "Gaji Staff Accounting dan Staff Non Penjualan", 0]
+  sheet.add_row ["25", "Biaya Dinas dan Uang Makan Accounting dan Staff Admin Non Penjualan", 0]
+  sheet.add_row ["26", "Biaya Admin dan Kliring Bank", 0]
+  sheet.add_row ["", "Total Budget Bulan Ini", "=SUM(C6:C35"], :b => true
   sheet.add_row ["", "Target Penjualan Bulan ini", 0], :b => true
   sheet.add_row ["", "% Biaya Thd Target", 0], :b => true
   sheet.add_row
