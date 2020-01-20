@@ -32,5 +32,6 @@ wb.add_worksheet(:name => "Data Sheet") do |sheet|
   pivot_table.rows = ["NAMA", "TOKO", "BRAND"]
   pivot_table.columns = ["TANGGAL"]
   pivot_table.data = ["RKB", "LKH"]
+  pivot_table.pages = ['Region']
   sheet.pivot_tables << pivot_table
 end
