@@ -519,11 +519,11 @@ end
 wb.add_worksheet(:name => "KEDIRI") do |sheet|
   kdr_mat = kdr.select {|c| c[:sdshan] == '1806104' || c[:sdshan] == '1206104'}
   kdr_mats = kdr_mat.select {|c| c[:stat] == 'SENT'}
-  kdr_fo = kdr.select {|c| c[:sdshan] == '1206104'}
+  kdr_fo = kdr.select {|c| c[:sdshan] == '1206204'}
   kdr_fos = kdr_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ #{params[:brand]} SURABAYA"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} KEDIRI"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
@@ -598,7 +598,7 @@ wb.add_worksheet(:name => "JEMBER") do |sheet|
   jmb_fos = jmb_fo.select {|c| c[:stat] == 'SENT'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ #{params[:brand]} SURABAYA"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} JEMBER"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ MATRAS"], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
