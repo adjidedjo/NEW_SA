@@ -23,7 +23,7 @@ class ForecastsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.xlsx {render :xlsx => "pbjm", :filename => "pbjm #{params[:brand]} week #{params[:start_date].to_date.cweek}.xlsx"} if params[:brand] != 'ROYAL'
+      format.xlsx {render :xlsx => "pbjm_elite", :filename => "pbjm #{params[:brand]} week #{params[:start_date].to_date.cweek}.xlsx"} if params[:brand] != 'ROYAL'
       format.xlsx {render :xlsx => "pbjm_royal", :filename => "pbjm #{params[:brand]} week #{params[:start_date].to_date.cweek}.xlsx"} if params[:brand] == 'ROYAL'
     end
   end
