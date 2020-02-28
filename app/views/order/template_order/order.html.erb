@@ -35,6 +35,7 @@
                   <th>Qty</th>
                   <th>Sales</th>
                   <th>Customer</th>
+                  <th>Input Date</th>
                   <th>Requested Date</th>
                   <th>Exceeds</th>
                 </tr>
@@ -50,7 +51,8 @@
                   <td><%= dp.jumlah/10000 %></td>
                   <td><%= dp.namasales %></td>
                   <td><%= dp.abalph %></td>
-                  <td><%= julian_to_date(dp.promised_delivery).strftime("%d-%b-%y") %></td>
+                  <td><%= julian_to_date(dp.sdtrdj).strftime("%d-%m-%y") %></td>
+                  <td><%= julian_to_date(dp.promised_delivery).strftime("%d-%m-%y") %></td>
                   <td><%= (Date.today - julian_to_date(dp.promised_delivery).to_date).to_i %></td>
                 </tr>
                 <% end %>
