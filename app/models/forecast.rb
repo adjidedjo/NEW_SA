@@ -518,13 +518,13 @@ class Forecast < ActiveRecord::Base
       SELECT mas.*, rkb.source AS 'source_rkb', lkh.source AS 'source_lkh'
       FROM
        (
-         SELECT address_number AS aa, customer AS cs, DATE AS dt, brand AS br, sales_name FROM dbmarketing.monthly_visit_plans 
-	 WHERE address_number = '20194184' AND MONTH(DATE) = 10 AND YEAR(DATE) = 2019 AND branch = '19' GROUP BY address_number, customer, DATE
+         SELECT address_number AS aa, customer AS cs, DATE AS dt, brand AS br, sales_name FROM dbmarketing.monthly_visit_plans
+	 WHERE DATE BETWEEN '#{from}' AND '#{to}' AND branch = '#{branch}' GROUP BY address_number, customer, DATE
 	 UNION ALL
 	 SELECT sales.nik, spc.customer, sp.date, sp.brand, sales.nama FROM
 	 (
 	   (
-	     SELECT * FROM dbmarketing.sales_productivities WHERE DATE BETWEEN '2019-10-01' AND '2019-10-31' AND branch_id = '19' AND salesmen_id = '270'
+	     SELECT * FROM dbmarketing.sales_productivities WHERE DATE BETWEEN '#{from}' AND '#{to}' AND branch_id = '#{branch}'
 	   ) AS sp
 	   LEFT JOIN
 	   (
@@ -535,17 +535,17 @@ class Forecast < ActiveRecord::Base
 	     SELECT * FROM salesmen
 	   ) AS sales ON sales.id =  sp.salesmen_id
 	) GROUP BY sales.nik, sp.date, spc.customer
-      ) AS mas 
+      ) AS mas
       LEFT JOIN
       (
-        SELECT address_number AS aa, customer AS cs, DATE AS dt, brand AS br, sales_name, '1' AS source FROM dbmarketing.monthly_visit_plans 
+        SELECT address_number AS aa, customer AS cs, DATE AS dt, brand AS br, sales_name, '1' AS source FROM dbmarketing.monthly_visit_plans
       ) AS rkb ON rkb.aa = mas.aa AND rkb.dt = mas.dt AND rkb.cs = mas.cs
       LEFT JOIN
       (
         SELECT sales.nik, spc.customer, sp.date, sp.brand, sales.nama, '1' AS source FROM
 	 (
 	   (
-	     SELECT * FROM dbmarketing.sales_productivities WHERE DATE BETWEEN '2019-10-01' AND '2019-10-31' AND branch_id = '19' AND salesmen_id = '270'
+	     SELECT * FROM dbmarketing.sales_productivities WHERE DATE BETWEEN '#{from}' AND '#{to}' AND branch_id = '#{branch}'
 	   ) AS sp
 	   LEFT JOIN
 	   (
