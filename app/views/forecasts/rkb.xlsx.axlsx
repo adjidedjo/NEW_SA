@@ -28,7 +28,8 @@ wb.add_worksheet(name: "DETAIL RKB VS LKH") do |sheet|
 end
 
 wb.add_worksheet(:name => "Data Sheet") do |sheet|
-  pivot_table = Axlsx::PivotTable.new 'A1:H8', "B4:G500", wb.worksheets[0]
+  total = @rkb.count
+  pivot_table = Axlsx::PivotTable.new 'A1:H8', "B4:G#{total}", wb.worksheets[0]
   pivot_table.rows = ["NAMA", "TOKO", "BRAND"]
   pivot_table.columns = ["TANGGAL"]
   pivot_table.data = ["RKB", "LKH"]
