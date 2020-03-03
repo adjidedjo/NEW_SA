@@ -2,16 +2,6 @@ xlsx_package = Axlsx::Package.new
 wb = xlsx_package.workbook
 
 styles = wb.styles
-header = styles.add_style :bg_color => "DD", :sz => 16, :b => true, :alignment => {:horizontal => :center}
-tbl_header = styles.add_style :b => true, :alignment => { :horizontal => :center }
-ind_header = styles.add_style :bg_color => "FFDFDEDF", :b => true, :alignment => {:indent => 1}
-col_header  = styles.add_style :bg_color => "FFDFDEDF", :b => true, :alignment => { :horizontal => :center }
-label       = styles.add_style :alignment => { :indent => 1 }
-money       = styles.add_style :num_fmt => 5
-t_label       = styles.add_style :b => true, :bg_color => "FFDFDEDF"
-t_money = styles.add_style :b => true, :num_fmt => 5, :bg_color => "FFDFDEDF"
-wrap_text = styles.add_style :alignment => { :horizontal => :center, :vertical => :center, :wrap_text => true}
-profitable = wb.styles.add_style( :fg_color => "FF428751", :type => :dxf )
 
 wb.add_worksheet(name: "DETAIL RKB VS LKH") do |sheet|
   sheet.add_row ["RKB VS LKH"]
@@ -21,16 +11,12 @@ wb.add_worksheet(name: "DETAIL RKB VS LKH") do |sheet|
   @rkb.each do |rk|
     sheet.add_row [rk.aa, rk.sales_name, rk.cs, rk.br, rk.dt, rk.source_rkb, rk.source_lkh]
   end
-  color_scale = Axlsx::ColorScale.three_tone
-  sheet.add_conditional_formatting("D6:BM1000", { :type => :colorScale, :operator => :greaterThan, 
-    :formula => "0", :dxfId => profitable, 
-    :priority => 1, :color_scale => color_scale })
 end
 
 wb.add_worksheet(:name => "Data Sheet") do |sheet|
   total = @rkb.count
   pivot_table = Axlsx::PivotTable.new 'A1:H8', "B4:G#{total}", wb.worksheets[0]
-  pivot_table.rows = ["NAMA", "TOKO", "BRAND"]
+  pivot_table.rows = ["NIK", "NAMA","TOKO"]
   pivot_table.columns = ["TANGGAL"]
   pivot_table.data = ["RKB", "LKH"]
   pivot_table.pages = ['Region']
