@@ -51,8 +51,8 @@
                   <td><%= dp.jumlah/10000 %></td>
                   <td><%= dp.namasales %></td>
                   <td><%= dp.abalph %></td>
-                  <td><%= julian_to_date(dp.sdtrdj).strftime("%d-%m-%y") %></td>
-                  <td><%= julian_to_date(dp.promised_delivery).strftime("%d-%m-%y") %></td>
+                  <td><%= julian_to_date(dp.sdtrdj).strftime("%Y-%m-%d") %></td>
+                  <td><%= julian_to_date(dp.promised_delivery).strftime("%Y-%m-%d") %></td>
                   <td><%= (Date.today - julian_to_date(dp.promised_delivery).to_date).to_i %></td>
                 </tr>
                 <% end %>
