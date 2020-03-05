@@ -7,18 +7,51 @@ wb.add_worksheet(name: "DETAIL RKB VS LKH") do |sheet|
   sheet.add_row ["RKB VS LKH"]
   sheet.add_row ["#{params[:start_date]} - #{params[:end_date]}"]
   sheet.add_row []
-  sheet.add_row ["NIK", "NAMA", "TOKO", "BRAND", "TANGGAL", "RKB", "LKH"]
+  sheet.add_row ["NAMA", "TOKO", "1", "", "2", "", "3", "", "4", "", "5", "", "6", "", "7", "", "8", "", "9", "", 
+  "10", "", "11", "", "12", "", "13", "", "14", "", "15", "", "16", "", 
+  "17", "", "18", "", "19", "", "20", "", "21", "", "22", "", "23", "", 
+  "24", "", "25", "", "26", "", "27", "", "28", "", "29", "", "30", "", "31", ""]
   @rkb.each do |rk|
-    sheet.add_row [rk.aa, rk.sales_name, rk.cs, rk.br, rk.dt, rk.source_rkb, rk.source_lkh]
+    sheet.add_row [rk.sales_name, rk.customer, 
+    rk.plan1, rk.actual1, rk.plan2, rk.actual2, rk.plan3, rk.actual3, rk.plan4, rk.actual4, rk.plan5, rk.actual5, 
+    rk.plan6, rk.plan6, rk.plan7, rk.actual7, rk.plan8, rk.actual8, rk.plan9, rk.actual9, 
+    rk.plan10, rk.actual10, rk.plan11, rk.actual11, rk.plan12, rk.actual12, 
+    rk.plan13, rk.actual13, rk.plan14, rk.actual14, rk.plan15, rk.actual15, rk.plan16, rk.actual16, 
+    rk.plan17, rk.actual17, rk.plan18, rk.actual18, rk.plan19, rk.actual19, rk.plan20, rk.actual20, 
+    rk.plan21, rk.actual21, rk.plan22, rk.actual22, rk.plan23, rk.actual23, rk.plan24, rk.actual24, 
+    rk.plan25, rk.actual25, rk.plan26, rk.actual26, rk.plan27, rk.actual27, rk.plan28, rk.actual28, 
+    rk.plan29, rk.actual29, rk.plan30, rk.actual30, rk.plan31, rk.actual31]
   end
+sheet.merge_cells("C4:D4")
+sheet.merge_cells("E4:F4")
+sheet.merge_cells("G4:H4")
+sheet.merge_cells("I4:J4")
+sheet.merge_cells("K4:L4")
+sheet.merge_cells("M4:N4")
+sheet.merge_cells("O4:P4")
+sheet.merge_cells("Q4:R4")
+sheet.merge_cells("S4:T4")
+sheet.merge_cells("U4:V4")
+sheet.merge_cells("W4:X4")
+sheet.merge_cells("Y4:Z4")
+sheet.merge_cells("AA4:AB4")
+sheet.merge_cells("AC4:AD4")
+sheet.merge_cells("AE4:AF4")
+sheet.merge_cells("AG4:AH4")
+sheet.merge_cells("AI4:AJ4")
+sheet.merge_cells("AK4:AL4")
+sheet.merge_cells("AM4:AN4")
+sheet.merge_cells("AO4:AP4")
+sheet.merge_cells("AQ4:AR4")
+sheet.merge_cells("AS4:AT4")
+sheet.merge_cells("AU4:AV4")
+sheet.merge_cells("AW4:AX4")
+sheet.merge_cells("AY4:AZ4")
+sheet.merge_cells("BA4:BB4")
+sheet.merge_cells("BC4:BD4")
+sheet.merge_cells("BE4:BF4")
+sheet.merge_cells("BG4:BH4")
+sheet.merge_cells("BI4:BJ4")
+sheet.merge_cells("BK4:BL4")
 end
-
-wb.add_worksheet(:name => "Data Sheet") do |sheet|
-  total = @rkb.count
-  pivot_table = Axlsx::PivotTable.new 'A1:H8', "B4:G#{total}", wb.worksheets[0]
-  pivot_table.rows = ["NIK", "NAMA","TOKO"]
-  pivot_table.columns = ["TANGGAL"]
-  pivot_table.data = ["RKB", "LKH"]
-  pivot_table.pages = ['Region']
-  sheet.pivot_tables << pivot_table
-end
+xlsx_package.serialize("pivot_table.xlsx")
