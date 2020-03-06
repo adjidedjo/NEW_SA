@@ -515,49 +515,109 @@ class Forecast < ActiveRecord::Base
 
   def self.calculate_rkb_report(from, to , branch)
     find_by_sql("
-      SELECT mas.*, rkb.source AS 'source_rkb', lkh.source AS 'source_lkh'
-      FROM
-       (
-         SELECT address_number AS aa, customer AS cs, DATE AS dt, brand AS br, sales_name FROM dbmarketing.monthly_visit_plans
-	 WHERE DATE BETWEEN '#{from}' AND '#{to}' AND branch = '#{branch}' GROUP BY address_number, customer, DATE
-	 UNION ALL
-	 SELECT sales.nik, spc.customer, sp.date, sp.brand, sales.nama FROM
-	 (
-	   (
-	     SELECT * FROM dbmarketing.sales_productivities WHERE DATE BETWEEN '#{from}' AND '#{to}' AND branch_id = '#{branch}'
-	   ) AS sp
-	   LEFT JOIN
-	   (
-	     SELECT * FROM dbmarketing.sales_productivity_customers WHERE call_visit = 'visit'
-	   ) AS spc ON spc.sales_productivity_id = sp.id
-	   LEFT JOIN
-	   (
-	     SELECT * FROM salesmen
-	   ) AS sales ON sales.id =  sp.salesmen_id
-	) GROUP BY sales.nik, sp.date, spc.customer
-      ) AS mas
-      LEFT JOIN
-      (
-        SELECT address_number AS aa, customer AS cs, DATE AS dt, brand AS br, sales_name, '1' AS source FROM dbmarketing.monthly_visit_plans
-      ) AS rkb ON rkb.aa = mas.aa AND rkb.dt = mas.dt AND rkb.cs = mas.cs
-      LEFT JOIN
-      (
-        SELECT sales.nik, spc.customer, sp.date, sp.brand, sales.nama, '1' AS source FROM
-	 (
-	   (
-	     SELECT * FROM dbmarketing.sales_productivities WHERE DATE BETWEEN '#{from}' AND '#{to}' AND branch_id = '#{branch}'
-	   ) AS sp
-	   LEFT JOIN
-	   (
-	     SELECT * FROM dbmarketing.sales_productivity_customers WHERE call_visit = 'visit'
-	   ) AS spc ON spc.sales_productivity_id = sp.id
-	   LEFT JOIN
-	   (
-	     SELECT * FROM salesmen
-	   ) AS sales ON sales.id =  sp.salesmen_id
-	) GROUP BY sales.nik, sp.date, spc.customer
-      ) AS lkh ON lkh.nik = mas.aa AND lkh.date = mas.dt AND lkh.customer = mas.cs
-   GROUP BY mas.aa, mas.cs, mas.dt
+      SELECT sales_name, customer,SUM(plan1) AS plan1,SUM(actual1) AS actual1
+      ,SUM(plan2) AS plan2,SUM(actual2) AS actual2
+      ,SUM(plan3) AS plan3,SUM(actual3) AS actual3
+      ,SUM(plan4) AS plan4,SUM(actual4) AS actual4
+      ,SUM(plan5) AS plan5,SUM(actual5) AS actual5
+      ,SUM(plan6) AS plan6,SUM(actual6) AS actual6
+      ,SUM(plan7) AS plan7,SUM(actual7) AS actual7
+      ,SUM(plan8) AS plan8,SUM(actual8) AS actual8
+      ,SUM(plan9) AS plan9,SUM(actual9) AS actual9
+      ,SUM(plan10) AS plan10,SUM(actual10) AS actual10
+      ,SUM(plan11) AS plan11,SUM(actual11) AS actual11
+      ,SUM(plan12) AS plan12,SUM(actual12) AS actual12
+      ,SUM(plan13) AS plan13,SUM(actual13) AS actual13
+      ,SUM(plan14) AS plan14,SUM(actual14) AS actual14
+      ,SUM(plan15) AS plan15,SUM(actual15) AS actual15
+      ,SUM(plan16) AS plan16,SUM(actual16) AS actual16
+      ,SUM(plan17) AS plan17,SUM(actual17) AS actual17
+      ,SUM(plan18) AS plan18,SUM(actual18) AS actual18
+      ,SUM(plan19) AS plan19,SUM(actual19) AS actual19
+      ,SUM(plan20) AS plan20,SUM(actual20) AS actual20
+      ,SUM(plan21) AS plan21,SUM(actual21) AS actual21
+      ,SUM(plan22) AS plan22,SUM(actual22) AS actual22
+      ,SUM(plan23) AS plan23,SUM(actual23) AS actual23
+      ,SUM(plan24) AS plan24,SUM(actual24) AS actual24
+      ,SUM(plan25) AS plan25,SUM(actual25) AS actual25
+      ,SUM(plan26) AS plan26,SUM(actual26) AS actual26
+      ,SUM(plan27) AS plan27,SUM(actual27) AS actual27
+      ,SUM(plan28) AS plan28,SUM(actual28) AS actual28
+      ,SUM(plan29) AS plan29,SUM(actual29) AS actual29
+      ,SUM(plan30) AS plan30,SUM(actual30) AS actual30
+      ,SUM(plan31) AS plan31,SUM(actual31) AS actual31
+       FROM
+       (SELECT b.sales_name, b.customer, b.date AS tglplan, '' AS tglactual
+      ,CASE WHEN DAY(b.date)='1' THEN '1' ELSE '0' END AS plan1, '0' AS actual1
+      ,CASE WHEN DAY(b.date)='2' THEN '1' ELSE '0' END AS plan2, '0' AS actual2
+      ,CASE WHEN DAY(b.date)='3' THEN '1' ELSE '0' END AS plan3, '0' AS actual3
+      ,CASE WHEN DAY(b.date)='4' THEN '1' ELSE '0' END AS plan4, '0' AS actual4
+      ,CASE WHEN DAY(b.date)='5' THEN '1' ELSE '0' END AS plan5, '0' AS actual5
+      ,CASE WHEN DAY(b.date)='6' THEN '1' ELSE '0' END AS plan6, '0' AS actual6
+      ,CASE WHEN DAY(b.date)='7' THEN '1' ELSE '0' END AS plan7, '0' AS actual7
+      ,CASE WHEN DAY(b.date)='8' THEN '1' ELSE '0' END AS plan8, '0' AS actual8
+      ,CASE WHEN DAY(b.date)='9' THEN '1' ELSE '0' END AS plan9, '0' AS actual9
+      ,CASE WHEN DAY(b.date)='10' THEN '1' ELSE '0' END AS plan10, '0' AS actual10
+      ,CASE WHEN DAY(b.date)='11' THEN '1' ELSE '0' END AS plan11, '0' AS actual11
+      ,CASE WHEN DAY(b.date)='12' THEN '1' ELSE '0' END AS plan12, '0' AS actual12
+      ,CASE WHEN DAY(b.date)='13' THEN '1' ELSE '0' END AS plan13, '0' AS actual13
+      ,CASE WHEN DAY(b.date)='14' THEN '1' ELSE '0' END AS plan14, '0' AS actual14
+      ,CASE WHEN DAY(b.date)='15' THEN '1' ELSE '0' END AS plan15, '0' AS actual15
+      ,CASE WHEN DAY(b.date)='16' THEN '1' ELSE '0' END AS plan16, '0' AS actual16
+      ,CASE WHEN DAY(b.date)='17' THEN '1' ELSE '0' END AS plan17, '0' AS actual17
+      ,CASE WHEN DAY(b.date)='18' THEN '1' ELSE '0' END AS plan18, '0' AS actual18
+      ,CASE WHEN DAY(b.date)='19' THEN '1' ELSE '0' END AS plan19, '0' AS actual19
+      ,CASE WHEN DAY(b.date)='20' THEN '1' ELSE '0' END AS plan20, '0' AS actual20
+      ,CASE WHEN DAY(b.date)='21' THEN '1' ELSE '0' END AS plan21, '0' AS actual21
+      ,CASE WHEN DAY(b.date)='22' THEN '1' ELSE '0' END AS plan22, '0' AS actual22
+      ,CASE WHEN DAY(b.date)='23' THEN '1' ELSE '0' END AS plan23, '0' AS actual23
+      ,CASE WHEN DAY(b.date)='24' THEN '1' ELSE '0' END AS plan24, '0' AS actual24
+      ,CASE WHEN DAY(b.date)='25' THEN '1' ELSE '0' END AS plan25, '0' AS actual25
+      ,CASE WHEN DAY(b.date)='26' THEN '1' ELSE '0' END AS plan26, '0' AS actual26
+      ,CASE WHEN DAY(b.date)='27' THEN '1' ELSE '0' END AS plan27, '0' AS actual27
+      ,CASE WHEN DAY(b.date)='28' THEN '1' ELSE '0' END AS plan28, '0' AS actual28
+      ,CASE WHEN DAY(b.date)='29' THEN '1' ELSE '0' END AS plan29, '0' AS actual29
+      ,CASE WHEN DAY(b.date)='30' THEN '1' ELSE '0' END AS plan30, '0' AS actual30
+      ,CASE WHEN DAY(b.date)='31' THEN '1' ELSE '0' END AS plan31, '0' AS actual31
+       FROM salesmen a
+      LEFT JOIN monthly_visit_plans b ON a.nik=b.address_number
+      WHERE MONTH(b.DATE)= #{from.to_date.month} AND YEAR(b.DATE)= #{from.to_date.year} AND b.branch = #{branch}
+      UNION ALL
+      SELECT c.nama AS sales_name, customer, '' AS tglplan, b.DATE AS tglactual
+      ,'0' AS plan1,CASE WHEN DAY(b.date)='1' THEN '1' ELSE '0' END AS actual1
+      ,'0' AS plan2, CASE WHEN DAY(b.date)='2' THEN '1' ELSE '0' END AS actual2
+      ,'0' AS plan3, CASE WHEN DAY(b.date)='3' THEN '1' ELSE '0' END AS actual3
+      ,'0' AS plan4, CASE WHEN DAY(b.date)='4' THEN '1' ELSE '0' END AS actual4
+      ,'0' AS plan5, CASE WHEN DAY(b.date)='5' THEN '1' ELSE '0' END AS actual5
+      ,'0' AS plan6, CASE WHEN DAY(b.date)='6' THEN '1' ELSE '0' END AS actual6
+      ,'0' AS plan7, CASE WHEN DAY(b.date)='7' THEN '1' ELSE '0' END AS actual7
+      ,'0' AS plan8, CASE WHEN DAY(b.date)='8' THEN '1' ELSE '0' END AS actual8
+      ,'0' AS plan9, CASE WHEN DAY(b.date)='9' THEN '1' ELSE '0' END AS actual9
+      ,'0' AS plan10, CASE WHEN DAY(b.date)='10' THEN '1' ELSE '0' END AS actual10
+      ,'0' AS plan11, CASE WHEN DAY(b.date)='11' THEN '1' ELSE '0' END AS actual11
+      ,'0' AS plan12, CASE WHEN DAY(b.date)='12' THEN '1' ELSE '0' END AS actual12
+      ,'0' AS plan13, CASE WHEN DAY(b.date)='13' THEN '1' ELSE '0' END AS actual13
+      ,'0' AS plan14, CASE WHEN DAY(b.date)='14' THEN '1' ELSE '0' END AS actual14
+      ,'0' AS plan15, CASE WHEN DAY(b.date)='15' THEN '1' ELSE '0' END AS actual15
+      ,'0' AS plan16, CASE WHEN DAY(b.date)='16' THEN '1' ELSE '0' END AS actual16
+      ,'0' AS plan17, CASE WHEN DAY(b.date)='17' THEN '1' ELSE '0' END AS actual17
+      ,'0' AS plan18, CASE WHEN DAY(b.date)='18' THEN '1' ELSE '0' END AS actual18
+      ,'0' AS plan19, CASE WHEN DAY(b.date)='19' THEN '1' ELSE '0' END AS actual19
+      ,'0' AS plan20, CASE WHEN DAY(b.date)='20' THEN '1' ELSE '0' END AS actual20
+      ,'0' AS plan21, CASE WHEN DAY(b.date)='21' THEN '1' ELSE '0' END AS actual21
+      ,'0' AS plan22, CASE WHEN DAY(b.date)='22' THEN '1' ELSE '0' END AS actual22
+      ,'0' AS plan23, CASE WHEN DAY(b.date)='23' THEN '1' ELSE '0' END AS actual23
+      ,'0' AS plan24, CASE WHEN DAY(b.date)='24' THEN '1' ELSE '0' END AS actual24
+      ,'0' AS plan25, CASE WHEN DAY(b.date)='25' THEN '1' ELSE '0' END AS actual25
+      ,'0' AS plan26, CASE WHEN DAY(b.date)='26' THEN '1' ELSE '0' END AS actual26
+      ,'0' AS plan27, CASE WHEN DAY(b.date)='27' THEN '1' ELSE '0' END AS actual27
+      ,'0' AS plan28, CASE WHEN DAY(b.date)='28' THEN '1' ELSE '0' END AS actual28
+      ,'0' AS plan29, CASE WHEN DAY(b.date)='29' THEN '1' ELSE '0' END AS actual29
+      ,'0' AS plan30, CASE WHEN DAY(b.date)='30' THEN '1' ELSE '0' END AS actual30
+      ,'0' AS plan31, CASE WHEN DAY(b.date)='31' THEN '1' ELSE '0' END AS actual31
+       FROM sales_productivity_customers a INNER JOIN sales_productivities b ON a.sales_productivity_id=b.id INNER JOIN salesmen c ON b.salesmen_id=c.id
+      WHERE a.call_visit='visit' AND MONTH(b.date)= #{from.to_date.month} AND YEAR(b.date)=#{from.to_date.year} AND b.branch_id = #{branch}) X
+      GROUP BY sales_name, customer
     ")
   end
 
