@@ -83,12 +83,6 @@ wb.add_worksheet(:name => "BANDUNG") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  jb_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   jb_pbjm.each do |a|
@@ -104,21 +98,11 @@ wb.add_worksheet(:name => "BANDUNG") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = jb_mat.group_by(&:pbj).count
-  rows2 = jb_mats.group_by(&:pbj).count
   rows3 = jb_pbjm.group_by(&:status).count
   rows4 = jb_pbjo.group_by(&:status).count
   if rows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => "D3", :end_at => "G12", :title => "ALL PBJ") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
@@ -136,7 +120,7 @@ wb.add_worksheet(:name => "BANDUNG") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -161,12 +145,6 @@ wb.add_worksheet(:name => "CIREBON") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  crb_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   crb_pbjm.each do |a|
@@ -182,21 +160,11 @@ wb.add_worksheet(:name => "CIREBON") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = crb_mat.group_by(&:pbj).count
-  rows2 = crb_mats.group_by(&:pbj).count
   rows3 = crb_pbjm.group_by(&:status).count
   rows4 = crb_pbjo.group_by(&:status).count
   if rows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => "D3", :end_at => "G12", :title => "ALL PBJ ") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
@@ -214,7 +182,7 @@ wb.add_worksheet(:name => "CIREBON") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -236,12 +204,6 @@ wb.add_worksheet(:name => "NAROGONG") do |sheet|
   sheet.add_row ["TOTAL PBJ "], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
   jk_mat.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  jk_mats.group_by(&:pbj).each do |a, q|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
@@ -270,15 +232,6 @@ wb.add_worksheet(:name => "NAROGONG") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
   if rows3 > 1
     index_m = sheet.rows.index(addrow3)
     data = index_m.to_i - (rows3 - 1)
@@ -292,7 +245,7 @@ wb.add_worksheet(:name => "NAROGONG") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -314,12 +267,6 @@ wb.add_worksheet(:name => "YOGYA") do |sheet|
   sheet.add_row ["TOTAL PBJ "], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
   yk_mat.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  yk_mats.group_by(&:pbj).each do |a, q|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
@@ -348,15 +295,6 @@ wb.add_worksheet(:name => "YOGYA") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
   if rows3 > 1
     index_m = sheet.rows.index(addrow3)
     data = index_m.to_i - (rows3 - 1)
@@ -370,7 +308,7 @@ wb.add_worksheet(:name => "YOGYA") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -392,12 +330,6 @@ wb.add_worksheet(:name => "SEMARANG") do |sheet|
   sheet.add_row ["TOTAL PBJ "], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
   smg_mat.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  smg_mats.group_by(&:pbj).each do |a, q|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
@@ -426,15 +358,6 @@ wb.add_worksheet(:name => "SEMARANG") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
   if rows3 > 1
     index_m = sheet.rows.index(addrow3)
     data = index_m.to_i - (rows3 - 1)
@@ -448,7 +371,7 @@ wb.add_worksheet(:name => "SEMARANG") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -470,12 +393,6 @@ wb.add_worksheet(:name => "SURABAYA") do |sheet|
   sheet.add_row ["TOTAL PBJ "], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
   sby_mat.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  sby_mats.group_by(&:pbj).each do |a, q|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
@@ -504,15 +421,6 @@ wb.add_worksheet(:name => "SURABAYA") do |sheet|
       chart.d_lbls.d_lbl_pos = :outEnd
     end
   end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
   if rows3 > 1
     index_m = sheet.rows.index(addrow3)
     data = index_m.to_i - (rows3 - 1)
@@ -526,7 +434,7 @@ wb.add_worksheet(:name => "SURABAYA") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -551,12 +459,6 @@ wb.add_worksheet(:name => "KEDIRI") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  kdr_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   kdr_pbjm.each do |a|
@@ -572,21 +474,11 @@ wb.add_worksheet(:name => "KEDIRI") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = kdr_mat.group_by(&:pbj).count
-  rows2 = kdr_mats.group_by(&:pbj).count
   rows3 = kdr_pbjm.group_by(&:status).count
   rows4 = kdr_pbjo.group_by(&:status).count
   if rows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => "D3", :end_at => "G12", :title => "ALL PBJ ") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
@@ -604,7 +496,7 @@ wb.add_worksheet(:name => "KEDIRI") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -629,12 +521,6 @@ wb.add_worksheet(:name => "JEMBER") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  jmb_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   jmb_pbjm.each do |a|
@@ -650,21 +536,11 @@ wb.add_worksheet(:name => "JEMBER") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = jmb_mat.group_by(&:pbj).count
-  rows2 = jmb_mats.group_by(&:pbj).count
   rows3 = jmb_pbjm.group_by(&:status).count
   rows4 = jmb_pbjo.group_by(&:status).count
   if rows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => "D3", :end_at => "G12", :title => "ALL PBJ ") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
@@ -682,7 +558,7 @@ wb.add_worksheet(:name => "JEMBER") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -707,12 +583,6 @@ wb.add_worksheet(:name => "BALI") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  bl_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   bl_pbjm.each do |a|
@@ -728,21 +598,11 @@ wb.add_worksheet(:name => "BALI") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = bl_mat.group_by(&:pbj).count
-  rows2 = bl_mats.group_by(&:pbj).count
   rows3 = bl_pbjm.group_by(&:status).count
   rows4 = bl_pbjo.group_by(&:status).count
   if rows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => "D3", :end_at => "G12", :title => "ALL PBJ ") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
@@ -760,7 +620,7 @@ wb.add_worksheet(:name => "BALI") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -785,12 +645,6 @@ wb.add_worksheet(:name => "MAKASAR") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  mk_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   mk_pbjm.each do |a|
@@ -806,21 +660,11 @@ wb.add_worksheet(:name => "MAKASAR") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = mk_mat.group_by(&:pbj).count
-  rows2 = mk_mats.group_by(&:pbj).count
   rows3 = mk_pbjm.group_by(&:status).count
   rows4 = mk_pbjo.group_by(&:status).count
   if rows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => "D3", :end_at => "G12", :title => "ALL PBJ ") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
@@ -838,7 +682,7 @@ wb.add_worksheet(:name => "MAKASAR") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -863,12 +707,6 @@ wb.add_worksheet(:name => "MANADO") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  mnd_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   mnd_pbjm.each do |a|
@@ -884,21 +722,11 @@ wb.add_worksheet(:name => "MANADO") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = mnd_mat.group_by(&:pbj).count
-  rows2 = mnd_mats.group_by(&:pbj).count
   rows3 = mnd_pbjm.group_by(&:status).count
   rows4 = mnd_pbjo.group_by(&:status).count
   if rows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => "D3", :end_at => "G12", :title => "ALL PBJ ") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
@@ -916,7 +744,7 @@ wb.add_worksheet(:name => "MANADO") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -941,12 +769,6 @@ wb.add_worksheet(:name => "MEDAN") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  md_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   md_pbjm.each do |a|
@@ -962,7 +784,6 @@ wb.add_worksheet(:name => "MEDAN") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = md_mat.group_by(&:pbj).count
-  rows2 = md_mats.group_by(&:pbj).count
   rows3 = md_pbjm.group_by(&:status).count
   rows4 = md_pbjo.group_by(&:status).count
   if rows > 0
@@ -971,15 +792,6 @@ wb.add_worksheet(:name => "MEDAN") do |sheet|
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
 	  end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
   end
   if rows3 > 1
     index_m = sheet.rows.index(addrow3)
@@ -994,7 +806,7 @@ wb.add_worksheet(:name => "MEDAN") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -1019,12 +831,6 @@ wb.add_worksheet(:name => "PALEMBANG") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  pl_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   pl_pbjm.each do |a|
@@ -1040,7 +846,6 @@ wb.add_worksheet(:name => "PALEMBANG") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = pl_mat.group_by(&:pbj).count
-  rows2 = pl_mats.group_by(&:pbj).count
   rows3 = pl_pbjm.group_by(&:status).count
   rows4 = pl_pbjo.group_by(&:status).count
   if rows > 0 && pl_mat.present?
@@ -1049,15 +854,6 @@ wb.add_worksheet(:name => "PALEMBANG") do |sheet|
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
 	  end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
   end
   if rows3 > 1
     index_m = sheet.rows.index(addrow3)
@@ -1072,7 +868,7 @@ wb.add_worksheet(:name => "PALEMBANG") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -1097,12 +893,6 @@ wb.add_worksheet(:name => "PEKANBARU") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  pk_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   pk_pbjm.each do |a|
@@ -1118,7 +908,6 @@ wb.add_worksheet(:name => "PEKANBARU") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = pk_mat.group_by(&:pbj).count
-  rows2 = pk_mats.group_by(&:pbj).count
   rows3 = pk_pbjm.group_by(&:status).count
   rows4 = pk_pbjo.group_by(&:status).count
   if rows > 0 && pk_mat.present?
@@ -1127,15 +916,6 @@ wb.add_worksheet(:name => "PEKANBARU") do |sheet|
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
 	  end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
   end
   if rows3 > 1
     index_m = sheet.rows.index(addrow3)
@@ -1150,7 +930,7 @@ wb.add_worksheet(:name => "PEKANBARU") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -1172,12 +952,6 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
   sheet.add_row ["TOTAL PBJ "], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
   lp_mat.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  lp_mats.group_by(&:pbj).each do |a, q|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
@@ -1206,15 +980,6 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
 	    chart.d_lbls.d_lbl_pos = :outEnd
 	  end
   end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
   if rows3 > 1
     index_m = sheet.rows.index(addrow3)
     data = index_m.to_i - (rows3 - 1)
@@ -1228,7 +993,7 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -1253,12 +1018,6 @@ wb.add_worksheet(:name => "TANGERANG") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  ck_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   ck_pbjm.each do |a|
@@ -1274,7 +1033,6 @@ wb.add_worksheet(:name => "TANGERANG") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = ck_mat.group_by(&:pbj).count
-  rows2 = ck_mats.group_by(&:pbj).count
   rows3 = ck_pbjm.group_by(&:status).count
   rows4 = ck_pbjo.group_by(&:status).count
   if rows > 0
@@ -1283,15 +1041,6 @@ wb.add_worksheet(:name => "TANGERANG") do |sheet|
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
 	  end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
   end
   if rows3 > 1
     index_m = sheet.rows.index(addrow3)
@@ -1306,7 +1055,7 @@ wb.add_worksheet(:name => "TANGERANG") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -1331,12 +1080,6 @@ wb.add_worksheet(:name => "TASIK") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  tsk_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   tsk_pbjm.each do |a|
@@ -1352,7 +1095,6 @@ wb.add_worksheet(:name => "TASIK") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = tsk_mat.group_by(&:pbj).count
-  rows2 = tsk_mats.group_by(&:pbj).count
   rows3 = tsk_pbjm.group_by(&:status).count
   rows4 = tsk_pbjo.group_by(&:status).count
   if rows > 0
@@ -1361,15 +1103,6 @@ wb.add_worksheet(:name => "TASIK") do |sheet|
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
 	  end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
   end
   if rows3 > 1
     index_m = sheet.rows.index(addrow3)
@@ -1384,7 +1117,7 @@ wb.add_worksheet(:name => "TASIK") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -1409,12 +1142,6 @@ wb.add_worksheet(:name => "CIKAMPEK") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  ckp_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
   sheet.add_row ["PBJM"], :style => tbl_header
   sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
   ckp_pbjm.each do |a|
@@ -1430,7 +1157,6 @@ wb.add_worksheet(:name => "CIKAMPEK") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = ckp_mat.group_by(&:pbj).count
-  rows2 = ckp_mats.group_by(&:pbj).count
   rows3 = ckp_pbjm.group_by(&:pbj).count
   rows4 = ckp_pbjo.group_by(&:status).count
   if rows > 0
@@ -1439,15 +1165,6 @@ wb.add_worksheet(:name => "CIKAMPEK") do |sheet|
 	    chart.d_lbls.show_percent = true
 	    chart.d_lbls.d_lbl_pos = :outEnd
 	  end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
   end
   if rows3 > 1
     index_m = sheet.rows.index(addrow3)
@@ -1462,7 +1179,7 @@ wb.add_worksheet(:name => "CIKAMPEK") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -1492,12 +1209,6 @@ wb.add_worksheet(:name => "SUKABUMI") do |sheet|
   skb_mats.group_by(&:pbj).each do |a, q|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
-  sheet.add_row
-  sheet.add_row ["PBJM"], :style => tbl_header
-  sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
-  skb_pbjm.each do |a|
-    sheet.add_row [a.status, a.total]
-  end
   addrow3 = sheet.add_row
   sheet.add_row
   sheet.add_row ["PBJO"], :style => tbl_header
@@ -1508,21 +1219,11 @@ wb.add_worksheet(:name => "SUKABUMI") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = skb_mat.group_by(&:pbj).count
-  rows2 = skb_mats.group_by(&:pbj).count
   rows3 = skb_pbjm.group_by(&:status).count
   rows4 = skb_pbjo.group_by(&:status).count
   if rows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => "D3", :end_at => "G12", :title => "ALL PBJ ") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
@@ -1540,7 +1241,7 @@ wb.add_worksheet(:name => "SUKABUMI") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
@@ -1557,17 +1258,11 @@ wb.add_worksheet(:name => "SAMARINDA") do |sheet|
   smd_pbjo = smd_mat.select {|c| c[:pbj] == 'PBJO'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ #{params[:brand]} SUKABUMI"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} SAMARINDA"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ "], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
   smd_mat.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
-  end
-  sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  smd_mats.group_by(&:pbj).each do |a, q|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
@@ -1586,21 +1281,11 @@ wb.add_worksheet(:name => "SAMARINDA") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = smd_mat.group_by(&:pbj).count
-  rows2 = smd_mats.group_by(&:pbj).count
   rows3 = smd_pbjm.group_by(&:status).count
   rows4 = smd_pbjo.group_by(&:status).count
   if rows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => "D3", :end_at => "G12", :title => "ALL PBJ") do |chart|
       chart.add_series :data => sheet["B6:B#{5+rows}"], :labels => sheet["A6:A#{5+rows}"],  :colors => ['FF0000', '00FF00', '0000FF']
-      chart.d_lbls.show_percent = true
-      chart.d_lbls.d_lbl_pos = :outEnd
-    end
-  end
-  if rows2 > 0
-    trows2 = rows2 + rows
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "PBJ TERKIRIM") do |chart|
-      chart.add_series :data => sheet["B#{9+rows2}:B#{8+trows2}"], :labels => sheet["A#{9+rows2}:A#{8+trows2}"],  
-      :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
       chart.d_lbls.d_lbl_pos = :outEnd
     end
@@ -1618,7 +1303,7 @@ wb.add_worksheet(:name => "SAMARINDA") do |sheet|
   if rows4 > 1
     index_o = sheet.rows.index(addrow4)
     data = index_o.to_i - (rows4 - 1)
-    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H12", :end_at => "L22", :title => "STATUS PBJO") do |chart|
+    sheet.add_chart(Axlsx::Pie3DChart, :start_at => "H3", :end_at => "K12", :title => "STATUS PBJO") do |chart|
       chart.add_series :data => sheet["B#{data}:B#{index_o}"], :labels => sheet["A#{data}:A#{index_o}"],  
       :colors => ['FF0000', '00FF00', '0000FF']
       chart.d_lbls.show_percent = true
