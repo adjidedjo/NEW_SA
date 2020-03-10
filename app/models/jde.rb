@@ -14,7 +14,7 @@ class Jde < ActiveRecord::Base
           SELECT ORD.* FROM(
             SELECT * FROM PRODDTA.F4211
             WHERE REGEXP_LIKE(SDSRP2, 'KM|DV|HB|SA|ST|SB|KB') AND SDDRQJ BETWEEN '#{date_to_julian(from)}' AND '#{date_to_julian(to)}' AND SDSRP1 != 'K'
-            AND SDLTTR != '980' AND SDDCTO IN ('SK', 'ST') AND SDPRP4 != 'RM' AND SDSRP1 = '#{brand}' AND REGEXP_LIKE(SDVR01, '^PBJM|^PBJO')
+            AND SDLTTR != '980' AND SDDCTO IN ('SK', 'ST') AND SDPRP4 != 'RM' AND SDSRP1 = '#{brand}' AND SDVR01 LIKE 'PBJ%'
             ) ORD
         ) PBJ LEFT JOIN
         (
