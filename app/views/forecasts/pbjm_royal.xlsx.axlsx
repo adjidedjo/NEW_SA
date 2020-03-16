@@ -41,7 +41,7 @@ tsk = []
   crb << pbjm if (pbjm.sdshan == '18022' || pbjm.sdshan == '18022')
   jk << pbjm if (pbjm.sdshan == '11032' || pbjm.sdshan == '18032') 
   yk << pbjm if (pbjm.sdshan == '11042' || pbjm.sdshan == '18042')
-  smg << pbjm if (pbjm.sdshan == '11052' || pbjm.sdshan == '18042')
+  smg << pbjm if (pbjm.sdshan == '11052' || pbjm.sdshan == '18052')
   sby << pbjm if (pbjm.sdshan == '12062')
   kdr << pbjm if (pbjm.sdshan == '1206204')
   jmb << pbjm if (pbjm.sdshan == '12132')
