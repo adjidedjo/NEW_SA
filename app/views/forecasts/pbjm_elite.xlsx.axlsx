@@ -54,6 +54,7 @@ tsk = []
   lp << pbjm if (pbjm.sdshan == '18101' || pbjm.sdshan == '18102')
   ck << pbjm if (pbjm.sdshan == '18151' || pbjm.sdshan == '18152')
   smd << pbjm if (pbjm.sdshan == '18181' || pbjm.sdshan == '18182')
+  tsk << pbjm if (pbjm.sdshan == '1801101' || pbjm.sdshan == '1801102')
 end
 
 wb.add_worksheet(name: "SOURCE PBJM") do |sheet|
