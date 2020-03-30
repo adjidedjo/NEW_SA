@@ -1204,10 +1204,10 @@ wb.add_worksheet(:name => "SUKABUMI") do |sheet|
     sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
   end
   sheet.add_row
-  sheet.add_row ["TOTAL PBJ TERKIRIM"], :style => tbl_header
-  sheet.add_row ["PBJ", "TOTAL TERKIRIM"], :style => ind_header
-  skb_mats.group_by(&:pbj).each do |a, q|
-    sheet.add_row [a, q.map {|s| s['total']}.reduce(0, :+)]
+  sheet.add_row ["PBJM"], :style => tbl_header
+  sheet.add_row ["STATUS", "TOTAL"], :style => ind_header
+  skb_pbjm.each do |a|
+    sheet.add_row [a.status, a.total]
   end
   addrow3 = sheet.add_row
   sheet.add_row
