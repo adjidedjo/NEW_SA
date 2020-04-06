@@ -27,7 +27,7 @@ class Penjualan::Samarinda::SamarindaRecapsController < ApplicationController
   end
 
   def initialize_brach_id
-    54
+    55
   end
   
   def authorize_bm
