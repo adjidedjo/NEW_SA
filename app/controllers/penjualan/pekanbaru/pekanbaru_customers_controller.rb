@@ -29,7 +29,7 @@ class Penjualan::Pekanbaru::PekanbaruCustomersController < ApplicationController
   end
 
   def initialize_branch_id
-    2
+    20
   end
 
   def authorize_user
