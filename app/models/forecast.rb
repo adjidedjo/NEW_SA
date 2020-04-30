@@ -1,4 +1,23 @@
 class Forecast < ActiveRecord::Base
+  def self.cek_penjualan_pbjm_cabang(date, kode, branch)
+    a = find_by_sql("
+      SELECT SUM(jumlah) as jumlah FROM dbmarketing.tblaporancabang WHERE kodebrg = TRIM('#{kode}')
+      and ketppb = '#{branch}' and week = '#{date.to_date.cweek}' and fiscal_year = '#{date.to_date.year}'
+      and tipecust = 'RETAIL' AND orty IN ('RI', 'RX') GROUP BY kodebrg, ketppb
+    ")
+    b = a.first.nil? ? 0 : a.first.jumlah
+    return b
+  end
+
+  def self.cek_stock_pbjm_cabang(date, kode, branch)
+    a = find_by_sql("
+      SELECT onhand FROM warehouse.F41021_STOCK WHERE item_number = TRIM('#{kode}') and branch = '#{branch}'
+      and DATE(created_at) = '#{date}'
+    ")
+    b = a.empty? ? 0 : a.first.onhand
+    return b
+  end
+
   def self.calculate_customer_prog(area)
     find_by_sql("
       SELECT kode_customer as customer, customer as customer_desc, jenisbrgdisc as brand,

@@ -28,6 +28,17 @@ class ForecastsController < ApplicationController
     end
   end
   
+  def report_pbjm_cabang
+    @pbjm_cabang = Jde.calculate_pbjm_cabang(params[:start_date], params[:end_date], params[:brand], params[:branch])
+    
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "pbjm_cabang", :filename => "pbjm #{params[:brand]} week #{params[:start_date].to_date.cweek}.xlsx"}
+    end
+    rescue ActiveRecord::ActiveRecordError => e
+      redirect_to forecasts_pbjm_cabang_path, alert: 'Data tidak ditemukan, cek kembali inputan Branch Plan Anda!'
+  end
+  
   def dash_sales
     @sales_month = Penjualan::SalesmanSales.revenue_sales(current_user) if current_user.position == 'sales'
   end
@@ -43,6 +54,15 @@ class ForecastsController < ApplicationController
     respond_to do |format|
       format.xlsx {render :xlsx => "rekap_rkm", :filename => "rkm recap #{params[:week]}.xlsx"}
     end
+  end
+
+  def pbjm_cabang
+    if current_user.branch1 != nil || current_user.branch2 != nil
+      @areas = Area.where("id IN ('#{current_user.branch1}','#{current_user.branch2}')")
+    else
+      @areas = Area.all
+    end
+    @brand = Brand.where(external: 0)
   end
 
   def report_rkm

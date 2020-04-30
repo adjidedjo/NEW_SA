@@ -1,6 +1,37 @@
 class Jde < ActiveRecord::Base
   establish_connection :jdeoracle
   self.table_name = "PRODDTA.F0006"
+  
+  def self.calculate_pbjm_cabang(from, to, brand, branch)
+    find_by_sql("
+      SELECT ORD.*, IM.IMPRGR AS BRAND, TRIM(JN.JENIS) AS JENIS, (TRIM(ART.TIPE) || ' ' || TRIM(ART.TIPE2)) AS TIPE, TRIM(KA.KAIN) AS KAIN FROM
+      (
+        SELECT SDSHAN AS CABANG, MAX(SDTRDJ) AS TANGGALORDER, MAX(SDVR01) AS NOPBJM, SDLITM, MAX(SDITM) AS KODE,
+          MAX(SDDSC1) AS NAMABRG1, MAX(SDDSC2) AS NAMABRG2, SUM(SDUORG)/10000 AS TOTAL FROM PRODDTA.F4211
+          WHERE REGEXP_LIKE(SDSRP2, 'KM|DV|HB|SA|ST|SB|KB') AND SDDRQJ BETWEEN '120111' AND '120117' AND SDSRP1 != 'K'
+          AND SDLTTR != '980' AND SDDCTO IN ('SK', 'ST') AND SDPRP4 != 'RM' AND SDVR01 LIKE 'PBJM%'
+          AND SDVR01 NOT LIKE '%IMG%' AND SDVR01 NOT LIKE '%MM%' AND SDSHAN = '#{branch}'
+          GROUP BY SDSHAN, SDLITM, SDSRP1
+      ) ORD
+      LEFT JOIN
+      (
+        SELECT * FROM PRODDTA.F4101
+      ) IM ON IM.IMITM = ORD.KODE
+      LEFT JOIN
+       (
+       SELECT DRKY AS JENIS FROM PRODCTL.F0005 WHERE DRSY = '55' AND DRRT = 'JN'
+       ) JN ON JN.JENIS LIKE '%'||TRIM(IM.IMSEG1)
+       LEFT JOIN
+       (
+       SELECT DRDL01 AS TIPE, DRDL02 AS TIPE2, DRKY AS JENIS FROM PRODCTL.F0005 WHERE DRSY = '55' AND DRRT = 'AT'
+       ) ART ON ART.JENIS LIKE '%'||TRIM(IM.IMSEG2)
+       LEFT JOIN
+       (
+       SELECT DRKY, DRDL01 AS KAIN FROM PRODCTL.F0005 WHERE DRSY = '55' AND DRRT = 'KA'
+       ) KA ON KA.DRKY LIKE '%'||TRIM(IM.IMSEG3)
+    ")
+  end
+
   def self.calculate_pbjm(from, to, brand)
     brand = brand.at(0)
     find_by_sql("

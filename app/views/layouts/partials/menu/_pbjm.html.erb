@@ -1,0 +1,26 @@
+<li class="<%= 'active' if controller?('forecasts') %>">
+  <a href="#forcast" title="forecast" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Forecasts</b></span> </a>
+  <ul id="forcast" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Forecasts
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('report_rkm') %>">
+      <a href="/forecasts/report_rkm" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>RKM & PBJM</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_salesman') %>">
+      <a href="/forecasts/report_forecasts_salesman" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report by Sales</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_items') %>">
+      <a href="/forecasts/report_forecasts_items" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report by Item</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_branches') %>">
+      <a href="/forecasts/report_forecasts_branches" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report by Branch</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_years') %>">
+      <a href="/forecasts/report_forecasts_years" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report Year on Year</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('report_forecasts_directs') %>">
+      <a href="/forecasts/report_forecasts_directs" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>Report Direct Div</b></span> </a>
+    </li>
+  </ul>
+</li>
