@@ -1,17 +1,16 @@
 class Jde < ActiveRecord::Base
   establish_connection :jdeoracle
   self.table_name = "PRODDTA.F0006"
-  
   def self.calculate_pbjm_cabang(from, to, brand, branch)
     find_by_sql("
       SELECT ORD.*, IM.IMPRGR AS BRAND, TRIM(JN.JENIS) AS JENIS, (TRIM(ART.TIPE) || ' ' || TRIM(ART.TIPE2)) AS TIPE, TRIM(KA.KAIN) AS KAIN FROM
       (
-        SELECT SDSHAN AS CABANG, MAX(SDTRDJ) AS TANGGALORDER, MAX(SDVR01) AS NOPBJM, SDLITM, MAX(SDITM) AS KODE,
+        SELECT SUBSTR(SDVR01, 1, 6) AS NOPBJM, MAX(SDSHAN) AS CABANG, MAX(SDTRDJ) AS TANGGALORDER, SDLITM, MAX(SDITM) AS KODE,
           MAX(SDDSC1) AS NAMABRG1, MAX(SDDSC2) AS NAMABRG2, SUM(SDUORG)/10000 AS TOTAL FROM PRODDTA.F4211
-          WHERE REGEXP_LIKE(SDSRP2, 'KM|DV|HB|SA|ST|SB|KB') AND SDDRQJ BETWEEN '120111' AND '120117' AND SDSRP1 != 'K'
+          WHERE SDDRQJ BETWEEN '#{date_to_julian(from.to_date)}' AND '#{date_to_julian(to.to_date)}' AND SDSRP1 != 'K'
           AND SDLTTR != '980' AND SDDCTO IN ('SK', 'ST') AND SDPRP4 != 'RM' AND SDVR01 LIKE 'PBJM%'
-          AND SDVR01 NOT LIKE '%IMG%' AND SDVR01 NOT LIKE '%MM%' AND SDSHAN = '#{branch}'
-          GROUP BY SDSHAN, SDLITM, SDSRP1
+          AND SDVR01 NOT LIKE '%IMG%' AND SDVR01 NOT LIKE '%MM%' AND SDSHAN = '18011'
+          GROUP BY SUBSTR(SDVR01, 1, 6), SDLITM
       ) ORD
       LEFT JOIN
       (

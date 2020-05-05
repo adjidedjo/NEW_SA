@@ -16,12 +16,11 @@ wb.add_worksheet(name: "PBJM") do |sheet|
   sheet.add_row ["#{params[:start_date]} - #{params[:end_date]}"]
   sheet.add_row []
   sheet.add_row ["CABANG", "WEEK", "BRAND", "KODE BARANG", "NAMA BARANG", "JENIS", "TIPE", "KAIN", 
-  "STOCK AWAL MINGGU", "PBJM", "PENJUALAN"]
+  "PBJM", "PENJUALAN"]
   
   @pbjm_cabang.each do |p|
-    sheet.add_row [p.cabang, "#{params[:start_date].to_date.cweek}", p.brand, p.sdlitm, 
-    p.namabrg1.strip + " " + p.namabrg2.strip, p.jenis, p.tipe, p.kain, 
-    Forecast.cek_stock_pbjm_cabang(params[:start_date], p.sdlitm, p.cabang), p.total, 
-    Forecast.cek_penjualan_pbjm_cabang(params[:start_date], p.sdlitm, p.cabang)]
+    sheet.add_row [p.cabang, "#{p.nopbjm}", p.brand, p.sdlitm, 
+    p.namabrg1.strip + " " + p.namabrg2.strip, p.jenis, p.tipe, p.kain, p.total, 
+    Forecast.cek_penjualan_pbjm_cabang(params[:end_date], p.nopbjm[4..5], p.sdlitm, p.cabang)]
   end
 end
