@@ -9,7 +9,7 @@ class Jde < ActiveRecord::Base
           MAX(SDDSC1) AS NAMABRG1, MAX(SDDSC2) AS NAMABRG2, SUM(SDUORG)/10000 AS TOTAL FROM PRODDTA.F4211
           WHERE SDDRQJ BETWEEN '#{date_to_julian(from.to_date)}' AND '#{date_to_julian(to.to_date)}' AND SDSRP1 != 'K'
           AND SDLTTR != '980' AND SDDCTO IN ('SK', 'ST') AND SDPRP4 != 'RM' AND SDVR01 LIKE 'PBJM%'
-          AND SDVR01 NOT LIKE '%IMG%' AND SDVR01 NOT LIKE '%MM%' AND SDSHAN = '18011'
+          AND SDVR01 NOT LIKE '%IMG%' AND SDVR01 NOT LIKE '%MM%' AND SDSHAN = '#{branch}'
           GROUP BY SUBSTR(SDVR01, 1, 6), SDLITM
       ) ORD
       LEFT JOIN
