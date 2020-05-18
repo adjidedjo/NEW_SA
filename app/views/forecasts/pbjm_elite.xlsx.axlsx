@@ -1004,14 +1004,14 @@ wb.add_worksheet(:name => "LAMPUNG") do |sheet|
   sheet.merge_cells("A2:J2")
 end
 ##TANGERANG#####################################################################################################
-wb.add_worksheet(:name => "TANGERANG") do |sheet|
+wb.add_worksheet(:name => "JABODETABEK") do |sheet|
   ck_mat = ck.select {|c| c[:sdshan] == '18151'}
   ck_mats = ck_mat.select {|c| c[:status] == 'DELIVERED'}
   ck_pbjm = ck_mat.select {|c| c[:pbj] == 'PBJM'}
   ck_pbjo = ck_mat.select {|c| c[:pbj] == 'PBJO'}
   
   sheet.add_row
-  sheet.add_row ["REVIEW PBJ #{params[:brand]} TANGERANG"], :style => header
+  sheet.add_row ["REVIEW PBJ #{params[:brand]} JABODETABEK"], :style => header
   sheet.add_row
   sheet.add_row ["TOTAL PBJ "], :style => tbl_header
   sheet.add_row ["PBJ", "TOTAL"], :style => ind_header
