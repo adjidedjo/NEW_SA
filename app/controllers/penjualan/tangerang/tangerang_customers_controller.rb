@@ -29,7 +29,7 @@ class Penjualan::Tangerang::TangerangCustomersController < ApplicationController
   end
 
   def initialize_branch_id
-    3
+    23
   end
 
   def authorize_user
