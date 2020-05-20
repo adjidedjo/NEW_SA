@@ -1,8 +1,9 @@
 class Forecast < ActiveRecord::Base
-  def self.cek_penjualan_pbjm_cabang(date, week, kode, branch)
+  def self.cek_penjualan_pbjm_cabang(fdate, edate, kode, branch)
     a = find_by_sql("
       SELECT SUM(jumlah) as jumlah FROM dbmarketing.tblaporancabang WHERE kodebrg = TRIM('#{kode}')
-      and ketppb = '#{branch}' and week = '#{week}' and fiscal_year = '#{date.to_date.year}'
+      and ketppb = '#{branch}' and tanggalsj BETWEEN '#{fdate}' and '#{edate}' and
+      fiscal_year = '#{fdate.to_date.year}' and harganetto1 > 0
       and tipecust = 'RETAIL' AND orty IN ('RI', 'RX') GROUP BY kodebrg, ketppb
     ")
     b = a.first.nil? ? 0 : a.first.jumlah
