@@ -19,7 +19,7 @@ wb.add_worksheet(name: "PBJM") do |sheet|
   "PBJM", "PENJUALAN"]
   
   @pbjm_cabang.each do |p|
-    sheet.add_row [p.cabang, "#{p.nopbjm}", p.brand, p.sdlitm, 
+    sheet.add_row [p.cabang, "#{p.nopbjm}", p.brand, p.sdlitm.strip, 
     p.namabrg1.strip + " " + p.namabrg2.strip, p.jenis, p.tipe, p.kain, p.total, 
     Forecast.cek_penjualan_pbjm_cabang(params[:start_date], params[:end_date], p.sdlitm, p.cabang)]
   end
