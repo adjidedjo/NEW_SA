@@ -29,7 +29,7 @@ class Penjualan::Samarinda::SamarindaCustomersController < ApplicationController
   end
 
   def initialize_branch_id
-    54
+    55
   end
 
   def authorize_user
