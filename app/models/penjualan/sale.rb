@@ -84,7 +84,7 @@ class Penjualan::Sale < ActiveRecord::Base
     ROUND(((lc.y_val / st.year_target) * 100), 0) AS ty_percentage,
     ROUND(((lc.val_1 / st.target_val) * 100), 0) AS t_percentage FROM
     (
-      SELECT branch, brand,
+      SELECT area, brand,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND
         fiscal_year = '#{date.year}'  THEN sales_amount END) y_val,
       SUM(CASE WHEN fiscal_month = '#{date.month}'
@@ -95,18 +95,18 @@ class Penjualan::Sale < ActiveRecord::Base
         AND fiscal_year = '#{date.last_month.year}'  THEN sales_amount END) val_2
       FROM sales_mart.RET1BRAND WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
       AND '#{date.year}' AND branch NOT IN (1,50)
-      AND branch = '#{branch}' AND brand != ''
-      GROUP BY brand, branch
+      AND area = '#{branch}' AND brand != ''
+      GROUP BY brand, area
     ) as lc
       LEFT JOIN
       (
-        SELECT SUM(sales_amount) AS v_last_year, branch, brand FROM sales_mart.RET1BRAND WHERE
+        SELECT SUM(sales_amount) AS v_last_year, area, brand FROM sales_mart.RET1BRAND WHERE
         fiscal_month = '#{Date.yesterday.last_year.month}' AND
         fiscal_year = '#{Date.yesterday.last_year.year}'
-      ) AS ly ON lc.branch = ly.branch AND lc.branch = ly.branch
+      ) AS ly ON lc.area = ly.area AND lc.area = ly.area
       LEFT JOIN
       (
-        SELECT branch, brand,
+        SELECT area, brand,
         SUM(CASE WHEN month = '#{date.month}' AND year = '#{date.year}'
           THEN amount END) target_val,
         SUM(CASE WHEN month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
@@ -116,7 +116,7 @@ class Penjualan::Sale < ActiveRecord::Base
         AND month BETWEEN '#{date.beginning_of_year.month}' AND
         '#{date.end_of_year.month}'
         AND (year = '#{date.year}' OR year IS NULL) GROUP BY branch, brand
-      ) AS st ON lc.branch = st.branch AND lc.brand REGEXP st.brand
+      ) AS st ON lc.area = st.branch AND lc.brand REGEXP st.brand
     ")
   end
 
@@ -125,13 +125,13 @@ class Penjualan::Sale < ActiveRecord::Base
     lc.jatim, lc.yogya, lc.semarang, lc.pusat  FROM
     (
       SELECT article AS kodeartikel, article_desc AS namaartikel, product AS kodejenis,
-      SUM(CASE WHEN branch = 2 THEN sales_quantity END) jabar,
-      SUM(CASE WHEN branch = 23 THEN sales_quantity END) jakarta,
-      SUM(CASE WHEN branch = 4 THEN sales_quantity END) bali,
-      SUM(CASE WHEN branch = 7 THEN sales_quantity END) jatim,
-      SUM(CASE WHEN branch = 8 THEN sales_quantity END) semarang,
-      SUM(CASE WHEN branch = 10 THEN sales_quantity END) yogya,
-      SUM(CASE WHEN branch = 1 THEN sales_quantity END) pusat
+      SUM(CASE WHEN area = 2 THEN sales_quantity END) jabar,
+      SUM(CASE WHEN area = 23 THEN sales_quantity END) jakarta,
+      SUM(CASE WHEN area = 4 THEN sales_quantity END) bali,
+      SUM(CASE WHEN area = 7 THEN sales_quantity END) jatim,
+      SUM(CASE WHEN area = 8 THEN sales_quantity END) semarang,
+      SUM(CASE WHEN area = 10 THEN sales_quantity END) yogya,
+      SUM(CASE WHEN area = 1 THEN sales_quantity END) pusat
       FROM sales_mart.MM1ARTICLE WHERE fiscal_month = '#{date.month}' AND
       fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' GROUP BY kodeartikel
     ) as lc
@@ -158,18 +158,18 @@ class Penjualan::Sale < ActiveRecord::Base
     lc.jatim, lc.semarang, lc.cirebon, lc.yogya, lc.palembang, lc.lampung, lc.makasar, lc.pekanbaru  FROM
     (
       SELECT article AS kodeartikel, article_desc AS namaartikel, product AS kodejenis,
-      SUM(CASE WHEN branch = 2 THEN sales_quantity END) jabar,
-      SUM(CASE WHEN branch = 3 THEN sales_quantity END) jakarta,
-      SUM(CASE WHEN branch = 4 THEN sales_quantity END) bali,
-      SUM(CASE WHEN branch = 5 THEN sales_quantity END) medan,
-      SUM(CASE WHEN branch = 7 THEN sales_quantity END) jatim,
-      SUM(CASE WHEN branch = 8 THEN sales_quantity END) semarang,
-      SUM(CASE WHEN branch = 9 THEN sales_quantity END) cirebon,
-      SUM(CASE WHEN branch = 10 THEN sales_quantity END) yogya,
-      SUM(CASE WHEN branch = 11 THEN sales_quantity END) palembang,
-      SUM(CASE WHEN branch = 13 THEN sales_quantity END) lampung,
-      SUM(CASE WHEN branch = 19 THEN sales_quantity END) makasar,
-      SUM(CASE WHEN branch = 20 THEN sales_quantity END) pekanbaru
+      SUM(CASE WHEN area = 2 THEN sales_quantity END) jabar,
+      SUM(CASE WHEN area = 3 THEN sales_quantity END) jakarta,
+      SUM(CASE WHEN area = 4 THEN sales_quantity END) bali,
+      SUM(CASE WHEN area = 5 THEN sales_quantity END) medan,
+      SUM(CASE WHEN area = 7 THEN sales_quantity END) jatim,
+      SUM(CASE WHEN area = 8 THEN sales_quantity END) semarang,
+      SUM(CASE WHEN area = 9 THEN sales_quantity END) cirebon,
+      SUM(CASE WHEN area = 10 THEN sales_quantity END) yogya,
+      SUM(CASE WHEN area = 11 THEN sales_quantity END) palembang,
+      SUM(CASE WHEN area = 13 THEN sales_quantity END) lampung,
+      SUM(CASE WHEN area = 19 THEN sales_quantity END) makasar,
+      SUM(CASE WHEN area = 20 THEN sales_quantity END) pekanbaru
       FROM sales_mart.RET1ARTICLE WHERE fiscal_month = '#{date.month}' AND
       fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' GROUP BY kodeartikel
     ) as lc
@@ -192,7 +192,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{2.month.ago.month}' THEN sales_amount END) val_2
       FROM sales_mart.RET1BRAND WHERE fiscal_month BETWEEN '#{Date.yesterday.last_month.beginning_of_year.to_date.month}'
       AND '#{Date.yesterday.last_month.month}' AND fiscal_year BETWEEN '#{Date.yesterday.last_month.beginning_of_year.to_date.year}'
-      AND '#{Date.yesterday.last_month.year}' AND brand REGEXP '#{brand}' GROUP BY branch
+      AND '#{Date.yesterday.last_month.year}' AND brand REGEXP '#{brand}' GROUP BY area_id
     ) as lc
     LEFT JOIN
       (
@@ -306,7 +306,7 @@ class Penjualan::Sale < ActiveRecord::Base
     ROUND(((lc.val1_1 / st.month_target) * 100.0), 0) AS t_percentage,
     ROUND(((lc.y_qty / st.year_target) * 100), 0) AS ty_percentage FROM
     (
-      SELECT branch as area_id, brand as jenisbrgdisc,
+      SELECT area as area_id, brand as jenisbrgdisc,
       SUM(CASE WHEN
         fiscal_month IN ('#{date.last_month.month}','#{date.month}')
         AND fiscal_year BETWEEN '#{date.beginning_of_year.to_date.year}' AND '#{date.year}'
@@ -459,7 +459,7 @@ class Penjualan::Sale < ActiveRecord::Base
     ROUND(((lc.val1_1 / st.month_target) * 100.0), 0) AS t_percentage,
     ROUND(((lc.y_qty / st.year_target) * 100), 0) AS ty_percentage FROM
     (
-      SELECT branch as area_id, brand as jenisbrgdisc,
+      SELECT area as area_id, brand as jenisbrgdisc,
       SUM(CASE WHEN
         fiscal_month BETWEEN '#{date.beginning_of_year.to_date.month}' AND '#{date.month}'
         AND fiscal_year BETWEEN '#{date.beginning_of_year.to_date.year}' AND '#{date.year}'
@@ -470,13 +470,13 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
       FROM sales_mart.RET1BRAND WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}')
       AND fiscal_year BETWEEN '#{date.last_month.year}' AND '#{date.year}'
-      AND brand REGEXP '#{brand}' GROUP BY branch
+      AND brand REGEXP '#{brand}' GROUP BY area
     ) as lc
     LEFT JOIN
       (
-        SELECT SUM(sales_amount) AS revenue, branch as area_id FROM sales_mart.RET1BRAND WHERE
+        SELECT SUM(sales_amount) AS revenue, area as area_id FROM sales_mart.RET1BRAND WHERE
         fiscal_month = '#{date.last_year.month}' AND fiscal_year = '#{date.last_year.year}'
-        AND brand REGEXP '#{brand}' GROUP BY branch
+        AND brand REGEXP '#{brand}' GROUP BY area_id
       ) AS ly ON lc.area_id = ly.area_id
     LEFT JOIN
       (
@@ -492,7 +492,7 @@ class Penjualan::Sale < ActiveRecord::Base
         '#{date.end_of_year.year}' GROUP BY branch
       ) AS st ON lc.area_id = st.branch
     LEFT JOIN areas AS st
-      ON lc.area_id = st.id
+      ON lc.area_id = st.jde_id
     ")
   end
 
@@ -515,7 +515,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{12.month.ago.month}' AND fiscal_year = '#{12.month.ago.year}' THEN sales_amount END) val_12
       FROM sales_mart.RET1BRAND WHERE fiscal_month BETWEEN 1 AND 12
       AND fiscal_year BETWEEN '#{12.month.ago.year}' AND '#{date.year}'
-      AND brand REGEXP '#{brand}' and branch != 23 GROUP BY branch
+      AND brand REGEXP '#{brand}' and branch != 23 GROUP BY area_id
     ) as lc
     LEFT JOIN areas AS st
       ON lc.area_id = st.id
@@ -725,7 +725,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
       FROM sales_mart.RET3SALBRAND WHERE fiscal_day <= '#{date.day}' AND
       fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
-      AND '#{date.year}' AND branch = '#{branch}' AND brand REGEXP '#{brand}'
+      AND '#{date.year}' AND area = '#{branch}' AND brand REGEXP '#{brand}'
       GROUP BY salesmen
     ) AS lc")
   end
@@ -746,7 +746,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) total_2
       FROM sales_mart.RET4CITYPRODUCT WHERE fiscal_day <= '#{date.day}' AND
       fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
-      AND '#{date.year}' AND branch = '#{branch}' AND brand REGEXP '#{brand}'
+      AND '#{date.year}' AND area = '#{branch}' AND brand REGEXP '#{brand}'
       GROUP BY city
       ) as sub")
   end
@@ -767,7 +767,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) total_2
       FROM sales_mart.RET2CUSPRODUCT WHERE fiscal_day <= '#{date.day}' AND
       fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
-      AND '#{date.year}' AND branch = '#{branch}' AND brand REGEXP '#{brand}'
+      AND '#{date.year}' AND area = '#{branch}' AND brand REGEXP '#{brand}'
       GROUP BY customer
       ) as sub")
   end
@@ -780,7 +780,7 @@ class Penjualan::Sale < ActiveRecord::Base
     ROUND(((lc.val_1 / SUM(st.month_target)) * 100.0), 0) AS t_percentage,
     ROUND(((lc.y_qty / SUM(st.year_target)) * 100), 0) AS ty_percentage FROM
     (
-      SELECT branch,
+      SELECT area,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) val_1,
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2,
       SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.last_year.year}' THEN sales_amount END) revenue,
@@ -788,7 +788,7 @@ class Penjualan::Sale < ActiveRecord::Base
         '#{date.last_month.month}' AND fiscal_year = '#{date.year}' THEN sales_amount END) y_qty
       FROM sales_mart.RET1BRAND WHERE fiscal_day <= '#{date.day}' AND fiscal_month IN ('#{date.last_month.month}','#{date.month}')
       AND fiscal_year IN ('#{date.last_year.year}', '#{date.year}')
-      AND branch = '#{branch}' AND brand REGEXP '#{brand}'
+      AND area = '#{branch}' AND brand REGEXP '#{brand}'
     ) as lc
       LEFT JOIN
       (
@@ -802,7 +802,7 @@ class Penjualan::Sale < ActiveRecord::Base
         AND month BETWEEN '#{date.beginning_of_year.month}' AND
         '#{date.end_of_year.month}'
         AND (year = '#{Date.yesterday.year}' OR year IS NULL)
-      ) AS st ON lc.branch = st.branch
+      ) AS st ON lc.area = st.branch
     ")
   end
 
@@ -853,7 +853,7 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN fiscal_month = '#{date.last_month.month}' AND fiscal_year = '#{date.last_month.year}' THEN sales_amount END) val_2
       FROM sales_mart.RET1PRODUCT WHERE fiscal_day <= '#{date.day}' AND
       fiscal_month IN ('#{date.last_month.month}','#{date.month}')
-      AND '#{date.month}' AND branch = '#{branch}' AND brand REGEXP '#{brand}'
+      AND '#{date.month}' AND area = '#{branch}' AND brand REGEXP '#{brand}'
       GROUP BY product
       ) as lc
       ")
