@@ -6,7 +6,8 @@ class Forecast < ActiveRecord::Base
 	      SELECT kodebrg, nofaktur, SUM(jumlah) as jumlah, harganetto2 as harga_ri
 	      FROM dbmarketing.tblaporancabang WHERE kodebrg = TRIM('#{kode}')
 	      and ketppb = '#{branch}' and tanggalsj BETWEEN '#{fdate}' and '#{edate}' and
-	      fiscal_year = '#{fdate.to_date.year}' AND orty IN ('RI', 'RX') GROUP BY kodebrg, ketppb, nofaktur
+	      fiscal_year = '#{fdate.to_date.year}'
+	      and tipecust = 'RETAIL' AND orty IN ('RI', 'RX') GROUP BY kodebrg, ketppb, nofaktur
 	) AS ri
 	LEFT JOIN
 	(
