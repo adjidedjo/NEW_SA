@@ -1,13 +1,12 @@
 class Forecast < ActiveRecord::Base
   def self.cek_penjualan_pbjm_cabang(fdate, edate, kode, branch)
     a = find_by_sql("
-	SELECT (CASE WHEN ri.harga_ri = 0 AND rm.harganetto2 > 0 THEN SUM(ri.jumlah) else SUM(ri.jumlah) END)  jumlah FROM 
+	SELECT (CASE WHEN ri.harga_ri = 0 AND rm.harganetto2 > 0 THEN SUM(ri.jumlah) else SUM(ri.jumlah) END)  jumlah FROM
 	(
-	      SELECT kodebrg, nofaktur, SUM(jumlah) as jumlah, harganetto2 as harga_ri 
+	      SELECT kodebrg, nofaktur, SUM(jumlah) as jumlah, harganetto2 as harga_ri
 	      FROM dbmarketing.tblaporancabang WHERE kodebrg = TRIM('#{kode}')
 	      and ketppb = '#{branch}' and tanggalsj BETWEEN '#{fdate}' and '#{edate}' and
-	      fiscal_year = '#{fdate.to_date.year}'
-	      and tipecust = 'RETAIL' AND orty IN ('RI', 'RX') GROUP BY kodebrg, ketppb, nofaktur
+	      fiscal_year = '#{fdate.to_date.year}' AND orty IN ('RI', 'RX') GROUP BY kodebrg, ketppb, nofaktur
 	) AS ri
 	LEFT JOIN
 	(
