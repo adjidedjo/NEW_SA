@@ -106,7 +106,7 @@ class Penjualan::Sale < ActiveRecord::Base
       ) AS ly ON lc.area = ly.area AND lc.area = ly.area
       LEFT JOIN
       (
-        SELECT area, brand,
+        SELECT branch, brand,
         SUM(CASE WHEN month = '#{date.month}' AND year = '#{date.year}'
           THEN amount END) target_val,
         SUM(CASE WHEN month BETWEEN '#{date.beginning_of_year.to_date.month}' AND
