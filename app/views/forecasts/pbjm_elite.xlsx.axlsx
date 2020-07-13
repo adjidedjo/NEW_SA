@@ -1220,7 +1220,7 @@ wb.add_worksheet(:name => "SUKABUMI") do |sheet|
   addrow4 = sheet.add_row
   offset = 8
   rows = skb_mat.group_by(&:pbj).count
-  rows3 = skb_pbjm.group_by(&:status).count
+  rows3 = skb_pbjm.group_by(&:pbj).count
   rows4 = skb_pbjo.group_by(&:status).count
   if rows > 0
     sheet.add_chart(Axlsx::Pie3DChart, :start_at => "D3", :end_at => "G12", :title => "ALL PBJ ") do |chart|
