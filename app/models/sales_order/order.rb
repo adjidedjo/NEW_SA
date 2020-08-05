@@ -184,11 +184,12 @@ class SalesOrder::Order < ActiveRecord::Base
     Jde.find_by_sql("SELECT so.sddoco AS order_no, so.sddrqj as promised_delivery, so.sdnxtr as status, 
     so.sduorg AS jumlah, so.sdtrdj AS sdtrdj,
     so.sdsrp1 AS sdsrp1, so.sdmcu AS sdmcu, so.sditm, so.sdlitm AS sdlitm, 
-    so.sddsc1 AS sddsc1, so.sddsc2 AS sddsc2, itm.imseg1 AS imseg1,
+    so.sddsc1 AS sddsc1, so.sddsc2 AS sddsc2, itm.imseg1 AS imseg1, so_head.shhold as hold,
     cus.abalph AS abalph, so.sdshan, cus.abat1 AS abat1,
     so.sdtorg AS sdtorg, so.sdpsn, so.sdlttr, so.sddcto, so.sdlotn, so.sdvr01, CM1.ABALPH AS NAMASALES, 
     art.drdl01 as article
     FROM PRODDTA.F4211 so
+    JOIN PRODDTA.F4201 so_head ON so.sddoco = so_head.shdoco
     JOIN PRODDTA.F4101 itm ON so.sditm = itm.imitm
     JOIN PRODDTA.F0101 cus ON so.sdshan = cus.aban8
     LEFT JOIN
@@ -212,11 +213,12 @@ class SalesOrder::Order < ActiveRecord::Base
     Jde.find_by_sql("SELECT so.sddoco AS order_no, so.sddrqj as promised_delivery, so.sdnxtr as status, 
     so.sduorg AS jumlah, so.sdtrdj AS sdtrdj,
     so.sdsrp1 AS sdsrp1, so.sdmcu AS sdmcu, so.sditm, so.sdlitm AS sdlitm, 
-    so.sddsc1 AS sddsc1, so.sddsc2 AS sddsc2, itm.imseg1 AS imseg1,
+    so.sddsc1 AS sddsc1, so.sddsc2 AS sddsc2, itm.imseg1 AS imseg1, so_head.shhold as hold,
     cus.abalph AS abalph, so.sdshan, cus.abat1 AS abat1,
     so.sdtorg AS sdtorg, so.sdpsn, so.sdlttr, so.sddcto, so.sdlotn, so.sdvr01, CM1.ABALPH AS NAMASALES, 
     art.drdl01 as article
     FROM PRODDTA.F4211 so
+    JOIN PRODDTA.F4201 so_head ON so.sddoco = so_head.shdoco
     JOIN PRODDTA.F4101 itm ON so.sditm = itm.imitm
     JOIN PRODDTA.F0101 cus ON so.sdshan = cus.aban8
     LEFT JOIN
