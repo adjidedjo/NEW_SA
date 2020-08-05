@@ -4,14 +4,14 @@ class MarketsharesController < ApplicationController
   # GET /marketshares
   # GET /marketshares.json
   def by_store
-    @areas = if current_user.position == 'admin' 
-       Area.all
-     elsif current_user.branch1 != nil && current_user.branch2 != nil
+    @areas = if current_user.branch1 != nil && current_user.branch2 != nil
        Area.find_by_sql("select * from areas where id = #{current_user.branch1} or id = #{current_user.branch2}")
      elsif current_user.branch2 != nil
        Area.find_by_sql("select * from areas where id = #{current_user.branch2}")
      elsif current_user.branch1 != nil
        Area.find_by_sql("select * from areas where id = #{current_user.branch1}")
+     else
+       Area.all
      end
     @brand = Brand.where(external: 0)
     @ms_by_store = MarketshareBrand.customers(params[:areas], params[:brand], current_user.position) if params[:areas].present?
