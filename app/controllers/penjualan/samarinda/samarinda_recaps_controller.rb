@@ -5,7 +5,7 @@ class Penjualan::Samarinda::SamarindaRecapsController < ApplicationController
 
   def recap
     gon.brand = initialize_brand
-    @branch = "JAWA BARAT"
+    @branch = "SAMARINDA"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/recap_branch"
   end
