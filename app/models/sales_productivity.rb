@@ -7,8 +7,8 @@ class SalesProductivity < ActiveRecord::Base
   
   def self.budget_cont(branch, from, to)
     self.find_by_sql("
-      SELECT SUM(ums) AS ums, SUM(hotel) AS hotel,
-      SUM(akomodasi) AS akomodasi FROM monthly_visit_plans 
+      SELECT IFNULL(SUM(ums), 0) AS ums, IFNULL(SUM(hotel),0) AS hotel,
+      IFNULL(SUM(akomodasi),0) AS akomodasi FROM monthly_visit_plans 
       WHERE date BETWEEN '#{from}' AND '#{to}' AND branch = '#{branch}'
     ")
   end
