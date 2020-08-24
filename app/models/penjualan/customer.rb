@@ -12,7 +12,7 @@ class Penjualan::Customer < Penjualan::Sale
           FROM (
             SELECT jenisbrgdisc, area_id, customer, kode_customer, kota, harganetto2, WEEK, fiscal_year
             FROM dbmarketing.tblaporancabang
-            WHERE tanggalsj BETWEEN '#{5.weeks.ago.to_date}' AND '#{1.weeks.ago.to_date}' AND jenisbrgdisc REGEXP '#{brand}' AND tipecust = 'RETAIL'
+            WHERE tanggalsj BETWEEN '#{5.weeks.ago.to_date}' AND '#{1.weeks.ago.end_of_week.to_date}' AND jenisbrgdisc REGEXP '#{brand}' AND tipecust = 'RETAIL'
             AND area_id IS NOT NULL
           ) a GROUP BY a.customer, a.jenisbrgdisc
       ) b
