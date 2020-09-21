@@ -14,6 +14,7 @@ lampung = []
 makasar = []
 pekanbaru = []
 manado = []
+samarinda = []
 @pbj_mingguan_admin.each do |pma|
   jabar << pma if pma.branch == 2
   jakarta << pma if pma.branch == 3
@@ -28,6 +29,7 @@ manado = []
   makasar << pma if pma.branch == 19
   pekanbaru << pma if pma.branch == 20
   manado << pma if pma.branch == 26
+  samarinda << pma if pma.branch == 55
 end
 
 percent = wb.styles.add_style(:format_code => "0%", :sz => 11)
@@ -285,4 +287,23 @@ wb.add_worksheet(name: "MANADO") do |sheet|
   end
   sheet.add_conditional_formatting("O5:O#{manado.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
   sheet.add_conditional_formatting("O5:O#{manado.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
+end
+
+wb.add_worksheet(name: "SAMARINDA") do |sheet|
+  sheet.add_row ["RENCANA KERJA MINGGUAN"]
+  sheet.add_row ["#{@week} - #{@week+7}"]
+  sheet.add_row []
+  sheet.add_row ["CABANG", "KODE SALES", "NAMA", "MINGGU", "KODE BARANG", 
+    "L", "BRAND", "ARTIKEL", "KAIN","TARGET PENJUALAN", "SISA RKM", "TOTAL TARGET", 
+    "STOCK GUDANG MINGGU #{params[:week]}", 
+    "REALISASI PENJUALAN MINGGU #{params[:week]}", "AKURASI"]
+  samarinda.each do |p|
+    sheet.add_row [p.cabang, p.address_number, p.sales_name.nil? ? '-' : p.sales_name.strip, p.week, p.item_number, 
+    p.size, p.brand, p.segment2_name, p.segment3_name, p.target_penjualan, p.sisa, 
+    p.total_target, p.stock, p.jumlah_penjualan, 
+    "#{(p.jumlah_penjualan.to_f/p.total_target.to_f).infinite? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f).nan? ? 0 : (p.jumlah_penjualan.to_f/p.total_target.to_f)}"],
+    :style=>[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,percent]
+  end
+  sheet.add_conditional_formatting("O5:O#{samarinda.count+4}", { :type => :cellIs, :operator => :greaterThan, :formula => "1", :dxfId => more, :priority => 1 })
+  sheet.add_conditional_formatting("O5:O#{samarinda.count+4}", { :type => :cellIs, :operator => :lessThan, :formula => "1", :dxfId => less, :priority => 1 })
 end
