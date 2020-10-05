@@ -80,8 +80,8 @@ class Forecast < ActiveRecord::Base
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
       (
-        SELECT item_number, address_number, WEEK, quantity FROM rkm_histories WHERE week = '#{week.to_i-1}'
-      ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number
+        SELECT item_number, address_number, WEEK, quantity, branch FROM rkm_histories WHERE week = '#{week.to_i-1}'
+      ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number and rh.branch = f1.branch
       LEFT JOIN
       (
         SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.beginning_of_week.to_date}'
@@ -133,8 +133,8 @@ class Forecast < ActiveRecord::Base
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
       (
-        SELECT item_number, address_number, WEEK, quantity FROM rkm_histories WHERE week = '#{week.to_i-1}'
-      ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number
+        SELECT item_number, address_number, WEEK, quantity, branch FROM rkm_histories WHERE week = '#{week.to_i-1}'
+      ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number and rh.branch = f1.branch
       LEFT JOIN
       (
         SELECT * FROM dbmarketing.tbidcabang
@@ -178,8 +178,8 @@ class Forecast < ActiveRecord::Base
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
       (
-        SELECT item_number, address_number, WEEK, SUM(quantity) AS quantity FROM rkm_histories WHERE week = '#{week.to_i-1}' and year = '#{year.to_i}'
-      ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number
+        SELECT item_number, address_number, WEEK, SUM(quantity) AS quantity, branch FROM rkm_histories WHERE week = '#{week.to_i-1}' and year = '#{year.to_i}'
+      ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number and rh.branch = f1.branch
       LEFT JOIN
       (
         SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.beginning_of_week.to_date}'
@@ -227,8 +227,8 @@ class Forecast < ActiveRecord::Base
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
       (
-        SELECT item_number, address_number, WEEK, quantity FROM rkm_histories WHERE week = '#{week.to_i-1}'
-      ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number
+        SELECT item_number, address_number, WEEK, quantity, branch FROM rkm_histories WHERE week = '#{week.to_i-1}'
+      ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number and rh.branch = f1.branch
       LEFT JOIN
       (
         SELECT item_number, branch_code, SUM(onhand) AS onhand FROM warehouse.F41021_STOCK WHERE DATE(created_at) = '#{Date.today.beginning_of_week.to_date}'
