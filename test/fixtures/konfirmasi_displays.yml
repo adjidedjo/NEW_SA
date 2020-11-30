@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kode_toko: MyString
+  toko: MyString
+  kode_sales: MyString
+  salesman: MyString
+  brand: MyString
+  tanggal: 2020-11-26
+  image: MyString
+
+two:
+  kode_toko: MyString
+  toko: MyString
+  kode_sales: MyString
+  salesman: MyString
+  brand: MyString
+  tanggal: 2020-11-26
+  image: MyString

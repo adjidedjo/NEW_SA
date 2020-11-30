@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      KONFIRMASI DISPLAY
+    </div>
+    <div class="panel-body">
+      <div class="row">
+		<%= form_for(konfirmasi_display) do |f| %>
+		  <% if konfirmasi_display.errors.any? %>
+		    <div id="error_explanation">
+		      <h2>Maaf, Silahkan periksa kembali inputan anda, karena:</h2>
+		
+		      <ul>
+		      <% konfirmasi_display.errors.full_messages.each do |message| %>
+		        <li><%= message %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+	  <%= f.hidden_field :kode_toko %>
+	  <%= f.hidden_field :salesman %>
+  	  <fieldset>
+        <div class="form-group">
+          <label class="col-lg-2 control-label">NAMA</label>
+          <div class="col-lg-10">
+            <%= f.select "kode_sales", options_for_select(@salesman.map {|a| [a.salesman, a.kode_sales]}), class: 'form-control' %>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label class="col-lg-2 control-label">BRAND</label>
+          <div class="col-lg-10">
+            <%= f.select "brand", options_for_select(@brand.map {|a| [a.jde_brand, a.jde_brand]}), class: 'form-control m-b' %>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label class="col-lg-2 control-label">TOKO</label>
+          <div class="col-lg-10">
+            <%= f.text_field :toko, data: { cus_display: @customer.map(&:customer)} %>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group mb">
+          <label class="col-sm-2 control-label mb">TANGGAL</label>
+          <div class="col-sm-5">
+            <div id="datepicker1" class="input-group date">
+              <%= f.text_field "tanggal", class: 'form-control' %>
+              <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label class="col-lg-2 control-label">IMAGE</label>
+          <div class="col-lg-10">
+            <%= f.file_field "image" %>
+          </div>
+        </div>
+      </fieldset>
+	  <%= f.submit "CREATE", class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>
+<% end %>

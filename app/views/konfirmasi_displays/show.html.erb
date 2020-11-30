@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kode toko:</strong>
+  <%= @konfirmasi_display.kode_toko %>
+</p>
+
+<p>
+  <strong>Toko:</strong>
+  <%= @konfirmasi_display.toko %>
+</p>
+
+<p>
+  <strong>Kode sales:</strong>
+  <%= @konfirmasi_display.kode_sales %>
+</p>
+
+<p>
+  <strong>Salesman:</strong>
+  <%= @konfirmasi_display.salesman %>
+</p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @konfirmasi_display.brand %>
+</p>
+
+<p>
+  <strong>Tanggal:</strong>
+  <%= @konfirmasi_display.tanggal %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= image_tag(@konfirmasi_display.image) %>
+</p>
+
+<%= link_to "#{@konfirmasi_display.checked? ? 'Tolak' : 'Terima'}", checked_status_konfirmasi_display_path(@konfirmasi_display), method: :patch, class: "btn btn-primary" %> |
+<%= link_to 'Kembali', konfirmasi_displays_path, class: "btn btn-success" %> | 
+<%= link_to 'Hapus', @konfirmasi_display, method: :delete, data: { confirm: 'Yakin?' }, class: "btn btn-danger" %>
