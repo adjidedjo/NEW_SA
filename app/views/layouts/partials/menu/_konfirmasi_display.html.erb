@@ -1,0 +1,14 @@
+<li class="<%= 'active' if controller?('konfirmasi_displays') %>">
+  <a href="#kadis" title="kadis" data-toggle="collapse"> <em class="fa fa-tasks"></em> <span><b>Konfirmasi Display</b></span> </a>
+  <ul id="kadis" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Konfirmasi Display
+    </li>
+    <li class="<%= 'active' if controller?('konfirmasi_displays') && action?('new') %>">
+      <a href="/konfirmasi_displays/new" title="Kadis"> <em class="fa fa-cubes"></em> <span><b>Buat Baru</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('konfirmasi_displays') && action?('index') %>">
+      <a href="/konfirmasi_displays/" title="Kadis"> <em class="fa fa-bell-o"></em> <span><b>Lihat Data</b></span> </a>
+    </li>
+  </ul>
+</li>
