@@ -4,3 +4,6 @@
 <%= render "layouts/partials/menu/credit_limit" %>
 <%= render "layouts/partials/menu/retail_sales" %>
 <%= render "layouts/partials/menu/stock" %>
+<li class="<%= 'active' if controller?('konfirmasi_displays') && action?('new') %>">
+  <a href="/konfirmasi_displays/new" title="Elite"> <em class="fa fa-cubes"></em> <span><b>Konfirmasi Display</b></span> </a>
+</li>

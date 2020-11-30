@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   
+  resources :konfirmasi_displays do
+    member do
+      patch :checked_status
+    end
+  end
   resources :plan_visits
   #planning orders
   get 'order/production/planning/aging_orders'

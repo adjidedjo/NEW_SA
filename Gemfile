@@ -58,6 +58,7 @@ gem 'underscore-rails'
 gem 'countries'
 gem 'country_select'
 gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
 
 gem 'turnout'
 
