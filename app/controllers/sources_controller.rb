@@ -46,7 +46,7 @@ class SourcesController < ApplicationController
       @areas = Area.all
     end
     @brand = Brand.where(external: 0)
-    @ledger = Stock::ItemAvailability.ledger(params[:start_date], params[:end_date]) if params[:start_date].present? && params[:end_date].present?
+    @ledger = Stock::ItemAvailability.ledger(params[:start_date], params[:end_date], params[:branch_plan]) if params[:start_date].present? && params[:end_date].present?
 
     respond_to do |format|
       format.html

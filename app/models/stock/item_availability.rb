@@ -2,10 +2,20 @@ class Stock::ItemAvailability < ActiveRecord::Base
   #establish_connection "jdeoracle".to_sym
   self.table_name = "stocks" #sd
   
-  def self.ledger(from, to)
-    find_by_sql("SELECT * FROM historical_stocks WHERE fday BETWEEN '#{from.to_date.day}' AND '#{to.to_date.day}' 
-    AND fmonth BETWEEN '#{from.to_date.month}' AND '#{to.to_date.month}'
-    AND fyear BETWEEN '#{from.to_date.year}' AND '#{to.to_date.year}'")
+  def self.ledger(from, to, branch)
+    find_by_sql("SELECT gabung.item_number, gabung.description, gabung.SO AS keterangan, gabung.order_date, gabung.qty FROM (
+      SELECT item_number, description, 'SO', order_date, SUM(quantity) AS qty FROM warehouse.F4211_ORDERS 
+      WHERE DATE(order_date) BETWEEN '#{from.to_date}' AND '#{to.to_date}' AND branch = '#{branch}' GROUP BY item_number, DATE(order_date)
+        UNION
+      SELECT item_number, description, 'PBJ', order_date, SUM(quantity) AS qty FROM warehouse.F4211_ORDERS 
+      WHERE DATE(order_date) BETWEEN '#{from.to_date}' AND '#{to.to_date}' AND ship_to = '#{branch}' GROUP BY item_number, DATE(order_date)
+        UNION
+      SELECT item_number, description, 'STOCK', DATE(created_at) AS order_date, SUM(onhand) AS qty FROM warehouse.F41021_STOCK 
+      WHERE DATE(created_at) BETWEEN '#{from.to_date}' AND '#{to.to_date}' AND branch = '#{branch}' GROUP BY item_number, DATE(created_at)
+        UNION
+      SELECT kodebrg, namabrg, 'SALE', DATE(tanggalsj) AS order_date, SUM(jumlah) AS qty FROM dbmarketing.tblaporancabang     
+      WHERE tanggalsj BETWEEN '#{from.to_date}' AND '#{to.to_date}' AND ketppb = '#{branch}' GROUP BY kodebrg, tanggalsj
+    ) AS gabung ORDER BY gabung.item_number, gabung.order_date")
   end
   
   def self.stock_report_for_android(branch, brand)

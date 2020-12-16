@@ -3,10 +3,10 @@ wb = xlsx_package.workbook
 
 wb.add_worksheet(name: "Ledger") do |sheet|
   # this is the head row of your spreadsheet
-  sheet.add_row %w(branch brand item_number description stock in out adj_in adj_out)
+  sheet.add_row %w(kode_barang nama tanggal keterangan jumlah)
   
   # each user is a row on your spreadsheet
   @ledger.each do |l|
-    sheet.add_row [l.branch_desc, l.brand, l.item_number, l.description, l.stock, l.in_stock, l.out_stock, l.adj_in, l.adj_out]
+    sheet.add_row [l.item_number, l.description, l.order_date, l.keterangan, l.qty]
   end
 end
