@@ -18,6 +18,7 @@ class Order::Bekasi::BekasiLadyController < ApplicationController
   
   def order_normal
     @out_daily = SalesOrder::Order.outstand_order(initialize_brach_id, initialize_brand, current_user.position, current_user.address_number.nil? ? '0' : current_user.address_number)
+    @pbj = SalesOrder::Order.generate_pbj(initialize_brach_id, initialize_brand) if params["format"] == "xlsx"
     
     respond_to do |format|
       format.html {render template: "order/template_order/order"}
