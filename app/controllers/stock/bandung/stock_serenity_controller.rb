@@ -2,7 +2,7 @@ class Stock::Bandung::StockSerenityController < ApplicationController
   before_action :set_branch_plant, :initialize_brand
   
   def stock_buffer
-    @buf_stock = Stock::JdeItemAvailability.buffer_stock(@branch_plant, "E")
+    @buf_stock = Stock::JdeItemAvailability.buffer_stock(@branch_plant, "S|C")
     @state = "NORMAL"
     render template: "stock/template_stock/stock_buffer"
   end
