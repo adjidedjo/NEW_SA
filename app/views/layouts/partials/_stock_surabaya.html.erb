@@ -13,6 +13,9 @@
         <li class="sidebar-subnav-header">
           Elite
         </li>
+        <li class="<%= 'active' if controller?('stock/surabaya/stock_elite') && action?('stock_buffer') %>">
+          <a href="/stock/surabaya/stock_elite/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('stock/surabaya/stock_elite') && action?('stock_recap') %>">
           <a href="/stock/surabaya/stock_elite/stock_recap" title="Recap"> <span>Recap</span> </a>
         </li>
@@ -38,6 +41,9 @@
       <ul id="stock-surabaya-serenity" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Serenity
+        </li>
+        <li class="<%= 'active' if controller?('stock/surabaya/stock_serenity') && action?('stock_buffer') %>">
+          <a href="/stock/surabaya/stock_serenity/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/surabaya/stock_serenity') && action?('stock_recap') %>">
           <a href="/stock/surabaya/stock_serenity/stock_recap" title="Recap"> <span>Recap</span> </a>
@@ -65,6 +71,9 @@
         <li class="sidebar-subnav-header">
           Lady
         </li>
+        <li class="<%= 'active' if controller?('stock/surabaya/stock_lady') && action?('stock_buffer') %>">
+          <a href="/stock/surabaya/stock_lady/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('stock/surabaya/stock_lady') && action?('stock_recap') %>">
           <a href="/stock/surabaya/stock_lady/stock_recap" title="Recap"> <span>Recap</span> </a>
         </li>
@@ -90,6 +99,9 @@
       <ul id="stock-surabaya-royal" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Royal
+        </li>
+        <li class="<%= 'active' if controller?('stock/surabaya/stock_royal') && action?('stock_buffer') %>">
+          <a href="/stock/surabaya/stock_royal/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/surabaya/stock_royal') && action?('stock_recap') %>">
           <a href="/stock/surabaya/stock_royal/stock_recap" title="Recap"> <span>Recap</span> </a>
