@@ -2,6 +2,16 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
   establish_connection :jdeoracle
   self.table_name = "PRODDTA.F41021" #sd
   
+  def self.buffer_stock(branch, brand)
+    find_by_sql("
+      SELECT IBITM, MAX(IM.IMLITM) AS IMLITM, MAX(IM.IMDSC1) AS IMDSC1,
+        MAX(IM.IMDSC2) AS IMDSC2, SUM(IBSAFE) AS SAFETY, IBMCU 
+        FROM PRODDTA.F4102 IB LEFT JOIN PRODDTA.F4101 IM ON IB.IBITM = IM.IMITM 
+        WHERE IB.IBSAFE > 0 AND IB.IBMCU LIKE '%#{branch}' AND REGEXP_LIKE(IB.IBSRP1, '#{brand}')
+        GROUP BY IB.IBITM, IB.IBMCU
+    ")
+  end
+  
   def self.stock_real_unnormal(branch, brand)
       @stock = find_by_sql("SELECT
       MAX(IM.imdsc1) AS dsc1, MAX(IM.imdsc2) AS dsc2, MAX(IM.imseg4) AS seg4, MAX(IM.imseg5) AS panjang, 

@@ -1,6 +1,12 @@
 class Stock::Surabaya::StockEliteController < ApplicationController
   before_action :set_branch_plant, :initialize_brand
   
+  def stock_buffer
+    @buf_stock = Stock::JdeItemAvailability.buffer_stock(@branch_plant, "E")
+    @state = "NORMAL"
+    render template: "stock/template_stock/stock_buffer"
+  end
+  
   def stock_classic
     @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "C")
     @brand = "CLASSIC"
