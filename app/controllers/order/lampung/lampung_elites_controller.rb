@@ -49,7 +49,7 @@ class Order::Lampung::LampungElitesController < ApplicationController
   end
 
   def initialize_brach_id
-    "11101"
+    "18101"
   end
   
   def authorize_user
