@@ -95,7 +95,7 @@ class Penjualan::Sale < ActiveRecord::Base
         AND fiscal_year = '#{date.last_month.year}'  THEN sales_amount END) val_2
       FROM sales_mart.RET1BRAND WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}') AND fiscal_year BETWEEN '#{date.last_month.year}'
       AND '#{date.year}' AND branch NOT IN (1,50)
-      AND area = '#{branch}' AND brand != ''
+      AND branch = '#{branch}' AND brand != ''
       GROUP BY brand, area
     ) as lc
       LEFT JOIN
@@ -125,13 +125,13 @@ class Penjualan::Sale < ActiveRecord::Base
     lc.jatim, lc.yogya, lc.semarang, lc.pusat  FROM
     (
       SELECT article AS kodeartikel, article_desc AS namaartikel, product AS kodejenis,
-      SUM(CASE WHEN area = 2 THEN sales_quantity END) jabar,
-      SUM(CASE WHEN area = 23 THEN sales_quantity END) jakarta,
-      SUM(CASE WHEN area = 4 THEN sales_quantity END) bali,
-      SUM(CASE WHEN area = 7 THEN sales_quantity END) jatim,
-      SUM(CASE WHEN area = 8 THEN sales_quantity END) semarang,
-      SUM(CASE WHEN area = 10 THEN sales_quantity END) yogya,
-      SUM(CASE WHEN area = 1 THEN sales_quantity END) pusat
+      SUM(CASE WHEN branch = 2 THEN sales_quantity END) jabar,
+      SUM(CASE WHEN branch = 23 THEN sales_quantity END) jakarta,
+      SUM(CASE WHEN branch = 4 THEN sales_quantity END) bali,
+      SUM(CASE WHEN branch = 7 THEN sales_quantity END) jatim,
+      SUM(CASE WHEN branch = 8 THEN sales_quantity END) semarang,
+      SUM(CASE WHEN branch = 10 THEN sales_quantity END) yogya,
+      SUM(CASE WHEN branch = 1 THEN sales_quantity END) pusat
       FROM sales_mart.MM1ARTICLE WHERE fiscal_month = '#{date.month}' AND
       fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' GROUP BY kodeartikel
     ) as lc
@@ -158,18 +158,18 @@ class Penjualan::Sale < ActiveRecord::Base
     lc.jatim, lc.semarang, lc.cirebon, lc.yogya, lc.palembang, lc.lampung, lc.makasar, lc.pekanbaru  FROM
     (
       SELECT article AS kodeartikel, article_desc AS namaartikel, product AS kodejenis,
-      SUM(CASE WHEN area = 2 THEN sales_quantity END) jabar,
-      SUM(CASE WHEN area = 3 THEN sales_quantity END) jakarta,
-      SUM(CASE WHEN area = 4 THEN sales_quantity END) bali,
-      SUM(CASE WHEN area = 5 THEN sales_quantity END) medan,
-      SUM(CASE WHEN area = 7 THEN sales_quantity END) jatim,
-      SUM(CASE WHEN area = 8 THEN sales_quantity END) semarang,
-      SUM(CASE WHEN area = 9 THEN sales_quantity END) cirebon,
-      SUM(CASE WHEN area = 10 THEN sales_quantity END) yogya,
-      SUM(CASE WHEN area = 11 THEN sales_quantity END) palembang,
-      SUM(CASE WHEN area = 13 THEN sales_quantity END) lampung,
-      SUM(CASE WHEN area = 19 THEN sales_quantity END) makasar,
-      SUM(CASE WHEN area = 20 THEN sales_quantity END) pekanbaru
+      SUM(CASE WHEN branch = 2 THEN sales_quantity END) jabar,
+      SUM(CASE WHEN branch = 3 THEN sales_quantity END) jakarta,
+      SUM(CASE WHEN branch = 4 THEN sales_quantity END) bali,
+      SUM(CASE WHEN branch = 5 THEN sales_quantity END) medan,
+      SUM(CASE WHEN branch = 7 THEN sales_quantity END) jatim,
+      SUM(CASE WHEN branch = 8 THEN sales_quantity END) semarang,
+      SUM(CASE WHEN branch = 9 THEN sales_quantity END) cirebon,
+      SUM(CASE WHEN branch = 10 THEN sales_quantity END) yogya,
+      SUM(CASE WHEN branch = 11 THEN sales_quantity END) palembang,
+      SUM(CASE WHEN branch = 13 THEN sales_quantity END) lampung,
+      SUM(CASE WHEN branch = 19 THEN sales_quantity END) makasar,
+      SUM(CASE WHEN branch = 20 THEN sales_quantity END) pekanbaru
       FROM sales_mart.RET1ARTICLE WHERE fiscal_month = '#{date.month}' AND
       fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' GROUP BY kodeartikel
     ) as lc
