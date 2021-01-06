@@ -104,7 +104,9 @@
                 <tr>
                   <th>Branch</th>
                   <th>Store</th>
-                  <th>Amount <%= @date.strftime('%b %y') %></th>
+                  <th>Amount by Order</th>
+                  <th>Amount by SJ</th>
+                  <th>Remains</th>
                 </tr>
               </thead>
               <tbody>
@@ -112,7 +114,9 @@
                 <tr class="gradeX">
                   <td><%= dp.cabang.gsub('Cabang', '') unless dp.cabang.nil? %></td>
                   <td><%= dp.customer_desc %></td>
-                  <td><%= currency(dp.total) %></td>
+                  <td><%= currency(dp.total_order) %></td>
+                  <td><%= currency(dp.total_sj) %></td>
+                  <td><%= currency(dp.total_order-dp.total_sj) %></td>
                 </tr>
                 <% end %>
               </tbody>

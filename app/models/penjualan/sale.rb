@@ -353,14 +353,25 @@ class Penjualan::Sale < ActiveRecord::Base
   end
 
   def self.direct_nasional_this_month_branches_store(date, brand)
-    self.find_by_sql("SELECT st.area AS cabang, lc.customer, lc.customer_desc, lc.total FROM
+    self.find_by_sql("SELECT st.area AS cabang, combine.customer, combine.customer_desc,
+    IFNULL(order1.total_order, 0) AS total_order, IFNULL(sj.total_sj, 0) AS total_sj FROM
     (
-      SELECT branch as area_id, brand as jenisbrgdisc, SUM(sales_amount) as total, customer, customer_desc
-      FROM sales_mart.SH2CUSBRAND WHERE fiscal_month = '#{date.month}'
-      AND fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' GROUP BY branch, customer
-    ) as lc
+      SELECT customer, branch, customer_desc FROM sales_mart.SH2CUSBRAND WHERE fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}'  GROUP BY customer
+      UNION
+      SELECT customer, branch, customer_desc FROM sales_mart.SH2CUSBRAND_ORDER WHERE fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' GROUP BY customer
+    ) AS combine
+    LEFT JOIN
+    (
+      SELECT customer, customer_desc, SUM(sales_amount) AS total_order FROM sales_mart.SH2CUSBRAND_ORDER
+      WHERE fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' GROUP BY customer
+    ) AS order1 ON combine.customer = order1.customer
+    LEFT JOIN
+    (
+      SELECT customer, customer_desc, SUM(sales_amount) AS total_sj FROM sales_mart.SH2CUSBRAND
+      WHERE fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}'  GROUP BY customer
+    ) AS sj ON combine.customer = sj.customer
     LEFT JOIN direct_areas AS st
-      ON lc.area_id = st.id
+      ON combine.branch = st.id
     ")
   end
 
