@@ -11,7 +11,7 @@ class SalesOrder::Order < ActiveRecord::Base
     so.sddsc1 AS sddsc1, so.sddsc2 AS sddsc2, itm.imseg1 AS imseg1,
     cus.abalph AS abalph, so.sdshan, cus.abat1 AS abat1,
     so.sdtorg AS sdtorg, so.sdpsn, so.sdlttr, so.sddcto, so.sdlotn, so.sdvr01, CM1.ABALPH AS NAMASALES, 
-    art.drdlo1 as article
+    art.drdl01 as article
     FROM PRODDTA.F4211 so
     JOIN PRODDTA.F4101 itm ON so.sditm = itm.imitm
     JOIN PRODDTA.F0101 cus ON so.sdshan = cus.aban8
