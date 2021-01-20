@@ -49,7 +49,7 @@ class Order::Yogya::YogyaRoyalController < ApplicationController
   end
 
   def initialize_brach_id
-    "11042"
+    "18042"
   end
   
   def authorize_user
