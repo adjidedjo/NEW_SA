@@ -49,7 +49,7 @@ class Order::Semarang::SemarangElitesController < ApplicationController
   end
 
   def initialize_brach_id
-    "11051"
+    "18051"
   end
   
   def authorize_user
