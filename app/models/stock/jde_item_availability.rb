@@ -2,6 +2,20 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
   establish_connection :jdeoracle
   self.table_name = "PRODDTA.F41021" #sd
   
+  def self.fiber_stock(branch, brand)
+    find_by_sql("
+      SELECT
+      MAX(IM.imdsc1) AS dsc1, MAX(IM.imdsc2) AS dsc2, MAX(IM.imseg4) AS seg4, MAX(IM.imseg5) AS panjang, 
+      MAX(IM.imseg6) AS lebar, SUM((IA.lipqoh - IA.lihcom)/10000) AS free,
+      MAX(IM.imsrp1) AS brand
+      FROM PRODDTA.F41021 IA 
+      JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm
+      WHERE (LIHCOM > 0 or LIPQOH > 0)
+      AND REGEXP_LIKE(IM.imsrp1, '#{brand}') AND IA.limcu LIKE '%#{branch}' 
+      GROUP BY IM.imseg2, IM.imseg3, IM.imseg5, IM.imseg6
+    ")
+  end
+  
   def self.buffer_stock(branch, brand)
     find_by_sql("
       SELECT IBITM, MAX(IM.IMLITM) AS IMLITM, MAX(IM.IMDSC1) AS IMDSC1,

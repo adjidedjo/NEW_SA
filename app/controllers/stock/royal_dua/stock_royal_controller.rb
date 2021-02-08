@@ -9,10 +9,10 @@ class Stock::RoyalDua::StockRoyalController < ApplicationController
   end
   
   def stock_fiber
-    @stock = Stock::JdeItemAvailability.stock_real_jde_web("11003NW", "R")
+    @stock = Stock::JdeItemAvailability.fiber_stock("11003NW", "R")
     @brand = initialize_brand
     @state = "FIBER"
-    render template: "stock/template_stock/stock_normal"
+    render template: "stock/template_stock/stock_fiber"
   end
   
   def stock_display
