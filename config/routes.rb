@@ -112,6 +112,10 @@ Rails.application.routes.draw do
   get 'penjualan_salesman/royal'
   get 'penjualan_salesman/weekly'
   get 'penjualan_salesman/monthly'
+  
+  #Royal 2
+  get 'stock/royal_dua/stock_royal/stock_normal'
+  get 'stock/royal_dua/stock_royal/stock_fiber'
 
   #Nasional MODERN
   get 'penjualan/nasional/nasional_channels/all_channel'

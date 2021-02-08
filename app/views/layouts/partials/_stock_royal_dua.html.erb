@@ -1,0 +1,14 @@
+<li class="<%= 'active' if controller?('stock/royal_dua') %>">
+  <a href="#stock-royal_dua" title="Level 1" data-toggle="collapse"> <em class="fa fa-folder-o"></em> <span>ROYAL 2</span> </a>
+  <ul id="stock-royal_dua" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      ROYAL 2
+    </li>
+    <li class="<%= 'active' if controller?('stock/royal_dua/stock_royal') && action?('stock_normal') %>">
+      <a href="/stock/royal_dua/stock_royal/stock_normal" title="Recap"> <span>Barang Jadi</span></a>
+    </li>
+    <li class="<%= 'active' if controller?('stock/royal_dua/stock_royal') && action?('stock_fiber') %>">
+      <a href="/stock/royal_dua/stock_royal/stock_fiber" title="Recap"> <span>Fiber</span></a>
+    </li>
+  </ul>
+</li>
