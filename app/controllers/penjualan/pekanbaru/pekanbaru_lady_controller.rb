@@ -54,8 +54,8 @@ class Penjualan::Pekanbaru::PekanbaruLadyController < ApplicationController
   def weekly
     gon.brand = initialize_brand
     gon.max = 100
-    @customer_summary = Penjualan::Sale.customer_summary(2, "LADY")
-    @most_item =  Penjualan::Sale.most_items_ordered_weekly(2, "LADY")
+    @customer_summary = Penjualan::Sale.customer_summary(initialize_brach_id, initialize_brand)
+    @most_item =  Penjualan::Sale.most_items_ordered_weekly(initialize_brach_id, initialize_brand)
     @branch = "PEKANBARU"
     @brand_name = initialize_brand
     render template: "penjualan/template_dashboard/weekly"
