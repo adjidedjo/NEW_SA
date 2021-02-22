@@ -3,7 +3,7 @@
     <%= @brand_name %> WEEK(<%= 1.week.ago.to_date.cweek %>) REPORT for <%= @branch %> BRANCH
   </center>
   <center>
-    <small>FROM <%= 1.week.ago.to_date.strftime("%d %B %Y") %> - <%= 1.week.ago.to_date.strftime("%d %B %Y") %></small>
+    <small>FROM <%= 1.week.ago.to_date.strftime("%d %B %Y") %> - <%= 1.week.ago.end_of_week.strftime("%d %B %Y") %></small>
   </center>
 </div>
 <!-- START widgets box-->
