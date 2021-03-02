@@ -60,7 +60,7 @@ class Stock::Jember::StockEliteController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "12131"
+    @branch_plant = "18131"
     @branch = "JEMBER"
   end
 end
