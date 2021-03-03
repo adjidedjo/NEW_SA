@@ -54,7 +54,7 @@ class Order::Kediri::KediriElitesController < ApplicationController
   end
 
   def initialize_brach_id
-    "1206104"
+    "1806104"
   end
 
   def authorize_user

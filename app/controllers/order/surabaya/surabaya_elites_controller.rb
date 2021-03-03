@@ -54,7 +54,7 @@ class Order::Surabaya::SurabayaElitesController < ApplicationController
   end
 
   def initialize_brach_id
-    "12061"
+    "18061"
   end
 
   def authorize_user

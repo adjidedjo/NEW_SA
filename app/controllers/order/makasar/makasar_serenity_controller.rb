@@ -49,7 +49,7 @@ class Order::Makasar::MakasarSerenityController < ApplicationController
   end
 
   def initialize_brach_id
-    "12111"
+    "18111"
   end
   
   def authorize_user

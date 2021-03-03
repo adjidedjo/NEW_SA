@@ -55,7 +55,7 @@ class Order::Jember::JemberElitesController < ApplicationController
   end
 
   def initialize_brach_id
-    "12131"
+    "18131"
   end
   
   def authorize_user

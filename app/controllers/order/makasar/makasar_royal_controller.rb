@@ -49,7 +49,7 @@ class Order::Makasar::MakasarRoyalController < ApplicationController
   end
 
   def initialize_brach_id
-    "12112"
+    "18112"
   end
   
   def authorize_user

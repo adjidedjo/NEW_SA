@@ -54,6 +54,6 @@ class Order::Surabaya::SurabayaSerenityController < ApplicationController
   end
 
   def initialize_brach_id
-    "12061"
+    "18061"
   end
 end

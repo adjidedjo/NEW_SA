@@ -49,7 +49,7 @@ class Order::Bali::BaliRoyalController < ApplicationController
   end
 
   def initialize_brach_id
-    "12072"
+    "18072"
   end
   
   def authorize_user

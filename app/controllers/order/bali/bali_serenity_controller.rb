@@ -49,7 +49,7 @@ class Order::Bali::BaliSerenityController < ApplicationController
   end
 
   def initialize_brach_id
-    "12071"
+    "18071"
   end
   
   def authorize_user
