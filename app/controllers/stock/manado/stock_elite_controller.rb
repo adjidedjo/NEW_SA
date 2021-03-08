@@ -67,7 +67,7 @@ class Stock::Manado::StockEliteController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "12171"
+    @branch_plant = "18171"
     @branch = "MANADO"
   end
 end
