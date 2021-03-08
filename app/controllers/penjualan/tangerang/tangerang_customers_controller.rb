@@ -13,6 +13,7 @@ class Penjualan::Tangerang::TangerangCustomersController < ApplicationController
   def customer
     @branch = "Jakarta"
     @customer = Penjualan::Customer.reporting_customers(@month, @year, initialize_branch_id)
+    @customer_parent = Penjualan::Customer.reporting_parent_customers(@month, @year, initialize_branch_id)
     render template: "penjualan/template_dashboard/customer"
   end
 
@@ -29,7 +30,7 @@ class Penjualan::Tangerang::TangerangCustomersController < ApplicationController
   end
 
   def initialize_branch_id
-    23
+    3
   end
 
   def authorize_user

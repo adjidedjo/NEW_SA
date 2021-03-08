@@ -21,6 +21,7 @@ class Penjualan::Tasik::TasikCustomersController < ApplicationController
   def customer
     @branch = "TASIKMALAYA"
     @customer = Penjualan::Customer.reporting_customers(@month, @year, initialize_branch_id)
+    @customer_parent = Penjualan::Customer.reporting_parent_customers(@month, @year, initialize_branch_id)
     render template: "penjualan/template_dashboard/customer"
   end
 

@@ -190,6 +190,19 @@ class Penjualan::Customer < Penjualan::Sale
     ")
   end
 
+  def self.reporting_parent_customers(month, year, branch)
+    find_by_sql("SELECT customer_desc as customer, customer as kode_customer,
+      SUM(CASE WHEN brand REGEXP 'ELITE' THEN sales_amount END) elite,
+      SUM(CASE WHEN brand IN ('SERENITY', 'CLASSIC') THEN sales_amount END) serenity,
+      SUM(CASE WHEN brand REGEXP 'LADY' THEN sales_amount END) lady,
+      SUM(CASE WHEN brand REGEXP 'ROYAL' THEN sales_amount END) royal
+      FROM sales_mart.RET2PARENTCUSBRAND WHERE fiscal_month = '#{month}'
+      AND fiscal_year = '#{year}'
+      AND branch = '#{branch}'
+      GROUP BY customer
+    ")
+  end
+
   def self.reporting_customers(month, year, branch)
     find_by_sql("SELECT customer_desc as customer, customer as kode_customer,
       SUM(CASE WHEN brand REGEXP 'ELITE' THEN sales_amount END) elite,
