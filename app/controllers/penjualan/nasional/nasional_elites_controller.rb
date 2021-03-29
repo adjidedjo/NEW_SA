@@ -43,7 +43,7 @@ class Penjualan::Nasional::NasionalElitesController < ApplicationController
       @date = (date.to_date + Date.today.strftime('%d').to_i) - 1
     else
       date = '1/'+params[:date][:month].to_s+'/'+params[:date][:year].to_s
-      @date = (date.to_date + Date.today.strftime('%d').to_i) - 1
+      @date = date.to_date
     end
   end
 
