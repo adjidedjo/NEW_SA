@@ -102,6 +102,19 @@
   </ul>
 </li>
 <% end %>
+<% if branch(current_user, 26) %>
+<li class="<%= 'active' if controller?('credit_limits/manado') %>">
+  <a href="#crmanado" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Manado</span> </a>
+  <ul id="crmanado" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Manado
+    </li>
+    <li class="<%= 'active' if controller?('credit_limits/manado/credit_checks') && action?('credit_checks') %>">
+      <a href="/credit_limits/manado/credit_checks/credit_checks" title="Credit Checks"> <em class="icon-people"></em> <span>Credit Checks</span> </a>
+    </li>
+  </ul>
+</li>
+<% end %>
 <% if branch(current_user, 54) %>
 <li class="<%= 'active' if controller?('credit_limits/samarinda') %>">
   <a href="#crsamarinda" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Samarinda</span> </a>
