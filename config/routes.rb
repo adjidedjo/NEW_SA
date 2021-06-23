@@ -1621,6 +1621,7 @@ Rails.application.routes.draw do
   get 'penjualan/medan/medan_royal/sales_through'
   get 'penjualan/medan/medan_royal/sales_stock_rate'
   get 'penjualan/medan/medan_royal/customer_monthly'
+  get 'penjualan/medan/medan_serenity/customer_monthly'
   get 'penjualan/medan/medan_elites/success_rate'
   get 'penjualan/medan/medan_serenity/success_rate'
   get 'penjualan/medan/medan_lady/success_rate'
