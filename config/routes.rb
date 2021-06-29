@@ -1263,6 +1263,7 @@ Rails.application.routes.draw do
   get 'penjualan/lampung/lampung_lady/monthly'
   get 'penjualan/lampung/lampung_lady/sales_through'
   get 'penjualan/lampung/lampung_lady/sales_stock_rate'
+  get 'penjualan/lampung/lampung_lady/customer_monthly'
   get 'penjualan/lampung/lampung_royal/daily'
   get 'penjualan/lampung/lampung_royal/weekly'
   get 'penjualan/lampung/lampung_royal/monthly'
