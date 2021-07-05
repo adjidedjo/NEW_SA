@@ -133,7 +133,7 @@ class Forecast < ActiveRecord::Base
       ) tl ON tl.area_id = f1.branch AND tl.kodebrg = f1.item_number AND tl.nopo = f1.address_number
       LEFT JOIN
       (
-        SELECT item_number, address_number, WEEK, quantity, branch FROM rkm_histories WHERE week = '#{week.to_i-1}'
+        SELECT item_number, address_number, WEEK, quantity, branch FROM rkm_histories WHERE week = '#{week.to_i-1}' and year = '#{year}'
       ) rh ON rh.item_number = f1.item_number AND rh.address_number = f1.address_number and rh.branch = f1.branch
       LEFT JOIN
       (
