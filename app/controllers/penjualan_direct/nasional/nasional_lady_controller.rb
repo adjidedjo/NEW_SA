@@ -47,6 +47,6 @@ class PenjualanDirect::Nasional::NasionalLadyController < ApplicationController
   end
   
   def authorize_user
-    render template: "pages/notfound" unless general_manager(current_user) || nsm_direct(current_user)
+    render template: "pages/notfound" unless general_manager(current_user) || nsm_direct(current_user) || admin_direct_img(current_user)
   end
 end

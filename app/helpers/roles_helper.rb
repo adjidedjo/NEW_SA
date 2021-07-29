@@ -42,11 +42,11 @@ module RolesHelper
   end
 
   def direct_users(user)
-    user.position == "direct_mng"
+    (user.position == "direct_mng") || (user.position == "admin_direct_img")
   end
 
   def modern_users(user)
-    user.position == "modern_mng"
+    (user.position == "modern_mng") || (user.position == "admin_direct_img")
   end
 
   def general_manager(user)
@@ -100,5 +100,9 @@ module RolesHelper
 
   def nsm_modern(user)
     (user.position == "modern_mng" || user.position == "sales support")
+  end
+  
+  def admin_direct_img(user)
+    (user.position == "admin_direct_img" || user.position == "sales support")
   end
 end
