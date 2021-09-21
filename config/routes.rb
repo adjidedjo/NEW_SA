@@ -148,6 +148,10 @@ Rails.application.routes.draw do
   get 'penjualan_direct/nasional/nasional_royal/daily'
   get 'penjualan_direct/nasional/nasional_royal/weekly'
   get 'penjualan_direct/nasional/nasional_royal/monthly'
+  get 'penjualan_direct/nasional_ecom/nasional_elites/daily'
+  get 'penjualan_direct/nasional_ecom/nasional_lady/daily'
+  get 'penjualan_direct/nasional_ecom/nasional_serenity/daily'
+  get 'penjualan_direct/nasional_ecom/nasional_royal/daily'
 
   #Nasional
   get 'penjualan/nasional/nasional_channels/all_channel'

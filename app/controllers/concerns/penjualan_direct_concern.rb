@@ -4,6 +4,29 @@ module PenjualanDirectConcern
 
   ########## MONTHLY
   
+  def direct_ecom_recap_conc
+    @branch_by_brands = Penjualan::Sale.retail_recap_brand(@date, initialize_brach_id)
+  end
+  
+  def direct_ecom_nasional_this_month_branches_conc
+    @products_monthnas_summary = Penjualan::Sale.direct_ecom_nasional_this_month_products(@date, initialize_brand)
+    @branches_monthnas_summary = Penjualan::Sale.direct_ecom_nasional_this_month_branches(@date, initialize_brand)
+    @branches_monthnasstore_summary = Penjualan::Sale.direct_ecom_nasional_this_month_branches_store(@date, initialize_brand)
+    @monthnas_summary = Penjualan::Sale.direct_ecom_nasional_this_month_total(@date, initialize_brand)
+  end
+  
+  def direct_ecom_nasional_this_month_conc
+    summaries = Penjualan::Sale::direct_ecom_nasional_this_month(@date, initialize_brand)
+    # target_sum = Penjualan::Sale::target_retail_nasional_monthly(initialize_brand)
+    gon.summaries = summaries.map { |u| [Date::ABBR_MONTHNAMES[u.fiscal_month], (u.harga/10000000)] }.to_a
+    # gon.target = target_sum.map { |u| [Date::ABBR_MONTHNAMES[u.month], (u.jumlah)] }.to_a
+  end
+  
+  def direct_ecom_nasional_this_month_branch_conc
+    summaries = Penjualan::Sale::direct_nasional_this_month_branch(@date, initialize_brand)
+    gon.summaries_branch = summaries.map { |u| [u.branch, (u.harga/10000000)] }.to_a
+  end
+  
   def direct_recap_conc
     @branch_by_brands = Penjualan::Sale.retail_recap_brand(@date, initialize_brach_id)
   end

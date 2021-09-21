@@ -1,8 +1,8 @@
 <li class="<%= 'active' if controller?('penjualan/nasional') %>">
-  <a href="#nasdirect" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Nasional</span> </a>
+  <a href="#nasdirect" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Nasional IMG</span> </a>
   <ul id="nasdirect" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
-      NASIONAL
+      NASIONAL IMG
     </li>
     <li class="<%= 'active' if controller?('penjualan_direct/nasional/nasional_elites') %>">
       <a href="#nasdirect-elite" title="Elite" data-toggle="collapse"> <em class="icon-chart"></em> <span>Elite</span> </a>
@@ -59,6 +59,27 @@
           <a href="/penjualan_direct/nasional/nasional_royal/daily" title="Daily"> <span>Monthly</span> </a>
         </li>
       </ul>
+    </li>
+  </ul>
+  
+ <!-- ECOMMERCE  -->
+ 
+  <a href="#nasecom" title="Level 1" data-toggle="collapse"> <em class="icon-map"></em> <span>Nasional Ecommerce</span> </a>
+  <ul id="nasecom" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      NASIONAL ECOMMERCE
+    </li>
+    <li class="<%= 'active' if controller?('penjualan_direct/nasional_ecom/nasional_elites') %>">
+      <a href="/penjualan_direct/nasional_ecom/nasional_elites/daily" title="Daily"> <span>Elite</span> </a> 
+    </li>
+    <li class="<%= 'active' if controller?('penjualan_direct/nasional_ecom/nasional_serenity') && action?('daily') %>">
+      <a href="/penjualan_direct/nasional_ecom/nasional_serenity/daily" title="Daily"> <span>Serenity</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan_direct/nasional_ecom/nasional_lady') && action?('daily') %>">
+      <a href="/penjualan_direct/nasional_ecom/nasional_lady/daily" title="Daily"> <span>Lady</span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('penjualan_direct/nasional_ecom/nasional_royal') && action?('daily') %>">
+      <a href="/penjualan_direct/nasional_ecom/nasional_royal/daily" title="Daily"> <span>Royal</span> </a>
     </li>
   </ul>
 </li>

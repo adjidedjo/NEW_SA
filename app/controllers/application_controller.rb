@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   :retail_nasional_weekly, :retail_nasional_monthly, :retail_success_rate,
   :retail_uncollectable_ar, :retail_collectable_ar, :retail_nasional_this_month,
   :retail_recap, :direct_nasional_this_month, :direct_nasional_weekly, :modern_nasional_this_month,
-  :modern_nasional_weekly
+  :modern_nasional_weekly, :direct_ecom_nasional_this_month
   
   def modern_nasional_weekly
     modern_nasional_weekly_conc
@@ -27,6 +27,12 @@ class ApplicationController < ActionController::Base
   def modern_nasional_this_month
     modern_nasional_this_month_branches_conc
     modern_nasional_this_month_branch_conc
+    # retail_nasional_this_month_conc
+  end
+  
+  def direct_ecom_nasional_this_month
+    direct_ecom_nasional_this_month_branches_conc
+    direct_ecom_nasional_this_month_branch_conc
     # retail_nasional_this_month_conc
   end
   
