@@ -169,6 +169,7 @@ Rails.application.routes.draw do
   get 'penjualan/nasional/nasional_royal/weekly'
   get 'penjualan/nasional/nasional_royal/monthly'
 
+  get 'stock/img/stock_pos/stock'
   #Pusat
   get 'stock/pusat_bcp/stock_capacities/capacity'
   get 'stock/pusat_bcp/stock_elite/stock_classic'
