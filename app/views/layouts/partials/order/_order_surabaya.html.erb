@@ -72,6 +72,23 @@
         </li>
       </ul>
     </li>
+    <li class="<%= 'active' if controller?('order/surabaya/surabaya_tote') %>">
+      <a href="#order-surabaya-tote" title="Royal" data-toggle="collapse"> <em class="fa fa-angle-right"></em> <span>Tote</span> </a>
+      <ul id="order-surabaya-tote" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Royal
+        </li>
+        <li class="<%= 'active' if controller?('order/surabaya/order_tote') && action?('order_normal') %>">
+          <a href="/order/surabaya/surabaya_tote/order_normal" title="Normal"> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/surabaya/order_tote') && action?('order_clearence') %>">
+          <a href="/order/surabaya/surabaya_tote/order_clearence" title="Clearance"> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('order/surabaya/order_tote') && action?('order_display') %>">
+          <a href="/order/surabaya/surabaya_tote/order_display" title="Display"> <span>Display</span> </a>
+        </li>
+      </ul>
+    </li>
     
   </ul>
 </li>
