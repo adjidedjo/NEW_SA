@@ -116,6 +116,10 @@ Rails.application.routes.draw do
   #Royal 2
   get 'stock/royal_dua/stock_royal/stock_normal'
   get 'stock/royal_dua/stock_royal/stock_fiber'
+  
+  #Royal 3
+  get 'stock/royal_tiga/stock_elite/stock_ba'
+  get 'stock/royal_tiga/stock_elite/stock_sa'
 
   #Nasional MODERN
   get 'penjualan/nasional/nasional_channels/all_channel'

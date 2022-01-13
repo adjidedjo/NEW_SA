@@ -1,0 +1,14 @@
+<li class="<%= 'active' if controller?('stock/royal_tiga') %>">
+  <a href="#stock-royal_tiga" title="Level 1" data-toggle="collapse"> <em class="fa fa-folder-o"></em> <span>ROYAL 3</span> </a>
+  <ul id="stock-royal_tiga" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      ROYAL 3
+    </li>
+    <li class="<%= 'active' if controller?('stock/royal_tiga/stock_elite') && action?('stock_ba') %>">
+      <a href="/stock/royal_tiga/stock_elite/stock_ba" title="Recap"> <span>Bed Sheet</span></a>
+    </li>
+    <li class="<%= 'active' if controller?('stock/royal_dua/stock_elite') && action?('stock_sa') %>">
+      <a href="/stock/royal_tiga/stock_elite/stock_sa" title="Recap"> <span>Bedding Aksesoris</span></a>
+    </li>
+  </ul>
+</li>
