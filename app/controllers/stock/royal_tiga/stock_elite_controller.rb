@@ -12,7 +12,7 @@ class Stock::RoyalTiga::StockEliteController < ApplicationController
     @stock = Stock::JdeItemAvailability.stock_real_jde_without_loc("11001SA", "R3")
     @brand = "11001SA"
     @state = "NORMAL"
-    render template: "stock/template_stock/stock_normal"
+    render template: "stock/template_stock/stock_accessories"
   end
   
   private
