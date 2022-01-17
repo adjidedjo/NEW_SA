@@ -10,8 +10,9 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
       MAX(IM.imsrp1) AS brand, SUM((IA.lipqoh - IA.lihcom)/10000) AS total
       FROM PRODDTA.F41021 IA 
       JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm
+      JOIN PRODDTA.F4102 IB ON IA.liitm = IB.ibitm
       WHERE (LIHCOM > 0 or LIPQOH > 0)
-      AND REGEXP_LIKE(IM.imsrp7, '#{catcode}') AND IA.limcu LIKE '%#{branch}' 
+      AND REGEXP_LIKE(IB.ibsrp7, '#{catcode}') AND IA.limcu LIKE '%#{branch}%' 
       GROUP BY IM.imseg2, IM.imseg3, IM.imseg5, IM.imseg6")
   end
   
@@ -31,8 +32,9 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
       MAX(IM.imsrp1) AS brand
       FROM PRODDTA.F41021 IA 
       JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm
+      JOIN PRODDTA.F4102 IB ON IA.liitm = IB.ibitm
       WHERE (LIHCOM > 0 or LIPQOH > 0) AND IA.LILOCN LIKE '%#{loc}%'
-      AND REGEXP_LIKE(IM.imsrp7, '#{catcode}') AND IA.limcu LIKE '%#{branch}' 
+      AND REGEXP_LIKE(IB.ibsrp7, '#{catcode}') AND IA.limcu LIKE '%#{branch}' 
       GROUP BY IM.imseg2, IM.imseg3, IM.imseg5")
   end
   
