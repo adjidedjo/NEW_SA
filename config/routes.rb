@@ -176,6 +176,10 @@ Rails.application.routes.draw do
   get 'penjualan/nasional/nasional_royal/daily'
   get 'penjualan/nasional/nasional_royal/weekly'
   get 'penjualan/nasional/nasional_royal/monthly'
+  get 'penjualan/nasional/nasional_tote/customer_decrease'
+  get 'penjualan/nasional/nasional_tote/daily'
+  get 'penjualan/nasional/nasional_tote/weekly'
+  get 'penjualan/nasional/nasional_tote/monthly'
 
   get 'stock/img/stock_pos/stock'
   #Pusat

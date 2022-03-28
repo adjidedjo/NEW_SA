@@ -72,6 +72,23 @@
         </li>
       </ul>
     </li>
+    <li class="<%= 'active' if controller?('penjualan/nasional/nasional_tote') %>">
+      <a href="#nasional-tote" title="Tote" data-toggle="collapse"> <em class="icon-chart"></em> <span>Tote</span> </a>
+      <ul id="nasional-tote" class="nav sidebar-subnav collapse">
+        <li class="sidebar-subnav-header">
+          Tote
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/nasional/nasional_tote') && action?('weekly') %>">
+          <a href="/penjualan/nasional/nasional_tote/weekly" title="Weekly"> <span>Weekly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/nasional/nasional_royal') && action?('daily') %>">
+          <a href="/penjualan/nasional/nasional_tote/daily" title="Daily"> <span>Monthly</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('penjualan/nasional/nasional_royal') && action?('customer_decrease') %>">
+          <a href="/penjualan/nasional/nasional_tote/customer_decrease" title="Csu"> <span>Customer Decre</span> </a>
+        </li>
+      </ul>
+    </li>
     <li class="<%= 'active' if controller?('penjualan/nasional/nasional_customers') && action?('national_customer') %>">
       <a href="/penjualan/nasional/nasional_customers/national_customer" title="Customer"> <em class="icon-people"></em> <span>National Customer</span> </a>
     </li>
