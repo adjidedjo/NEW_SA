@@ -36,12 +36,13 @@ class Penjualan::Sale < ActiveRecord::Base
 
   def self.channel_nasional_this_month(date)
     self.find_by_sql("SELECT cc.channel, ly.val_elite, ly.val_classic, ly.val_serenity,
-    ly.val_royal, ly.val_lady,
+    ly.val_royal, ly.val_lady, ly.val_tote,
     ROUND((((ly.val_elite - ly.elite) / ly.elite) * 100), 0) AS elite,
     ROUND((((ly.val_lady - ly.lady) / ly.lady) * 100), 0) AS lady,
     ROUND((((ly.val_royal - ly.royal) / ly.royal) * 100), 0) AS royal,
     ROUND((((ly.val_serenity - ly.serenity) / ly.serenity) * 100), 0) AS serenity,
-    ROUND((((ly.val_classic - ly.classic) / ly.classic) * 100), 0) AS classic FROM
+    ROUND((((ly.val_classic - ly.classic) / ly.classic) * 100), 0) AS classic,
+    ROUND((((ly.val_tote - ly.tote) / ly.tote) * 100), 0) AS tote FROM
     (
       SELECT channel FROM channel_customers
     ) as cc
@@ -53,6 +54,7 @@ class Penjualan::Sale < ActiveRecord::Base
         SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'ROYAL' THEN harganetto1 END) val_royal,
         SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'SERENITY' THEN harganetto1 END) val_serenity,
         SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'CLASSIC' THEN harganetto1 END) val_classic,
+        SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'TOTE' THEN harganetto1 END) val_tote,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
           '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}'
           AND jenisbrgdisc = 'ELITE' THEN harganetto1 END) elite,
@@ -67,7 +69,10 @@ class Penjualan::Sale < ActiveRecord::Base
           AND jenisbrgdisc = 'SERENITY' THEN harganetto1 END) serenity,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
           '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}'
-          AND jenisbrgdisc = 'CLASSIC' THEN harganetto1 END) classic
+          AND jenisbrgdisc = 'CLASSIC' THEN harganetto1 END) classic,
+        SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
+          '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}'
+          AND jenisbrgdisc = 'TOTE' THEN harganetto1 END) tote
         FROM tblaporancabang WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}')
         AND fiscal_year BETWEEN '#{date.last_month.year}'
         AND '#{date.year}'
@@ -137,7 +142,7 @@ class Penjualan::Sale < ActiveRecord::Base
     ) as lc
     ")
   end
-  
+
   def self.direct_ecom_nasional_this_month_products(date, brand)
     self.find_by_sql("SELECT lc.kodejenis, lc.namaartikel, lc.jabar, lc.jakarta, lc.jakarta, lc.bali,
     lc.jatim  FROM

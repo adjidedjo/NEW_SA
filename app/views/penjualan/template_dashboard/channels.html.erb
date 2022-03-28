@@ -44,6 +44,8 @@
                   <th></th>
                   <th>CLASSIC</th>
                   <th></th>
+                  <th>TOTE</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -60,6 +62,8 @@
                   <td class="<%= coloring(ac.royal) %>"><%= ac.royal.nil? ? 0 : cpercent(ac.royal.abs) %></td>
                   <td><%= currency(ac.val_classic) %></td>
                   <td class="<%= coloring(ac.classic) %>"><%= ac.classic.nil? ? 0 : cpercent(ac.classic.abs) %></td>
+                  <td><%= currency(ac.val_tote) %></td>
+                  <td class="<%= coloring(ac.tote) %>"><%= ac.classic.nil? ? 0 : cpercent(ac.tote.abs) %></td>
                 </tr>
                 <% end %>
               </tbody>
