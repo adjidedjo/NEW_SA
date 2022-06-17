@@ -69,7 +69,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    concurrent-ruby (1.0.2)
+    concurrent-ruby (1.1.10)
     countries (2.0.8)
       i18n_data (~> 0.7.0)
       money (~> 6.7)
@@ -96,7 +96,8 @@ GEM
       json
       multi_json
       request_store (>= 1.0)
-    i18n (0.7.0)
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
     i18n_data (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -118,9 +119,9 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
-    minitest (5.9.1)
-    money (6.9.0)
-      i18n (>= 0.6.4, < 0.9)
+    minitest (5.16.0)
+    money (6.16.0)
+      i18n (>= 0.6.4, <= 2)
     multi_json (1.12.1)
     mysql2 (0.3.21)
     mysql2 (0.3.21-x64-mingw32)
@@ -191,9 +192,9 @@ GEM
       libv8 (~> 3.16.14.15)
       ref
     thor (0.19.1)
-    thread_safe (0.3.5)
+    thread_safe (0.3.6)
     tilt (2.0.5)
-    tzinfo (1.2.2)
+    tzinfo (1.2.9)
       thread_safe (~> 0.1)
     tzinfo-data (1.2016.7)
       tzinfo (>= 1.0.0)
