@@ -56,22 +56,22 @@ class Penjualan::Sale < ActiveRecord::Base
         SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'CLASSIC' THEN harganetto1 END) val_classic,
         SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'TOTE' THEN harganetto1 END) val_tote,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-          '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}'
+          '#{date.last_month.end_of_month}'
           AND jenisbrgdisc = 'ELITE' THEN harganetto1 END) elite,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-          '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}'
+          '#{date.last_month.end_of_month}'
           AND jenisbrgdisc = 'LADY' THEN harganetto1 END) lady,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-          '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}'
+          '#{date.last_month.end_of_month}'
           AND jenisbrgdisc = 'ROYAL' THEN harganetto1 END) royal,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-          '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}'
+          '#{date.last_month.end_of_month}'
           AND jenisbrgdisc = 'SERENITY' THEN harganetto1 END) serenity,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-          '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}'
+          '#{date.last_month.end_of_month}'
           AND jenisbrgdisc = 'CLASSIC' THEN harganetto1 END) classic,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
-          '#{date.month == Date.yesterday.month ? date.last_month : date.last_month.end_of_month}'
+          '#{date.last_month.end_of_month}'
           AND jenisbrgdisc = 'TOTE' THEN harganetto1 END) tote
         FROM tblaporancabang WHERE fiscal_month IN ('#{date.last_month.month}','#{date.month}')
         AND fiscal_year BETWEEN '#{date.last_month.year}'
