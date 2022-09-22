@@ -1,6 +1,19 @@
 class Stock::ItemAvailability < ActiveRecord::Base
   #establish_connection "jdeoracle".to_sym
   self.table_name = "stocks" #sd
+
+  def self.aging_stock_report(date, branch)
+    find_by_sql("
+      SELECT branch_plan_desc, grouping,  
+  	IFNULL(SUM(CASE WHEN cats = '1-2' THEN quantity END),0) AS 'satu',
+  	IFNULL(SUM(CASE WHEN cats = '2-4' THEN quantity END),0) AS 'dua',
+	IFNULL(SUM(CASE WHEN cats = '4-6' THEN quantity END),0) AS 'empat',
+  	IFNULL(SUM(CASE WHEN cats = '6-12' THEN quantity END),0) AS 'enam',
+  	IFNULL(SUM(CASE WHEN cats = '12-24' THEN quantity END),0) AS 'duabelas' ,
+  	IFNULL(SUM(CASE WHEN cats = '>730' THEN quantity END),0) AS 'duaempat'
+      FROM aging_stock_details WHERE branch_plan like '#{branch}%' GROUP BY branch_plan, grouping ORDER BY branch_plan_desc ASC;
+    ")
+  end
   
   def self.ledger(from, to, branch)
     find_by_sql("SELECT gabung.item_number, gabung.description, gabung.SO AS keterangan, gabung.order_date, gabung.qty FROM (

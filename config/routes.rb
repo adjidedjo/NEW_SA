@@ -1559,6 +1559,7 @@ Rails.application.routes.draw do
   get 'penjualan/yogya/yogya_serenity/marketshare'
   get 'penjualan/yogya/yogya_lady/marketshare'
   get 'penjualan/yogya/yogya_royal/marketshare'
+  get 'stock/yogya/stock_agings/aging'
   get 'stock/yogya/stock_capacities/capacity'
   get 'stock/yogya/stock_elite/stock_classic'
   get 'stock/yogya/stock_elite/stock_tote'
