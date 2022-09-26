@@ -7,6 +7,9 @@
     <li class="<%= 'active' if controller?('stock/samarinda/stock_capacities') && action?('capacity') %>">
       <a href="/stock/samarinda/stock_capacities/capacity" title="Recap"> <span>Capacity</span></a>
     </li>
+    <li class="<%= 'active' if controller?('stock/samarinda/stock_agings') && action?('aging') %>">
+      <a href="/stock/samarinda/stock_agings/aging" title="Aging"> <span>Aging Stock</span></a>
+    </li>
     <li class="<%= 'active' if controller?('stock/samarinda/stock_elite') %>">
       <a href="#stock-samarinda-elite" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Elite</span> </a>
       <ul id="stock-samarinda-elite" class="nav sidebar-subnav collapse">

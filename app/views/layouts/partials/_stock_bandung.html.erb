@@ -7,6 +7,9 @@
     <li class="<%= 'active' if controller?('stock/bandung/stock_capacities') && action?('capacity') %>">
       <a href="/stock/bandung/stock_capacities/capacity" title="Recap"> <span>Capacity</span></a>
     </li>
+    <li class="<%= 'active' if controller?('stock/bandung/stock_agings') && action?('aging') %>">
+      <a href="/stock/bandung/stock_agings/aging" title="Aging"> <span>Aging Stock</span></a>
+    </li>
     <li class="<%= 'active' if controller?('stock/bandung/stock_elite') %>">
       <a href="#stock-bandung-elite" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Elite</span> </a>
       <ul id="stock-bandung-elite" class="nav sidebar-subnav collapse">

@@ -320,6 +320,52 @@
         ]
     });
     
+    $('#table-aging-stock').dataTable({
+        'paging':   true,  // Table pagination
+        'ordering': true,  // Column ordering
+        'info':     false,  // Bottom left status text
+        'responsive': false, // https://datatables.net/extensions/responsive/examples/
+        'filter': true,
+        // Text translation options
+        // Note the required keywords between underscores (e.g _MENU_)
+        initComplete: function () {
+            this.api().columns([0,1]).every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        },
+        oLanguage: {
+            sSearch:      'Search:',
+            sLengthMenu:  '_MENU_ records per page',
+            info:         'Showing page _PAGE_ of _PAGES_',
+            zeroRecords:  'Nothing found - sorry',
+            infoEmpty:    'No records available',
+            infoFiltered: '(filtered from _MAX_ total records)'
+        },
+        // Datatable Buttons setup
+        dom: '<"html5buttons"B>frtip',
+        buttons: [
+            {extend: 'csv',   className: 'btn-sm' },
+            {extend: 'excel', className: 'btn-sm', title: 'XLS-File'},
+            {extend: 'pdf',   className: 'btn-sm', title: $('title').text() },
+            {extend: 'print', className: 'btn-sm' }
+        ]
+    });
+    
     $('#table-revenue-branches-national').dataTable({
         'paging':   false,  // Table pagination
         'ordering': true,  // Column ordering
