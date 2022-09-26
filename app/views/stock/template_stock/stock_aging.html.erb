@@ -13,10 +13,11 @@
             Stock Aging
           </div>
           <div class="panel-body">
-            <table id="stock-table" class="table table-striped table-hover">
+            <table id="table-aging-stock" class="table table-striped table-hover">
               <thead>
                 <tr>
                   <th>Branch</th>
+                  <th>Brand</th>
                   <th>Type</th>
                   <th>1-2 M</th>
                   <th>2-4 M</th>
@@ -26,10 +27,17 @@
                   <th>24 M</th>
                 </tr>
               </thead>
+              <tfoot>
+                <tr>
+                  <th>Type</th>
+                  <th>Type</th>
+                </tr>
+              </tfoot>
               <tbody>
                 <% @age_stock.each do |cs| %>
                 <tr class="gradeX">
                   <td><%= cs.branch_plan_desc %></td>
+                  <td><%= cs.brand %></td>
                   <td><%= cs.grouping %></td>
                   <td><%= cs.satu.to_i %></td>
                   <td><%= cs.dua.to_i %></td>
