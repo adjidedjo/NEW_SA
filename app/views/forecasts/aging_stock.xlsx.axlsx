@@ -116,18 +116,6 @@ wb.add_worksheet(name: "CAM SUKABUMI") do |sheet|
 end
 
 wb.styles.fonts.first.name = 'Calibri'
-wb.add_worksheet(name: "CAM SUKABUMI") do |sheet|
-  sheet.add_row ["AGING STOCK CAM SUKABUMI"]
-  sheet.add_row ["#{Date.today}"]
-  sheet.add_row []
-  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
-  
-  sukabumi.each do |p|
-    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
-  end
-end
-
-wb.styles.fonts.first.name = 'Calibri'
 wb.add_worksheet(name: "CAM TASIKMALAYA") do |sheet|
   sheet.add_row ["AGING STOCK CAM TASIKMALAYA"]
   sheet.add_row ["#{Date.today}"]
