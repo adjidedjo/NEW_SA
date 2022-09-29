@@ -42,6 +42,8 @@ pusat = []
   tasik << pma if pma.branch_plan_desc =~ /#{"Tasik"}/
   sukabumi << pma if pma.branch_plan_desc =~ /#{"Sukabumi"}/
   pusat << pma if pma.branch_plan_desc =~ /#{"Royal"}/
+  manado << pma if pma.branch_plan_desc =~ /#{"Manado"}/
+  samarinda << pma if pma.branch_plan_desc =~ /#{"Samarinda"}/
 end
 
 percent = wb.styles.add_style(:format_code => "0%", :sz => 11)
@@ -59,6 +61,54 @@ wb.add_worksheet(name: "ROYAL PUSAT") do |sheet|
   sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
   
   pusat.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "BM MANADO") do |sheet|
+  sheet.add_row ["AGING STOCK BM MANADO"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  manado.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "BM SAMARINDA") do |sheet|
+  sheet.add_row ["AGING STOCK SAMARINDA"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  samarinda.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM CIREBON") do |sheet|
+  sheet.add_row ["AGING STOCK CAM CIREBON"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  cirebon.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM SUKABUMI") do |sheet|
+  sheet.add_row ["AGING STOCK CAM SUKABUMI"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  sukabumi.each do |p|
     sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
   end
 end
