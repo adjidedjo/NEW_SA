@@ -1,0 +1,280 @@
+xlsx_package = Axlsx::Package.new
+wb = xlsx_package.workbook
+
+bandung = []
+bali = []
+cirebon = []
+jakarta = []
+jember = []
+kediri = []
+lampung = []
+makasar = []
+medan = []
+palembang = []
+pekanbaru = []
+semarang = []
+surabaya = []
+tangerang = []
+yogya = []
+cikupa = []
+cikampek = []
+tasik = []
+sukabumi = []
+pusat = []
+@aging_stock.each do |pma|
+  bandung << pma if pma.branch_plan_desc =~ /#{"Bandung"}/
+  bali << pma if pma.branch_plan_desc =~ /#{"Bali"}/
+  cirebon << pma if pma.branch_plan_desc =~ /#{"Cirebon"}/
+  jakarta << pma if pma.branch_plan_desc =~ /#{"Jakarta"}/
+  jember << pma if pma.branch_plan_desc =~ /#{"Jember"}/
+  kediri << pma if pma.branch_plan_desc =~ /#{"Kediri"}/
+  lampung << pma if pma.branch_plan_desc =~ /#{"Lampung"}/
+  makasar << pma if pma.branch_plan_desc =~ /#{"Makasar"}/
+  medan << pma if pma.branch_plan_desc =~ /#{"Medan"}/
+  palembang << pma if pma.branch_plan_desc =~ /#{"Palembang"}/
+  pekanbaru << pma if pma.branch_plan_desc =~ /#{"Pekanbaru"}/
+  semarang << pma if pma.branch_plan_desc =~ /#{"Semarang"}/
+  surabaya << pma if pma.branch_plan_desc =~ /#{"Surabaya"}/
+  tangerang << pma if pma.branch_plan_desc =~ /#{"Tangerang"}/
+  yogya << pma if pma.branch_plan_desc =~ /#{"Yogyakarta"}/
+  cikupa << pma if pma.branch_plan_desc =~ /#{"Cikupa"}/
+  cikampek << pma if pma.branch_plan_desc =~ /#{"Cikampek"}/
+  tasik << pma if pma.branch_plan_desc =~ /#{"Tasik"}/
+  sukabumi << pma if pma.branch_plan_desc =~ /#{"Sukabumi"}/
+  pusat << pma if pma.branch_plan_desc =~ /#{"Royal"}/
+end
+
+percent = wb.styles.add_style(:format_code => "0%", :sz => 11)
+money = wb.styles.add_style(:format_code => '0,000', :border => Axlsx::STYLE_THIN_BORDER)
+status = wb.styles.add_style(:border => Axlsx::STYLE_THIN_BORDER)
+more = wb.styles.add_style( :bg_color=> "FFFF99", :fg_color => "999900", :type => :dxf )
+less = wb.styles.add_style( :bg_color=> "FFC0CB", :fg_color => "FF0000", :type => :dxf )
+
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "ROYAL PUSAT") do |sheet|
+  sheet.add_row ["AGING STOCK ROYAL PUSAT"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  pusat.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM SUKABUMI") do |sheet|
+  sheet.add_row ["AGING STOCK CAM SUKABUMI"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  sukabumi.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM TASIKMALAYA") do |sheet|
+  sheet.add_row ["AGING STOCK CAM TASIKMALAYA"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  tasik.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM CIKAMPEK") do |sheet|
+  sheet.add_row ["AGING STOCK CAM CIKAMPEK"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  cikampek.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM CIKUPA") do |sheet|
+  sheet.add_row ["AGING STOCK CAM CIKUPA"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  cikupa.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM YOGYAKARTA") do |sheet|
+  sheet.add_row ["AGING STOCK CAM YOGYAKARTA"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  yogya.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM TANGERANG") do |sheet|
+  sheet.add_row ["AGING STOCK CAM TANGERANG"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  tangerang.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM SURABAYA") do |sheet|
+  sheet.add_row ["AGING STOCK CAM SURABAYA"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  surabaya.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM SEMARANG") do |sheet|
+  sheet.add_row ["AGING STOCK CAM SEMARANG"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  semarang.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM PEKANBARU") do |sheet|
+  sheet.add_row ["AGING STOCK CAM PEKANBARU"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  pekanbaru.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM PALEMBANG") do |sheet|
+  sheet.add_row ["AGING STOCK CAM PALEMBANG"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  palembang.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM MEDAN") do |sheet|
+  sheet.add_row ["AGING STOCK CAM MEDAN"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  medan.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM MAKASAR") do |sheet|
+  sheet.add_row ["AGING STOCK CAM MAKASAR"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  makasar.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM LAMPUNG") do |sheet|
+  sheet.add_row ["AGING STOCK CAM LAMPUNG"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  lampung.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM KEDIRI") do |sheet|
+  sheet.add_row ["AGING STOCK CAM KEDIRI"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  kediri.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM JEMBER") do |sheet|
+  sheet.add_row ["AGING STOCK CAM JEMBER"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  jember.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM JAKARTA") do |sheet|
+  sheet.add_row ["AGING STOCK CAM JAKARTA"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  jakarta.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM BANDUNG") do |sheet|
+  sheet.add_row ["AGING STOCK CAM BANDUNG"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  bandung.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end
+
+wb.styles.fonts.first.name = 'Calibri'
+wb.add_worksheet(name: "CAM BALI") do |sheet|
+  sheet.add_row ["AGING STOCK CAM BALI"]
+  sheet.add_row ["#{Date.today}"]
+  sheet.add_row []
+  sheet.add_row ["BRANCH", "BRAND", "TIPE", "1-2M", "2-4M", "4-6M", "6-12M", "12-24M", ">24M"]
+  
+  bali.each do |p|
+    sheet.add_row [p.branch_plan_desc, p.brand, p.grouping, p.satu, p.dua, p.empat, p.enam, p.duabelas, p.duaempat]
+  end
+end

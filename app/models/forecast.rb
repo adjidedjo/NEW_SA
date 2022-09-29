@@ -1,4 +1,18 @@
 class Forecast < ActiveRecord::Base
+
+  def self.nasional_aging_stock(brand)
+    find_by_sql("
+      SELECT branch_plan, branch_plan_desc, brand, grouping,  
+  	IFNULL(SUM(CASE WHEN cats = '1-2' THEN quantity END),0) AS 'satu',
+  	IFNULL(SUM(CASE WHEN cats = '2-4' THEN quantity END),0) AS 'dua',
+	IFNULL(SUM(CASE WHEN cats = '4-6' THEN quantity END),0) AS 'empat',
+  	IFNULL(SUM(CASE WHEN cats = '6-12' THEN quantity END),0) AS 'enam',
+  	IFNULL(SUM(CASE WHEN cats = '12-24' THEN quantity END),0) AS 'duabelas' ,
+  	IFNULL(SUM(CASE WHEN cats = '>730' THEN quantity END),0) AS 'duaempat'
+      FROM aging_stock_details WHERE brand = '#{brand}' GROUP BY branch_plan, grouping ORDER BY branch_plan_desc ASC;
+    ")
+  end
+
   def self.cek_penjualan_pbjm_cabang(fdate, edate, kode, branch)
     a = find_by_sql("
 	SELECT (CASE WHEN ri.harga_ri = 0 AND rm.harganetto2 > 0 THEN SUM(ri.jumlah) else SUM(ri.jumlah) END)  jumlah FROM

@@ -46,6 +46,14 @@ class ForecastsController < ApplicationController
   def rkm_sales_page
     @rkm_sales = Forecast.calculate_rkm_sales(Date.today.cweek, Date.today.year, current_user.address_number)
   end
+
+  def nasional_aging_stock
+    @aging_stock = Forecast.nasional_aging_stock(params[:brand]) if params[:brand].present? && params[:format] == 'xlsx'
+
+    respond_to do |format|
+      format.xlsx {render :xlsx => "aging_stock", :filename => "Aging Stock #{params[:brand]}.xlsx"}
+    end
+  end
   
   def rekap_report_rkm
     @pbj_recap_mingguan_admin = Forecast.calculate_rkm_recap_admin(params[:week], params[:year], params[:brand], params[:areas]) if params[:week].present? && params[:typ] == 'recap' && params[:format] == 'xlsx'
