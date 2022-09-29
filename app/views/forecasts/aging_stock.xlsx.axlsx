@@ -21,6 +21,8 @@ cikampek = []
 tasik = []
 sukabumi = []
 pusat = []
+manado = []
+samarinda = []
 @aging_stock.each do |pma|
   bandung << pma if pma.branch_plan_desc =~ /#{"Bandung"}/
   bali << pma if pma.branch_plan_desc =~ /#{"Bali"}/
