@@ -1,6 +1,30 @@
 class Penjualan::Sale < ActiveRecord::Base
   self.table_name = "tblaporancabang"
   ########## START MONTHLY
+
+  def self.retail_nasional_this_month_accessories(date, brand)
+    self.find_by_sql("SELECT lc.kodejenis, lc.namaartikel, lc.jabar, lc.jakarta, lc.jakarta, lc.bali, lc.medan,
+    lc.jatim, lc.semarang, lc.cirebon, lc.yogya, lc.palembang, lc.lampung, lc.makasar, lc.pekanbaru  FROM
+    (
+      SELECT article AS kodeartikel, article_desc AS namaartikel, product AS kodejenis,
+      SUM(CASE WHEN branch = 2 THEN sales_amount END) jabar,
+      SUM(CASE WHEN branch = 3 THEN sales_amount END) jakarta,
+      SUM(CASE WHEN branch = 4 THEN sales_amount END) bali,
+      SUM(CASE WHEN branch = 5 THEN sales_amount END) medan,
+      SUM(CASE WHEN branch = 7 THEN sales_amount END) jatim,
+      SUM(CASE WHEN branch = 8 THEN sales_amount END) semarang,
+      SUM(CASE WHEN branch = 9 THEN sales_amount END) cirebon,
+      SUM(CASE WHEN branch = 10 THEN sales_amount END) yogya,
+      SUM(CASE WHEN branch = 11 THEN sales_amount END) palembang,
+      SUM(CASE WHEN branch = 13 THEN sales_amount END) lampung,
+      SUM(CASE WHEN branch = 19 THEN sales_amount END) makasar,
+      SUM(CASE WHEN branch = 20 THEN sales_amount END) pekanbaru
+      FROM sales_mart.RET1ARTICLE WHERE fiscal_month = '#{date.month}' AND
+      fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' AND product NOT IN ('KM', 'DV','HB', 'SA', 'SB','ST') GROUP BY kodeartikel
+    ) as lc
+    ")
+  end
+  
   def self.export_sales_report(from, to, area)
     find_by_sql("
     SELECT ri.*, IFNULL((ri.harganetto2 + IFNULL(rm.harganetto2,0)),0) AS net FROM

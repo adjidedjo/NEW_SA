@@ -9,6 +9,7 @@ module PenjualanConcern
   end
   
   def retail_nasional_this_month_branches_conc
+    @acc_monthnas_summary = Penjualan::Sale.retail_nasional_this_month_accessories(@date, initialize_brand)
     @products_monthnas_summary = Penjualan::Sale.retail_nasional_this_month_products(@date, initialize_brand)
     @branches_monthnas_summary = Penjualan::Sale.retail_nasional_this_month_branches(@date, initialize_brand)
     @branches_yearnas_summary = Penjualan::Sale.retail_nasional_year_branches(@date, initialize_brand)
