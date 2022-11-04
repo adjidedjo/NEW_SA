@@ -4,7 +4,7 @@ class Penjualan::Sale < ActiveRecord::Base
 
   def self.retail_nasional_this_month_accessories(date, brand)
     self.find_by_sql("SELECT lc.kodejenis, lc.namaartikel, lc.jabar, lc.jakarta, lc.jakarta, lc.bali, lc.medan,
-    lc.jatim, lc.semarang, lc.cirebon, lc.yogya, lc.palembang, lc.lampung, lc.makasar, lc.pekanbaru  FROM
+    lc.jatim, lc.semarang, lc.cirebon, lc.yogya, lc.palembang, lc.lampung, lc.makasar, lc.pekanbaru, lc.manado, lc.samarinda  FROM
     (
       SELECT article AS kodeartikel, article_desc AS namaartikel, product AS kodejenis,
       SUM(CASE WHEN branch = 2 THEN sales_amount END) jabar,
@@ -18,7 +18,9 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN branch = 11 THEN sales_amount END) palembang,
       SUM(CASE WHEN branch = 13 THEN sales_amount END) lampung,
       SUM(CASE WHEN branch = 19 THEN sales_amount END) makasar,
-      SUM(CASE WHEN branch = 20 THEN sales_amount END) pekanbaru
+      SUM(CASE WHEN branch = 20 THEN sales_amount END) pekanbaru,
+      SUM(CASE WHEN branch = 26 THEN sales_amount END) manado,
+      SUM(CASE WHEN branch = 55 THEN sales_amount END) samarinda
       FROM sales_mart.RET1ARTICLE WHERE fiscal_month = '#{date.month}' AND
       fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' AND product NOT IN ('KM', 'DV','HB', 'SA', 'SB','ST') GROUP BY kodeartikel
     ) as lc
@@ -197,7 +199,7 @@ class Penjualan::Sale < ActiveRecord::Base
 
   def self.retail_nasional_this_month_products(date, brand)
     self.find_by_sql("SELECT lc.kodejenis, lc.namaartikel, lc.jabar, lc.jakarta, lc.jakarta, lc.bali, lc.medan,
-    lc.jatim, lc.semarang, lc.cirebon, lc.yogya, lc.palembang, lc.lampung, lc.makasar, lc.pekanbaru  FROM
+    lc.jatim, lc.semarang, lc.cirebon, lc.yogya, lc.palembang, lc.lampung, lc.makasar, lc.pekanbaru, lc.manado, lc.samarinda  FROM
     (
       SELECT article AS kodeartikel, article_desc AS namaartikel, product AS kodejenis,
       SUM(CASE WHEN branch = 2 THEN sales_quantity END) jabar,
@@ -211,7 +213,9 @@ class Penjualan::Sale < ActiveRecord::Base
       SUM(CASE WHEN branch = 11 THEN sales_quantity END) palembang,
       SUM(CASE WHEN branch = 13 THEN sales_quantity END) lampung,
       SUM(CASE WHEN branch = 19 THEN sales_quantity END) makasar,
-      SUM(CASE WHEN branch = 20 THEN sales_quantity END) pekanbaru
+      SUM(CASE WHEN branch = 20 THEN sales_quantity END) pekanbaru,
+      SUM(CASE WHEN branch = 26 THEN sales_quantity END) manado,
+      SUM(CASE WHEN branch = 55 THEN sales_quantity END) samarinda
       FROM sales_mart.RET1ARTICLE WHERE fiscal_month = '#{date.month}' AND
       fiscal_year = '#{date.year}' AND brand REGEXP '#{brand}' GROUP BY kodeartikel
     ) as lc
