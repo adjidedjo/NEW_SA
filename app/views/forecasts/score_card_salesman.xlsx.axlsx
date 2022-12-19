@@ -1,0 +1,30 @@
+xlsx_package = Axlsx::Package.new
+wb = xlsx_package.workbook
+
+percent = wb.styles.add_style(:format_code => "0%", :sz => 11)
+money = wb.styles.add_style(:format_code => '0,000', :border => Axlsx::STYLE_THIN_BORDER)
+status = wb.styles.add_style(:border => Axlsx::STYLE_THIN_BORDER)
+more = wb.styles.add_style( :bg_color=> "FFFF99", :fg_color => "999900", :type => :dxf )
+less = wb.styles.add_style( :bg_color=> "FFC0CB", :fg_color => "FF0000", :type => :dxf )
+wrap_text = wb.styles.add_style(:alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true})
+
+@score_card_salesman.each do |key, p|
+  wb.styles.fonts.first.name = 'Calibri'
+  wb.add_worksheet(name: "#{key}") do |sheet|
+    sheet.add_row ["Cabang", "#{Gudang.find_by_code(params[:areas]).description}"]
+    sheet.add_row ["Nama Sales", "#{key}"]
+    sheet.add_row ["Week", "#{params[:week]}"]
+    sheet.add_row []
+    sheet.add_row ["","","","","FORECAST", ""], :style => wrap_text
+    sheet.add_row ["BRAND", "PRODUK", "KAIN", "PANJANG","000", "100", "120", "140", "160", "180", "200", 
+                  "TOTAL", "SISA"]
+    sheet.merge_cells "E5:K5"
+    
+    p.each do |p|
+      sheet.add_row [p.brand, p.segment2_name, p.segment3_name, "200", p.satu, p.dua, p.tiga, p.empat, 
+                      p.lima, p.enam, p.tujuh, p.total, "0"]
+    end
+  end
+end

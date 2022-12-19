@@ -1,4 +1,24 @@
 class ForecastsController < ApplicationController
+
+  def score_card
+    gudang(current_user)
+    @score_card = Forecast.score_card(params[:area])
+
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "score_card", :filename => "score card #{params[:area]}.xlsx"}
+    end
+  end
+
+  def score_card_salesman
+    gudang(current_user)
+    @score_card_salesman = Forecast.score_card_salesman(params[:area])
+
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "score_card_salesman", :filename => "score card salesman #{params[:area]}.xlsx"}
+    end
+  end
   
   def customer_prog
     @cust_prog = Forecast.calculate_customer_prog(params[:areas])
@@ -139,6 +159,26 @@ class ForecastsController < ApplicationController
     end
     @brand = Brand.where(external: 0)
     @acv_forecast_dir = Forecast.calculation_direct_forecast(params[:start_date], params[:end_date], params[:areas]) if params[:start_date].present?
+  end
+
+  private
+
+  def area(user)
+    if user.branch1 != nil || user.branch2 != nil
+      @areas = Area.where("id IN ('#{user.branch1}','#{user.branch2}')")
+    else
+      @areas = Area.all
+    end
+    return @areas
+  end
+
+  def gudang(user)
+    if user.branch1 != nil || user.branch2 != nil
+      @gudang = Gudang.where("area_id IN ('#{user.branch1}','#{user.branch2}')")
+    else
+      @gudang = Gudang.all
+    end
+    return @gudang
   end
 
   def index
