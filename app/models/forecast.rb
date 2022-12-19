@@ -1,14 +1,57 @@
 class Forecast < ActiveRecord::Base
 
+  def self.score_card(branch)
+    find_by_sql("SELECT f.address_number , f.sales_name , f.segment2_name, f.brand, f.segment3_name,
+      SUM(CASE WHEN f.`size` = 000 then f.quantity else 0 end) satu ,
+      SUM(CASE WHEN f.`size` = 100 then f.quantity else 0 end) dua ,
+      SUM(CASE WHEN f.`size` = 120 then f.quantity else 0 end) tiga ,
+      SUM(CASE WHEN f.`size` = 140 then f.quantity else 0 end) empat ,
+      SUM(CASE WHEN f.`size` = 160 then f.quantity else 0 end) lima ,
+      SUM(CASE WHEN f.`size` = 180 then f.quantity else 0 end) enam ,
+      SUM(CASE WHEN f.`size` = 200 then f.quantity else 0 end) tujuh ,
+      SUM(CASE WHEN rs.lebar = 000 then rs.total else 0 end) rea1 ,
+      SUM(CASE WHEN rs.lebar = 100 then rs.total else 0 end) rea2 ,
+      SUM(CASE WHEN rs.lebar = 120 then rs.total else 0 end) rea3 ,
+      SUM(CASE WHEN rs.lebar = 140 then rs.total else 0 end) rea4 ,
+      SUM(CASE WHEN rs.lebar = 160 then rs.total else 0 end) rea5 ,
+      SUM(CASE WHEN rs.lebar = 180 then rs.total else 0 end) rea6 ,
+      SUM(CASE WHEN rs.lebar = 200 then rs.total else 0 end) rea7 ,
+      SUM(f.quantity) total_forecast, SUM(rs.total) total_realisasi
+    FROM forecasts f 
+    INNER JOIN 
+    (
+      SELECT item_number, panjang, lebar, nopo, MAX(salesman) as salesman, sum(total) as total 
+	  from sales_mart.RET3SALITEMNUMBER rs 
+      where month = 10 and year = 2022 group by item_number, panjang, lebar, nopo
+    ) rs on f.address_number = address_number AND (f.item_number = rs.item_number)
+    WHERE f.`month`  = 10 and f.`year` = 2022 and f.branch = 2 and f.brand is not null
+    GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name
+    ORDER BY f.address_number ASC").group_by(&:sales_name)
+  end
+
+  def self.score_card_salesman(branch)
+    find_by_sql("SELECT f.address_number , f.sales_name , f.segment2_name, f.brand, f.segment3_name,
+      SUM(CASE WHEN f.`size` = 000 then f.quantity else 0 end) satu ,
+      SUM(CASE WHEN f.`size` = 100 then f.quantity else 0 end) dua ,
+      SUM(CASE WHEN f.`size` = 120 then f.quantity else 0 end) tiga ,
+      SUM(CASE WHEN f.`size` = 140 then f.quantity else 0 end) empat ,
+      SUM(CASE WHEN f.`size` = 160 then f.quantity else 0 end) lima ,
+      SUM(CASE WHEN f.`size` = 180 then f.quantity else 0 end) enam ,
+      SUM(CASE WHEN f.`size` = 200 then f.quantity else 0 end) tujuh ,
+      SUM(f.quantity) total
+    FROM  forecasts f WHERE `month` = 10 and `year` = 2022 and branch = 2 and brand is not null
+    GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name").group_by(&:sales_name)
+  end
+
   def self.nasional_aging_stock(brand)
     find_by_sql("
       SELECT branch_plan, branch_plan_desc, brand, grouping,  
-  	IFNULL(SUM(CASE WHEN cats = '1-2' THEN quantity END),0) AS 'satu',
-  	IFNULL(SUM(CASE WHEN cats = '2-4' THEN quantity END),0) AS 'dua',
-	IFNULL(SUM(CASE WHEN cats = '4-6' THEN quantity END),0) AS 'empat',
-  	IFNULL(SUM(CASE WHEN cats = '6-12' THEN quantity END),0) AS 'enam',
-  	IFNULL(SUM(CASE WHEN cats = '12-24' THEN quantity END),0) AS 'duabelas' ,
-  	IFNULL(SUM(CASE WHEN cats = '>730' THEN quantity END),0) AS 'duaempat'
+  	    IFNULL(SUM(CASE WHEN cats = '1-2' THEN quantity END),0) AS 'satu',
+  	    IFNULL(SUM(CASE WHEN cats = '2-4' THEN quantity END),0) AS 'dua',
+	      IFNULL(SUM(CASE WHEN cats = '4-6' THEN quantity END),0) AS 'empat',
+  	    IFNULL(SUM(CASE WHEN cats = '6-12' THEN quantity END),0) AS 'enam',
+  	    IFNULL(SUM(CASE WHEN cats = '12-24' THEN quantity END),0) AS 'duabelas' ,
+  	    IFNULL(SUM(CASE WHEN cats = '>730' THEN quantity END),0) AS 'duaempat'
       FROM aging_stock_details WHERE brand = '#{brand}' GROUP BY branch_plan, grouping ORDER BY branch_plan_desc ASC;
     ")
   end
@@ -333,7 +376,7 @@ class Forecast < ActiveRecord::Base
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       forecast = find_by(brand: row["brand"], address_number: row["address_number"].to_i, item_number: row["item_number"].strip, branch: row["branch"],
-      month: row["month"], year: row["year"]) || new
+      month: row["month"], year: row["year"], week: row["week"]) || new
       unless row["quantity"].nil? || row["quantity"] == 0
         if forecast.id.nil?
           item = JdeItemMaster.get_desc_forecast(row["item_number"])
