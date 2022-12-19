@@ -4,6 +4,9 @@
     <li class="sidebar-subnav-header">
       Forecasts
     </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('score_card') %>">
+      <a href="/forecasts/score_card" title="Score Card"> <em class="fa fa-cubes"></em> <span><b>Score Card</b></span> </a>
+    </li>
     <li class="<%= 'active' if controller?('forecasts') && action?('report_rkm') %>">
       <a href="/forecasts/report_rkm" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>RKM & PBJM</b></span> </a>
     </li>
