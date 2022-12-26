@@ -4,6 +4,12 @@ class Penjualan::Nasional::NasionalElitesController < ApplicationController
   before_action :retail_nasional_weekly, only: :weekly
   before_action :retail_nasional_monthly, only: :monthly
   before_action :retail_nasional_this_month, only: :daily
+
+  def customer_progress
+    @brand_name = initialize_brand
+    @customer = Penjualan::Customer.customer_progress(initialize_brand)
+    render template: "penjualan/template_dashboard/customer_progress"
+  end
   
   def customer_decrease
     @brand_name = initialize_brand
