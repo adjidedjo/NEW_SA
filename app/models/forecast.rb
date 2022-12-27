@@ -1,5 +1,60 @@
 class Forecast < ActiveRecord::Base
 
+  def self.calculation_forecasts_by_branch_and_sales(start_date, end_date, area)
+    self.find_by_sql("
+      SELECT oa.nopo, oa.salesman, oa.jenisbrgdisc AS brand, SUM(oa.quantity) AS quantity, SUM(oa.jumlah) AS jumlah,
+      SUM(oa.acv) AS acv, SUM(oa.todate) AS todate, SUM(IFNULL(equal_sales,0)) AS equal_sales,
+      SUM(IFNULL(more_sales,0)) AS more_sales, SUM(IFNULL(less_sales,0)) AS less_sales,
+      SUM(IFNULL(more_sales_for_non,0)) AS msfn FROM
+      (
+            SELECT f1.nopo, f1.salesman, lp.kodebrg, f.todate, IFNULL(lp.jenisbrgdisc, f.brand) AS jenisbrgdisc, lp.namabrg, a.area,
+            f.branch, f.size, f.quantity, lp.jumlah, ABS((IFNULL(lp.jumlah,0)-IFNULL(f.todate,0))) AS acv,
+            CASE WHEN IFNULL(lp.jumlah,0) = IFNULL(f.todate, 0) THEN lp.jumlah END AS equal_sales,
+            CASE WHEN IFNULL(lp.jumlah,0) > IFNULL(f.todate,0) THEN f.todate END AS more_sales,
+            CASE WHEN IFNULL(lp.jumlah,0) < IFNULL(f.todate,0) THEN lp.jumlah END AS less_sales,
+            CASE WHEN IFNULL(lp.jumlah,0) > IFNULL(f.todate,0) THEN
+            (IFNULL(lp.jumlah,0) - IFNULL(f.todate,0)) END AS more_sales_for_non
+            FROM
+            (
+              SELECT DISTINCT(kodebrg), nopo, salesman FROM
+              tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
+              ('KM', 'DV', 'HB', 'KB', 'SB', 'SA', 'ST')  AND tanggalsj BETWEEN '#{start_date.to_date}'
+              AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc NOT LIKE 'CLASSIC'
+
+              UNION ALL
+
+              SELECT DISTINCT(item_number), address_number, sales_name FROM
+              forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
+              '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
+              AND '#{end_date.to_date.year}' AND branch = '#{area}'
+            ) AS f1
+            LEFT JOIN
+            (
+              SELECT SUM(jumlah) AS jumlah, jenisbrgdisc, kodebrg, namabrg, area_id, nopo, fiscal_month, fiscal_year FROM
+              tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
+              ('KM', 'DV', 'HB', 'KB', 'SB', 'SA', 'ST')  AND tanggalsj
+              BETWEEN '#{start_date.to_date}' AND '#{end_date.to_date}' AND area_id = '#{area}'
+              AND jenisbrgdisc NOT LIKE 'CLASSIC'
+              GROUP BY nopo, kodebrg
+            ) AS lp ON lp.kodebrg = f1.kodebrg and (lp.nopo = f1.nopo)
+            LEFT JOIN
+            (
+              SELECT address_number, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
+              segment3_name, size, SUM(quantity) AS quantity,
+              ROUND((SUM(quantity)/DAY(LAST_DAY('#{end_date.to_date}')))*DAY('#{end_date.to_date}')) AS todate FROM
+              forecasts WHERE branch = '#{area}' AND MONTH BETWEEN '#{start_date.to_date.month}' AND
+              '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
+              GROUP BY address_number, item_number
+            ) AS f ON f.item_number = f1.kodebrg and (f.address_number = f1.nopo)
+            LEFT JOIN
+            (
+              SELECT * FROM areas
+            ) AS a ON f.branch = a.id
+      GROUP BY f1.kodebrg
+      ) AS oa GROUP BY oa.nopo, oa.jenisbrgdisc
+    ")
+  end
+
   def self.score_card(branch)
     find_by_sql("SELECT f.address_number , f.sales_name , f.segment2_name, f.brand, f.segment3_name,
       SUM(CASE WHEN f.`size` = 000 then f.quantity else 0 end) satu ,

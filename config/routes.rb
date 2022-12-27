@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   post 'sources/import_rkb'
 
   # FORECAST
+  get 'forecasts/akurasi_forecast_sales'
   get 'forecasts/score_card'
   get 'forecasts/score_card_salesman'
   get 'forecasts/nasional_aging_stock'
@@ -161,6 +162,11 @@ Rails.application.routes.draw do
   get 'penjualan_direct/nasional_ecom/nasional_royal/daily'
 
   #Nasional
+  get 'penjualan/nasional/nasional_lady/customer_progress'
+  get 'penjualan/nasional/nasional_serenity/customer_progress'
+  get 'penjualan/nasional/nasional_royal/customer_progress'
+  get 'penjualan/nasional/nasional_tote/customer_progress'
+  get 'penjualan/nasional/nasional_elites/customer_progress'
   get 'penjualan/nasional/nasional_channels/all_channel'
   get 'penjualan/nasional/nasional_customers/national_customer'
   get 'penjualan/nasional/nasional_elites/customer_decrease'

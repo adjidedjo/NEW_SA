@@ -1,8 +1,20 @@
 class ForecastsController < ApplicationController
 
+  def akurasi_forecast_sales
+    if current_user.branch1 != nil || current_user.branch2 != nil
+      @areas = Area.where("id IN ('#{current_user.branch1}','#{current_user.branch2}')")
+    else
+      @areas = Area.all
+    end
+    @brand = Brand.where(external: 0)
+    @acv_forecast = Forecast.calculation_forecasts_by_branch_and_sales(params[:start_date], params[:end_date], params[:areas]) if params[:start_date].present?
+  end
+
   def score_card
     gudang(current_user)
+    area(current_user)
     @score_card = Forecast.score_card(params[:area])
+    @acv_forecast = Forecast.calculation_forecasts_by_branch_and_sales(params[:start_date], params[:end_date], params[:areas]) if params[:start_date].present?
 
     respond_to do |format|
       format.html
