@@ -13,7 +13,7 @@ class ForecastsController < ApplicationController
   def score_card
     gudang(current_user)
     area(current_user)
-    @score_card = Forecast.score_card(params[:area])
+    @score_card = Forecast.score_card(params[:areas], params[:week], params[:year])
     @acv_forecast = Forecast.calculation_forecasts_by_branch_and_sales(params[:start_date], params[:end_date], params[:areas]) if params[:start_date].present?
 
     respond_to do |format|
@@ -24,11 +24,11 @@ class ForecastsController < ApplicationController
 
   def score_card_salesman
     gudang(current_user)
-    @score_card_salesman = Forecast.score_card_salesman(params[:area])
+    @score_card_salesman = Forecast.score_card_salesman(params[:areas], params[:week], params[:year])
 
     respond_to do |format|
       format.html
-      format.xlsx {render :xlsx => "score_card_salesman", :filename => "score card salesman #{params[:area]}.xlsx"}
+      format.xlsx {render :xlsx => "score_card_salesman", :filename => "score card salesman #{params[:areas]}.xlsx"}
     end
   end
   

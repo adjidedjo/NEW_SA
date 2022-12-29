@@ -55,7 +55,7 @@ class Forecast < ActiveRecord::Base
     ")
   end
 
-  def self.score_card(branch)
+  def self.score_card(branch, week, year)
     find_by_sql("SELECT f.address_number , f.sales_name , f.segment2_name, f.brand, f.segment3_name,
       SUM(CASE WHEN f.`size` = 000 then f.quantity else 0 end) satu ,
       SUM(CASE WHEN f.`size` = 100 then f.quantity else 0 end) dua ,
@@ -77,14 +77,14 @@ class Forecast < ActiveRecord::Base
     (
       SELECT item_number, panjang, lebar, nopo, MAX(salesman) as salesman, sum(total) as total 
 	  from sales_mart.RET3SALITEMNUMBER rs 
-      where month = 10 and year = 2022 group by item_number, panjang, lebar, nopo
+      where week = '#{week}' and year = '#{year}' group by item_number, panjang, lebar, nopo
     ) rs on f.address_number = address_number AND (f.item_number = rs.item_number)
-    WHERE f.`month`  = 10 and f.`year` = 2022 and f.branch = 2 and f.brand is not null
+    WHERE f.`week` = '#{week}' and f.`year` = '#{year}' and f.gudang_id = '#{branch}' and f.brand is not null
     GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name
     ORDER BY f.address_number ASC").group_by(&:sales_name)
   end
 
-  def self.score_card_salesman(branch)
+  def self.score_card_salesman(branch, week, year)
     find_by_sql("SELECT f.address_number , f.sales_name , f.segment2_name, f.brand, f.segment3_name,
       SUM(CASE WHEN f.`size` = 000 then f.quantity else 0 end) satu ,
       SUM(CASE WHEN f.`size` = 100 then f.quantity else 0 end) dua ,
@@ -94,7 +94,7 @@ class Forecast < ActiveRecord::Base
       SUM(CASE WHEN f.`size` = 180 then f.quantity else 0 end) enam ,
       SUM(CASE WHEN f.`size` = 200 then f.quantity else 0 end) tujuh ,
       SUM(f.quantity) total
-    FROM  forecasts f WHERE `month` = 10 and `year` = 2022 and branch = 2 and brand is not null
+    FROM  forecasts f WHERE `week` = '#{week}' and `year` = '#{year}' and gudang_id = '#{branch}' and brand is not null
     GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name").group_by(&:sales_name)
   end
 
