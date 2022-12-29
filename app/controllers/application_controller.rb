@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   include PenjualanSalesmanConcern
   include OrderDailyConcern
   include ArConcern
-  include Rails::Pagination
   helper_method :retail_weekly, :retail_monthly, :retail_daily, :order_daily, 
   :retail_salesman_daily, :retail_sales_stock_rate, :retail_sales_through,
   :retail_nasional_weekly, :retail_nasional_monthly, :retail_success_rate,
