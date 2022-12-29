@@ -77,7 +77,7 @@ class Forecast < ActiveRecord::Base
     (
       SELECT item_number, panjang, lebar, nopo, MAX(salesman) as salesman, sum(total) as total 
 	  from sales_mart.RET3SALITEMNUMBER rs 
-      where week = '#{week}' and year = '#{year}' group by item_number, panjang, lebar, nopo
+      where week = '50' and year = '2022' group by item_number, panjang, lebar, nopo
     ) rs on f.address_number = address_number AND (f.item_number = rs.item_number)
     WHERE f.`week` = '#{week}' and f.`year` = '#{year}' and f.gudang_id = '#{branch}' and f.brand is not null
     GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name
