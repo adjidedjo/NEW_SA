@@ -93,7 +93,7 @@ class Forecast < ActiveRecord::Base
       SUM(CASE WHEN f.`size` = 140 then f.quantity else 0 end) lima ,
       SUM(CASE WHEN f.`size` = 160 then f.quantity else 0 end) enam ,
       SUM(CASE WHEN f.`size` = 180 then f.quantity else 0 end) tujuh ,
-      SUM(CASE WHEN f.`size` = 200 then f.quantity else 0 end) tujuh ,
+      SUM(CASE WHEN f.`size` = 200 then f.quantity else 0 end) delapan ,
       SUM(f.quantity) total
     FROM  forecasts f WHERE `week` = '#{week}' and `year` = '#{year}' and gudang_id = '#{branch}' and brand is not null
     and size in (0, 090, 100, 120, 140, 160, 180, 200)
