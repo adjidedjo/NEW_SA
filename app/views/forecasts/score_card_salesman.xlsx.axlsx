@@ -18,13 +18,13 @@ wrap_text = wb.styles.add_style(:alignment => { :horizontal => :center,
     sheet.add_row ["Week", "#{params[:week]}"]
     sheet.add_row []
     sheet.add_row ["","","","","FORECAST", ""], :style => wrap_text
-    sheet.add_row ["BRAND", "PRODUK", "KAIN", "PANJANG","000", "100", "120", "140", "160", "180", "200", 
+    sheet.add_row ["BRAND", "PRODUK", "KAIN", "PANJANG","000", "090", "100", "120", "140", "160", "180", "200", 
                   "TOTAL", "SISA"]
     sheet.merge_cells "E5:K5"
     
     p.each do |p|
       sheet.add_row [p.brand, p.segment2_name, p.segment3_name, "200", p.satu, p.dua, p.tiga, p.empat, 
-                      p.lima, p.enam, p.tujuh, p.total, "0"]
+                      p.lima, p.enam, p.tujuh, p.delapan, p.total, "0"]
     end
   end
 end

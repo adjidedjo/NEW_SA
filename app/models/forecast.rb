@@ -87,15 +87,16 @@ class Forecast < ActiveRecord::Base
   def self.score_card_salesman(branch, week, year)
     find_by_sql("SELECT f.address_number , f.sales_name , f.segment2_name, f.brand, f.segment3_name,
       SUM(CASE WHEN f.`size` = 000 then f.quantity else 0 end) satu ,
-      SUM(CASE WHEN f.`size` = 100 then f.quantity else 0 end) dua ,
-      SUM(CASE WHEN f.`size` = 120 then f.quantity else 0 end) tiga ,
-      SUM(CASE WHEN f.`size` = 140 then f.quantity else 0 end) empat ,
-      SUM(CASE WHEN f.`size` = 160 then f.quantity else 0 end) lima ,
-      SUM(CASE WHEN f.`size` = 180 then f.quantity else 0 end) enam ,
+      SUM(CASE WHEN f.`size` = 090 then f.quantity else 0 end) dua ,
+      SUM(CASE WHEN f.`size` = 100 then f.quantity else 0 end) tiga ,
+      SUM(CASE WHEN f.`size` = 120 then f.quantity else 0 end) empat ,
+      SUM(CASE WHEN f.`size` = 140 then f.quantity else 0 end) lima ,
+      SUM(CASE WHEN f.`size` = 160 then f.quantity else 0 end) enam ,
+      SUM(CASE WHEN f.`size` = 180 then f.quantity else 0 end) tujuh ,
       SUM(CASE WHEN f.`size` = 200 then f.quantity else 0 end) tujuh ,
       SUM(f.quantity) total
     FROM  forecasts f WHERE `week` = '#{week}' and `year` = '#{year}' and gudang_id = '#{branch}' and brand is not null
-    and size in (0, 100, 120, 140, 160, 180, 200)
+    and size in (0, 090, 100, 120, 140, 160, 180, 200)
     GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name").group_by(&:sales_name)
   end
 
