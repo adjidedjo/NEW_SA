@@ -95,6 +95,7 @@ class Forecast < ActiveRecord::Base
       SUM(CASE WHEN f.`size` = 200 then f.quantity else 0 end) tujuh ,
       SUM(f.quantity) total
     FROM  forecasts f WHERE `week` = '#{week}' and `year` = '#{year}' and gudang_id = '#{branch}' and brand is not null
+    and size in (0, 100, 120, 140, 160, 180, 200)
     GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name").group_by(&:sales_name)
   end
 
