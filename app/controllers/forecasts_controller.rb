@@ -72,7 +72,7 @@ class ForecastsController < ApplicationController
   end
   
   def dash_sales
-    @sales_month = Penjualan::SalesmanSales.revenue_sales(current_user) if current_user.position == 'sales'
+    @sales_month = Penjualan::SalesmanSales.score_card_sales(current_user) if current_user.position == 'sales'
   end
   
   def rkm_sales_page

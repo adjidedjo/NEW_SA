@@ -1,5 +1,21 @@
 class Penjualan::SalesmanSales < ActiveRecord::Base
   self.table_name = "tblaporancabang"
+  def self.score_card_sales(sales)
+    find_by_sql("SELECT f.brand, f.sales_name, f.segment2_name, f.segment3_name,
+      (SUM(CASE WHEN f.size = '000' THEN f.sisa END)) satu,
+      (SUM(CASE WHEN f.size = '090' THEN f.sisa END)) dua,
+      (SUM(CASE WHEN f.size = '100' THEN f.sisa END)) tiga,
+      (SUM(CASE WHEN f.size = '120' THEN f.sisa END)) empat,
+      (SUM(CASE WHEN f.size = '140' THEN f.sisa END)) lima,
+      (SUM(CASE WHEN f.size = '160' THEN f.sisa END)) enam,
+      (SUM(CASE WHEN f.size = '180' THEN f.sisa END)) tujuh,
+      (SUM(CASE WHEN f.size = '200' THEN f.sisa END)) delapan
+        FROM forecasts f
+        where f.`year` = '#{Date.today.year}' and f.week = '#{Date.today.cweek}' 
+        and f.address_number = '#{sales.address_number}' 
+        GROUP BY f.segment2, f.segment3")
+  end
+   
   def self.revenue_sales(sales)
     self.find_by_sql("
     SELECT sl.salesmen, sl.salesmen_desc, sl.brand, sl.qty, ot.total, sl.amount FROM (

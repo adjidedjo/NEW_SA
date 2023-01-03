@@ -9,27 +9,37 @@
       <div class="col-lg-8 col-lg-offset-2">
         <div class="panel panel-warning">
           <div class="panel-heading" style="text-align: center">
-            REKAP RKM
+            SCORE CARD (FORECAST - REALISASI) Minggu <%= Date.today.cweek %> Tahun <%= Date.today.year%>
           </div>
           <div class="panel-body">
-            <table id="table-revenue-salesman" class="table table-striped table-hover">
+            <table id="datatable_customer" class="table table-striped table-hover cell-border">
               <thead>
                 <tr>
-                  <th>Nama</th>
                   <th>Brand</th>
-                  <th>Quantity</th>
-                  <th>Amount</th>
-                  <th>Target Week <%= Date.today.cweek %></th>
+                  <th>Nama Barang</th>
+                  <th>000</th>
+                  <th>090</th>
+                  <th>100</th>
+                  <th>120</th>
+                  <th>140</th>
+                  <th>160</th>
+                  <th>180</th>
+                  <th>200</th>
                 </tr>
               </thead>
               <tbody>
                 <% @sales_month.each do |dp| %>
                 <tr class="gradeX">
-                  <td><%= dp.salesmen_desc %></td>
                   <td><%= dp.brand %></td>
-                  <td><%= dp.qty %></td>
-                  <td><%= currency(dp.amount) %></td>
-                  <td><%= dp.total %></td>
+                  <td><%= dp.segment2_name + ' ' + dp.segment3_name%></td>
+                  <td><%= dp.satu %></td>
+                  <td><%= dp.dua %></td>
+                  <td><%= dp.tiga %></td>
+                  <td><%= dp.empat %></td>
+                  <td><%= dp.lima %></td>
+                  <td><%= dp.enam %></td>
+                  <td><%= dp.tujuh %></td>
+                  <td><%= dp.delapan %></td>
                 </tr>
                 <% end %>
               </tbody>
