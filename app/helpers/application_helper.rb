@@ -1,5 +1,9 @@
 module ApplicationHelper
   include RolesHelper
+
+  def negative(value)
+    value.nil? ? value : (value.negative?() ? 0 : value)
+  end
   
   def week_c(week)
     Date.commercial(week.weeks.ago.to_date.year, week.weeks.ago.to_date.cweek).day.to_s+'-'+Date.commercial(week.weeks.ago.to_date.year,  week.weeks.ago.to_date.cweek).end_of_week.day.to_s
