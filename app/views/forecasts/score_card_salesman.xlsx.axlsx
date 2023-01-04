@@ -24,7 +24,7 @@ wrap_text = wb.styles.add_style(:alignment => { :horizontal => :center,
     
     p.each do |p|
       sheet.add_row [p.brand, p.segment2_name, p.segment3_name, "200", p.satu, p.dua, p.tiga, p.empat, 
-                      p.lima, p.enam, p.tujuh, p.delapan, p.total, "0"]
+                      p.lima, p.enam, p.tujuh, p.delapan, p.total, p.sisa]
     end
   end
 end

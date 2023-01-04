@@ -71,13 +71,13 @@ class Forecast < ActiveRecord::Base
       SUM(CASE WHEN rs.lebar = 160 then rs.total else 0 end) rea5 ,
       SUM(CASE WHEN rs.lebar = 180 then rs.total else 0 end) rea6 ,
       SUM(CASE WHEN rs.lebar = 200 then rs.total else 0 end) rea7 ,
-      SUM(f.quantity) total_forecast, SUM(rs.total) total_realisasi
+      SUM(f.quantity) total_forecast, SUM(rs.total) total_realisasi, SUM(f.sisa) sisa
     FROM forecasts f 
     INNER JOIN 
     (
       SELECT item_number, panjang, lebar, nopo, MAX(salesman) as salesman, sum(total) as total 
 	  from sales_mart.RET3SALITEMNUMBER rs 
-      where week = '50' and year = '2022' group by item_number, panjang, lebar, nopo
+      where week = '#{week}' and year = '#{year}' group by item_number, panjang, lebar, nopo
     ) rs on f.address_number = address_number AND (f.item_number = rs.item_number)
     WHERE f.`week` = '#{week}' and f.`year` = '#{year}' and f.gudang_id = '#{branch}' and f.brand is not null
     GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name
@@ -94,7 +94,7 @@ class Forecast < ActiveRecord::Base
       SUM(CASE WHEN f.`size` = 160 then f.quantity else 0 end) enam ,
       SUM(CASE WHEN f.`size` = 180 then f.quantity else 0 end) tujuh ,
       SUM(CASE WHEN f.`size` = 200 then f.quantity else 0 end) delapan ,
-      SUM(f.quantity) total
+      SUM(f.quantity) total, SUM(f.sisa) sisa
     FROM  forecasts f WHERE `week` = '#{week}' and `year` = '#{year}' and gudang_id = '#{branch}' and brand is not null
     and size in (0, 090, 100, 120, 140, 160, 180, 200)
     GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name").group_by(&:sales_name)
