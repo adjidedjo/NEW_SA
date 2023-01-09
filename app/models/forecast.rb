@@ -73,9 +73,9 @@ class Forecast < ActiveRecord::Base
       SUM(CASE WHEN rs.lebar = 160 then rs.total else 0 end) rea6 ,
       SUM(CASE WHEN rs.lebar = 180 then rs.total else 0 end) rea7 ,
       SUM(CASE WHEN rs.lebar = 200 then rs.total else 0 end) rea8 ,
-      SUM(f.quantity) total_forecast, SUM(rs.total) total_realisasi, SUM(f.sisa) sisa
+      SUM(f.quantity) total_forecast, IFNULL(SUM(rs.total),0) total_realisasi, SUM(f.sisa) sisa
     FROM forecasts f 
-    INNER JOIN 
+    LEFT JOIN 
     (
       SELECT item_number, panjang, lebar, nopo, MAX(salesman) as salesman, sum(total) as total 
 	  from sales_mart.RET3SALITEMNUMBER rs 
