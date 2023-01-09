@@ -48,7 +48,7 @@ class PenjualanSalesmanController < ApplicationController
   end
   
   def serenity_brand
-    @brand = 'SERENITY'
+    @brand = 'SERENITY|CLASSIC'
   end
   
   def royal_brand
