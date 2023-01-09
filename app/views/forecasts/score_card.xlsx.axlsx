@@ -18,16 +18,16 @@ wrap_text = wb.styles.add_style(:alignment => { :horizontal => :center,
     sheet.add_row ["Week", "#{params[:week]}"]
     sheet.add_row []
     sheet.add_row ["","","","","FORECAST", "", "","","","","","","REALISASI"], :style => wrap_text
-    sheet.add_row ["BRAND", "PRODUK", "KAIN", "PANJANG","000", "100", "120", "140", "160", "180", "200", 
-                  "","000", "100", "120", "140", "160", "180", "200",
+    sheet.add_row ["BRAND", "PRODUK", "KAIN", "PANJANG","000", "090", "100", "120", "140", "160", "180", "200", 
+                  "","000", "090", "100", "120", "140", "160", "180", "200",
                   "TOTAL FORECAST", "TOTAL REALISASI", "SISA"]
     sheet.merge_cells "E5:K5"
     sheet.merge_cells "M5:S5"
     
     p.each do |p|
       sheet.add_row [p.brand, p.segment2_name, p.segment3_name, "200", p.satu, p.dua, p.tiga, p.empat, 
-                      p.lima, p.enam, p.tujuh, "", p.rea1, p.rea2, p.rea3, p.rea4, 
-                      p.rea5, p.rea6, p.rea7,
+                      p.lima, p.enam, p.tujuh, p.delapan, "", p.rea1, p.rea2, p.rea3, p.rea4, 
+                      p.rea5, p.rea6, p.rea7, p.rea8,
                       p.total_forecast, p.total_realisasi, ((p.total_forecast - p.total_realisasi) < 0 ? 0 : (p.total_forecast - p.total_realisasi) )]
     end
   end
