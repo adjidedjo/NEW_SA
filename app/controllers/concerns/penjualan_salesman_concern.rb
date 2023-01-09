@@ -7,7 +7,7 @@ module PenjualanSalesmanConcern
   end
   
   def revenue_this_month_sales
-    @sales_revenue_this_month = Penjualan::SalesmanSales.revenue_this_month_sales(current_user, 'SERENITY|CLASSIC')
+    @sales_revenue_this_month = Penjualan::SalesmanSales.revenue_this_month_sales(current_user, @brand)
   end
   
   def daily_product_sales
