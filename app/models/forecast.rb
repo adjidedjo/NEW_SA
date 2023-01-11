@@ -452,7 +452,7 @@ class Forecast < ActiveRecord::Base
           row["branch"] = gudang.area_id
           row["gudang_id"] = gudang.code
           row["gudang"] = gudang.description
-          row["sisa"] = 0
+          row["sisa"] = row["quantity"]
         forecast.attributes = row.to_hash
         else
           forecast["quantity"] = row["quantity"]
