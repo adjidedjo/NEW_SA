@@ -19,10 +19,10 @@ class Penjualan::Customer < Penjualan::Sale
 
       SELECT cb.Cabang AS cabang, b.* FROM (
         SELECT a.area_id, a.customer, a.kode_customer, a.jenisbrgdisc, a.kota,
-          IFNULL(SUM(CASE WHEN a.week = '#{4.weeks.ago.to_date.cweek}' THEN a.harganetto2 END), 0) AS w4,
-          IFNULL(SUM(CASE WHEN a.week = '#{3.weeks.ago.to_date.cweek}' THEN a.harganetto2 END), 0) AS w3,
-          IFNULL(SUM(CASE WHEN a.week = '#{2.weeks.ago.to_date.cweek}' THEN a.harganetto2 END), 0) AS w2,
-          IFNULL(SUM(CASE WHEN a.week = '#{1.weeks.ago.to_date.cweek}' THEN a.harganetto2 END), 0) AS w1
+          IFNULL(SUM(CASE WHEN a.week = '#{4.weeks.ago.to_date.cweek}' AND a.fiscal_year = '#{4.weeks.ago.to_date.year}' THEN a.harganetto2 END), 0) AS w4,
+          IFNULL(SUM(CASE WHEN a.week = '#{3.weeks.ago.to_date.cweek}' AND a.fiscal_year = '#{3.weeks.ago.to_date.year}' THEN a.harganetto2 END), 0) AS w3,
+          IFNULL(SUM(CASE WHEN a.week = '#{2.weeks.ago.to_date.cweek}' AND a.fiscal_year = '#{2.weeks.ago.to_date.year}' THEN a.harganetto2 END), 0) AS w2,
+          IFNULL(SUM(CASE WHEN a.week = '#{1.weeks.ago.to_date.cweek}' AND a.fiscal_year = '#{1.weeks.ago.to_date.year}' THEN a.harganetto2 END), 0) AS w1
           FROM (
             SELECT jenisbrgdisc, area_id, customer, kode_customer, kota, harganetto2, WEEK, fiscal_year
             FROM dbmarketing.tblaporancabang
@@ -34,7 +34,7 @@ class Penjualan::Customer < Penjualan::Sale
       (
         SELECT * FROM dbmarketing.tbidcabang
       ) cb ON cb.id = b.area_id
-      WHERE b.w4 > b.w3 AND b.w4 > b.w2 AND b.w4 > b.w1 ORDER BY b.customer
+      ORDER BY b.customer
     ")
   end
 
