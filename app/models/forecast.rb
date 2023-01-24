@@ -28,7 +28,7 @@ class Forecast < ActiveRecord::Base
               '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
               AND '#{end_date.to_date.year}' AND branch = '#{area}'
             ) AS f1
-            LEFT JOIN
+            INNER JOIN
             (
               SELECT SUM(jumlah) AS jumlah, jenisbrgdisc, kodebrg, namabrg, area_id, nopo, fiscal_month, fiscal_year FROM
               tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
@@ -37,7 +37,7 @@ class Forecast < ActiveRecord::Base
               AND jenisbrgdisc NOT LIKE 'CLASSIC'
               GROUP BY nopo, kodebrg
             ) AS lp ON lp.kodebrg = f1.kodebrg and (lp.nopo = f1.nopo)
-            LEFT JOIN
+            INNER JOIN
             (
               SELECT address_number, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
               segment3_name, size, SUM(quantity) AS quantity,
