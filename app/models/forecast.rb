@@ -7,13 +7,14 @@ class Forecast < ActiveRecord::Base
       SUM(IFNULL(more_sales,0)) AS more_sales, SUM(IFNULL(less_sales,0)) AS less_sales,
       SUM(IFNULL(more_sales_for_non,0)) AS msfn FROM
       (
-            SELECT f.address_number, f.sales_name, lp.kodebrg, f.todate, IFNULL(lp.jenisbrgdisc, f.brand) AS jenisbrgdisc, lp.namabrg, a.area,
-            f.branch, f.size, f.quantity, lp.jumlah, ABS((IFNULL(lp.jumlah,0)-IFNULL(f.todate,0))) AS acv,
-            CASE WHEN IFNULL(lp.jumlah,0) = IFNULL(f.todate, 0) THEN lp.jumlah END AS equal_sales,
-            CASE WHEN IFNULL(lp.jumlah,0) > IFNULL(f.todate,0) THEN f.todate END AS more_sales,
-            CASE WHEN IFNULL(lp.jumlah,0) < IFNULL(f.todate,0) THEN lp.jumlah END AS less_sales,
-            CASE WHEN IFNULL(lp.jumlah,0) > IFNULL(f.todate,0) THEN
-            (IFNULL(lp.jumlah,0) - IFNULL(f.todate,0)) END AS more_sales_for_non
+            SELECT f.address_number, f.sales_name, lp.kodebrg, SUM(f.todate) AS todate, IFNULL(lp.jenisbrgdisc, f.brand) AS jenisbrgdisc, lp.namabrg, a.area,
+            f.branch, f.size, SUM(f.quantity) AS quantity, SUM(lp.jumlah) AS jumlah, 
+            ABS((IFNULL(SUM(lp.jumlah),0)-IFNULL(SUM(f.todate),0))) AS acv,
+            CASE WHEN IFNULL(SUM(lp.jumlah),0) = IFNULL(SUM(f.todate), 0) THEN lp.jumlah END AS equal_sales,
+            CASE WHEN IFNULL(SUM(lp.jumlah),0) > IFNULL(SUM(f.todate),0) THEN f.todate END AS more_sales,
+            CASE WHEN IFNULL(SUM(lp.jumlah),0) < IFNULL(SUM(f.todate),0) THEN lp.jumlah END AS less_sales,
+            CASE WHEN IFNULL(SUM(lp.jumlah),0) > IFNULL(SUM(f.todate),0) THEN
+            (IFNULL(SUM(lp.jumlah),0) - IFNULL(SUM(f.todate),0)) END AS more_sales_for_non
             FROM
             (
               SELECT address_number, sales_name, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
