@@ -132,7 +132,7 @@
                   <td style="text-align: center;"><%= currency(fc.todate) %></td>
                   <td style="text-align: center;"><%= currency(fc.jumlah) %></td>
                   <td style="text-align: center;"><%= currency(fc.sold) %></td>
-                  <td style="text-align: center;"><%= number_to_percentage(((fc.jumlah.to_f-fc.sold.to_f)/fc.jumlah.to_f)*100, precision: 2) %></td>
+                  <td style="text-align: center;"><%= number_to_percentage((fc.sold.to_f/fc.jumlah.to_f)*100, precision: 2) %></td>
                   <td style="text-align: center;"><%= number_to_percentage((fc.sold.to_f/fc.todate.to_f)*100, precision: 2) %></td>
                   <td style="text-align: center;"><%= fc.rmse.round(2) %></td>
                 </tr>
