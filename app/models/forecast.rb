@@ -2,13 +2,13 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts_by_branch_and_sales(start_date, end_date, area)
     self.find_by_sql("
-      SELECT oa.address_number, oa.sales_name, oa.jenisbrgdisc AS brand, SUM(oa.quantity) AS quantity, SUM(oa.jumlah) AS jumlah,
-      SUM(oa.acv) AS acv, SUM(oa.todate) AS todate, SUM(IFNULL(equal_sales,0)) AS equal_sales,
+      SELECT oa.address_number, oa.sales_name, oa.jenisbrgdisc AS brand, SUM(oa.quantity) AS quantity, IFNULL(SUM(oa.jumlah),0) AS jumlah,
+      SUM(oa.acv) AS acv, SUM(oa.todate) AS todate, SUM(IFNULL(equal_sales,0)) AS equal_sales, oa.sold, SQRT(oa.soe/oa.count_id) AS rmse,
       SUM(IFNULL(more_sales,0)) AS more_sales, SUM(IFNULL(less_sales,0)) AS less_sales,
       SUM(IFNULL(more_sales_for_non,0)) AS msfn FROM
       (
             SELECT f.address_number, f.sales_name, lp.kodebrg, SUM(f.todate) AS todate, IFNULL(lp.jenisbrgdisc, f.brand) AS jenisbrgdisc, lp.namabrg, a.area,
-            f.branch, f.size, SUM(f.quantity) AS quantity, SUM(lp.jumlah) AS jumlah, 
+            f.branch, f.size, SUM(f.quantity) AS quantity, SUM(lp.jumlah) AS jumlah, SUM(f.qty_sold) AS sold, f.soe, f.count_id,
             ABS((IFNULL(SUM(lp.jumlah),0)-IFNULL(SUM(f.todate),0))) AS acv,
             CASE WHEN IFNULL(SUM(lp.jumlah),0) = IFNULL(SUM(f.todate), 0) THEN lp.jumlah END AS equal_sales,
             CASE WHEN IFNULL(SUM(lp.jumlah),0) > IFNULL(SUM(f.todate),0) THEN f.todate END AS more_sales,
@@ -18,21 +18,20 @@ class Forecast < ActiveRecord::Base
             FROM
             (
               SELECT address_number, sales_name, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
-              segment3_name, size, SUM(quantity) AS quantity,
+              segment3_name, size, SUM(quantity) AS quantity, SUM(sold) AS qty_sold, SUM(abs_error) as soe, COUNT(id) AS count_id,
               ROUND((SUM(quantity)/DAY(LAST_DAY('#{end_date.to_date}')))*DAY('#{end_date.to_date}')) AS todate FROM
               forecasts WHERE branch = '#{area}' AND MONTH BETWEEN '#{start_date.to_date.month}' AND
               '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
-              GROUP BY address_number, item_number
+              GROUP BY address_number, brand
             ) AS f 
             LEFT JOIN
             (
               SELECT SUM(jumlah) AS jumlah, jenisbrgdisc, kodebrg, namabrg, area_id, nopo, fiscal_month, fiscal_year FROM
-              tblaporancabang WHERE tipecust = 'RETAIL' AND kodejenis IN
-              ('KM', 'DV', 'HB', 'KB', 'SB', 'SA', 'ST')  AND tanggalsj
+              tblaporancabang WHERE tipecust = 'RETAIL' AND tanggalsj
               BETWEEN '#{start_date.to_date}' AND '#{end_date.to_date}' AND area_id = '#{area}'
               AND jenisbrgdisc NOT LIKE 'CLASSIC'
-              GROUP BY nopo, kodebrg
-            ) AS lp ON lp.kodebrg = f.item_number and (lp.nopo = f.address_number)
+              GROUP BY nopo, jenisbrgdisc
+            ) AS lp ON lp.jenisbrgdisc = f.brand and (lp.nopo = f.address_number)
             LEFT JOIN
             (
               SELECT * FROM areas
