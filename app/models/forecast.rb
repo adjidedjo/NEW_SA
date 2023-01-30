@@ -29,7 +29,7 @@ class Forecast < ActiveRecord::Base
               SELECT SUM(jumlah) AS jumlah, jenisbrgdisc, kodebrg, namabrg, area_id, nopo, fiscal_month, fiscal_year FROM
               tblaporancabang WHERE tipecust = 'RETAIL' AND tanggalsj
               BETWEEN '#{start_date.to_date}' AND '#{end_date.to_date}' AND area_id = '#{area}'
-              AND jenisbrgdisc NOT LIKE 'CLASSIC'
+              AND jenisbrgdisc NOT LIKE 'CLASSIC' AND harganetto2 > 0
               GROUP BY nopo, jenisbrgdisc
             ) AS lp ON lp.jenisbrgdisc = f.brand and (lp.nopo = f.address_number)
             LEFT JOIN
