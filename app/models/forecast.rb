@@ -3,12 +3,13 @@ class Forecast < ActiveRecord::Base
   def self.calculation_forecasts_by_branch_and_sales(start_date, end_date, area)
     self.find_by_sql("
       SELECT oa.address_number, oa.sales_name, oa.jenisbrgdisc AS brand, SUM(oa.quantity) AS quantity, 
-      IFNULL(SUM(oa.total_sales_by_forecast),0) AS total_sales_by_forecast,
+      IFNULL(SUM(oa.total_sales_by_forecast),0) AS total_sales_by_forecast, oa.total,
       SUM(oa.todate) AS todate, oa.sold, SQRT(oa.soe/oa.count_id) AS rmse, oa.total_sales FROM
       (
             SELECT f.address_number, f.sales_name, lp.kodebrg, SUM(f.todate) AS todate, IFNULL(lp.jenisbrgdisc, f.brand) AS jenisbrgdisc, lp.namabrg, a.area,
             f.branch, f.size, SUM(f.quantity) AS quantity, SUM(lp.total_sales_by_forecast) AS total_sales_by_forecast, 
-            SUM(f.qty_sold) AS sold, f.soe, f.count_id, rsb.total_sales
+            SUM(f.qty_sold) AS sold, f.soe, f.count_id, rsb.total_sales,
+            SUM(CASE WHEN lp.total_sales_by_forecast > f.quantity THEN f.quantity ELSE lp.total_sales_by_forecast END) total
             FROM
             (
               SELECT address_number, sales_name, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
