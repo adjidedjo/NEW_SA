@@ -48,13 +48,13 @@
             From Week:
           </div>
           <div class="form-group col-2">
-            <%= select_tag "from_week", options_for_select((1..53), params[:week].nil? ? (Date.today.to_date.cweek-5) : params[:from_week]), {class: "form-control"} %>
+            <%= select_tag "from_week", options_for_select((1..53), params[:from_week].nil? ? (Date.today.to_date.cweek-5) : params[:from_week]), {class: "form-control"} %>
           </div>
           <div class="form-group col-2">
             To Week:
           </div>
           <div class="form-group col-2">
-            <%= select_tag "to_week", options_for_select((1..53), params[:week].nil? ? (Date.today.to_date.cweek-1) : params[:to_week]), {class: "form-control"} %>
+            <%= select_tag "to_week", options_for_select((1..53), params[:to_week].nil? ? (Date.today.to_date.cweek-1) : params[:to_week]), {class: "form-control"} %>
           </div>
           <div class="form-group">
             Year:
