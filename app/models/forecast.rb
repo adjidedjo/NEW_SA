@@ -43,7 +43,7 @@ class Forecast < ActiveRecord::Base
     ")
   end
 
-  def self.score_card(branch, week, year)
+  def self.score_card(branch, from_week, to_week, year)
     find_by_sql("SELECT f.address_number , f.sales_name , f.segment2_name, f.brand, f.segment3_name,
       SUM(CASE WHEN f.`size` = 000 then f.quantity else 0 end) satu ,
       SUM(CASE WHEN f.`size` = 090 then f.quantity else 0 end) dua ,
@@ -67,9 +67,9 @@ class Forecast < ActiveRecord::Base
     (
       SELECT item_number, panjang, lebar, nopo, MAX(salesman) as salesman, sum(total) as total 
 	  from sales_mart.RET3SALITEMNUMBER rs 
-      where week = '#{week}' and year = '#{year}' group by item_number, panjang, lebar, nopo
+      where week BETWEEN '#{from_week}' and '#{to_week}' and year = '#{year}' group by item_number, panjang, lebar, nopo
     ) rs on f.address_number = rs.nopo AND (f.item_number = rs.item_number)
-    WHERE f.`week` = '#{week}' and f.`year` = '#{year}' and f.gudang_id = '#{branch}' and f.brand is not null
+    WHERE f.`week` BETWEEN '#{from_week}' and '#{to_week}' and f.`year` = '#{year}' and f.gudang_id = '#{branch}' and f.brand is not null
     GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name
     ORDER BY f.address_number ASC").group_by(&:sales_name)
   end
@@ -531,7 +531,7 @@ class Forecast < ActiveRecord::Base
         tblaporancabang WHERE tipecust = 'RETAIL' AND tanggalsj BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND orty IN ('RI', 'RO', 'RX')
         GROUP BY kodebrg, area_id, jenisbrgdisc, nopo
-      ) AS lp ON lp.kodebrg = f1.kodebrg AND lp.nopo = f1.nopo
+      ) AS lp ON lp.kodebrg = f1.kodebrg AND (lp.nopo = f1.nopo)
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
