@@ -15,7 +15,8 @@ wrap_text = wb.styles.add_style(:alignment => { :horizontal => :center,
   wb.add_worksheet(name: "#{key}") do |sheet|
     sheet.add_row ["Cabang", "#{Gudang.find_by_code(params[:areas]).description}"]
     sheet.add_row ["Nama Sales", "#{key}"]
-    sheet.add_row ["Week", "#{params[:from_week]} - #{params[:to_week]} #{params[:year]}"]
+    sheet.add_row ["Forecast & Realisation period by Week", "#{params[:from_week]} - #{params[:to_week]} #{params[:year]}"]
+    sheet.add_row ["Time created", "#{Time.now.strftime('%d %B %Y %H-%m')}"] 
     sheet.add_row []
     sheet.add_row ["","","","","FORECAST", "", "","","","","","","REALISASI"], :style => wrap_text
     sheet.add_row ["BRAND", "PRODUK", "KAIN", "PANJANG","000", "090", "100", "120", "140", "160", "180", "200", 
