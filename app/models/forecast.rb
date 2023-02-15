@@ -65,10 +65,10 @@ class Forecast < ActiveRecord::Base
     FROM forecasts f 
     LEFT JOIN 
     (
-      SELECT item_number, panjang, lebar, nopo, salesman, total
+      SELECT item_number, panjang, lebar, nopo, salesman, SUM(total) as total, week, year
 	  from sales_mart.RET3SALITEMNUMBER rs 
-      where week BETWEEN '#{from_week}' and '#{to_week}' and year = '#{year}' group by item_number, nopo
-    ) rs on f.address_number = rs.nopo AND (f.item_number = rs.item_number)
+      WHERE week BETWEEN '#{from_week}' and '#{to_week}' group by item_number, nopo
+    ) rs on f.address_number = rs.nopo AND (f.item_number = rs.item_number and f.week = rs.week and f.year = rs.year)
     WHERE f.`week` BETWEEN '#{from_week}' and '#{to_week}' and f.`year` = '#{year}' and f.gudang_id = '#{branch}' and f.brand is not null
     GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name
     ORDER BY f.address_number ASC").group_by(&:sales_name)
