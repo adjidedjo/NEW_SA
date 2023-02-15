@@ -138,9 +138,9 @@
                   <td style="text-align: center;"><%= currency(fc.quantity) %></td>
                   <td style="text-align: center;"><%= currency(fc.todate) %></td>
                   <td style="text-align: center;"><%= currency(fc.total_sales) %></td>
-                  <td style="text-align: center;"><%= currency(fc.total) %></td>
-                  <td style="text-align: center;"><%= number_to_percentage((fc.total.to_f/fc.todate.to_f)*100, precision: 2) %></td>
-                  <td style="text-align: center;"><%= number_to_percentage(((fc.total_sales.to_f-fc.total.to_f)/fc.total_sales.to_f)*100, precision: 2) %></td>
+                  <td style="text-align: center;"><%= currency(fc.total_sales_by_forecast) %></td>
+                  <td style="text-align: center;"><%= number_to_percentage((fc.total_sales_by_forecast.to_f/fc.todate.to_f)*100, precision: 2) %></td>
+                  <td style="text-align: center;"><%= number_to_percentage(((fc.total_sales.to_f-fc.total_sales_by_forecast.to_f)/fc.total_sales.to_f)*100, precision: 2) %></td>
                 </tr>
                 <% end %>
               </tbody>
