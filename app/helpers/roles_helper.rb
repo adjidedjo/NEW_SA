@@ -15,6 +15,10 @@ module RolesHelper
     end
   end
 
+  def accounting(current_user)
+    current_user.position == "accounting"
+  end
+
   def administrator(current_user)
     current_user.position == "admin"
   end
@@ -23,8 +27,12 @@ module RolesHelper
     user.position == "admin sales"
   end
 
+  def management_user(user)
+    user.position == "owner"
+  end
+
   def managerial_users(user)
-    user.position == "gm" || user.position == "owner" || user.position == "nsm" ||
+    user.position == "gm" || user.position == "nsm" ||
     user.position == "marketing pusat" || user.position == "admin marketing" ||
     user.position == "akunting pusat"
   end

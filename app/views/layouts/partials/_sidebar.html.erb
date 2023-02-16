@@ -19,7 +19,9 @@
       <!-- END user info-->
       <li class="nav-heading"></li>
       <!-- SA Project except sales-->
-        <% if managerial_users(current_user) %>
+        <% if management_user(current_user) %>
+          <%= render "layouts/partials/management" %>
+        <% elsif managerial_users(current_user) %>
           <%= render "layouts/partials/managerial" %>
         <% elsif direct_users(current_user) %>
           <%= render "layouts/partials/direct_sidebar" %>
@@ -35,6 +37,8 @@
           <%= render "layouts/partials/entry_sidebar" %>
         <% elsif administrator(current_user) %>
           <%= render "layouts/partials/administrator" %>
+        <% elsif accounting(current_user) %>
+          <%= render "layouts/partials/menu/accounting" %>
         <% end %>
       <!-- Iterates over all sidebar items-->
     </ul>

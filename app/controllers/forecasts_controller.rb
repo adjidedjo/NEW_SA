@@ -1,5 +1,9 @@
 class ForecastsController < ApplicationController
 
+  def management_forecast
+    
+  end
+
   def akurasi_forecast_sales
     if current_user.branch1 != nil || current_user.branch2 != nil
       @areas = Area.where("id IN ('#{current_user.branch1}','#{current_user.branch2}')")
