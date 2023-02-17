@@ -21,7 +21,7 @@ class Forecast < ActiveRecord::Base
             ) AS f
             JOIN
             (
-              SELECT nopo as salesmen, SUM(total) as total_sales, brand FROM sales_mart.RET3SALITEMNUMBER_1
+              SELECT nopo as salesmen, SUM(total) as total_sales, brand FROM sales_mart.RET3SALITEMNUMBER
               WHERE month BETWEEN '#{start_date.to_date.month}' AND
               '#{end_date.to_date.month}' AND year BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
               GROUP BY nopo, brand
@@ -67,7 +67,7 @@ class Forecast < ActiveRecord::Base
           SUM(CASE WHEN rs.lebar = 160 then rs.total else 0 end) rea6 ,
           SUM(CASE WHEN rs.lebar = 180 then rs.total else 0 end) rea7 ,
           SUM(CASE WHEN rs.lebar = 200 then rs.total else 0 end) rea8 , SUM(rs.total) AS total
-        from sales_mart.RET3SALITEMNUMBER_1 rs 
+        from sales_mart.RET3SALITEMNUMBER rs 
         WHERE week BETWEEN '#{from_week}' and '#{to_week}' GROUP BY segment2_code, segment3_code, nopo
         ) rs on f.address_number = rs.nopo AND (f.segment2  = rs.segment2_code and f.segment3 = rs.segment3_code and f.year = rs.year)
       WHERE f.`week` BETWEEN '#{from_week}' and '#{to_week}' and f.`year` = '#{year}' and f.gudang_id = '#{branch}' and f.brand is not null
