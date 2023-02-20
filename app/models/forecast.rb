@@ -68,10 +68,10 @@ class Forecast < ActiveRecord::Base
           SUM(CASE WHEN rs.lebar = 180 then rs.total else 0 end) rea7 ,
           SUM(CASE WHEN rs.lebar = 200 then rs.total else 0 end) rea8 , SUM(rs.total) AS total
         from sales_mart.RET3SALITEMNUMBER rs 
-        WHERE week BETWEEN '#{from_week}' and '#{to_week}' GROUP BY segment2_code, segment3_code, nopo
+        WHERE week BETWEEN '#{from_week}' and '#{to_week}' GROUP BY segment1_code, segment2_code, segment3_code, nopo
         ) rs on f.address_number = rs.nopo AND (f.segment2  = rs.segment2_code and f.segment3 = rs.segment3_code and f.year = rs.year)
       WHERE f.`week` BETWEEN '#{from_week}' and '#{to_week}' and f.`year` = '#{year}' and f.gudang_id = '#{branch}' and f.brand is not null
-      GROUP BY f.address_number , f.sales_name, f.brand , f.segment2_name, f.segment3, f.segment3_name
+      GROUP BY f.address_number , f.sales_name, f.brand, f.segment1, f.segment2_name, f.segment3, f.segment3_name
       ORDER BY f.address_number ASC").group_by(&:sales_name)
   end
 
