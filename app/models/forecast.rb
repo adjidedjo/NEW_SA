@@ -19,7 +19,7 @@ class Forecast < ActiveRecord::Base
               '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
               GROUP BY address_number, brand, item_number
             ) AS f
-            JOIN
+            LEFT JOIN
             (
               SELECT nopo as salesmen, SUM(total) as total_sales, brand FROM sales_mart.RET3SALITEMNUMBER
               WHERE month BETWEEN '#{start_date.to_date.month}' AND
@@ -72,7 +72,7 @@ class Forecast < ActiveRecord::Base
         ) rs on f.address_number = rs.nopo AND (f.segment2  = rs.segment2_code and f.segment3 = rs.segment3_code and f.year = rs.year)
       WHERE f.`week` BETWEEN '#{from_week}' and '#{to_week}' and f.`year` = '#{year}' and f.gudang_id = '#{branch}' and f.brand is not null
       GROUP BY f.address_number , f.sales_name, f.brand, f.segment1, f.segment2_name, f.segment3, f.segment3_name
-      ORDER BY f.address_number ASC").group_by(&:sales_name)
+      ORDER BY f.address_number ASC").group_by(&:address_number)
   end
 
   def self.score_card_salesman(branch, week, year)
