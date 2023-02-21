@@ -442,6 +442,7 @@ class Forecast < ActiveRecord::Base
           row["gudang_id"] = gudang.code
           row["gudang"] = gudang.description
           row["sisa"] = row["quantity"]
+          row["planner"] = item.nil? ? 0 : item.imprp4.strip
         forecast.attributes = row.to_hash
         else
           forecast["quantity"] = row["quantity"]
