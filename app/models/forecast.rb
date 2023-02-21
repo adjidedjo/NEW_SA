@@ -72,7 +72,7 @@ class Forecast < ActiveRecord::Base
         ) rs on f.address_number = rs.nopo AND (f.segment2  = rs.segment2_code and f.segment3 = rs.segment3_code and f.year = rs.year)
       WHERE f.`week` BETWEEN '#{from_week}' and '#{to_week}' and f.`year` = '#{year}' and f.gudang_id = '#{branch}' and f.brand is not null
       GROUP BY f.address_number , f.sales_name, f.brand, f.segment1, f.segment2_name, f.segment3, f.segment3_name
-      ORDER BY f.address_number ASC").group_by(&:address_number)
+      ORDER BY f.address_number ASC").group_by(&:sales_name)
   end
 
   def self.score_card_salesman(branch, week, year)
@@ -531,7 +531,7 @@ class Forecast < ActiveRecord::Base
         SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
         fiscal_month, fiscal_year, nopo, salesman FROM
         tblaporancabang WHERE tipecust = 'RETAIL' AND tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}'
+        AND '#{end_date.to_date}'  AND jenisbrgdisc = '#{brand}'
         GROUP BY kodebrg, area_id, jenisbrgdisc, nopo
       ) AS lp ON lp.kodebrg = f1.kodebrg AND (lp.nopo = f1.nopo)
       LEFT JOIN
