@@ -20,7 +20,7 @@ class Forecast < ActiveRecord::Base
               '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
               GROUP BY address_number, brand, item_number
             ) AS f
-            RIGHT JOIN
+            LEFT JOIN
             (
               SELECT item_number, nopo as salesmen, SUM(total) as total_sales, brand FROM sales_mart.RET3SALITEMNUMBER
               WHERE month BETWEEN '#{start_date.to_date.month}' AND
