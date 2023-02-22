@@ -5,10 +5,11 @@ class Forecast < ActiveRecord::Base
       SELECT oa.address_number, oa.sales_name, oa.jenisbrgdisc AS brand, SUM(oa.quantity) AS quantity, 
       IFNULL(SUM(oa.total_sales_by_forecast),0) AS total_sales_by_forecast,
       SUM(oa.todate) AS todate, oa.sold, SQRT(oa.soe/oa.count_id) AS rmse, oa.total_sales,    
-      SUM(CASE WHEN oa.total_sales_by_forecast > oa.todate THEN oa.quantity ELSE oa.total_sales_by_forecast END) total FROM
+      oa.total FROM
       (
             SELECT f.address_number, f.sales_name, lp.kodebrg, SUM(f.todate) AS todate, IFNULL(lp.jenisbrgdisc, f.brand) AS jenisbrgdisc, lp.namabrg, a.area,
             f.branch, f.size, SUM(f.quantity) AS quantity, SUM(lp.total_sales_by_forecast) AS total_sales_by_forecast, 
+            SUM(CASE WHEN lp.total_sales_by_forecast > f.todate THEN f.quantity ELSE lp.total_sales_by_forecast END) total,
             SUM(f.qty_sold) AS sold, f.soe, f.count_id, rsb.total_sales
             FROM
             (
@@ -19,9 +20,9 @@ class Forecast < ActiveRecord::Base
               '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
               GROUP BY address_number, brand, item_number
             ) AS f
-            LEFT JOIN
+            RIGHT JOIN
             (
-              SELECT nopo as salesmen, SUM(total) as total_sales, brand FROM sales_mart.RET3SALITEMNUMBER
+              SELECT item_number, nopo as salesmen, SUM(total) as total_sales, brand FROM sales_mart.RET3SALITEMNUMBER
               WHERE month BETWEEN '#{start_date.to_date.month}' AND
               '#{end_date.to_date.month}' AND year BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
               GROUP BY nopo, brand
