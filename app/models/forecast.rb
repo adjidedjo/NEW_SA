@@ -31,7 +31,7 @@ class Forecast < ActiveRecord::Base
             (
               SELECT SUM(jumlah) AS total_sales_by_forecast, jenisbrgdisc, kodebrg, namabrg, area_id, nopo, fiscal_month, fiscal_year FROM
               tblaporancabang WHERE tanggalsj
-              BETWEEN '#{start_date.to_date}' AND '#{end_date.to_date}' 
+              BETWEEN '#{start_date.to_date}' AND '#{end_date.to_date}' and tipecust != '-'
               GROUP BY kodebrg, jenisbrgdisc, nopo
             ) AS lp ON lp.jenisbrgdisc = f.brand and (lp.nopo = f.address_number and lp.kodebrg = f.item_number)
             LEFT JOIN
@@ -533,8 +533,8 @@ class Forecast < ActiveRecord::Base
         SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
         fiscal_month, fiscal_year, nopo, salesman FROM
         tblaporancabang WHERE tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}'  AND jenisbrgdisc = '#{brand}'
-        GROUP BY kodebrg, area_id, jenisbrgdisc, nopo
+        AND '#{end_date.to_date}'  AND jenisbrgdisc = '#{brand}' and tipecust != '-'
+        GROUP BY kodebrg, nopo, area_id, jenisbrgdisc
       ) AS lp ON lp.kodebrg = f1.kodebrg AND (lp.nopo = f1.nopo)
       LEFT JOIN
       (
