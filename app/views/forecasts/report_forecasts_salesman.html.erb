@@ -60,7 +60,6 @@
                   <th style="text-align: center;">TYPE</th>
                   <th>ITEM</th>
                   <th>DESCRIPTION</th>
-                  <th></th>
                   <th style="text-align: center;">SIZE</th>
                   <th style="text-align: center;">TOTAL FORECAST</th>
                   <th style="text-align: center;">TO DATE FORECAST</th>
@@ -75,10 +74,9 @@
                   <td style="text-align: center;"><%= fc.area %></td>
                   <td style="text-align: center;"><%= fc.address_number %></td>
                   <td style="text-align: center;"><%= fc.sales_name == ' ' ? 'UNLISTED SALES NAME' : fc.sales_name %></td>
-                  <td style="text-align: center;"><%= fc.kodejenis.nil? ? fc.segment1 : fc.kodejenis %></td>
-                  <td style="text-align: center;"><%= fc.kodebrg %></td>
-                  <td><%= fc.namaartikel.nil? ? fc.segment2_name : fc.namaartikel %></td>
-                  <td><%= fc.namakain.nil? ? fc.segment3_name : fc.namakain %></td>
+                  <td style="text-align: center;"><%= fc.segment1_code.nil? ? fc.segment1 : fc.segment1_code %></td>
+                  <td style="text-align: center;"><%= fc.item_number %></td>
+                  <td><%= fc.product_name.nil? ? fc.description : fc.product_name %></td>
                   <td style="text-align: center;"><%= fc.lebar.nil? ? fc.size : fc.lebar %></td>
                   <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : fc.quantity %></td>
                   <td style="text-align: center;"><%= fc.quantity.nil? ? 0 : calculate_by_day(fc.quantity, params[:end_date]) %></td>

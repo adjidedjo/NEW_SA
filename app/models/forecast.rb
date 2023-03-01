@@ -1,55 +1,57 @@
 class Forecast < ActiveRecord::Base
 
-  def self.calculation_forecasts_by_branch_and_sales(start_date, end_date, area)
+  def self.calculation_forecasts_by_branch_and_sales(start_date, end_date, branch)
     self.find_by_sql("
-      SELECT report.address_number, report.sales_name, report.brand, SUM(report.forecast) as total_forecast, 
-      SUM(report.sales) as total_sales,
-      SUM(report.realisasi_forecast) as total_realisasi_forecast,
-      ROUND((SUM(report.forecast)/DAY(LAST_DAY('2023-02-28')))*DAY('2023-02-28')) AS todate FROM
-      (
-      SELECT IFNULL(f.sales_name, lp.salesman) as sales_name, 
-            IFNULL(f.address_number, lp.nopo) as address_number, f1.kodebrg, f1.brand,
-            IFNULL(f.quantity,0) AS forecast, 
-            IFNULL(lp.jumlah,0) as sales, 
-            CASE WHEN IFNULL(lp.jumlah,0) > IFNULL(f.quantity,0) THEN IFNULL(f.quantity,0) ELSE IFNULL(lp.jumlah,0) END AS realisasi_forecast, 
-            ((lp.jumlah/f.quantity)*100) AS acv
-            FROM
-            (
-              SELECT DISTINCT(kodebrg), jenisbrgdisc as brand, nopo FROM
-              tblaporancabang WHERE tanggalsj BETWEEN '#{start_date.to_date}'
-              AND '#{end_date.to_date}' AND area_id = '#{area}' AND tipecust != '-' and nopo is not null
+      SELECT report.address_number, report.sales_name, report.brand, SUM(report.forecast) as total_forecast, 	  
+        ROUND((SUM(report.forecast)/DAY(LAST_DAY('2023-02-28')))*DAY('2023-02-28')) AS todate ,
+        SUM(report.sales) as total_sales,
+        SUM(report.realisasi_forecast) as total_realisasi_forecast FROM
+        (
+        SELECT IFNULL(f.sales_name, lp.salesman) as sales_name, 
+              IFNULL(f.address_number, lp.nopo) as address_number, f1.item_number, f1.brand,
+              IFNULL(f.quantity,0) AS forecast, 
+              IFNULL(lp.jumlah,0) as sales, 
+              CASE WHEN IFNULL(lp.jumlah,0) > IFNULL(f.quantity,0) THEN IFNULL(f.quantity,0) ELSE IFNULL(lp.jumlah,0) END AS realisasi_forecast, 
+              ((lp.jumlah/f.quantity)*100) AS acv
+              FROM
+              (
+                SELECT DISTINCT(item_number), brand as brand, nopo FROM
+                sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE area_id = '#{branch}' AND MONTH BETWEEN '#{start_date.to_date.month}'
+                AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
+                AND '#{end_date.to_date.year}'
 
-              UNION ALL
+                UNION
 
-              SELECT DISTINCT(item_number), brand, address_number FROM
-              forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
-              AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
-              AND '#{end_date.to_date.year}'
-              AND branch = '#{area}' 
-            ) AS f1
-            LEFT JOIN
-            (
-              SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
-              fiscal_month, fiscal_year, nopo, salesman FROM
-              tblaporancabang WHERE tanggalsj BETWEEN '#{start_date.to_date}'
-              AND '#{end_date.to_date}' and tipecust != '-'
-              GROUP BY kodebrg, nopo, area_id, jenisbrgdisc
-            ) AS lp ON lp.kodebrg = f1.kodebrg AND (lp.nopo = f1.nopo)
-            LEFT JOIN
-            (
-              SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
-              segment3_name, size, SUM(quantity) AS quantity, address_number, sales_name FROM
-              forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
-              AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
-              AND '#{end_date.to_date.year}'
-              AND branch = '#{area}' GROUP BY item_number, address_number
-            ) AS f ON f.item_number = f1.kodebrg AND f.branch = #{area} AND f.address_number = f1.nopo
-            LEFT JOIN
-            (
-              SELECT * FROM areas
-            ) AS a ON IFNULL(lp.area_id, f.branch) = a.id
-            GROUP BY f1.kodebrg, f1.nopo
-      ) report
+                SELECT DISTINCT(item_number), brand, address_number FROM
+                forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
+                AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
+                AND '#{end_date.to_date.year}'
+                AND branch = '#{branch}' 
+              ) AS f1
+              LEFT JOIN
+              (
+                SELECT SUM(total) AS jumlah, item_number, product_name, area_id, panjang, lebar,
+                month, year, nopo, salesman FROM
+                sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE MONTH BETWEEN '#{start_date.to_date.month}'
+                AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
+                AND '#{end_date.to_date.year}'
+                GROUP BY item_number, nopo, area_id, brand
+              ) AS lp ON lp.item_number = f1.item_number AND (lp.nopo = f1.nopo)
+              LEFT JOIN
+              (
+                SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
+                segment3_name, size, SUM(quantity) AS quantity, address_number, sales_name FROM
+                forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
+                AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
+                AND '#{end_date.to_date.year}'
+                AND branch = '#{branch}' GROUP BY item_number, address_number
+              ) AS f ON f.item_number = f1.item_number AND f.branch = '#{branch}' AND f.address_number = f1.nopo
+              LEFT JOIN
+              (
+                SELECT * FROM areas
+              ) AS a ON IFNULL(lp.area_id, f.branch) = a.id
+              GROUP BY f1.item_number, f1.nopo
+        ) report
       GROUP BY report.address_number, report.brand
     ")
   end
@@ -522,31 +524,33 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts_salesman(start_date, end_date, area, brand)
     self.find_by_sql("
-      SELECT f1.kodebrg, f.description, f.segment1, IFNULL(f.segment2_name, lp.namaartikel) as segment2_name, f.brand, f.month, f.year,
-      lp.namabrg, a.area, f.branch, f.segment2_name, f.segment3_name, IFNULL(f.sales_name, lp.salesman) as sales_name, 
+      SELECT f1.item_number, f.description, f.segment1, f.brand, f.month, f.year,
+      lp.product_name, a.area, f.branch, f.segment2_name, f.segment3_name, IFNULL(f.sales_name, lp.salesman) as sales_name, 
       IFNULL(f.address_number, lp.nopo) as address_number,
-      lp.kodejenis, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, lp.namaartikel, lp.namakain 
+      lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, lp.segment1_code
       FROM
       (
-        SELECT DISTINCT(kodebrg), nopo FROM
-        tblaporancabang WHERE tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}' AND area_id = '#{area}' AND jenisbrgdisc = '#{brand}' AND tipecust != '-'
+        SELECT DISTINCT(item_number), brand as brand, nopo FROM
+              sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE area_id = '#{area}' AND MONTH BETWEEN '#{start_date.to_date.month}' AND
+              '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
+              AND '2023' AND brand = '#{brand}' 
 
         UNION ALL
 
-        SELECT DISTINCT(item_number), address_number FROM
+        SELECT DISTINCT(item_number), brand, address_number FROM
         forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
         '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
         AND branch = '#{area}' AND brand = '#{brand}'
       ) AS f1
       LEFT JOIN
       (
-        SELECT SUM(jumlah) AS jumlah, kodebrg, namabrg, kodejenis, namaartikel, namakain, area_id, lebar,
-        fiscal_month, fiscal_year, nopo, salesman FROM
-        tblaporancabang WHERE tanggalsj BETWEEN '#{start_date.to_date}'
-        AND '#{end_date.to_date}'  AND jenisbrgdisc = '#{brand}' and tipecust != '-'
-        GROUP BY kodebrg, nopo, area_id, jenisbrgdisc
-      ) AS lp ON lp.kodebrg = f1.kodebrg AND (lp.nopo = f1.nopo)
+        SELECT SUM(total) AS jumlah, item_number, CONCAT(product_name,' ',panjang) as product_name, area_id, panjang, lebar, segment1_code,
+              month, year, nopo, salesman FROM
+              sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
+              '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
+              AND brand = '#{brand}'
+              GROUP BY item_number, nopo, area_id, brand
+      ) AS lp ON lp.item_number = f1.item_number AND (lp.nopo = f1.nopo)
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
@@ -554,12 +558,12 @@ class Forecast < ActiveRecord::Base
         forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
         '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
         AND branch = '#{area}' GROUP BY item_number, address_number
-      ) AS f ON f.item_number = f1.kodebrg AND f.branch = '#{area}' AND f.address_number = f1.nopo
+      ) AS f ON f.item_number = f1.item_number AND f.branch = '#{area}' AND f.address_number = f1.nopo
       LEFT JOIN
       (
         SELECT * FROM areas
       ) AS a ON IFNULL(lp.area_id, f.branch) = a.id
-      GROUP BY f1.kodebrg, f1.nopo
+      GROUP BY f1.item_number, f1.nopo
     ")
   end
 
