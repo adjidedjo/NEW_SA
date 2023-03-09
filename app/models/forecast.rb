@@ -11,7 +11,12 @@ class Forecast < ActiveRecord::Base
               IFNULL(f.address_number, lp.nopo) as address_number, f1.item_number, f1.brand,
               IFNULL(f.quantity,0) AS forecast, 
               IFNULL(lp.jumlah,0) as sales, 
-              CASE WHEN IFNULL(lp.jumlah,0) > IFNULL(f.quantity,0) THEN IFNULL(f.quantity,0) ELSE IFNULL(lp.jumlah,0) END AS realisasi_forecast, 
+              CASE 
+                WHEN (lp.jumlah < 0) and (IFNULL(f.quantity, 0) = 0) THEN 0
+                WHEN IFNULL(lp.jumlah,0) > IFNULL(f.quantity,0) THEN IFNULL(f.quantity,0) 
+              ELSE 
+                IFNULL(lp.jumlah,0) 
+              END AS realisasi_forecast, 
               ((lp.jumlah/f.quantity)*100) AS acv
               FROM
               (
@@ -532,8 +537,7 @@ class Forecast < ActiveRecord::Base
       (
         SELECT DISTINCT(item_number), brand as brand, nopo FROM
               sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE area_id = '#{area}' AND MONTH BETWEEN '#{start_date.to_date.month}' AND
-              '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
-              AND '2023' AND brand = '#{brand}' 
+              '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}' AND brand = '#{brand}' 
 
         UNION ALL
 
