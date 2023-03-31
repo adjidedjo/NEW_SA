@@ -1,7 +1,40 @@
 class ForecastsController < ApplicationController
 
-  def management_forecast
+  def management_forecast_by_sales
+    start_date = params[:start_date].nil? ? Date.today - 30 : params[:start_date]
+    end_date = params[:end_date].nil? ? Date.today : params[:end_date]
+    @manag_brand = Forecast.calculation_forecasts_by_manage_sales(start_date, end_date)
+
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "score_card", :filename => "score card #{params[:area]}.xlsx"}
+    end
+  end
+
+  def management_forecast_by_bom
     
+  end
+
+  def management_forecast_by_branch
+    start_date = params[:start_date].nil? ? Date.today - 30 : params[:start_date]
+    end_date = params[:end_date].nil? ? Date.today : params[:end_date]
+    @manag_brand = Forecast.calculation_forecasts_by_manage_branch(start_date, end_date)
+
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "score_card", :filename => "score card #{params[:area]}.xlsx"}
+    end
+  end
+
+  def management_forecast_by_brand
+    start_date = params[:start_date].nil? ? Date.today - 30 : params[:start_date]
+    end_date = params[:end_date].nil? ? Date.today : params[:end_date]
+    @manag_brand = Forecast.calculation_forecasts_by_brand(start_date, end_date)
+
+    respond_to do |format|
+      format.html
+      format.xlsx {render :xlsx => "score_card", :filename => "score card #{params[:area]}.xlsx"}
+    end
   end
 
   def akurasi_forecast_sales

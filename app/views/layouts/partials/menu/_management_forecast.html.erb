@@ -1,0 +1,20 @@
+<li class="<%= 'active' if controller?('forecasts') %>">
+  <a href="#forcast" title="forecast" data-toggle="collapse"> <em class="fa fa-laptop"></em> <span><b>Forecasts</b></span> </a>
+  <ul id="forcast" class="nav sidebar-subnav collapse">
+    <li class="sidebar-subnav-header">
+      Forecasts
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('management_forecast_by_brand') %>">
+      <a href="/forecasts/management_forecast_by_brand" title="Score Card"> <em class="fa fa-cubes"></em> <span><b>Rekap by Brand</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('management_forecast_by_branch') %>">
+      <a href="/forecasts/management_forecast_by_branch" title="Score Card"> <em class="fa fa-cubes"></em> <span><b>Rekap by Branch</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('management_forecast_by_bom') %>">
+      <a href="/forecasts/management_forecast_by_bom" title="Score Card"> <em class="fa fa-cubes"></em> <span><b>Rekap by ASM & BOM</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('management_forecast_by_sales') %>">
+      <a href="/forecasts/management_forecast_by_sales" title="Score Card"> <em class="fa fa-cubes"></em> <span><b>Rekap by Sales</b></span> </a>
+    </li>
+  </ul>
+</li>

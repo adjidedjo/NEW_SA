@@ -61,6 +61,10 @@ Rails.application.routes.draw do
   post 'sources/import_rkb'
 
   # FORECAST
+  get 'forecasts/management_forecast_by_sales'
+  get 'forecasts/management_forecast_by_bom'
+  get 'forecasts/management_forecast_by_branch'
+  get 'forecasts/management_forecast_by_brand'
   get 'forecasts/akurasi_forecast_sales'
   get 'forecasts/score_card'
   get 'forecasts/score_card_salesman'
