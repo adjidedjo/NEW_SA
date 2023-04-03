@@ -4,7 +4,7 @@
       <b>Pilih Periode</b>
     </div>
   <div class="panel-body">
-    <%= form_tag(forecasts_management_forecast_by_sales_path, {method: :get, :class => "form-inline"}) do %>
+    <%= form_tag(forecasts_management_forecast_by_bom_path, {method: :get, :class => "form-inline"}) do %>
       <div class="form-group">
         From:
       </div>
@@ -41,7 +41,6 @@
                 <tr>
                   <th style="text-align: center;">BRANCH</th>
                   <th style="text-align: center;">BOM</th>
-                  <th style="text-align: center;">SALES NAME</th>
                   <th style="text-align: center;">BRAND</th>
                   <th style="text-align: center;">TOTAL FORECAST</th>
                   <th style="text-align: center;">TOTAL ACTUAL SALES</th>
@@ -52,12 +51,11 @@
               </thead>
               <tfoot></tfoot>
               <tbody>
-                <% @manag_brand.each do |fc| %>
+                <% @manag_bom.each do |fc| %>
                 <tr class="gradeX">
                   <% area = Area.find_by_id(fc.branch) %>
                   <td style="text-align: center;"><%= area.nil? ? fc.branch : area.area %></td>
                   <td style="text-align: center;"><%= fc.bom_name %></td>
-                  <td style="text-align: center;"><%= fc.sales_name %></td>
                   <td style="text-align: center;"><%= fc.brand %></td>
                   <td style="text-align: center;"><%= currency(fc.total_forecast) %></td>
                   <td style="text-align: center;"><%= currency(fc.total_sales) %></td>
