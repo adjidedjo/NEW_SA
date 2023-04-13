@@ -15,9 +15,12 @@ wb.add_worksheet(name: "PBJM vs PBJO") do |sheet|
   sheet.add_row ["PBJM"]
   sheet.add_row ["#{params[:start_date]} - #{params[:end_date]}"]
   sheet.add_row []
-  sheet.add_row ["CABANG", "PBJM", "PBJO", "PBJM AMOUNT", "PBJO AMOUNT"]
+  sheet.add_row ["CABANG", "TARGET", "PBJM", "PBJM AMOUNT", "PBJO", "PBJO AMOUNT", "%PBJM", "%PBJO"]
   
   @pbjm.each do |p|
-    sheet.add_row [p.des, p.total_pbjm, p.total_pbjo, p.total_pbjm_amount, p.total_pbjo_amount]
+    row = 5
+    sheet.add_row [p.branch, p.target, p.qty_pbjm, p.amount_pbjm, p.qty_pbjo, p.amount_pbjo, 
+    "=(D"row"/B"row")*100", "=(F5/B5)*100"]
+    row = row + 1
   end
 end

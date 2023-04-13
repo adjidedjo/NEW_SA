@@ -95,7 +95,7 @@ class ForecastsController < ApplicationController
   end
   
   def report_pbjm
-    @pbjm = Jde.calculate_pbjm(params[:start_date], params[:end_date], params[:brand])
+    @pbjm = SalesOrder::PbjOrder.pbj_report(params[:start_date], params[:end_date], params[:brand])
     
     respond_to do |format|
       format.html
