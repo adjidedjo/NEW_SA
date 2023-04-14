@@ -7,7 +7,8 @@ tbl_header = styles.add_style :b => true, :alignment => { :horizontal => :center
 ind_header = styles.add_style :bg_color => "FFDFDEDF", :b => true, :alignment => {:indent => 1}
 col_header  = styles.add_style :bg_color => "FFDFDEDF", :b => true, :alignment => { :horizontal => :center }
 label       = styles.add_style :alignment => { :indent => 1 }
-money       = styles.add_style :num_fmt => 5
+percent = wb.styles.add_style(:format_code => "0,00%", :sz => 11)
+money = wb.styles.add_style(:format_code => '0,000')
 t_label       = styles.add_style :b => true, :bg_color => "FFDFDEDF"
 t_money = styles.add_style :b => true, :num_fmt => 5, :bg_color => "FFDFDEDF"
 
@@ -18,9 +19,9 @@ wb.add_worksheet(name: "PBJM vs PBJO") do |sheet|
   sheet.add_row ["CABANG", "TARGET", "PBJM", "PBJM AMOUNT", "PBJO", "PBJO AMOUNT", "%PBJM", "%PBJO"]
   
   @pbjm.each do |p|
-    row = 5
+    pbjm_percent = (p.amount_pbjm.to_f/p.target.to_f)*100 rescue 0
+    pbjo_percent = (p.amount_pbjo.to_f/p.target.to_f)*100 rescue 0
     sheet.add_row [p.branch, p.target, p.qty_pbjm, p.amount_pbjm, p.qty_pbjo, p.amount_pbjo, 
-    "=(D"row"/B"row")*100", "=(F5/B5)*100"]
-    row = row + 1
+    pbjm_percent, pbjo_percent], :style=>[nil,money,money,money,money,money,nil,nil]
   end
 end
