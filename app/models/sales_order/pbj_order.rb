@@ -8,11 +8,13 @@ class SalesOrder::PbjOrder < ActiveRecord::Base
             LEFT JOIN 
             (
               SELECT SUM(amount) AS target, branch, MONTH, YEAR, brand FROM dbmarketing.sales_target_values stv 
-              GROUP BY MONTH, YEAR, branch, brand
+              WHERE MONTH BETWEEN MONTH('#{start_date.to_date}') AND MONTH('#{end_date.to_date}') AND 
+              YEAR BETWEEN YEAR('#{start_date.to_date}') AND YEAR('#{end_date.to_date}')
+              GROUP BY branch, brand
             ) stv ON om.branch_id = stv.branch 
-            AND (MONTH(om.date) = stv.month  AND YEAR(om.date) = stv.year AND om.brand = stv.brand)
+            AND (om.brand = stv.brand)
             WHERE om.date BETWEEN '#{start_date}' AND '#{end_date}' AND om.brand = '#{brand}'
-            GROUP BY MONTH(om.date), YEAR(om.date), om.branch_id, om.brand, stv.branch;
+            GROUP BY om.branch_id, om.brand, stv.branch;
         ")
   end
 end
