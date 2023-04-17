@@ -22,6 +22,6 @@ wb.add_worksheet(name: "PBJM vs PBJO") do |sheet|
     pbjm_percent = (p.amount_pbjm.to_f/p.target.to_f)*100 rescue 0
     pbjo_percent = (p.amount_pbjo.to_f/p.target.to_f)*100 rescue 0
     sheet.add_row [p.branch, p.target, p.qty_pbjm, p.amount_pbjm, p.qty_pbjo, p.amount_pbjo, 
-    pbjm_percent, pbjo_percent], :style=>[nil,money,money,money,money,money,nil,nil]
+    pbjm_percent, pbjo_percent], :style=>[nil,money,nil,money,nil,money,nil,nil]
   end
 end
