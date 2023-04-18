@@ -80,7 +80,14 @@
           Branch:
         </div>
         <div class="form-group">
-          <%= select_tag "areas", options_from_collection_for_select(@areas, "id", "area", params[:areas]), {class: "form-control"} %>
+          <%= select_tag "areas", options_from_collection_for_select(@gudang, "code", "description", params[:areas]), {class: "form-control"} %>
+        </div>
+        <div class="form-group">
+          Channel:
+        </div>
+        <div class="form-group">
+          <%= select_tag "channel", options_for_select([['Direct', 'DIRECT'], ['Modern', 'MODERN'], ['Online', 'ONLINE'], ['Retail', 'RETAIL']], 
+          params[:channel]), {class: "form-control"} %>
         </div>
         <div class="form-group">
           From:

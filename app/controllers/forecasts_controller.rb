@@ -51,14 +51,14 @@ class ForecastsController < ApplicationController
       @areas = Area.all
     end
     @brand = Brand.where(external: 0)
-    @acv_forecast = Forecast.calculation_forecasts_by_branch_and_sales(params[:start_date], params[:end_date], params[:areas]) if params[:start_date].present?
+    @acv_forecast = Forecast.calculation_forecasts_by_branch_and_sales(params[:start_date], params[:end_date], params[:areas], params[:channel]) if params[:start_date].present?
   end
 
   def score_card
     gudang(current_user)
     area(current_user)
-    @score_card = Forecast.score_card(params[:areas], params[:from_week], params[:to_week], params[:year])
-    @acv_forecast = Forecast.calculation_forecasts_by_branch_and_sales(params[:start_date], params[:end_date], params[:areas]) if params[:start_date].present?
+    @score_card = Forecast.score_card(params[:areas], params[:from_week], params[:to_week], params[:year]) if params[:from_week].present?
+    @acv_forecast = Forecast.calculation_forecasts_by_branch_and_sales(params[:start_date], params[:end_date], params[:areas], params[:channel]) if params[:start_date].present?
 
     respond_to do |format|
       format.html

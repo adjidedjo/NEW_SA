@@ -220,16 +220,16 @@ class Forecast < ActiveRecord::Base
     ")
   end
 
-  def self.calculation_forecasts_by_branch_and_sales(start_date, end_date, branch)
+  def self.calculation_forecasts_by_branch_and_sales(start_date, end_date, branch, channel)
     self.find_by_sql("
       SELECT report.address_number, report.sales_name, report.brand, SUM(report.forecast) as total_forecast, 	  
         ROUND((SUM(report.forecast)/DAY(LAST_DAY('#{end_date}')))*DAY('#{end_date}')) AS todate ,
-        SUM(report.sales) as total_sales, report.branch,
+        SUM(report.sales) as total_sales, report.description,
         SUM(report.realisasi_forecast) as total_realisasi_forecast FROM
         (
         SELECT IFNULL(f.sales_name, lp.salesman) as sales_name, 
               IFNULL(f.address_number, lp.nopo) as address_number, f1.item_number, f1.brand,
-              IFNULL(f.quantity,0) AS forecast, IFNULL(lp.area_id, branch) as branch,
+              IFNULL(f.quantity,0) AS forecast, a.description,
               IFNULL(lp.jumlah,0) as sales, 
               CASE 
                 WHEN (lp.jumlah < 0) and (IFNULL(f.quantity, 0) = 0) THEN 0
@@ -241,8 +241,8 @@ class Forecast < ActiveRecord::Base
               FROM
               (
                 SELECT DISTINCT(item_number), brand as brand, nopo FROM
-                sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE area_id = '#{branch}' AND invoice_date BETWEEN '#{start_date.to_date}'
-                AND '#{end_date.to_date}'
+                sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE bp = '#{branch}' AND invoice_date BETWEEN '#{start_date.to_date}'
+                AND '#{end_date.to_date}' and customer_type = '#{channel}'
 
                 UNION
 
@@ -250,29 +250,29 @@ class Forecast < ActiveRecord::Base
                 forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
                 AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
                 AND '#{end_date.to_date.year}'
-                AND branch = '#{branch}' 
+                AND gudang_id = '#{branch}' and channel = '#{channel}'
               ) AS f1
               LEFT JOIN
               (
-                SELECT SUM(total) AS jumlah, item_number, product_name, area_id, panjang, lebar,
+                SELECT SUM(total) AS jumlah, item_number, product_name, bp, panjang, lebar,
                 month, year, nopo, salesman FROM
                 sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE invoice_date BETWEEN '#{start_date.to_date}'
-                AND '#{end_date.to_date}'
-                GROUP BY item_number, nopo, area_id, brand
+                AND '#{end_date.to_date}' and customer_type = '#{channel}'
+                GROUP BY item_number, nopo, bp, brand
               ) AS lp ON lp.item_number = f1.item_number AND (lp.nopo = f1.nopo)
               LEFT JOIN
               (
-                SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
+                SELECT description, brand, gudang_id, MONTH, YEAR, item_number, segment1, segment2_name,
                 segment3_name, size, SUM(quantity) AS quantity, address_number, sales_name FROM
                 forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
                 AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
-                AND '#{end_date.to_date.year}'
-                AND branch = '#{branch}' GROUP BY item_number, address_number
-              ) AS f ON f.item_number = f1.item_number AND f.branch = '#{branch}' AND f.address_number = f1.nopo
+                AND '#{end_date.to_date.year}' and channel = '#{channel}'
+                AND gudang_id = '#{branch}' GROUP BY item_number, address_number
+              ) AS f ON f.item_number = f1.item_number AND f.gudang_id = '#{branch}' AND f.address_number = f1.nopo
               LEFT JOIN
               (
-                SELECT * FROM areas
-              ) AS a ON IFNULL(lp.area_id, f.branch) = a.id
+                SELECT * FROM gudangs
+              ) AS a ON IFNULL(lp.bp, f.gudang_id) = a.code
               GROUP BY f1.item_number, f1.nopo
         ) report
       GROUP BY report.address_number, report.brand
