@@ -7,6 +7,18 @@
     <li class="<%= 'active' if controller?('forecasts') && action?('score_card') %>">
       <a href="/forecasts/score_card" title="Score Card"> <em class="fa fa-cubes"></em> <span><b>Score Card</b></span> </a>
     </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('management_forecast_by_brand') %>">
+      <a href="/forecasts/management_forecast_by_brand" title="Score Card"> <em class="fa fa-cubes"></em> <span><b>Rekap by Brand</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('management_forecast_by_branch') %>">
+      <a href="/forecasts/management_forecast_by_branch" title="Score Card"> <em class="fa fa-cubes"></em> <span><b>Rekap by Branch</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('management_forecast_by_bom') %>">
+      <a href="/forecasts/management_forecast_by_bom" title="Score Card"> <em class="fa fa-cubes"></em> <span><b>Rekap by ASM & BOM</b></span> </a>
+    </li>
+    <li class="<%= 'active' if controller?('forecasts') && action?('management_forecast_by_sales') %>">
+      <a href="/forecasts/management_forecast_by_sales" title="Score Card"> <em class="fa fa-cubes"></em> <span><b>Rekap by Sales</b></span> </a>
+    </li>
     <li class="<%= 'active' if controller?('forecasts') && action?('report_rkm') %>">
       <a href="/forecasts/report_rkm" title="Forecasts"> <em class="fa fa-cubes"></em> <span><b>RKM & PBJM</b></span> </a>
     </li>
