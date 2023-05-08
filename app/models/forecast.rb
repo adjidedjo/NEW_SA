@@ -2,10 +2,10 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts(start_date, end_date, area)
     self.find_by_sql("
-      SELECT f1.kodebrg, f.description, f.segment1, f.segment2_name, f.brand, f.month, f.year,
-      lp.product_name, a.description, f.branch, f.segment2_name, f.segment3_name,
-      lp.segment1_code, lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, lp.segment2_code, lp.segment3_code,
-      IFNULL(s.onhand, 0) AS onhand, lp.brand,
+      SELECT f1.kodebrg, f.description, IFNULL(f.segment1,lp.segment1_code) AS segment1_code, f.segment2_name, f.month, f.year,
+      IFNULL(lp.product_name, f.description) as product_name, a.description, f.branch, f.segment2_name, f.segment3_name,
+      lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, lp.segment2_code, lp.segment3_code,
+      IFNULL(s.onhand, 0) AS onhand, IFNULL(lp.brand, f.brand) as brand,
       IFNULL(ib.qty_buf, 0) AS qty_buf FROM
       (
         SELECT DISTINCT(item_number) as kodebrg FROM
@@ -17,7 +17,7 @@ class Forecast < ActiveRecord::Base
         SELECT DISTINCT(item_number) FROM
         forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
         '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
-        AND branch = '#{area}'
+        AND gudang_id = '#{area}'
       ) AS f1
       LEFT JOIN
       (
