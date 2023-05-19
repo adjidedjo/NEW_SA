@@ -6,7 +6,7 @@ class Forecast < ActiveRecord::Base
       IFNULL(lp.product_name, f.description) as product_name, a.description, f.branch, f.segment2_name, f.segment3_name,
       lp.lebar, f.size, f.quantity, lp.jumlah, ((lp.jumlah/f.quantity)*100) AS acv, lp.segment2_code, lp.segment3_code,
       IFNULL(s.onhand, 0) AS onhand, IFNULL(lp.brand, f.brand) as brand,
-      IFNULL(ib.qty_buf, 0) AS qty_buf FROM
+      IFNULL(ib.qty_buf, 0) AS qty_buf, IFNULL(lp.customer_type, f.channel) as channel FROM
       (
         SELECT DISTINCT(item_number) as kodebrg FROM
           sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE bp = '#{area}' AND MONTH BETWEEN '#{start_date.to_date.month}' AND
@@ -22,7 +22,7 @@ class Forecast < ActiveRecord::Base
       LEFT JOIN
       (
         SELECT SUM(total) AS jumlah, item_number, product_name, area_id, panjang, lebar,
-        month, year, nopo, salesman, bom_name, segment1_code, segment2_code, segment3_code, brand, bp FROM
+        month, year, nopo, salesman, bom_name, segment1_code, segment2_code, segment3_code, brand, bp, customer_type FROM
         sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE invoice_date BETWEEN '#{start_date.to_date}'
         AND '#{end_date.to_date}' AND bp != 0 AND bp = '#{area}'
         GROUP BY item_number, nopo, area_id, brand
@@ -30,7 +30,7 @@ class Forecast < ActiveRecord::Base
       LEFT JOIN
       (
         SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
-        segment3_name, size, SUM(quantity) AS quantity, gudang_id FROM
+        segment3_name, size, SUM(quantity) AS quantity, gudang_id, channel FROM
         forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND
         '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
         AND gudang_id = '#{area}' GROUP BY item_number, brand
