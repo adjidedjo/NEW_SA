@@ -292,7 +292,7 @@ class Forecast < ActiveRecord::Base
               FROM
               (
                 SELECT DISTINCT(item_number), brand as brand, nopo FROM
-                sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE bp = '#{branch}' AND invoice_date BETWEEN '#{start_date.to_date}'
+                sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE CAST(bp AS UNSIGNED) = '#{branch}' AND invoice_date BETWEEN '#{start_date.to_date}'
                 AND '#{end_date.to_date}' and customer_type like '#{channel}%'
 
                 UNION
