@@ -118,7 +118,7 @@ class Forecast < ActiveRecord::Base
         SELECT IFNULL(f.sales_name, lp.salesman) as sales_name, 
               IFNULL(f.address_number, lp.nopo) as address_number, f1.item_number, f1.brand,
               IFNULL(f.quantity,0) AS forecast, IFNULL(lp.area_id, branch) as branch,
-              IFNULL(lp.jumlah,0) as sales, 
+              IFNULL(lp.jumlah,0) as sales,
               CASE 
                 WHEN (lp.jumlah < 0) and (IFNULL(f.quantity, 0) = 0) THEN 0
                 WHEN IFNULL(lp.jumlah,0) > IFNULL(f.quantity,0) THEN IFNULL(f.quantity,0) 
@@ -275,13 +275,13 @@ class Forecast < ActiveRecord::Base
     self.find_by_sql("
       SELECT report.address_number, report.sales_name, report.brand, SUM(report.forecast) as total_forecast, 	  
         ROUND((SUM(report.forecast)/DAY(LAST_DAY('#{end_date}')))*DAY('#{end_date}')) AS todate ,
-        SUM(report.sales) as total_sales, report.description,
+        SUM(report.sales) as total_sales, report.description, SUM(report.total_actual_sales) as total_actual_sales,
         SUM(report.realisasi_forecast) as total_realisasi_forecast FROM
         (
         SELECT IFNULL(f.sales_name, lp.salesman) as sales_name, 
               IFNULL(f.address_number, lp.nopo) as address_number, f1.item_number, f1.brand,
               IFNULL(f.quantity,0) AS forecast, a.description,
-              IFNULL(lp.jumlah,0) as sales, 
+              IFNULL(lp.jumlah,0) as sales, IFNULL(pl.jumlah,0) as total_actual_sales,
               CASE 
                 WHEN (lp.jumlah < 0) and (IFNULL(f.quantity, 0) = 0) THEN 0
                 WHEN IFNULL(lp.jumlah,0) > IFNULL(f.quantity,0) THEN IFNULL(f.quantity,0) 
@@ -311,6 +311,14 @@ class Forecast < ActiveRecord::Base
                 AND '#{end_date.to_date}' and customer_type like '#{channel}%'
                 GROUP BY item_number, nopo, bp, brand
               ) AS lp ON lp.item_number = f1.item_number AND (lp.nopo = f1.nopo)
+              LEFT JOIN
+              (
+                SELECT SUM(total) AS jumlah, item_number, product_name, area_id, panjang, lebar,
+                month, year, nopo, salesman, bom_name FROM
+                sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE invoice_date BETWEEN '#{start_date.to_date}'
+                AND '#{end_date.to_date}' and customer_type like '#{channel}%'
+                GROUP BY item_number, nopo, bp, brand
+              ) AS pl ON pl.nopo = f1.nopo)
               LEFT JOIN
               (
                 SELECT description, brand, gudang_id, MONTH, YEAR, item_number, segment1, segment2_name,
