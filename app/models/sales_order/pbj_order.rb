@@ -12,8 +12,8 @@ class SalesOrder::PbjOrder < ActiveRecord::Base
               YEAR BETWEEN YEAR('#{start_date.to_date}') AND YEAR('#{end_date.to_date}')
               GROUP BY branch, brand
             ) stv ON om.branch_id = stv.branch 
-            AND (om.brand = stv.brand)
-            WHERE om.date BETWEEN '#{start_date}' AND '#{end_date}' AND om.brand = '#{brand}'
+            AND (om.brand LIKE CONCAT(stv.brand, '%'))
+            WHERE om.date BETWEEN '#{start_date}' AND '#{end_date}' AND om.brand like '#{brand}%'
             GROUP BY om.branch_id, om.brand, stv.branch;
         ")
   end
