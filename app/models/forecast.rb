@@ -165,7 +165,7 @@ class Forecast < ActiveRecord::Base
     ")
   end
 
-  def self.calculation_forecasts_by_manage_branch(start_date, end_date)
+  def self.calculation_forecasts_by_manage_branch(start_date, end_date, channel)
     self.find_by_sql("
       SELECT report.address_number, report.sales_name, report.brand, SUM(report.forecast) as total_forecast, 	  
         ROUND((SUM(report.forecast)/DAY(LAST_DAY('#{end_date}')))*DAY('#{end_date}')) AS todate ,
@@ -187,21 +187,21 @@ class Forecast < ActiveRecord::Base
               (
                 SELECT DISTINCT(item_number), brand as brand, nopo FROM
                 sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE invoice_date BETWEEN '#{start_date.to_date}'
-                AND '#{end_date.to_date}' AND bp != 0
+                AND '#{end_date.to_date}' AND bp != 0 and customer_type like '#{channel}%'
 
                 UNION
 
                 SELECT DISTINCT(item_number), brand, address_number FROM
                 forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
                 AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
-                AND '#{end_date.to_date.year}'
+                AND '#{end_date.to_date.year}' and channel = '#{channel}'
               ) AS f1
               LEFT JOIN
               (
                 SELECT SUM(total) AS jumlah, item_number, product_name, area_id, panjang, lebar,
                 month, year, nopo, salesman FROM
                 sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE invoice_date BETWEEN '#{start_date.to_date}'
-                AND '#{end_date.to_date}' AND bp != 0
+                AND '#{end_date.to_date}' AND bp != 0 and customer_type like '#{channel}%'
                 GROUP BY item_number, nopo, area_id, brand
               ) AS lp ON lp.item_number = f1.item_number AND (lp.nopo = f1.nopo)
               LEFT JOIN
@@ -210,7 +210,7 @@ class Forecast < ActiveRecord::Base
                 segment3_name, size, SUM(quantity) AS quantity, address_number, sales_name FROM
                 forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
                 AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
-                AND '#{end_date.to_date.year}' GROUP BY item_number, address_number
+                AND '#{end_date.to_date.year}' and channel = '#{channel}' GROUP BY item_number, address_number
               ) AS f ON f.item_number = f1.item_number AND f.address_number = f1.nopo
               GROUP BY f1.item_number, f1.nopo
         ) report
