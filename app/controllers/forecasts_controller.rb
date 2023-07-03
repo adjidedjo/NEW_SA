@@ -37,7 +37,8 @@ class ForecastsController < ApplicationController
   def management_forecast_by_brand
     start_date = params[:start_date].nil? ? Date.today - 30 : params[:start_date]
     end_date = params[:end_date].nil? ? Date.today : params[:end_date]
-    @manag_brand = Forecast.calculation_forecasts_by_brand(start_date, end_date)
+    channel = params[:channel].nil? ? 'RETAIL' : params[:channel]
+    @manag_brand = Forecast.calculation_forecasts_by_brand(start_date, end_date, channel)
 
     respond_to do |format|
       format.html
