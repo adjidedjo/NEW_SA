@@ -53,7 +53,7 @@ class Stock::Tangerang::StockRoyalController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "18152"
+    @branch_plant = "1800215"
     @branch = "TANGERANG"
   end
 end

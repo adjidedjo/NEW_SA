@@ -54,7 +54,7 @@ class Stock::Pusat::StockLadyController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "11001"
+    @branch_plant = "1800111"
     @branch = "KANTOR PUSAT"
   end
 end

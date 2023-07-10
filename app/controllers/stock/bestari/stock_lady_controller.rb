@@ -47,7 +47,7 @@ class Stock::Bestari::StockLadyController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "12001"
+    @branch_plant = "1800112"
     @branch = "BESTARI MULYA"
   end
 end

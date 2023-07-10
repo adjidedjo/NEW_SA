@@ -47,7 +47,7 @@ class Stock::Pusat::StockRoyalController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "11002"
+    @branch_plant = "1800211"
     @branch = "KANTOR PUSAT"
   end
 end
