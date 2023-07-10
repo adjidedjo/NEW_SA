@@ -293,7 +293,7 @@ class Forecast < ActiveRecord::Base
               (
                 SELECT DISTINCT(item_number), brand as brand, nopo FROM
                 sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE invoice_date BETWEEN '#{start_date.to_date}'
-                AND '#{end_date.to_date}' and customer_type like '#{channel}%'
+                AND '#{end_date.to_date}' and customer_type like '#{channel}%' and bp = '#{branch}'
 
                 UNION
 
@@ -308,7 +308,7 @@ class Forecast < ActiveRecord::Base
                 SELECT SUM(total) AS jumlah, item_number, product_name, bp, panjang, lebar,
                 month, year, nopo, salesman FROM
                 sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE invoice_date BETWEEN '#{start_date.to_date}'
-                AND '#{end_date.to_date}' and customer_type like '#{channel}%'
+                AND '#{end_date.to_date}' and customer_type like '#{channel}%' and bp = '#{branch}'
                 GROUP BY item_number, nopo, bp, brand
               ) AS lp ON lp.item_number = f1.item_number AND (lp.nopo = f1.nopo)
               LEFT JOIN
