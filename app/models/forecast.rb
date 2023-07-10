@@ -142,7 +142,7 @@ class Forecast < ActiveRecord::Base
               LEFT JOIN
               (
                 SELECT SUM(total) AS jumlah, item_number, product_name, area_id, panjang, lebar,
-                month, year, nopo, salesman, bom_name FROM
+                month, year, nopo, salesman, bom_name, bp FROM
                 sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE invoice_date BETWEEN '#{start_date.to_date}'
                 AND '#{end_date.to_date}' AND bp != 0 and customer_type like '#{channel}%'
                 GROUP BY item_number, nopo, area_id, brand
@@ -150,7 +150,7 @@ class Forecast < ActiveRecord::Base
               LEFT JOIN
               (
                 SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
-                segment3_name, size, SUM(quantity) AS quantity, address_number, sales_name FROM
+                segment3_name, size, SUM(quantity) AS quantity, address_number, sales_name, gudang_id FROM
                 forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
                 AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
                 AND '#{end_date.to_date.year}' and channel = '#{channel}' GROUP BY item_number, address_number
@@ -158,7 +158,7 @@ class Forecast < ActiveRecord::Base
               LEFT JOIN
               (
                 SELECT * FROM areas
-              ) AS a ON IFNULL(lp.area_id, f.branch) = a.id
+              ) AS a ON IFNULL(lp.bp, f.gudang_id) = a.id
               GROUP BY f1.item_number, f1.nopo
         ) report
       GROUP BY report.address_number, report.brand
@@ -292,7 +292,7 @@ class Forecast < ActiveRecord::Base
               FROM
               (
                 SELECT DISTINCT(item_number), brand as brand, nopo FROM
-                sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE CAST(bp AS UNSIGNED) = '#{branch}' AND invoice_date BETWEEN '#{start_date.to_date}'
+                sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE invoice_date BETWEEN '#{start_date.to_date}'
                 AND '#{end_date.to_date}' and customer_type like '#{channel}%'
 
                 UNION
