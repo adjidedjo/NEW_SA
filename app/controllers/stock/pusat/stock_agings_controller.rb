@@ -1,5 +1,5 @@
 class Stock::Pusat::StockAgingsController < ApplicationController
-  before_action :set_branch_plant
+  before_action :set_branch_plant, :check_admin
   
   def aging
     @age_stock = Stock::ItemAvailability.aging_stock_report(@mat, @mat)
@@ -12,5 +12,10 @@ class Stock::Pusat::StockAgingsController < ApplicationController
     @caps = 10
     @mat = "11001"
     @branch = "pusat"
+  end
+
+  def check_admin
+    @user = current_user.position == 'admin'
+    redirect_to root_path, alert: "You do not have permission" unless @user
   end
 end

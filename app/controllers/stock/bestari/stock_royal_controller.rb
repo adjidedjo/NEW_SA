@@ -1,5 +1,5 @@
 class Stock::Bestari::StockRoyalController < ApplicationController
-  before_action :set_branch_plant, :initialize_brand
+  before_action :set_branch_plant, :initialize_brand, :check_admin
   
   def stock_normal
     @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "R")
@@ -49,5 +49,10 @@ class Stock::Bestari::StockRoyalController < ApplicationController
   def set_branch_plant
     @branch_plant = "1800212"
     @branch = "BESTARI MULYA"
+  end
+
+  def check_admin
+    @user = current_user.position == 'admin'
+    redirect_to root_path, alert: "You do not have permission" unless @user
   end
 end

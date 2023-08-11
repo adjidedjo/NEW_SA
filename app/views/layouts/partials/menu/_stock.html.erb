@@ -5,20 +5,20 @@
       Stock
     </li>
     <%= render "layouts/partials/stock_img" %>
-    <%= render "layouts/partials/stock_pusat" %>
-    <%= render "layouts/partials/stock_pusat_bcp" %>
-    <%= render "layouts/partials/stock_royal_dua" %>
-    <%= render "layouts/partials/stock_royal_tiga" %>
+    <%= render "layouts/partials/stock_pusat" if current_user.position == 'admin' %>
+    <%= render "layouts/partials/stock_pusat_bcp" if current_user.position == 'admin' %>
+    <%= render "layouts/partials/stock_royal_dua" if current_user.position == 'admin' %>
+    <%= render "layouts/partials/stock_royal_tiga" if current_user.position == 'admin' %>
     <%= render "layouts/partials/stock_bandung" %>
     <%= render "layouts/partials/stock_sukabumi" %>
     <%= render "layouts/partials/stock_tasik" %>
     <%= render "layouts/partials/stock_cikampek" %>
     <%= render "layouts/partials/stock_cirebon" %>
     <%= render "layouts/partials/stock_bekasi" %>
-    <%= render "layouts/partials/stock_tangerang" %>
+    <%= render "layouts/partials/stock_tangerang" if current_user.position == 'admin' %>
     <%= render "layouts/partials/stock_semarang" %>
     <%= render "layouts/partials/stock_yogya" %>
-    <%= render "layouts/partials/stock_bestari" %>
+    <%= render "layouts/partials/stock_bestari" if current_user.position == 'admin' %>
     <%= render "layouts/partials/stock_surabaya" %>
     <%= render "layouts/partials/stock_jember" %>
     <%= render "layouts/partials/stock_kediri" %>

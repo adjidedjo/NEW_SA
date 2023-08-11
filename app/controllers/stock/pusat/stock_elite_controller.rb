@@ -1,5 +1,5 @@
 class Stock::Pusat::StockEliteController < ApplicationController
-  before_action :set_branch_plant, :initialize_brand
+  before_action :set_branch_plant, :initialize_brand, :check_admin
   
   def stock_classic
     @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "C")
@@ -63,5 +63,10 @@ class Stock::Pusat::StockEliteController < ApplicationController
   def set_branch_plant
     @branch_plant = "1800111"
     @branch = "KANTOR PUSAT"
+  end
+
+  def check_admin
+    @user = current_user.position == 'admin'
+    redirect_to root_path, alert: "You do not have permission" unless @user
   end
 end

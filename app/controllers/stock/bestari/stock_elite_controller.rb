@@ -1,11 +1,15 @@
 class Stock::Bestari::StockEliteController < ApplicationController
-  before_action :set_branch_plant, :initialize_brand
+  before_action :set_branch_plant, :initialize_brand, :check_admin
   
   def stock_classic
-    @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "C")
-    @brand = "CLASSIC"
-    @state = "NORMAL"
-    render template: "stock/template_stock/stock_normal"
+    if @user
+      @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "C")
+      @brand = "CLASSIC"
+      @state = "NORMAL"
+      render template: "stock/template_stock/stock_normal"
+    else
+      "you dont have a permission"
+    end
   end
   
   def stock_tote
@@ -63,5 +67,10 @@ class Stock::Bestari::StockEliteController < ApplicationController
   def set_branch_plant
     @branch_plant = "1800112"
     @branch = "BESTARI MULYA"
+  end
+
+  def check_admin
+    @user = current_user.position == 'admin'
+    redirect_to root_path, alert: "You do not have permission" unless @user
   end
 end
