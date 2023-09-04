@@ -35,7 +35,7 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
       JOIN PRODDTA.F4102 IB ON IA.liitm = IB.ibitm
       WHERE (LIHCOM > 0 or LIPQOH > 0) AND IA.LILOCN LIKE '%#{loc}%'
       AND REGEXP_LIKE(IB.ibsrp7, '#{catcode}') AND IA.limcu LIKE '%#{branch}' 
-      GROUP BY IM.imseg2, IM.imseg3, IM.imseg5")
+      GROUP BY IM.imseg1, IM.imseg2, IM.imseg3, IM.imseg5")
   end
   
   def self.fiber_stock(branch, brand)
@@ -91,7 +91,7 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
       FROM PRODDTA.F41021 IA 
       JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm
       WHERE limcu LIKE '%18011' AND lipbin = 'S' AND lipqoh > 0 
-      GROUP BY IM.imseg2, IM.imseg3, IM.imseg5")
+      GROUP BY IM.imseg1, IM.imseg2, IM.imseg3, IM.imseg5")
     else
       
     end
