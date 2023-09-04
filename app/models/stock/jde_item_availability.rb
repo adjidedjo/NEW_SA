@@ -117,6 +117,6 @@ class Stock::JdeItemAvailability < ActiveRecord::Base
       JOIN PRODDTA.F4101 IM ON IA.liitm = IM.imitm
       WHERE (LIHCOM > 0 or LIPQOH > 0)
       AND REGEXP_LIKE(IM.imsrp1, '#{brand}') AND IA.limcu LIKE '%#{branch}' 
-      GROUP BY IM.imseg2, IM.imseg3, IM.imseg5")
+      GROUP BY IM.imseg1, IM.imseg2, IM.imseg3, IM.imseg5")
   end
 end
