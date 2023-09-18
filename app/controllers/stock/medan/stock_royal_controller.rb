@@ -53,7 +53,7 @@ class Stock::Medan::StockRoyalController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "11082"
+    @branch_plant = "18082"
     @branch = "MEDAN"
   end
 end

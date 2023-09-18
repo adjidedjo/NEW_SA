@@ -53,7 +53,7 @@ class Stock::Lampung::StockSerenityController < ApplicationController
   end
   
   def set_branch_plant
-    @branch_plant = "11101"
+    @branch_plant = "18101"
     @branch = "LAMPUNG"
   end
 end
