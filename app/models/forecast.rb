@@ -185,13 +185,13 @@ class Forecast < ActiveRecord::Base
               ((lp.jumlah/f.quantity)*100) AS acv
               FROM
               (
-                SELECT DISTINCT(item_number), brand as brand, nopo FROM
+                SELECT DISTINCT(item_number), brand as brand, area_id FROM
                 sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE invoice_date BETWEEN '#{start_date.to_date}'
                 AND '#{end_date.to_date}' AND bp != 0 and customer_type like '#{channel}%'
 
                 UNION
 
-                SELECT DISTINCT(item_number), brand, address_number FROM
+                SELECT DISTINCT(item_number), brand, branch FROM
                 forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
                 AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
                 AND '#{end_date.to_date.year}' and channel = '#{channel}'
@@ -203,7 +203,7 @@ class Forecast < ActiveRecord::Base
                 sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE invoice_date BETWEEN '#{start_date.to_date}'
                 AND '#{end_date.to_date}' AND bp != 0 and customer_type like '#{channel}%'
                 GROUP BY item_number, nopo, area_id, brand
-              ) AS lp ON lp.item_number = f1.item_number AND (lp.nopo = f1.nopo)
+              ) AS lp ON lp.item_number = f1.item_number AND (lp.area_id = f1.area_id)
               LEFT JOIN
               (
                 SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
@@ -211,8 +211,8 @@ class Forecast < ActiveRecord::Base
                 forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
                 AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
                 AND '#{end_date.to_date.year}' and channel = '#{channel}' GROUP BY item_number, address_number
-              ) AS f ON f.item_number = f1.item_number AND f.address_number = f1.nopo
-              GROUP BY f1.item_number, f1.nopo
+              ) AS f ON f.item_number = f1.item_number AND f.branch = f1.area_id
+              GROUP BY f1.item_number, f1.area_id
         ) report
       GROUP BY report.branch, report.brand
     ")
