@@ -711,7 +711,7 @@ class Forecast < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      forecast = find_by(brand: row["brand"], address_number: row["address_number"].to_i, item_number: row["item_number"], branch: row["branch"], month: row["month"], year: row["year"], week: row["week"]) || new
+      forecast = find_by(brand: row["brand"], item_number: row["item_number"], branch: row["branch"], week: row["week"], year: row["year"]) || new
       unless row["quantity"].nil? || row["quantity"] == 0
         if forecast.id.nil?
           item = JdeItemMaster.get_desc_forecast(row["item_number"])
@@ -726,12 +726,12 @@ class Forecast < ActiveRecord::Base
           row["description"] = item.nil? ? 'UNLISTED ITEM NUMBER' : ((item.imdsc1.nil? ? '' : item.imdsc1.strip) + ' ' + (item.imdsc2.nil? ? '' : item.imdsc2.strip))
           row["planner"] = '-'
           row["sales_name"] = sales_name.nil? ? ' ' : sales_name.abalph.strip
-          row["branch"] = gudang.area_id
+          row["branch"] = row["branch"]
           row["gudang_id"] = gudang.code
           row["gudang"] = gudang.description
           row["sisa"] = row["quantity"]
           row["planner"] = item.nil? ? 0 : item.imprp4.strip
-        forecast.attributes = row.to_hash
+          forecast.attributes = row.to_hash
         else
           forecast["quantity"] = row["quantity"]
         end
