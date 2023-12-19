@@ -73,7 +73,7 @@ module RolesHelper
 
   def nsm(user, brand)
     brand = brand.split("|").first
-    (user.position == "nsm" || user.position == "sales support") && user.brand1 == brand
+    (user.position == "nsm" || user.position == "sales support")
   end
 
   def bm(user, branch, brand)
