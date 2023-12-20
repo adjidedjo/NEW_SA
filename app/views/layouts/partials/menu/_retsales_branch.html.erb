@@ -2,20 +2,20 @@
   <a href="#retail" title="Penjualan" data-toggle="collapse"> <em class="icon-people"></em>
     <span><b>Penjualan Retail</b></span> </a>
   <ul id="retail" class="nav sidebar-subnav collapse">
-    <% if current_user.regional.present? && current_user.regional == 1 %>
+    <% if current_user.regional == 1 %>
       <%= render "layouts/partials/sidebar_tangerang" if branch(current_user, 23) %>
       <%= render "layouts/partials/sidebar_medan" if branch(current_user, 5) %>
       <%= render "layouts/partials/sidebar_pekanbaru" if branch(current_user, 20) %>
-    <% elsif current_user.regional.present? && current_user.regional == 2 %>
+    <% elsif current_user.regional == 2 %>
       <%= render "layouts/partials/sidebar_bandung" if branch(current_user, 2) %>
       <%= render "layouts/partials/sidebar_cirebon" if branch(current_user, 9) %>
       <%= render "layouts/partials/sidebar_palembang" if branch(current_user, 11) %>
       <%= render "layouts/partials/sidebar_lampung" if branch(current_user, 13) %>
-    <% elsif current_user.regional.present? && current_user.regional == 3 %>
+    <% elsif current_user.regional == 3 %>
       <%= render "layouts/partials/sidebar_samarinda" if branch(current_user, 55) %>
       <%= render "layouts/partials/sidebar_semarang" if branch(current_user, 8) %>
       <%= render "layouts/partials/sidebar_yogya" if branch(current_user, 10) %>
-    <% elsif current_user.regional.present? && current_user.regional == 4 %>
+    <% elsif current_user.regional == 4 %>
       <%= render "layouts/partials/sidebar_surabaya" if branch(current_user, 7) %>
       <%= render "layouts/partials/sidebar_bali" if branch(current_user, 4) %>
       <%= render "layouts/partials/sidebar_makasar" if branch(current_user, 19) %>
