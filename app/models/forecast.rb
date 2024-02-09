@@ -167,13 +167,12 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts_by_manage_branch(start_date, end_date, channel)
     self.find_by_sql("
-      SELECT report.address_number, report.sales_name, report.brand, SUM(report.forecast) as total_forecast, 	  
+      SELECT report.brand, SUM(report.forecast) as total_forecast, 	  
         ROUND((SUM(report.forecast)/DAY(LAST_DAY('#{end_date}')))*DAY('#{end_date}')) AS todate ,
         SUM(report.sales) as total_sales, report.branch,
         SUM(report.realisasi_forecast) as total_realisasi_forecast FROM
         (
-        SELECT IFNULL(f.sales_name, lp.salesman) as sales_name, 
-              IFNULL(f.address_number, lp.nopo) as address_number, f1.item_number, f1.brand,
+        SELECT f1.item_number, f1.brand,
               IFNULL(f.quantity,0) AS forecast, IFNULL(lp.area_id, branch) as branch,
               IFNULL(lp.jumlah,0) as sales, 
               CASE 
@@ -202,7 +201,7 @@ class Forecast < ActiveRecord::Base
                 month, year, nopo, salesman FROM
                 sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE invoice_date BETWEEN '#{start_date.to_date}'
                 AND '#{end_date.to_date}' AND bp != 0 and customer_type like '#{channel}%'
-                GROUP BY item_number, nopo, area_id, brand
+                GROUP BY item_number, area_id, brand
               ) AS lp ON lp.item_number = f1.item_number AND (lp.area_id = f1.area_id)
               LEFT JOIN
               (
@@ -210,7 +209,7 @@ class Forecast < ActiveRecord::Base
                 segment3_name, size, SUM(quantity) AS quantity, address_number, sales_name FROM
                 forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
                 AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
-                AND '#{end_date.to_date.year}' and channel = '#{channel}' GROUP BY item_number, address_number
+                AND '#{end_date.to_date.year}' and channel = '#{channel}' GROUP BY item_number, branch
               ) AS f ON f.item_number = f1.item_number AND f.branch = f1.area_id
               GROUP BY f1.item_number, f1.area_id
         ) report
@@ -711,7 +710,7 @@ class Forecast < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      forecast = find_by(brand: row["brand"], item_number: row["item_number"], branch: row["branch"], week: row["week"], year: row["year"]) || new
+      forecast = find_by(item_number: row["item_number"], branch: row["branch"], week: row["week"], month: row["month"], year: row["year"]) || new
       unless row["quantity"].nil? || row["quantity"] == 0
         if forecast.id.nil?
           item = JdeItemMaster.get_desc_forecast(row["item_number"])
