@@ -187,7 +187,7 @@ class Forecast < ActiveRecord::Base
                 SELECT DISTINCT(item_number), brand as brand, area_id FROM
                 sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE invoice_date BETWEEN '#{start_date.to_date}'
                 AND '#{end_date.to_date}' AND bp != 0 and customer_type like '#{channel}%'
-
+    
                 UNION
 
                 SELECT DISTINCT(item_number), brand, branch FROM
@@ -198,11 +198,11 @@ class Forecast < ActiveRecord::Base
               LEFT JOIN
               (
                 SELECT SUM(total) AS jumlah, item_number, product_name, area_id, panjang, lebar,
-                month, year, nopo, salesman FROM
+                month, year, nopo, salesman, bp FROM
                 sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE invoice_date BETWEEN '#{start_date.to_date}'
                 AND '#{end_date.to_date}' AND bp != 0 and customer_type like '#{channel}%'
                 GROUP BY item_number, area_id, brand
-              ) AS lp ON lp.item_number = f1.item_number AND (lp.area_id = f1.area_id)
+              ) AS lp ON lp.item_number = f1.item_number AND (lp.bp = f1.area_id)
               LEFT JOIN
               (
                 SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
@@ -710,7 +710,7 @@ class Forecast < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      forecast = find_by(item_number: row["item_number"], branch: row["branch"], week: row["week"], month: row["month"], year: row["year"]) || new
+      forecast = find_by(item_number: row["item_number"], branch: row["branch"], week: row["week"], month: row["month"], year: row["year"], channel: row["channel"]) || new
       unless row["quantity"].nil? || row["quantity"] == 0
         if forecast.id.nil?
           item = JdeItemMaster.get_desc_forecast(row["item_number"])
