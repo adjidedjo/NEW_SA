@@ -202,7 +202,7 @@ class Forecast < ActiveRecord::Base
                 sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE invoice_date BETWEEN '#{start_date.to_date}'
                 AND '#{end_date.to_date}' AND bp != 0 and customer_type like '#{channel}%'
                 GROUP BY item_number, area_id, brand
-              ) AS lp ON lp.item_number = f1.item_number AND (lp.bp = f1.area_id)
+              ) AS lp ON lp.item_number = f1.item_number AND (lp.area_id = f1.area_id)
               LEFT JOIN
               (
                 SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
@@ -710,12 +710,12 @@ class Forecast < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      forecast = find_by(item_number: row["item_number"], branch: row["branch"], week: row["week"], month: row["month"], year: row["year"], channel: row["channel"]) || new
+      gudang = Gudang.find_by_code(row["branch"])
+      forecast = find_by(item_number: row["item_number"], gudang: row["branch"], month: row["month"], week: row["week"], year: row["year"], channel: row["channel"]) || new
       unless row["quantity"].nil? || row["quantity"] == 0
         if forecast.id.nil?
           item = JdeItemMaster.get_desc_forecast(row["item_number"])
           sales_name = Jde.get_sales_rkb(row["address_number"].to_i)
-          gudang = Gudang.find_by_code(row["branch"])
           row["segment1"] = item.nil? ? 0 : item.imseg1.strip
           row["segment2"] = item.nil? ? 0 : item.imseg2.strip
           row["segment3"] = item.nil? ? 0 : item.imseg3.strip
@@ -725,7 +725,7 @@ class Forecast < ActiveRecord::Base
           row["description"] = item.nil? ? 'UNLISTED ITEM NUMBER' : ((item.imdsc1.nil? ? '' : item.imdsc1.strip) + ' ' + (item.imdsc2.nil? ? '' : item.imdsc2.strip))
           row["planner"] = '-'
           row["sales_name"] = sales_name.nil? ? ' ' : sales_name.abalph.strip
-          row["branch"] = row["branch"]
+          row["branch"] = gudang.area_id
           row["gudang_id"] = gudang.code
           row["gudang"] = gudang.description
           row["sisa"] = row["quantity"]
