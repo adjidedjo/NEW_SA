@@ -6,7 +6,7 @@ class Penjualan::Customer < Penjualan::Sale
       SUM(CASE WHEN fiscal_month = '#{2.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN harganetto1 END) month2,
       SUM(CASE WHEN fiscal_month = '#{1.months.ago.month}' AND fiscal_year = '#{1.months.ago.year}' THEN harganetto1 END) month1,
       SUM(CASE WHEN fiscal_month = '#{Date.today.month}' AND fiscal_year = '#{Date.today.year}' THEN harganetto1 END) monthnow
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{3.months.ago.beginning_of_month.to_date}' AND '#{Date.today}'
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{3.months.ago.beginning_of_month.to_date}' AND '#{Date.today}'
       AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY area_id, kode_customer
@@ -25,7 +25,7 @@ class Penjualan::Customer < Penjualan::Sale
           IFNULL(SUM(CASE WHEN a.week = '#{1.weeks.ago.to_date.cweek}' AND a.fiscal_year = '#{1.weeks.ago.to_date.year}' THEN a.harganetto2 END), 0) AS w1
           FROM (
             SELECT jenisbrgdisc, area_id, customer, kode_customer, kota, harganetto2, WEEK, fiscal_year
-            FROM dbmarketing.tblaporancabang
+            FROM dbmarketing.tblaporancabang2
             WHERE tanggalsj BETWEEN '#{5.weeks.ago.to_date}' AND '#{1.weeks.ago.end_of_week.to_date}' AND jenisbrgdisc REGEXP '#{brand}' AND tipecust = 'RETAIL'
             AND area_id IS NOT NULL
           ) a GROUP BY a.customer, a.jenisbrgdisc
@@ -110,7 +110,7 @@ class Penjualan::Customer < Penjualan::Sale
       LEFT JOIN
       (
         SELECT kode_customer, area_id, SUM(harganetto1) AS first_month, fiscal_month, fiscal_year
-        FROM tblaporancabang WHERE area_id != 1 AND area_id != 50 AND
+        FROM tblaporancabang2 WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL'
         GROUP BY kode_customer, fiscal_month, fiscal_year
       ) lc ON new_cus.address_number = lc.kode_customer AND lc.fiscal_month = MONTH(new_cus.last_order_date)
@@ -134,7 +134,7 @@ class Penjualan::Customer < Penjualan::Sale
       LEFT JOIN
       (
         SELECT kode_customer, area_id, SUM(harganetto1) AS first_month, fiscal_month, fiscal_year
-        FROM tblaporancabang WHERE area_id != 1 AND area_id != 50 AND
+        FROM tblaporancabang2 WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL'
         GROUP BY kode_customer, fiscal_month, fiscal_year
       ) lc ON new_cus.address_number = lc.kode_customer AND lc.fiscal_month = MONTH(new_cus.opened_date)
@@ -142,7 +142,7 @@ class Penjualan::Customer < Penjualan::Sale
       LEFT JOIN
       (
         SELECT kode_customer, area_id, SUM(harganetto1) AS second_month, fiscal_month, fiscal_year
-        FROM tblaporancabang WHERE area_id != 1 AND area_id != 50 AND
+        FROM tblaporancabang2 WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL'
         GROUP BY kode_customer, fiscal_month, fiscal_year
       ) lc1 ON new_cus.address_number = lc1.kode_customer AND lc1.fiscal_month = MONTH(new_cus.opened_date + INTERVAL 1 MONTH)
@@ -150,7 +150,7 @@ class Penjualan::Customer < Penjualan::Sale
       LEFT JOIN
       (
         SELECT kode_customer, area_id, SUM(harganetto1) AS third_month, fiscal_month, fiscal_year
-        FROM tblaporancabang WHERE area_id != 1 AND area_id != 50 AND
+        FROM tblaporancabang2 WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL'
         GROUP BY kode_customer, fiscal_month, fiscal_year
       ) lc2 ON new_cus.address_number = lc2.kode_customer AND lc2.fiscal_month = MONTH(new_cus.opened_date + INTERVAL 2 MONTH)
@@ -172,7 +172,7 @@ class Penjualan::Customer < Penjualan::Sale
           AND '#{1.month.ago.end_of_month.to_date}' THEN kode_customer END)) first,
           COUNT(DISTINCT(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month.to_date}'
           AND '#{Date.yesterday}' THEN kode_customer END)) this_month
-          FROM tblaporancabang WHERE tanggalsj BETWEEN '#{3.month.ago.beginning_of_month.to_date}'
+          FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{3.month.ago.beginning_of_month.to_date}'
           AND '#{Date.yesterday}' AND tipecust = 'RETAIL'
       ) AS cs
     ")
@@ -197,7 +197,7 @@ class Penjualan::Customer < Penjualan::Sale
       SUM(CASE WHEN fiscal_month = '#{2.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN harganetto1 END) month2,
       SUM(CASE WHEN fiscal_month = '#{1.months.ago.month}' AND fiscal_year = '#{1.months.ago.year}' THEN harganetto1 END) month1,
       SUM(CASE WHEN fiscal_month = '#{Date.today.month}' AND fiscal_year = '#{Date.today.year}' THEN harganetto1 END) monthnow
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{3.months.ago.beginning_of_month.to_date}' AND '#{Date.today}'
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{3.months.ago.beginning_of_month.to_date}' AND '#{Date.today}'
       AND area_id = '#{branch}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY kode_customer
