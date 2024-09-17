@@ -1,5 +1,5 @@
 class Penjualan::SalesmanSales < ActiveRecord::Base
-  self.table_name = "tblaporancabang"
+  self.table_name = "tblaporancabang2"
   def self.score_card_sales(sales)
     find_by_sql("SELECT f.brand, f.sales_name, f.segment2_name, f.segment3_name,
       (SUM(CASE WHEN f.size = '000' THEN f.sisa END)) satu,
@@ -48,10 +48,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
     (
       SELECT area_id, nopo,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
-      AND '#{Date.yesterday}' THEN harganetto1 END) val_1,
+      AND '#{Date.yesterday}' THEN harganetto2 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
-      AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
+      AND '#{Date.yesterday.last_month}' THEN harganetto2 END) val_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -59,7 +59,7 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
     ) as lc
       LEFT JOIN
       (
-        SELECT SUM(harganetto1) AS v_last_year, area_id, nopo FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_year.beginning_of_month}'
+        SELECT SUM(harganetto2) AS v_last_year, area_id, nopo FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_year.beginning_of_month}'
         AND '#{Date.yesterday.last_year}' AND jenisbrgdisc REGEXP '#{brand}' AND nopo = '#{sales.address_number}' AND
         tipecust = 'RETAIL'
         GROUP BY jenisbrgdisc
@@ -79,10 +79,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       (
         SELECT kodejenis,
         SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN jumlah END) AS qty_1,
-        SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN harganetto1 END) AS val_1,
+        SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN harganetto2 END) AS val_1,
         SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN jumlah END) AS qty_2,
-        SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN harganetto1 END) AS val_2
-        FROM tblaporancabang AS lc
+        SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN harganetto2 END) AS val_2
+        FROM tblaporancabang2 AS lc
         WHERE tanggalsj BETWEEN '#{2.day.ago.to_date}'
         AND '#{1.day.ago.to_date}' AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
         tipecust = 'RETAIL'
@@ -102,12 +102,12 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' THEN jumlah END) qty_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
-      AND '#{Date.yesterday}' THEN harganetto1 END) val_1,
+      AND '#{Date.yesterday}' THEN harganetto2 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday.last_month}' THEN jumlah END) qty_2,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
-      AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
+      AND '#{Date.yesterday.last_month}' THEN harganetto2 END) val_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -133,10 +133,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' AND kodejenis = 'KB' THEN jumlah END) kb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
-      AND '#{Date.yesterday}' THEN harganetto1 END) total_1,
+      AND '#{Date.yesterday}' THEN harganetto2 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
-      AND '#{Date.yesterday.last_month}' THEN harganetto1 END) total_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
+      AND '#{Date.yesterday.last_month}' THEN harganetto2 END) total_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -162,10 +162,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' AND kodejenis = 'KB' THEN jumlah END) kb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
-      AND '#{Date.yesterday}' THEN harganetto1 END) total_1,
+      AND '#{Date.yesterday}' THEN harganetto2 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
-      AND '#{Date.yesterday.last_month}' THEN harganetto1 END) total_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
+      AND '#{Date.yesterday.last_month}' THEN harganetto2 END) total_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -181,12 +181,12 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_week}'
       AND '#{Date.yesterday}' THEN jumlah END) qty_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_week}'
-      AND '#{Date.yesterday}' THEN harganetto1 END) val_1,
+      AND '#{Date.yesterday}' THEN harganetto2 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}'
       AND '#{Date.yesterday.last_week}' THEN jumlah END) qty_2,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}'
-      AND '#{Date.yesterday.last_week}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}'
+      AND '#{Date.yesterday.last_week}' THEN harganetto2 END) val_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}'
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -204,12 +204,12 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' THEN jumlah END) qty_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
-      AND '#{Date.yesterday}' THEN harganetto1 END) val_1,
+      AND '#{Date.yesterday}' THEN harganetto2 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday.last_month}' THEN jumlah END) qty_2,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
-      AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
+      AND '#{Date.yesterday.last_month}' THEN harganetto2 END) val_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -230,12 +230,12 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}' THEN jumlah END) qty_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
-      AND '#{1.month.ago.to_date.end_of_month}' THEN harganetto1 END) val_1,
+      AND '#{1.month.ago.to_date.end_of_month}' THEN harganetto2 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
       AND '#{2.month.ago.to_date.end_of_month}' THEN jumlah END) qty_2,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
-      AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
+      AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto2 END) val_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{sales.brand1}' AND
       tipecust = 'RETAIL'
@@ -261,10 +261,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}' AND kodejenis = 'KB' THEN jumlah END) kb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
-      AND '#{1.month.ago.to_date.end_of_month}' THEN harganetto1 END) total_1,
+      AND '#{1.month.ago.to_date.end_of_month}' THEN harganetto2 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
-      AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) total_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
+      AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto2 END) total_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{sales.brand1}' AND
       tipecust = 'RETAIL'
@@ -290,10 +290,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}' AND kodejenis = 'KB' THEN jumlah END) kb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
-      AND '#{1.month.ago.to_date.end_of_month}' THEN harganetto1 END) total_1,
+      AND '#{1.month.ago.to_date.end_of_month}' THEN harganetto2 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
-      AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) total_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
+      AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto2 END) total_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{sales.brand1}' AND
       tipecust = 'RETAIL'
@@ -309,12 +309,12 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}' THEN jumlah END) qty_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.month.ago.to_date.beginning_of_month}'
-      AND '#{1.month.ago.to_date.end_of_month}' THEN harganetto1 END) val_1,
+      AND '#{1.month.ago.to_date.end_of_month}' THEN harganetto2 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
       AND '#{2.month.ago.to_date.end_of_month}' THEN jumlah END) qty_2,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
-      AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
+      AND '#{2.month.ago.to_date.end_of_month}' THEN harganetto2 END) val_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{2.month.ago.to_date.beginning_of_month}'
       AND '#{1.month.ago.to_date.end_of_month}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{sales.brand1}' AND
       tipecust = 'RETAIL'
@@ -332,12 +332,12 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.to_date.beginning_of_week}'
       AND '#{1.week.ago.to_date.end_of_week}' THEN jumlah END) qty_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.to_date.beginning_of_week}'
-      AND '#{1.week.ago.to_date.end_of_week}' THEN harganetto1 END) val_1,
+      AND '#{1.week.ago.to_date.end_of_week}' THEN harganetto2 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
       AND '#{2.week.ago.to_date.end_of_week}' THEN jumlah END) qty_2,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
-      AND '#{2.week.ago.to_date.end_of_week}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
+      AND '#{2.week.ago.to_date.end_of_week}' THEN harganetto2 END) val_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
       AND '#{1.week.ago.to_date.end_of_week}'
       AND nopo = '#{sales.address_number}' AND
       tipecust = 'RETAIL'
@@ -361,10 +361,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.to_date.beginning_of_week}'
       AND '#{1.week.ago.to_date.end_of_week}' AND kodejenis = 'SB' THEN jumlah END) sb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.to_date.beginning_of_week}'
-      AND '#{1.week.ago.to_date.end_of_week}' THEN harganetto1 END) total_1,
+      AND '#{1.week.ago.to_date.end_of_week}' THEN harganetto2 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
-      AND '#{2.weeks.ago.to_date.end_of_week}' THEN harganetto1 END) total_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
+      AND '#{2.weeks.ago.to_date.end_of_week}' THEN harganetto2 END) total_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
       AND '#{1.week.ago.to_date.end_of_week}'
       AND nopo = '#{sales.address_number}' AND
       tipecust = 'RETAIL'
@@ -388,10 +388,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.to_date.beginning_of_week}'
       AND '#{1.week.ago.to_date.end_of_week}' AND kodejenis = 'SB' THEN jumlah END) sb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.to_date.beginning_of_week}'
-      AND '#{1.week.ago.to_date.end_of_week}' THEN harganetto1 END) total_1,
+      AND '#{1.week.ago.to_date.end_of_week}' THEN harganetto2 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
-      AND '#{2.weeks.ago.to_date.end_of_week}' THEN harganetto1 END) total_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
+      AND '#{2.weeks.ago.to_date.end_of_week}' THEN harganetto2 END) total_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
       AND '#{1.week.ago.to_date.end_of_week}'
       AND nopo = '#{sales.address_number}' AND
       tipecust = 'RETAIL'
@@ -407,12 +407,12 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.to_date.beginning_of_week}'
       AND '#{1.week.ago.to_date.end_of_week}' THEN jumlah END) qty_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{1.week.ago.to_date.beginning_of_week}'
-      AND '#{1.week.ago.to_date.end_of_week}' THEN harganetto1 END) val_1,
+      AND '#{1.week.ago.to_date.end_of_week}' THEN harganetto2 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
       AND '#{2.weeks.ago.to_date.end_of_week}' THEN jumlah END) qty_2,
       SUM(CASE WHEN tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
-      AND '#{2.weeks.ago.to_date.end_of_week}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
+      AND '#{2.weeks.ago.to_date.end_of_week}' THEN harganetto2 END) val_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{2.weeks.ago.to_date.beginning_of_week}'
       AND '#{1.week.ago.to_date.end_of_week}'
       AND nopo = '#{sales.address_number}' AND
       tipecust = 'RETAIL'
@@ -428,10 +428,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       (
         SELECT kodejenis,
         SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN jumlah END) AS qty_1,
-        SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN harganetto1 END) AS val_1,
+        SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN harganetto2 END) AS val_1,
         SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN jumlah END) AS qty_2,
-        SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN harganetto1 END) AS val_2
-        FROM tblaporancabang AS lc
+        SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN harganetto2 END) AS val_2
+        FROM tblaporancabang2 AS lc
         WHERE tanggalsj BETWEEN '#{2.day.ago.to_date}'
         AND '#{1.day.ago.to_date}' AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
         tipecust = 'RETAIL'
@@ -451,12 +451,12 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' THEN jumlah END) qty_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
-      AND '#{Date.yesterday}' THEN harganetto1 END) val_1,
+      AND '#{Date.yesterday}' THEN harganetto2 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday.last_month}' THEN jumlah END) qty_2,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
-      AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
+      AND '#{Date.yesterday.last_month}' THEN harganetto2 END) val_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -482,10 +482,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' AND kodejenis = 'KB' THEN jumlah END) kb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
-      AND '#{Date.yesterday}' THEN harganetto1 END) total_1,
+      AND '#{Date.yesterday}' THEN harganetto2 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
-      AND '#{Date.yesterday.last_month}' THEN harganetto1 END) total_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
+      AND '#{Date.yesterday.last_month}' THEN harganetto2 END) total_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -511,10 +511,10 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' AND kodejenis = 'KB' THEN jumlah END) kb,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
-      AND '#{Date.yesterday}' THEN harganetto1 END) total_1,
+      AND '#{Date.yesterday}' THEN harganetto2 END) total_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
-      AND '#{Date.yesterday.last_month}' THEN harganetto1 END) total_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
+      AND '#{Date.yesterday.last_month}' THEN harganetto2 END) total_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -530,12 +530,12 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_week}'
       AND '#{Date.yesterday}' THEN jumlah END) qty_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_week}'
-      AND '#{Date.yesterday}' THEN harganetto1 END) val_1,
+      AND '#{Date.yesterday}' THEN harganetto2 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}'
       AND '#{Date.yesterday.last_week}' THEN jumlah END) qty_2,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}'
-      AND '#{Date.yesterday.last_week}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}'
+      AND '#{Date.yesterday.last_week}' THEN harganetto2 END) val_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_week.beginning_of_week}'
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -553,12 +553,12 @@ class Penjualan::SalesmanSales < ActiveRecord::Base
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' THEN jumlah END) qty_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
-      AND '#{Date.yesterday}' THEN harganetto1 END) val_1,
+      AND '#{Date.yesterday}' THEN harganetto2 END) val_1,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday.last_month}' THEN jumlah END) qty_2,
       SUM(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
-      AND '#{Date.yesterday.last_month}' THEN harganetto1 END) val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
+      AND '#{Date.yesterday.last_month}' THEN harganetto2 END) val_2
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.last_month.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND nopo = '#{sales.address_number}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
