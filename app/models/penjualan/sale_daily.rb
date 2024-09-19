@@ -1,5 +1,5 @@
 class Penjualan::SaleDaily < Penjualan::Sale
-  self.table_name = "tblaporancabang"
+  self.table_name = "tblaporancabang2"
   def self.on_time_delivery(branch, brand)
     self.find_by_sql("SELECT ((variance1/total_so) * 100) AS ontime, ((variance2/total_so) * 100) AS late,
     ((variance3/total_so) * 100) AS superlate, total_so FROM
@@ -13,7 +13,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       AND '#{Date.yesterday}' AND diskon5 > 7 THEN diskon5 END) variance3,
       COUNT(CASE WHEN tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}' THEN diskon5 END) total_so
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{Date.yesterday.beginning_of_month}'
       AND '#{Date.yesterday}'
       AND area_id = '#{branch}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -70,7 +70,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN harganetto1 END) AS val_1,
       SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN jumlah END) AS qty_2,
       SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN harganetto1 END) AS val_2
-      FROM tblaporancabang WHERE tanggalsj BETWEEN '#{2.day.ago.to_date}'
+      FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{2.day.ago.to_date}'
       AND '#{1.day.ago.to_date}' AND area_id = '#{branch}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
       GROUP BY kodejenis WITH ROLLUP")
@@ -249,7 +249,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN harganetto1 END) AS val_2,
       SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN jumlah END) AS qty_1,
       SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN harganetto1 END) AS val_1
-      FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{2.day.ago.to_date}' AND '#{1.day.ago.to_date}'
+      FROM tblaporancabang2 WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{2.day.ago.to_date}' AND '#{1.day.ago.to_date}'
       AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'   GROUP BY salesman")
   end
@@ -260,7 +260,7 @@ class Penjualan::SaleDaily < Penjualan::Sale
       SUM(CASE WHEN tanggalsj = '#{2.day.ago.to_date}' THEN harganetto1 END) AS val_2,
       SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN jumlah END) AS qty_1,
       SUM(CASE WHEN tanggalsj = '#{1.day.ago.to_date}' THEN harganetto1 END) AS val_1
-      FROM tblaporancabang WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{2.day.ago.to_date}' AND '#{1.day.ago.to_date}'
+      FROM tblaporancabang2 WHERE area_id = '#{branch}' AND tanggalsj BETWEEN '#{2.day.ago.to_date}' AND '#{1.day.ago.to_date}'
       AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'   GROUP BY kode_customer")
   end
