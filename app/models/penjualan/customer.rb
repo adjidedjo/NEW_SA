@@ -2,10 +2,10 @@ class Penjualan::Customer < Penjualan::Sale
 
   def self.customer_progress(brand)
     find_by_sql("SELECT customer, kode_customer, kota, salesman,
-      SUM(CASE WHEN fiscal_month = '#{3.months.ago.month}' AND fiscal_year = '#{3.months.ago.year}' THEN harganetto1 END) month3,
-      SUM(CASE WHEN fiscal_month = '#{2.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN harganetto1 END) month2,
-      SUM(CASE WHEN fiscal_month = '#{1.months.ago.month}' AND fiscal_year = '#{1.months.ago.year}' THEN harganetto1 END) month1,
-      SUM(CASE WHEN fiscal_month = '#{Date.today.month}' AND fiscal_year = '#{Date.today.year}' THEN harganetto1 END) monthnow
+      SUM(CASE WHEN fiscal_month = '#{3.months.ago.month}' AND fiscal_year = '#{3.months.ago.year}' THEN harganetto2 END) month3,
+      SUM(CASE WHEN fiscal_month = '#{2.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN harganetto2 END) month2,
+      SUM(CASE WHEN fiscal_month = '#{1.months.ago.month}' AND fiscal_year = '#{1.months.ago.year}' THEN harganetto2 END) month1,
+      SUM(CASE WHEN fiscal_month = '#{Date.today.month}' AND fiscal_year = '#{Date.today.year}' THEN harganetto2 END) monthnow
       FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{3.months.ago.beginning_of_month.to_date}' AND '#{Date.today}'
       AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
@@ -109,7 +109,7 @@ class Penjualan::Customer < Penjualan::Sale
       ) new_cus
       LEFT JOIN
       (
-        SELECT kode_customer, area_id, SUM(harganetto1) AS first_month, fiscal_month, fiscal_year
+        SELECT kode_customer, area_id, SUM(harganetto2) AS first_month, fiscal_month, fiscal_year
         FROM tblaporancabang2 WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL'
         GROUP BY kode_customer, fiscal_month, fiscal_year
@@ -133,7 +133,7 @@ class Penjualan::Customer < Penjualan::Sale
       ) new_cus
       LEFT JOIN
       (
-        SELECT kode_customer, area_id, SUM(harganetto1) AS first_month, fiscal_month, fiscal_year
+        SELECT kode_customer, area_id, SUM(harganetto2) AS first_month, fiscal_month, fiscal_year
         FROM tblaporancabang2 WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL'
         GROUP BY kode_customer, fiscal_month, fiscal_year
@@ -141,7 +141,7 @@ class Penjualan::Customer < Penjualan::Sale
         AND lc.fiscal_year = YEAR(new_cus.opened_date)
       LEFT JOIN
       (
-        SELECT kode_customer, area_id, SUM(harganetto1) AS second_month, fiscal_month, fiscal_year
+        SELECT kode_customer, area_id, SUM(harganetto2) AS second_month, fiscal_month, fiscal_year
         FROM tblaporancabang2 WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL'
         GROUP BY kode_customer, fiscal_month, fiscal_year
@@ -149,7 +149,7 @@ class Penjualan::Customer < Penjualan::Sale
         AND lc1.fiscal_year = YEAR(new_cus.opened_date)
       LEFT JOIN
       (
-        SELECT kode_customer, area_id, SUM(harganetto1) AS third_month, fiscal_month, fiscal_year
+        SELECT kode_customer, area_id, SUM(harganetto2) AS third_month, fiscal_month, fiscal_year
         FROM tblaporancabang2 WHERE area_id != 1 AND area_id != 50 AND
         tipecust = 'RETAIL'
         GROUP BY kode_customer, fiscal_month, fiscal_year
@@ -193,10 +193,10 @@ class Penjualan::Customer < Penjualan::Sale
 
   def self.reporting_customer_monthly(branch, brand)
     find_by_sql("SELECT customer, kode_customer, kota, salesman,
-      SUM(CASE WHEN fiscal_month = '#{3.months.ago.month}' AND fiscal_year = '#{3.months.ago.year}' THEN harganetto1 END) month3,
-      SUM(CASE WHEN fiscal_month = '#{2.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN harganetto1 END) month2,
-      SUM(CASE WHEN fiscal_month = '#{1.months.ago.month}' AND fiscal_year = '#{1.months.ago.year}' THEN harganetto1 END) month1,
-      SUM(CASE WHEN fiscal_month = '#{Date.today.month}' AND fiscal_year = '#{Date.today.year}' THEN harganetto1 END) monthnow
+      SUM(CASE WHEN fiscal_month = '#{3.months.ago.month}' AND fiscal_year = '#{3.months.ago.year}' THEN harganetto2 END) month3,
+      SUM(CASE WHEN fiscal_month = '#{2.months.ago.month}' AND fiscal_year = '#{2.months.ago.year}' THEN harganetto2 END) month2,
+      SUM(CASE WHEN fiscal_month = '#{1.months.ago.month}' AND fiscal_year = '#{1.months.ago.year}' THEN harganetto2 END) month1,
+      SUM(CASE WHEN fiscal_month = '#{Date.today.month}' AND fiscal_year = '#{Date.today.year}' THEN harganetto2 END) monthnow
       FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{3.months.ago.beginning_of_month.to_date}' AND '#{Date.today}'
       AND area_id = '#{branch}' AND jenisbrgdisc REGEXP '#{brand}' AND
       tipecust = 'RETAIL'
