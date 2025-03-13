@@ -6,6 +6,13 @@ class Stock::Jember::StockSerenityController < ApplicationController
     @state = "NORMAL"
     render template: "stock/template_stock/stock_buffer"
   end
+    
+  def stock_unnormal
+    @stock = Stock::JdeItemAvailability.stock_real_unnormal(@branch_plant, "S")
+    @brand = initialize_brand
+    @state = "UNNORMAL"
+    render template: "stock/template_stock/stock_unnormal"
+  end
   
   def stock_normal
     @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "S")

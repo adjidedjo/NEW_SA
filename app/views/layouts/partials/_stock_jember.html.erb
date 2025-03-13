@@ -34,6 +34,9 @@
         <li class="<%= 'active' if controller?('stock/jember/stock_elite') && action?('stock_display') %>">
           <a href="/stock/jember/stock_elite/stock_display" title="Display"> <span>Display</span> </a>
         </li>
+        <li class="<%= 'active' if controller?('stock/jember/stock_elite') && action?('stock_unnormal') %>">
+          <a href="/stock/jember/stock_elite/stock_service" title="Tanggung & Aksesoris"> <span>Tanggung & Aksesoris</span> </a>
+        </li>
       </ul>
     </li>
     <li class="<%= 'active' if controller?('stock/jember/stock_serenity') %>">
@@ -59,6 +62,9 @@
         </li>
         <li class="<%= 'active' if controller?('stock/jember/stock_serenity') && action?('stock_display') %>">
           <a href="/stock/jember/stock_serenity/stock_display" title="Display"> <span>Display</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/jember/stock_serenity') && action?('stock_unnormal') %>">
+          <a href="/stock/jember/stock_serenity/stock_unnormal" title="Tanggung & Aksesoris"> <span>Tanggung & Aksesoris</span> </a>
         </li>
       </ul>
     </li>
@@ -86,6 +92,9 @@
         <li class="<%= 'active' if controller?('stock/jember/stock_lady') && action?('stock_display') %>">
           <a href="/stock/jember/stock_lady/stock_display" title="Display"> <span>Display</span> </a>
         </li>
+        <li class="<%= 'active' if controller?('stock/jember/stock_lady') && action?('stock_unnormal') %>">
+          <a href="/stock/jember/stock_lady/stock_unnormal" title="Tanggung & Aksesoris"> <span>Tanggung & Aksesoris</span> </a>
+        </li>
       </ul>
     </li>
     <li class="<%= 'active' if controller?('stock/jember/stock_royal') %>">
@@ -112,9 +121,11 @@
         <li class="<%= 'active' if controller?('stock/jember/stock_royal') && action?('stock_display') %>">
           <a href="/stock/jember/stock_royal/stock_display" title="Display"> <span>Display</span> </a>
         </li>
+        <li class="<%= 'active' if controller?('stock/jember/stock_royal') && action?('stock_unnormal') %>">
+          <a href="/stock/jember/stock_royal/stock_unnormal" title="Tanggung & Aksesoris"> <span>Tanggung & Aksesoris</span> </a>
+        </li>
       </ul>
     </li>
-    
     <li class="<%= 'active' if controller?('stock/jember/stock_classic') && action?('stock_classic') %>">
       <a href="/stock/jember/stock_elite/stock_classic" title="Tote"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
     </li>
