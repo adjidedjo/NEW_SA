@@ -62,44 +62,49 @@ class Penjualan::Sale < ActiveRecord::Base
 
   def self.channel_nasional_this_month(date)
     self.find_by_sql("SELECT cc.channel, ly.val_elite, ly.val_classic, ly.val_serenity,
-    ly.val_royal, ly.val_lady, ly.val_tote,
+    ly.val_royal, ly.val_lady, ly.val_tote, ly.val_moro,
     ROUND((((ly.val_elite - ly.elite) / ly.elite) * 100), 0) AS elite,
     ROUND((((ly.val_lady - ly.lady) / ly.lady) * 100), 0) AS lady,
     ROUND((((ly.val_royal - ly.royal) / ly.royal) * 100), 0) AS royal,
     ROUND((((ly.val_serenity - ly.serenity) / ly.serenity) * 100), 0) AS serenity,
     ROUND((((ly.val_classic - ly.classic) / ly.classic) * 100), 0) AS classic,
-    ROUND((((ly.val_tote - ly.tote) / ly.tote) * 100), 0) AS tote FROM
+    ROUND((((ly.val_tote - ly.tote) / ly.tote) * 100), 0) AS tote ,
+    ROUND((((ly.val_moro - ly.moro) / ly.moro) * 100), 0) AS moro FROM
     (
       SELECT channel FROM channel_customers
     ) as cc
     LEFT JOIN
       (
         SELECT jenisbrgdisc, tipecust,
-        SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'ELITE' THEN harganetto1 END) val_elite,
-        SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'LADY' THEN harganetto1 END) val_lady,
-        SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'ROYAL' THEN harganetto1 END) val_royal,
-        SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'SERENITY' THEN harganetto1 END) val_serenity,
-        SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'CLASSIC' THEN harganetto1 END) val_classic,
-        SUM(CASE WHEN fiscal_month = '#{date.month}' AND jenisbrgdisc = 'TOTE' THEN harganetto1 END) val_tote,
+        SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND jenisbrgdisc = 'ELITE' THEN harganetto2 END) val_elite,
+        SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND jenisbrgdisc = 'LADY' THEN harganetto2 END) val_lady,
+        SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND jenisbrgdisc = 'ROYAL' THEN harganetto2 END) val_royal,
+        SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND jenisbrgdisc = 'SERENITY' THEN harganetto2 END) val_serenity,
+        SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND jenisbrgdisc = 'CLASSIC' THEN harganetto2 END) val_classic,
+        SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND jenisbrgdisc = 'TOTE' THEN harganetto2 END) val_tote,
+        SUM(CASE WHEN fiscal_month = '#{date.month}' AND fiscal_year = '#{date.year}' AND jenisbrgdisc = 'MORO' THEN harganetto2 END) val_moro,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
           '#{date.to_date - 1.month}'
-          AND jenisbrgdisc = 'ELITE' THEN harganetto1 END) elite,
+          AND jenisbrgdisc = 'ELITE' THEN harganetto2 END) elite,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
           '#{date.to_date - 1.month}'
-          AND jenisbrgdisc = 'LADY' THEN harganetto1 END) lady,
+          AND jenisbrgdisc = 'LADY' THEN harganetto2 END) lady,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
           '#{date.to_date - 1.month}'
-          AND jenisbrgdisc = 'ROYAL' THEN harganetto1 END) royal,
+          AND jenisbrgdisc = 'ROYAL' THEN harganetto2 END) royal,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
           '#{date.to_date - 1.month}'
-          AND jenisbrgdisc = 'SERENITY' THEN harganetto1 END) serenity,
+          AND jenisbrgdisc = 'SERENITY' THEN harganetto2 END) serenity,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
           '#{date.to_date - 1.month}'
-          AND jenisbrgdisc = 'CLASSIC' THEN harganetto1 END) classic,
+          AND jenisbrgdisc = 'CLASSIC' THEN harganetto2 END) classic,
         SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
           '#{date.to_date - 1.month}'
-          AND jenisbrgdisc = 'TOTE' THEN harganetto1 END) tote
-        FROM tblaporancabang2 WHERE tanggalsj BETWEEN '2022-08-01' and '2022-09-12'
+          AND jenisbrgdisc = 'TOTE' THEN harganetto2 END) tote,
+        SUM(CASE WHEN tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' AND
+          '#{date.to_date - 1.month}'
+          AND jenisbrgdisc = 'MORO' THEN harganetto2 END) moro
+        FROM tblaporancabang2 WHERE tanggalsj BETWEEN '#{date.last_month.beginning_of_month}' and '#{date.to_date}'
         GROUP BY tipecust
       ) AS ly ON cc.channel = ly.tipecust
     ")

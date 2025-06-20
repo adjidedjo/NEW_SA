@@ -35,17 +35,19 @@
                 <tr>
                   <th>CHANNEL</th>
                   <th>ELITE</th>
-                  <th></th>
+                  <th>Growth (%)</th>
                   <th>LADY</th>
-                  <th></th>
+                  <th>Growth (%)</th>
                   <th>SERENITY</th>
-                  <th></th>
+                  <th>Growth (%)</th>
                   <th>ROYAL</th>
-                  <th></th>
+                  <th>Growth (%)</th>
                   <th>CLASSIC</th>
-                  <th></th>
+                  <th>Growth (%)</th>
                   <th>TOTE</th>
-                  <th></th>
+                  <th>Growth (%)</th>
+                  <th>Moro</th>
+                  <th>Growth (%)</th>
                 </tr>
               </thead>
               <tbody>
@@ -64,6 +66,8 @@
                   <td class="<%= coloring(ac.classic) %>"><%= ac.classic.nil? ? 0 : cpercent(ac.classic.abs) %></td>
                   <td><%= currency(ac.val_tote) %></td>
                   <td class="<%= coloring(ac.tote) %>"><%= ac.classic.nil? ? 0 : cpercent(ac.tote.abs) %></td>
+                  <td><%= currency(ac.val_moro) %></td>
+                  <td class="<%= coloring(ac.moro) %>"><%= ac.moro.nil? ? 0 : cpercent(ac.moro.abs) %></td>
                 </tr>
                 <% end %>
               </tbody>
