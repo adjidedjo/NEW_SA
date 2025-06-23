@@ -167,53 +167,61 @@ class Forecast < ActiveRecord::Base
 
   def self.calculation_forecasts_by_manage_branch(start_date, end_date, channel)
     self.find_by_sql("
-      SELECT report.brand, SUM(report.forecast) as total_forecast, 	  
-        ROUND((SUM(report.forecast)/DAY(LAST_DAY('#{end_date}')))*DAY('#{end_date}')) AS todate ,
-        SUM(report.sales) as total_sales, report.branch,
-        SUM(report.realisasi_forecast) as total_realisasi_forecast FROM
-        (
-        SELECT f1.item_number, f1.brand,
-              IFNULL(f.quantity,0) AS forecast, IFNULL(lp.area_id, branch) as branch,
-              IFNULL(lp.jumlah,0) as sales, 
+      SELECT 
+          report.brand, 
+          SUM(report.forecast) AS total_forecast,  
+          ROUND((SUM(report.forecast) / DAY(LAST_DAY('#{end_date}'))) * DAY('#{end_date}')) AS todate,
+          SUM(report.sales) AS total_sales, 
+          report.branch,
+          SUM(report.realisasi_forecast) AS total_realisasi_forecast
+      FROM (
+          SELECT 
+              f1.item_number, 
+              f1.brand,
+              IFNULL(f.quantity, 0) AS forecast,
+              IFNULL(lp.jumlah, 0) AS sales,
+              IFNULL(f1.area_id, f.branch) AS branch,
               CASE 
-                WHEN (lp.jumlah < 0) and (IFNULL(f.quantity, 0) = 0) THEN 0
-                WHEN IFNULL(lp.jumlah,0) > IFNULL(f.quantity,0) THEN IFNULL(f.quantity,0) 
-              ELSE 
-                IFNULL(lp.jumlah,0) 
-              END AS realisasi_forecast, 
-              ((lp.jumlah/f.quantity)*100) AS acv
-              FROM
-              (
-                SELECT DISTINCT(item_number), brand as brand, area_id FROM
-                sales_mart.DETAIL_SALES_FOR_FORECASTS WHERE invoice_date BETWEEN '#{start_date.to_date}'
-                AND '#{end_date.to_date}' AND bp != 0 and customer_type like '#{channel}%'
-    
-                UNION
-
-                SELECT DISTINCT(item_number), brand, branch FROM
-                forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
-                AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
-                AND '#{end_date.to_date.year}' and channel = '#{channel}'
-              ) AS f1
-              LEFT JOIN
-              (
-                SELECT SUM(total) AS jumlah, item_number, product_name, area_id, panjang, lebar,
-                month, year, nopo, salesman, bp FROM
-                sales_mart.DETAIL_SALES_FOR_FORECASTS  WHERE invoice_date BETWEEN '#{start_date.to_date}'
-                AND '#{end_date.to_date}' AND bp != 0 and customer_type like '#{channel}%'
-                GROUP BY item_number, area_id, brand
-              ) AS lp ON lp.item_number = f1.item_number AND (lp.area_id = f1.area_id)
-              LEFT JOIN
-              (
-                SELECT description, brand, branch, MONTH, YEAR, item_number, segment1, segment2_name,
-                segment3_name, size, SUM(quantity) AS quantity, address_number, sales_name FROM
-                forecasts WHERE MONTH BETWEEN '#{start_date.to_date.month}'
-                AND '#{end_date.to_date.month}' AND YEAR BETWEEN '#{start_date.to_date.year}'
-                AND '#{end_date.to_date.year}' and channel = '#{channel}' GROUP BY item_number, branch
-              ) AS f ON f.item_number = f1.item_number AND f.branch = f1.area_id
-              GROUP BY f1.item_number, f1.area_id
-        ) report
-      GROUP BY report.branch, report.brand
+                  WHEN lp.jumlah < 0 AND IFNULL(f.quantity, 0) = 0 THEN 0
+                  WHEN lp.jumlah > f.quantity THEN f.quantity
+                  ELSE IFNULL(lp.jumlah, 0)
+              END AS realisasi_forecast
+          FROM (
+              -- Mengambil daftar item dari sales dan forecast
+              SELECT DISTINCT item_number, brand, area_id 
+              FROM sales_mart.DETAIL_SALES_FOR_FORECASTS 
+              WHERE invoice_date BETWEEN '#{start_date.to_date}' AND '#{end_date.to_date}' 
+                AND bp != 0 
+                AND customer_type LIKE '#{channel}%'
+              UNION
+              SELECT DISTINCT item_number, brand, branch AS area_id
+              FROM forecasts 
+              WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND '#{end_date.to_date.month}'
+                AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
+                AND channel = '#{channel}'
+          ) AS f1
+          LEFT JOIN (
+              -- Menghitung total sales berdasarkan item dan area
+              SELECT item_number, area_id, brand, SUM(total) AS jumlah
+              FROM sales_mart.DETAIL_SALES_FOR_FORECASTS  
+              WHERE invoice_date BETWEEN '#{start_date.to_date}' AND '#{end_date.to_date}'
+                AND bp != 0 
+                AND customer_type LIKE '#{channel}%'
+              GROUP BY item_number, area_id, brand
+          ) AS lp 
+          ON lp.item_number = f1.item_number AND lp.area_id = f1.area_id
+          LEFT JOIN (
+              -- Menghitung total forecast berdasarkan item dan branch
+              SELECT item_number, brand, branch, SUM(quantity) AS quantity
+              FROM forecasts
+              WHERE MONTH BETWEEN '#{start_date.to_date.month}' AND '#{end_date.to_date.month}'
+                AND YEAR BETWEEN '#{start_date.to_date.year}' AND '#{end_date.to_date.year}'
+                AND channel = '#{channel}'
+              GROUP BY item_number, branch
+          ) AS f 
+          ON f.item_number = f1.item_number AND f.branch = f1.area_id
+      ) report
+      GROUP BY report.branch, report.brand;
     ")
   end
 
