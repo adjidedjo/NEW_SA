@@ -27,7 +27,7 @@ class SalesOrder::Order < ActiveRecord::Base
     (
      SELECT * FROM PRODDTA.F0101
     ) CM1 ON TRIM(SM.SASLSM) = TRIM(CM1.ABAN8)
-    WHERE so.sdcomm NOT LIKE '%K%' AND so.sdmcu LIKE '%#{branch}'
+    WHERE so.sdcomm NOT LIKE '%K%' AND so.sdmcu LIKE '%18011'
     AND REGEXP_LIKE(so.sddcto,'SO|ZO') AND itm.imtmpl LIKE '%BJ MATRASS%' AND
     so.sdaddj = 0 AND so.sdsocn = 0")
   end
@@ -148,8 +148,8 @@ class SalesOrder::Order < ActiveRecord::Base
         SUM(CASE WHEN SDNXTR BETWEEN '540' AND '560' THEN SDUORG END) AS QTY_COMMIT,  
         MAX(SDDRQJ) AS PO_PROMISE, 
         MIN(SDVR01) AS CUSTOMER_PO FROM PRODDTA.F4211 WHERE SDNXTR < '580' 
-        AND REGEXP_LIKE(SDMCU, '11001|11002|12001|12002|15151|15152|11051|11052|11081|11082|11091|11092')
-        AND SDSHAN LIKE '%#{branch}' 
+        AND REGEXP_LIKE(SDMCU, '1800111|1800211|1800212|1800212|1800115|1800215|18051|18052|18081|18082|18091|18092')
+        AND SDSHAN LIKE '%#{branch}'
         GROUP BY SDITM, SDSHAN, SDMCU
       ) PO ON PO.SDITM = NVL(BO.SDITM, IB.IBITM)
       JOIN
@@ -182,61 +182,150 @@ class SalesOrder::Order < ActiveRecord::Base
   end
   
   def self.outstand_order_sales(branch, brand, sales, anumber)
-    Jde.find_by_sql("SELECT so.sddoco AS order_no, so.sddrqj as promised_delivery, so.sdnxtr as status, 
-    so.sduorg AS jumlah, so.sdtrdj AS sdtrdj,
-    so.sdsrp1 AS sdsrp1, so.sdmcu AS sdmcu, so.sditm, so.sdlitm AS sdlitm, 
-    so.sddsc1 AS sddsc1, so.sddsc2 AS sddsc2, itm.imseg1 AS imseg1, so_head.shhold as hold,
-    cus.abalph AS abalph, so.sdshan, cus.abat1 AS abat1,
-    so.sdtorg AS sdtorg, so.sdpsn, so.sdlttr, so.sddcto, so.sdlotn, so.sdvr01, CM1.ABALPH AS NAMASALES, 
-    art.drdl01 as article
+    Jde.find_by_sql("SELECT 
+        so.sddoco AS order_no,
+        so.sddrqj AS promised_delivery,
+        so.sdnxtr AS status,
+        so.sduorg AS quantity_ordered,
+        so.sdsobk AS quantity_backordered,
+        so.sdsocn AS quantity_canceled,
+        (so.sduorg - so.sdsobk - so.sdsocn) AS quantity_outstanding,
+        so.sdtrdj AS sdtrdj,
+        so.sdsrp1 AS sales_rep,
+        so.sdmcu AS sdmcu,
+        so.sditm AS item_number,
+        so.sdlitm AS sdlitm,
+        so.sddsc1 AS sddsc1,
+        so.sddsc2 AS sddsc2,
+        itm.imseg1 AS item_segment_1,
+        so_head.shhold AS hold,
+        cus.abalph AS abalph,
+        so.sdshan AS sold_to_address,
+        cus.abat1 AS address_type,
+        so.sdtorg AS original_promised_date,
+        so.sdpsn AS person_number,
+        so.sdlttr AS line_type,
+        so.sddcto AS document_type,
+        so.sdlotn AS lot_number,
+        so.sdvr01 AS version_field,
+        CM1.ABALPH AS namasales,
+        art.drdl01 AS article
     FROM PRODDTA.F4211 so
-    JOIN PRODDTA.F4201 so_head ON so.sddoco = so_head.shdoco
-    JOIN PRODDTA.F4101 itm ON so.sditm = itm.imitm
-    JOIN PRODDTA.F0101 cus ON so.sdshan = cus.aban8
-    LEFT JOIN
-    (
-      SELECT * FROM PRODCTL.F0005 WHERE DRSY = '55' AND DRRT = 'AT'
-    ) art ON art.drky LIKE '%'||TRIM(itm.imseg2)
-    LEFT JOIN
-    (
-      SELECT SASLSM, SAIT44, SAAN8 FROM PRODDTA.F40344 WHERE SAEXDJ > (select 1000*(to_char(sysdate, 'yyyy')-1900)+to_char(sysdate, 'ddd') as julian from dual)
-    ) SM ON SM.SAAN8 = so.sdshan AND SM.SAIT44 = itm.imsrp1
-    LEFT JOIN
-    (
-     SELECT * FROM PRODDTA.F0101
-    ) CM1 ON TRIM(SM.SASLSM) = TRIM(CM1.ABAN8)
-    WHERE so.sdcomm NOT LIKE '%K%' AND so.sdmcu LIKE '%#{branch}' AND REGEXP_LIKE(so.sdsrp1, '#{brand}')
-    AND REGEXP_LIKE(so.sddcto,'SO|ZO') AND itm.imtmpl LIKE '%BJ MATRASS%' AND
-    so.sddeln = 0 AND so.sdsocn = 0 AND cm1.aban8 = #{anumber}")
+    INNER JOIN PRODDTA.F4201 so_head 
+        ON so.sddoco = so_head.shdoco
+    INNER JOIN PRODDTA.F4101 itm 
+        ON so.sditm = itm.imitm
+    INNER JOIN PRODDTA.F0101 cus 
+        ON so.sdshan = cus.aban8
+    LEFT JOIN PRODCTL.F0005 art 
+        ON art.drsy = '55' 
+        AND art.drrt = 'AT'
+        AND art.drky LIKE '%' || TRIM(itm.imseg2) || '%'
+    LEFT JOIN PRODDTA.F40344 SM 
+        ON SM.SAAN8 = so.sdshan 
+        AND SM.SAIT44 = itm.imsrp1
+        AND SM.SAEXDJ > (SELECT (EXTRACT(YEAR FROM SYSDATE)-1900)*1000 + 
+                        TO_NUMBER(TO_CHAR(SYSDATE,'DDD')) FROM DUAL)
+    LEFT JOIN PRODDTA.F0101 CM1 
+        ON TRIM(SM.SASLSM) = TRIM(CM1.ABAN8)
+    WHERE 1=1
+        -- Filter canceled orders
+        AND so.sdcomm NOT LIKE '%K%'
+        
+        -- Branch filter
+        AND so.sdmcu LIKE '%' || NVL('#{branch}', '') || '%'
+        
+        -- Brand filter  
+        AND REGEXP_LIKE(NVL(so.sdsrp1, ''), NVL('#{brand}', '.'))
+        
+        -- Document type filter
+        AND REGEXP_LIKE(so.sddcto, 'SO|ZO')
+        
+        -- Product template filter
+        AND itm.imtmpl LIKE '%BJ MATRASS%'
+        
+        -- Outstanding order conditions
+        AND so.sdnxtr < 999  -- Not closed
+        AND (so.sduorg - so.sdsobk - so.sdsocn) > 0  -- Has outstanding quantity
+        AND cm1.aban8 = #{anumber}
+        
+        -- Alternative outstanding condition (if needed)
+        -- AND (so.sddeln = 0 OR so.sdsocn = 0)
+        
+    ORDER BY so.sdmcu, so.sddoco, so.sdlnid")
   end
   
   def self.outstand_order_all_sales(branch, brand, sales, anumber)
-    Jde.find_by_sql("SELECT so.sddoco AS order_no, so.sddrqj as promised_delivery, so.sdnxtr as status, 
-    so.sduorg AS jumlah, so.sdtrdj AS sdtrdj,
-    so.sdsrp1 AS sdsrp1, so.sdmcu AS sdmcu, so.sditm, so.sdlitm AS sdlitm, 
-    so.sddsc1 AS sddsc1, so.sddsc2 AS sddsc2, itm.imseg1 AS imseg1, so_head.shhold as hold,
-    cus.abalph AS abalph, so.sdshan, cus.abat1 AS abat1,
-    so.sdtorg AS sdtorg, so.sdpsn, so.sdlttr, so.sddcto, so.sdlotn, so.sdvr01, CM1.ABALPH AS NAMASALES, 
-    art.drdl01 as article
+    Jde.find_by_sql("SELECT 
+        so.sddoco AS order_no,
+        so.sddrqj AS promised_delivery,
+        so.sdnxtr AS status,
+        so.sduorg AS quantity_ordered,
+        so.sdsobk AS quantity_backordered,
+        so.sdsocn AS quantity_canceled,
+        (so.sduorg - so.sdsobk - so.sdsocn) AS quantity_outstanding,
+        so.sdtrdj AS sdtrdj,
+        so.sdsrp1 AS sales_rep,
+        so.sdmcu AS sdmcu,
+        so.sditm AS item_number,
+        so.sdlitm AS sdlitm,
+        so.sddsc1 AS sddsc1,
+        so.sddsc2 AS sddsc2,
+        itm.imseg1 AS item_segment_1,
+        so_head.shhold AS hold,
+        cus.abalph AS abalph,
+        so.sdshan AS sold_to_address,
+        cus.abat1 AS address_type,
+        so.sdtorg AS original_promised_date,
+        so.sdpsn AS person_number,
+        so.sdlttr AS line_type,
+        so.sddcto AS document_type,
+        so.sdlotn AS lot_number,
+        so.sdvr01 AS version_field,
+        CM1.ABALPH AS namasales,
+        art.drdl01 AS article
     FROM PRODDTA.F4211 so
-    JOIN PRODDTA.F4201 so_head ON so.sddoco = so_head.shdoco
-    JOIN PRODDTA.F4101 itm ON so.sditm = itm.imitm
-    JOIN PRODDTA.F0101 cus ON so.sdshan = cus.aban8
-    LEFT JOIN
-    (
-      SELECT * FROM PRODCTL.F0005 WHERE DRSY = '55' AND DRRT = 'AT'
-    ) art ON art.drky LIKE '%'||TRIM(itm.imseg2)
-    LEFT JOIN
-    (
-      SELECT SASLSM, SAIT44, SAAN8 FROM PRODDTA.F40344 WHERE SAEXDJ > (select 1000*(to_char(sysdate, 'yyyy')-1900)+to_char(sysdate, 'ddd') as julian from dual)
-    ) SM ON SM.SAAN8 = so.sdshan AND SM.SAIT44 = itm.imsrp1
-    LEFT JOIN
-    (
-     SELECT * FROM PRODDTA.F0101
-    ) CM1 ON TRIM(SM.SASLSM) = TRIM(CM1.ABAN8)
-    WHERE so.sdcomm NOT LIKE '%K%' AND so.sdmcu LIKE '%#{branch}' AND REGEXP_LIKE(so.sdsrp1, '#{brand}')
-    AND REGEXP_LIKE(so.sddcto,'SO|ZO') AND itm.imtmpl LIKE '%BJ MATRASS%' AND
-    so.sddeln =  0 AND so.sdsocn = 0")
+    INNER JOIN PRODDTA.F4201 so_head 
+        ON so.sddoco = so_head.shdoco
+    INNER JOIN PRODDTA.F4101 itm 
+        ON so.sditm = itm.imitm
+    INNER JOIN PRODDTA.F0101 cus 
+        ON so.sdshan = cus.aban8
+    LEFT JOIN PRODCTL.F0005 art 
+        ON art.drsy = '55' 
+        AND art.drrt = 'AT'
+        AND art.drky LIKE '%' || TRIM(itm.imseg2) || '%'
+    LEFT JOIN PRODDTA.F40344 SM 
+        ON SM.SAAN8 = so.sdshan 
+        AND SM.SAIT44 = itm.imsrp1
+        AND SM.SAEXDJ > (SELECT (EXTRACT(YEAR FROM SYSDATE)-1900)*1000 + 
+                        TO_NUMBER(TO_CHAR(SYSDATE,'DDD')) FROM DUAL)
+    LEFT JOIN PRODDTA.F0101 CM1 
+        ON TRIM(SM.SASLSM) = TRIM(CM1.ABAN8)
+    WHERE 1=1
+        -- Filter canceled orders
+        AND so.sdcomm NOT LIKE '%K%'
+        
+        -- Branch filter
+        AND so.sdmcu LIKE '%' || NVL('#{branch}', '') || '%'
+        
+        -- Brand filter  
+        AND REGEXP_LIKE(NVL(so.sdsrp1, ''), NVL('#{brand}', '.'))
+        
+        -- Document type filter
+        AND REGEXP_LIKE(so.sddcto, 'SO|ZO')
+        
+        -- Product template filter
+        AND itm.imtmpl LIKE '%BJ MATRASS%'
+        
+        -- Outstanding order conditions
+        AND so.sdnxtr < 999  -- Not closed
+        AND (so.sduorg - so.sdsobk - so.sdsocn) > 0  -- Has outstanding quantity
+        
+        -- Alternative outstanding condition (if needed)
+        -- AND (so.sddeln = 0 OR so.sdsocn = 0)
+        
+    ORDER BY so.sdmcu, so.sddoco, so.sdlnid")
   end
   
   def self.pick_order(branch, brand)
