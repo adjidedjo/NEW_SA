@@ -246,7 +246,7 @@ class SalesOrder::Order < ActiveRecord::Base
         
         -- Outstanding order conditions
         AND so.sdnxtr < 999  -- Not closed
-        AND (so.sduorg - so.sdsobk - so.sdsocn) > 0  -- Has outstanding quantity
+        AND (so.sduorg - so.sdsobk - so.sdsocn) >= 0  -- Has outstanding quantity
         AND cm1.aban8 = #{anumber}
         
         -- Alternative outstanding condition (if needed)
@@ -320,7 +320,7 @@ class SalesOrder::Order < ActiveRecord::Base
         
         -- Outstanding order conditions
         AND so.sdnxtr < 999  -- Not closed
-        AND (so.sduorg - so.sdsobk - so.sdsocn) > 0  -- Has outstanding quantity
+        AND (so.sduorg - so.sdsobk - so.sdsocn) >= 0  -- Has outstanding quantity
         
         -- Alternative outstanding condition (if needed)
         -- AND (so.sddeln = 0 OR so.sdsocn = 0)
