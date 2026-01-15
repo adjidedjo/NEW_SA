@@ -2156,6 +2156,9 @@ Rails.application.routes.draw do
   get 'stock/jember/stock_lady/stock_buffer'
   get 'stock/jember/stock_serenity/stock_buffer'
   get 'stock/jember/stock_royal/stock_buffer'
+  get 'stock/jember/stock_royal/stock_display'
+  # Refactored Jember Stock Route (Dynamic)
+  get 'stock/jember/:brand/:category', to: 'stock/jember#show', as: :stock_jember_show
   
   get 'stock/kediri/stock_elite/stock_buffer'
   get 'stock/kediri/stock_lady/stock_buffer'
@@ -2166,6 +2169,9 @@ Rails.application.routes.draw do
   get 'stock/makasar/stock_lady/stock_buffer'
   get 'stock/makasar/stock_serenity/stock_buffer'
   get 'stock/makasar/stock_royal/stock_buffer'
+  get 'stock/makasar/stock_royal/stock_display'
+  # Refactored Makasar Stock Route (Dynamic)
+  get 'stock/makasar/:brand/:category', to: 'stock/makasar#show', as: :stock_makasar_show
   
   get 'stock/samarinda/stock_elite/stock_buffer'
   get 'stock/samarinda/stock_lady/stock_buffer'
