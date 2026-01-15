@@ -2135,7 +2135,9 @@ Rails.application.routes.draw do
   get 'stock/yogya/stock_elite/stock_buffer'
   get 'stock/yogya/stock_lady/stock_buffer'
   get 'stock/yogya/stock_serenity/stock_buffer'
-  get 'stock/yogya/stock_royal/stock_buffer'
+  get 'stock/yogya/stock_royal/stock_display'
+  # Refactored Yogya Stock Route (Dynamic)
+  get 'stock/yogya/:brand/:category', to: 'stock/yogya#show', as: :stock_yogya_show
   
   get 'stock/surabaya/stock_elite/stock_buffer'
   get 'stock/surabaya/stock_lady/stock_buffer'
