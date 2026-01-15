@@ -48,6 +48,9 @@
         <li class="sidebar-subnav-header">
           Serenity
         </li>
+        <li class="<%= 'active' if controller?('stock/bandung') && params[:brand] == 'serenity' %>">
+          <a href="/stock/bandung/serenity/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('stock/bandung/stock_serenity') && action?('stock_buffer') %>">
           <a href="/stock/bandung/stock_serenity/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
         </li>
@@ -76,6 +79,9 @@
       <ul id="stock-bandung-lady" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Lady
+        </li>
+        <li class="<%= 'active' if controller?('stock/bandung') && params[:brand] == 'lady' %>">
+          <a href="/stock/bandung/lady/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bandung/stock_lady') && action?('stock_buffer') %>">
           <a href="/stock/bandung/stock_lady/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
@@ -106,6 +112,9 @@
         <li class="sidebar-subnav-header">
           Royal
         </li>
+        <li class="<%= 'active' if controller?('stock/bandung') && params[:brand] == 'royal' %>">
+          <a href="/stock/bandung/royal/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('stock/bandung/stock_royal') && action?('stock_buffer') %>">
           <a href="/stock/bandung/stock_royal/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
         </li>
@@ -130,11 +139,11 @@
       </ul>
     </li>
     
-    <li class="<%= 'active' if controller?('stock/bandung/stock_classic') && action?('stock_classic') %>">
-      <a href="/stock/bandung/stock_elite/stock_classic" title="Tote"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
+    <li class="<%= 'active' if controller?('stock/bandung') && params[:brand] == 'classic' %>">
+      <a href="/stock/bandung/classic/normal" title="Classic"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
     </li>
-    <li class="<%= 'active' if controller?('stock/bandung/stock_elite') && action?('stock_tote') %>">
-      <a href="/stock/bandung/stock_elite/stock_tote" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
+    <li class="<%= 'active' if controller?('stock/bandung') && params[:brand] == 'tote' %>">
+      <a href="/stock/bandung/tote/normal" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
     </li>
     
   </ul>
