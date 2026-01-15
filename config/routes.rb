@@ -550,6 +550,8 @@ Rails.application.routes.draw do
   get 'credit_limits/bandung/credit_checks/credit_checks'
   get 'credit_limits/bandung/credit_checks/credit_details'
 
+
+
   get 'order/bandung/bandung_elites/all_brand'
   get 'order/bandung/bandung_elites/order'
   get 'order/bandung/bandung_elites/order_normal'
@@ -635,6 +637,9 @@ Rails.application.routes.draw do
   get 'stock/bandung/stock_royal/stock_clearence'
   get 'stock/bandung/stock_royal/stock_service'
   get 'stock/bandung/stock_royal/stock_display'
+  # Refactored Bandung Stock Route (Dynamic)
+  get 'stock/bandung/:brand/:category', to: 'stock/bandung#show', as: :stock_bandung_show
+
   get 'account_receivables/bandung/elite_ar/uncollectable_ar'
   get 'account_receivables/bandung/elite_ar/collectable_ar'
   get 'account_receivables/bandung/serenity_ar/uncollectable_ar'

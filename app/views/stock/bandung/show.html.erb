@@ -1,0 +1,20 @@
+<%= render 'stock/bandung/tabs' %>
+
+<!-- Render the inner template passed from the controller -->
+<!-- Render the inner template passed from the controller -->
+<div class="responsive-table-wrapper">
+  <%= render template: @inner_template %>
+</div>
+
+<style>
+  /* Force tables inside this wrapper to be responsive */
+  .responsive-table-wrapper table {
+    width: 100%;
+    margin-bottom: 0; 
+  }
+  
+  .responsive-table-wrapper .panel-body {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+</style>

@@ -16,6 +16,9 @@
         <li class="sidebar-subnav-header">
           Elite
         </li>
+        <li class="<%= 'active' if controller?('stock/bandung') %>">
+          <a href="/stock/bandung/elite/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('stock/bandung/stock_elite') && action?('stock_buffer') %>">
           <a href="/stock/bandung/stock_elite/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
         </li>
