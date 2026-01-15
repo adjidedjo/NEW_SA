@@ -2176,6 +2176,9 @@ Rails.application.routes.draw do
   get 'stock/palembang/stock_lady/stock_buffer'
   get 'stock/palembang/stock_serenity/stock_buffer'
   get 'stock/palembang/stock_royal/stock_buffer'
+  get 'stock/palembang/stock_royal/stock_display'
+  # Refactored Palembang Stock Route (Dynamic)
+  get 'stock/palembang/:brand/:category', to: 'stock/palembang#show', as: :stock_palembang_show
   
   get 'stock/lampung/stock_elite/stock_buffer'
   get 'stock/lampung/stock_lady/stock_buffer'
