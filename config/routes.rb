@@ -2186,6 +2186,9 @@ Rails.application.routes.draw do
   get 'stock/medan/stock_lady/stock_buffer'
   get 'stock/medan/stock_serenity/stock_buffer'
   get 'stock/medan/stock_royal/stock_buffer'
+  get 'stock/medan/stock_royal/stock_display'
+  # Refactored Medan Stock Route (Dynamic)
+  get 'stock/medan/:brand/:category', to: 'stock/medan#show', as: :stock_medan_show
   
   get 'stock/pekanbaru/stock_elite/stock_buffer'
   get 'stock/pekanbaru/stock_lady/stock_buffer'

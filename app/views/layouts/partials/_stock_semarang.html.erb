@@ -16,6 +16,9 @@
         <li class="sidebar-subnav-header">
           Elite
         </li>
+        <li class="<%= 'active' if controller?('stock/semarang') %>">
+          <a href="/stock/semarang/elite/normal"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('stock/semarang/stock_elite') && action?('stock_buffer') %>">
           <a href="/stock/semarang/stock_elite/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
         </li>
@@ -41,6 +44,9 @@
       <ul id="stock-semarang-serenity" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Serenity
+        </li>
+        <li class="<%= 'active' if controller?('stock/semarang') && params[:brand] == 'serenity' %>">
+          <a href="/stock/semarang/serenity/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/semarang/stock_serenity') && action?('stock_buffer') %>">
           <a href="/stock/semarang/stock_serenity/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
@@ -68,6 +74,9 @@
         <li class="sidebar-subnav-header">
           Lady
         </li>
+        <li class="<%= 'active' if controller?('stock/semarang') && params[:brand] == 'lady' %>">
+          <a href="/stock/semarang/lady/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('stock/semarang/stock_lady') && action?('stock_buffer') %>">
           <a href="/stock/semarang/stock_lady/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
         </li>
@@ -94,6 +103,9 @@
         <li class="sidebar-subnav-header">
           Royal
         </li>
+        <li class="<%= 'active' if controller?('stock/semarang') && params[:brand] == 'royal' %>">
+          <a href="/stock/semarang/royal/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('stock/semarang/stock_royal') && action?('stock_buffer') %>">
           <a href="/stock/semarang/stock_royal/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
         </li>
@@ -115,11 +127,11 @@
       </ul>
     </li>
     
-    <li class="<%= 'active' if controller?('stock/semarang/stock_classic') && action?('stock_classic') %>">
-      <a href="/stock/semarang/stock_elite/stock_classic" title="Tote"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
+    <li class="<%= 'active' if controller?('stock/semarang') && params[:brand] == 'classic' %>">
+      <a href="/stock/semarang/classic/normal" title="Classic"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
     </li>
-    <li class="<%= 'active' if controller?('stock/semarang/stock_elite') && action?('stock_tote') %>">
-      <a href="/stock/semarang/stock_elite/stock_tote" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
+    <li class="<%= 'active' if controller?('stock/semarang') && params[:brand] == 'tote' %>">
+      <a href="/stock/semarang/tote/normal" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
     </li>
   </ul>
 </li>

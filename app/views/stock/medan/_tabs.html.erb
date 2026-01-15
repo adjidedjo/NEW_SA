@@ -1,0 +1,44 @@
+<div class="scrollable-tabs">
+  <ul class="nav nav-tabs" style="border-bottom: none;">
+    <% 
+      tabs = [
+        { id: 'normal', label: 'Normal' },
+        { id: 'clearance', label: 'Clearance' },
+        { id: 'display', label: 'Display' },
+        { id: 'service', label: 'Service' },
+        { id: 'unnormal', label: 'Tanggung' },
+        { id: 'buffer', label: 'Buffer' },
+        { id: 'recap', label: 'Recap' }
+      ]
+    %>
+    
+    <% tabs.each do |tab| %>
+      <li role="presentation" class="<%= 'active' if @category_param == tab[:id] %>" style="float: none; display: inline-block;">
+        <%= link_to tab[:label], stock_medan_show_path(brand: @brand_param, category: tab[:id]) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<style>
+  .scrollable-tabs {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px; /* Add some space for scrollbar on desktop */
+  }
+  
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .scrollable-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .scrollable-tabs {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+</style>
