@@ -2096,6 +2096,9 @@ Rails.application.routes.draw do
   get 'stock/cirebon/stock_lady/stock_buffer'
   get 'stock/cirebon/stock_serenity/stock_buffer'
   get 'stock/cirebon/stock_royal/stock_buffer'
+  get 'stock/cirebon/stock_royal/stock_display'
+  # Refactored Cirebon Stock Route (Dynamic)
+  get 'stock/cirebon/:brand/:category', to: 'stock/cirebon#show', as: :stock_cirebon_show
   
   get 'stock/bali/stock_elite/stock_buffer'
   get 'stock/bali/stock_lady/stock_buffer'

@@ -1,0 +1,59 @@
+<%= render 'stock/cikampek/tabs' %>
+
+<div class="row" style="margin-bottom: 15px;">
+  <div class="col-md-4 col-sm-6 pull-right">
+    <div class="input-group">
+      <input type="text" id="stock-search" class="form-control" placeholder="Search product, customer, or salesman...">
+      <span class="input-group-addon">
+        <i class="fa fa-search"></i>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Render the inner template passed from the controller -->
+<div class="responsive-table-wrapper">
+  <%= render template: @inner_template %>
+</div>
+
+<script>
+  (function() {
+    var searchInput = document.getElementById('stock-search');
+    if (searchInput) {
+      searchInput.addEventListener('keyup', function() {
+        var filter = this.value.toLowerCase();
+        var rows = document.querySelectorAll('.responsive-table-wrapper table tbody tr');
+        
+        rows.forEach(function(row) {
+          var text = row.textContent.toLowerCase();
+          row.style.display = text.includes(filter) ? '' : 'none';
+        });
+      });
+    }
+  })();
+</script>
+
+<style>
+  /* Force tables inside this wrapper to be responsive */
+  .responsive-table-wrapper table {
+    width: 100%;
+    margin-bottom: 0; 
+  }
+  
+  .responsive-table-wrapper .panel-body {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: 80vh; /* Optional: cap height to viewport */
+    overflow-y: auto;
+  }
+
+  /* Sticky Header */
+  .responsive-table-wrapper table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #f5f7fa; /* Light gray background */
+    border-bottom: 2px solid #ddd;
+    box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1); /* Subtle shadow */
+  }
+</style>
