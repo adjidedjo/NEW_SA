@@ -58,7 +58,7 @@ class Stock::TasikController < ApplicationController
   private
 
   def set_branch_plant
-    @branch_plant = "1801101"
+    @branch_plant = "1101101"
   end
 
   def map_brand(name)

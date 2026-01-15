@@ -58,7 +58,7 @@ class Stock::SukabumiController < ApplicationController
   private
 
   def set_branch_plant
-    @branch_plant = "1801102"
+    @branch_plant = "1101102"
   end
 
   def map_brand(name)
