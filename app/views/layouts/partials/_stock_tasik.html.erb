@@ -16,6 +16,9 @@
         <li class="sidebar-subnav-header">
           Elite
         </li>
+        <li class="<%= 'active' if controller?('stock/tasik') %>">
+          <a href="/stock/tasik/elite/normal"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('stock/tasik/stock_elite') && action?('stock_buffer') %>">
           <a href="/stock/tasik/stock_elite/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
         </li>
@@ -44,6 +47,9 @@
       <ul id="stock-tasik-serenity" class="nav sidebar-subnav collapse">
         <li class="sidebar-subnav-header">
           Serenity
+        </li>
+        <li class="<%= 'active' if controller?('stock/tasik') && params[:brand] == 'serenity' %>">
+          <a href="/stock/tasik/serenity/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/tasik/stock_serenity') && action?('stock_buffer') %>">
           <a href="/stock/tasik/stock_serenity/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
@@ -74,6 +80,9 @@
         <li class="sidebar-subnav-header">
           Lady
         </li>
+        <li class="<%= 'active' if controller?('stock/tasik') && params[:brand] == 'lady' %>">
+          <a href="/stock/tasik/lady/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('stock/tasik/stock_lady') && action?('stock_buffer') %>">
           <a href="/stock/tasik/stock_lady/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
         </li>
@@ -103,6 +112,9 @@
         <li class="sidebar-subnav-header">
           Royal
         </li>
+        <li class="<%= 'active' if controller?('stock/tasik') && params[:brand] == 'royal' %>">
+          <a href="/stock/tasik/royal/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
+        </li>
         <li class="<%= 'active' if controller?('stock/tasik/stock_royal') && action?('stock_buffer') %>">
           <a href="/stock/tasik/stock_royal/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
         </li>
@@ -127,11 +139,11 @@
       </ul>
     </li>
     
-    <li class="<%= 'active' if controller?('stock/tasik/stock_classic') && action?('stock_classic') %>">
-      <a href="/stock/tasik/stock_elite/stock_classic" title="Tote"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
+    <li class="<%= 'active' if controller?('stock/tasik') && params[:brand] == 'classic' %>">
+      <a href="/stock/tasik/classic/normal" title="Classic"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
     </li>
-    <li class="<%= 'active' if controller?('stock/tasik/stock_elite') && action?('stock_tote') %>">
-      <a href="/stock/tasik/stock_elite/stock_tote" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
+    <li class="<%= 'active' if controller?('stock/tasik') && params[:brand] == 'tote' %>">
+      <a href="/stock/tasik/tote/normal" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
     </li>
     
   </ul>

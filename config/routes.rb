@@ -2105,12 +2105,17 @@ Rails.application.routes.draw do
   get 'stock/sukabumi/stock_elite/stock_buffer'
   get 'stock/sukabumi/stock_lady/stock_buffer'
   get 'stock/sukabumi/stock_serenity/stock_buffer'
-  get 'stock/sukabumi/stock_royal/stock_buffer'
-  
+  get 'stock/sukabumi/stock_royal/stock_display'
+  # Refactored Sukabumi Stock Route (Dynamic)
+  get 'stock/sukabumi/:brand/:category', to: 'stock/sukabumi#show', as: :stock_sukabumi_show
+
   get 'stock/tasik/stock_elite/stock_buffer'
   get 'stock/tasik/stock_lady/stock_buffer'
   get 'stock/tasik/stock_serenity/stock_buffer'
   get 'stock/tasik/stock_royal/stock_buffer'
+  get 'stock/tasik/stock_royal/stock_display'
+  # Refactored Tasik Stock Route (Dynamic)
+  get 'stock/tasik/:brand/:category', to: 'stock/tasik#show', as: :stock_tasik_show
   
   get 'stock/cikampek/stock_elite/stock_buffer'
   get 'stock/cikampek/stock_lady/stock_buffer'
