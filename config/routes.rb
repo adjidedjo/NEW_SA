@@ -2151,6 +2151,8 @@ Rails.application.routes.draw do
   get 'stock/surabaya/stock_lady/stock_buffer'
   get 'stock/surabaya/stock_serenity/stock_buffer'
   get 'stock/surabaya/stock_royal/stock_buffer'
+  # Refactored Surabaya Stock Route (Dynamic)
+  get 'stock/surabaya/:brand/:category', to: 'stock/surabaya#show', as: :stock_surabaya_show
   
   get 'stock/jember/stock_elite/stock_buffer'
   get 'stock/jember/stock_lady/stock_buffer'
