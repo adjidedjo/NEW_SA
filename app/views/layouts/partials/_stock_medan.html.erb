@@ -127,11 +127,11 @@
       </ul>
     </li>
     
-    <li class="<%= 'active' if controller?('stock/medan') && params[:brand] == 'classic' %>">
-      <a href="/stock/medan/classic/normal" title="Classic"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
+    <li class="<%= 'active' if controller?('stock/medan/stock_classic') && action?('stock_classic') %>">
+      <a href="/stock/medan/stock_elite/stock_classic" title="Classic"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
     </li>
-    <li class="<%= 'active' if controller?('stock/medan') && params[:brand] == 'tote' %>">
-      <a href="/stock/medan/tote/normal" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
+    <li class="<%= 'active' if controller?('stock/medan/stock_elite') && action?('stock_tote') %>">
+      <a href="/stock/medan/stock_elite/stock_tote" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
     </li>
   </ul>
 </li>

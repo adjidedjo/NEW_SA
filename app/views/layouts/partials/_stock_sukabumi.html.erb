@@ -139,11 +139,11 @@
       </ul>
     </li>
     
-    <li class="<%= 'active' if controller?('stock/sukabumi') && params[:brand] == 'classic' %>">
-      <a href="/stock/sukabumi/classic/normal" title="Classic"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
+    <li class="<%= 'active' if controller?('stock/sukabumi/stock_classic') && action?('stock_classic') %>">
+      <a href="/stock/sukabumi/stock_elite/stock_classic" title="Classic"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
     </li>
-    <li class="<%= 'active' if controller?('stock/sukabumi') && params[:brand] == 'tote' %>">
-      <a href="/stock/sukabumi/tote/normal" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
+    <li class="<%= 'active' if controller?('stock/sukabumi/stock_elite') && action?('stock_tote') %>">
+      <a href="/stock/sukabumi/stock_elite/stock_tote" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
     </li>
     
   </ul>
