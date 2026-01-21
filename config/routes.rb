@@ -996,6 +996,8 @@ Rails.application.routes.draw do
   get 'stock/surabaya/stock_royal/stock_clearence'
   get 'stock/surabaya/stock_royal/stock_service'
   get 'stock/surabaya/stock_royal/stock_display'
+  # Refactored Surabaya Stock Route (Dynamic)
+  get 'stock/surabaya/:brand/:category', to: 'stock/surabaya#show', as: :stock_surabaya_show
   get 'account_receivables/surabaya/elite_ar/uncollectable_ar'
   get 'account_receivables/surabaya/elite_ar/collectable_ar'
   get 'account_receivables/surabaya/serenity_ar/uncollectable_ar'
@@ -1085,6 +1087,8 @@ Rails.application.routes.draw do
   get 'stock/bali/stock_royal/stock_clearence'
   get 'stock/bali/stock_royal/stock_service'
   get 'stock/bali/stock_royal/stock_display'
+  # Refactored Bali Stock Route (Dynamic)
+  get 'stock/bali/:brand/:category', to: 'stock/bali#show', as: :stock_bali_show
   get 'account_receivables/bali/elite_ar/uncollectable_ar'
   get 'account_receivables/bali/elite_ar/collectable_ar'
   get 'account_receivables/bali/serenity_ar/uncollectable_ar'
@@ -1253,6 +1257,8 @@ Rails.application.routes.draw do
   get 'stock/jember/stock_royal/stock_clearence'
   get 'stock/jember/stock_royal/stock_service'
   get 'stock/jember/stock_royal/stock_display'
+  # Refactored Jember Stock Route (Dynamic)
+  get 'stock/jember/:brand/:category', to: 'stock/jember#show', as: :stock_jember_show
   get 'account_receivables/jember/elite_ar/uncollectable_ar'
   get 'account_receivables/jember/elite_ar/collectable_ar'
   get 'account_receivables/jember/serenity_ar/uncollectable_ar'
@@ -1871,6 +1877,8 @@ Rails.application.routes.draw do
   get 'stock/manado/stock_royal/stock_clearence'
   get 'stock/manado/stock_royal/stock_service'
   get 'stock/manado/stock_royal/stock_display'
+  # Refactored Manado Stock Route (Dynamic)
+  get 'stock/manado/:brand/:category', to: 'stock/manado#show', as: :stock_manado_show
   get 'account_receivables/manado/elite_ar/uncollectable_ar'
   get 'account_receivables/manado/elite_ar/collectable_ar'
   get 'account_receivables/manado/serenity_ar/uncollectable_ar'
@@ -1964,6 +1972,8 @@ Rails.application.routes.draw do
   get 'stock/kediri/stock_royal/stock_clearence'
   get 'stock/kediri/stock_royal/stock_service'
   get 'stock/kediri/stock_royal/stock_display'
+  # Refactored Kediri Stock Route (Dynamic)
+  get 'stock/kediri/:brand/:category', to: 'stock/kediri#show', as: :stock_kediri_show
   get 'account_receivables/kediri/elite_ar/uncollectable_ar'
   get 'account_receivables/kediri/elite_ar/collectable_ar'
   get 'account_receivables/kediri/serenity_ar/uncollectable_ar'
@@ -2057,6 +2067,8 @@ Rails.application.routes.draw do
   get 'stock/samarinda/stock_royal/stock_clearence'
   get 'stock/samarinda/stock_royal/stock_service'
   get 'stock/samarinda/stock_royal/stock_display'
+  # Refactored Samarinda Stock Route (Dynamic)
+  get 'stock/samarinda/:brand/:category', to: 'stock/samarinda#show', as: :stock_samarinda_show
   get 'account_receivables/samarinda/elite_ar/uncollectable_ar'
   get 'account_receivables/samarinda/elite_ar/collectable_ar'
   get 'account_receivables/samarinda/serenity_ar/uncollectable_ar'
@@ -2090,6 +2102,8 @@ Rails.application.routes.draw do
   get 'stock/palembang/stock_agings/aging'
   get 'stock/medan/stock_agings/aging'
   get 'stock/pusat/stock_agings/aging'
+  # Refactored Pusat Stock Route (Dynamic)
+  get 'stock/pusat/:brand/:category', to: 'stock/pusat#show', as: :stock_pusat_show
   
   
   get 'stock/cirebon/stock_elite/stock_buffer'
@@ -2129,11 +2143,15 @@ Rails.application.routes.draw do
   get 'stock/bekasi/stock_lady/stock_buffer'
   get 'stock/bekasi/stock_serenity/stock_buffer'
   get 'stock/bekasi/stock_royal/stock_buffer'
+  # Refactored Bekasi Stock Route (Dynamic)
+  get 'stock/bekasi/:brand/:category', to: 'stock/bekasi#show', as: :stock_bekasi_show
   
   get 'stock/tangerang/stock_elite/stock_buffer'
   get 'stock/tangerang/stock_lady/stock_buffer'
   get 'stock/tangerang/stock_serenity/stock_buffer'
   get 'stock/tangerang/stock_royal/stock_buffer'
+  # Refactored Tangerang Stock Route (Dynamic)
+  get 'stock/tangerang/:brand/:category', to: 'stock/tangerang#show', as: :stock_tangerang_show
   
   get 'stock/semarang/stock_elite/stock_buffer'
   get 'stock/semarang/stock_lady/stock_buffer'
@@ -2160,7 +2178,7 @@ Rails.application.routes.draw do
   get 'stock/jember/stock_royal/stock_buffer'
   get 'stock/jember/stock_royal/stock_display'
   # Refactored Jember Stock Route (Dynamic)
-  get 'stock/jember/:brand/:category', to: 'stock/jember#show', as: :stock_jember_show
+
   
   get 'stock/kediri/stock_elite/stock_buffer'
   get 'stock/kediri/stock_lady/stock_buffer'
@@ -2192,6 +2210,8 @@ Rails.application.routes.draw do
   get 'stock/lampung/stock_lady/stock_buffer'
   get 'stock/lampung/stock_serenity/stock_buffer'
   get 'stock/lampung/stock_royal/stock_buffer'
+  # Refactored Lampung Stock Route (Dynamic)
+  get 'stock/lampung/:brand/:category', to: 'stock/lampung#show', as: :stock_lampung_show
   
   get 'stock/medan/stock_elite/stock_buffer'
   get 'stock/medan/stock_lady/stock_buffer'

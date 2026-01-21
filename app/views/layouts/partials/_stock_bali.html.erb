@@ -2,141 +2,145 @@
   <a href="#stock-bali" title="Level 1" data-toggle="collapse"> <em class="fa fa-folder-o"></em> <span>Bali</span> </a>
   <ul id="stock-bali" class="nav sidebar-subnav collapse">
     <li class="sidebar-subnav-header">
-      Bali
+      Bali Stats
     </li>
     <li class="<%= 'active' if controller?('stock/bali/stock_capacities') && action?('capacity') %>">
-      <a href="/stock/bali/stock_capacities/capacity" title="Recap"> <span>Capacity</span></a>
+      <a href="/stock/bali/stock_capacities/capacity" title="Recap"> <em class="icon-graph"></em> <span>Capacity</span></a>
     </li>
     <li class="<%= 'active' if controller?('stock/bali/stock_agings') && action?('aging') %>">
-      <a href="/stock/bali/stock_agings/aging" title="Aging"> <span>Aging Stock</span></a>
+      <a href="/stock/bali/stock_agings/aging" title="Aging"> <em class="icon-clock"></em> <span>Aging Stock</span></a>
     </li>
+
+    <li class="sidebar-subnav-header">
+      Main Brands
+    </li>
+
+    <%# ELITE %>
     <li class="<%= 'active' if controller?('stock/bali/stock_elite') %>">
       <a href="#stock-bali-elite" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Elite</span> </a>
       <ul id="stock-bali-elite" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Elite
-        </li>
         <li class="<%= 'active' if controller?('stock/bali') %>">
           <a href="/stock/bali/elite/normal"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_elite') && action?('stock_buffer') %>">
-          <a href="/stock/bali/stock_elite/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
+          <a href="/stock/bali/stock_elite/stock_buffer" title="Buffer"> <em class="icon-layers"></em> <span>Buffer</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_elite') && action?('stock_recap') %>">
-          <a href="/stock/bali/stock_elite/stock_recap" title="Recap"> <span>Recap</span> </a>
+          <a href="/stock/bali/stock_elite/stock_recap" title="Recap"> <em class="icon-list"></em> <span>Recap</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_elite') && action?('stock_normal') %>">
-          <a href="/stock/bali/stock_elite/stock_normal" title="Normal"> <span>Normal</span> </a>
+          <a href="/stock/bali/stock_elite/stock_normal" title="Normal"> <em class="icon-check"></em> <span>Normal</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_elite') && action?('stock_clearence') %>">
-          <a href="/stock/bali/stock_elite/stock_clearence" title="Clearance"> <span>Clearance</span> </a>
+          <a href="/stock/bali/stock_elite/stock_clearence" title="Clearance"> <em class="icon-tag"></em> <span>Clearance</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_elite') && action?('stock_service') %>">
-          <a href="/stock/bali/stock_elite/stock_service" title="Return & Service"> <span>Return & Service</span> </a>
+          <a href="/stock/bali/stock_elite/stock_service" title="Return & Service"> <em class="icon-support"></em> <span>Return & Service</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_elite') && action?('stock_display') %>">
-          <a href="/stock/bali/stock_elite/stock_display" title="Display"> <span>Display</span> </a>
+          <a href="/stock/bali/stock_elite/stock_display" title="Display"> <em class="icon-screen-desktop"></em> <span>Display</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_elite') && action?('stock_unnormal') %>">
-          <a href="/stock/bali/stock_elite/stock_unnormal" title="Normal"> <span>Tanggung</span> </a>
+          <a href="/stock/bali/stock_elite/stock_unnormal" title="Unnormal"> <em class="icon-info"></em> <span>Unnormal</span> </a>
         </li>
       </ul>
     </li>
+
+    <%# SERENITY %>
     <li class="<%= 'active' if controller?('stock/bali/stock_serenity') %>">
-      <a href="#stock-bali-serenity" title="Elite" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Serenity</span> </a>
+      <a href="#stock-bali-serenity" title="Serenity" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Serenity</span> </a>
       <ul id="stock-bali-serenity" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Serenity
-        </li>
         <li class="<%= 'active' if controller?('stock/bali') && params[:brand] == 'serenity' %>">
           <a href="/stock/bali/serenity/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_serenity') && action?('stock_buffer') %>">
-          <a href="/stock/bali/stock_serenity/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
+          <a href="/stock/bali/stock_serenity/stock_buffer" title="Buffer"> <em class="icon-layers"></em> <span>Buffer</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_serenity') && action?('stock_recap') %>">
-          <a href="/stock/bali/stock_serenity/stock_recap" title="Recap"> <span>Recap</span> </a>
+          <a href="/stock/bali/stock_serenity/stock_recap" title="Recap"> <em class="icon-list"></em> <span>Recap</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_serenity') && action?('stock_normal') %>">
-          <a href="/stock/bali/stock_serenity/stock_normal" title="Normal"> <span>Normal</span> </a>
+          <a href="/stock/bali/stock_serenity/stock_normal" title="Normal"> <em class="icon-check"></em> <span>Normal</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_serenity') && action?('stock_clearence') %>">
-          <a href="/stock/bali/stock_serenity/stock_clearence" title="Clearance"> <span>Clearance</span> </a>
+          <a href="/stock/bali/stock_serenity/stock_clearence" title="Clearance"> <em class="icon-tag"></em> <span>Clearance</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_serenity') && action?('stock_service') %>">
-          <a href="/stock/bali/stock_serenity/stock_service" title="Return & Service"> <span>Return & Service</span> </a>
+          <a href="/stock/bali/stock_serenity/stock_service" title="Return & Service"> <em class="icon-support"></em> <span>Return & Service</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_serenity') && action?('stock_display') %>">
-          <a href="/stock/bali/stock_serenity/stock_display" title="Display"> <span>Display</span> </a>
+          <a href="/stock/bali/stock_serenity/stock_display" title="Display"> <em class="icon-screen-desktop"></em> <span>Display</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_serenity') && action?('stock_unnormal') %>">
-          <a href="/stock/bali/stock_serenity/stock_unnormal" title="Normal"> <span>Tanggung</span> </a>
+          <a href="/stock/bali/stock_serenity/stock_unnormal" title="Unnormal"> <em class="icon-info"></em> <span>Unnormal</span> </a>
         </li>
       </ul>
     </li>
+
+    <%# LADY %>
     <li class="<%= 'active' if controller?('stock/bali/stock_lady') %>">
       <a href="#stock-bali-lady" title="Lady" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Lady</span> </a>
       <ul id="stock-bali-lady" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Lady
-        </li>
         <li class="<%= 'active' if controller?('stock/bali') && params[:brand] == 'lady' %>">
           <a href="/stock/bali/lady/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_lady') && action?('stock_buffer') %>">
-          <a href="/stock/bali/stock_lady/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
+          <a href="/stock/bali/stock_lady/stock_buffer" title="Buffer"> <em class="icon-layers"></em> <span>Buffer</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_lady') && action?('stock_recap') %>">
-          <a href="/stock/bali/stock_lady/stock_recap" title="Recap"> <span>Recap</span> </a>
+          <a href="/stock/bali/stock_lady/stock_recap" title="Recap"> <em class="icon-list"></em> <span>Recap</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_lady') && action?('stock_normal') %>">
-          <a href="/stock/bali/stock_lady/stock_normal" title="Normal"> <span>Normal</span> </a>
+          <a href="/stock/bali/stock_lady/stock_normal" title="Normal"> <em class="icon-check"></em> <span>Normal</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_lady') && action?('stock_clearence') %>">
-          <a href="/stock/bali/stock_lady/stock_clearence" title="Clearance"> <span>Clearance</span> </a>
+          <a href="/stock/bali/stock_lady/stock_clearence" title="Clearance"> <em class="icon-tag"></em> <span>Clearance</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_lady') && action?('stock_service') %>">
-          <a href="/stock/bali/stock_lady/stock_service" title="Return & Service"> <span>Return & Service</span> </a>
+          <a href="/stock/bali/stock_lady/stock_service" title="Return & Service"> <em class="icon-support"></em> <span>Return & Service</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_lady') && action?('stock_display') %>">
-          <a href="/stock/bali/stock_lady/stock_display" title="Display"> <span>Display</span> </a>
+          <a href="/stock/bali/stock_lady/stock_display" title="Display"> <em class="icon-screen-desktop"></em> <span>Display</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_lady') && action?('stock_unnormal') %>">
-          <a href="/stock/bali/stock_lady/stock_unnormal" title="Normal"> <span>Tanggung</span> </a>
+          <a href="/stock/bali/stock_lady/stock_unnormal" title="Unnormal"> <em class="icon-info"></em> <span>Unnormal</span> </a>
         </li>
       </ul>
     </li>
+
+    <%# ROYAL %>
     <li class="<%= 'active' if controller?('stock/bali/stock_royal') %>">
       <a href="#stock-bali-royal" title="Royal" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Royal</span> </a>
       <ul id="stock-bali-royal" class="nav sidebar-subnav collapse">
-        <li class="sidebar-subnav-header">
-          Royal
-        </li>
         <li class="<%= 'active' if controller?('stock/bali') && params[:brand] == 'royal' %>">
           <a href="/stock/bali/royal/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_royal') && action?('stock_buffer') %>">
-          <a href="/stock/bali/stock_royal/stock_buffer" title="Buffer"> <span>Bufer</span> </a>
+          <a href="/stock/bali/stock_royal/stock_buffer" title="Buffer"> <em class="icon-layers"></em> <span>Buffer</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_royal') && action?('stock_recap') %>">
-          <a href="/stock/bali/stock_royal/stock_recap" title="Recap"> <span>Recap</span> </a>
+          <a href="/stock/bali/stock_royal/stock_recap" title="Recap"> <em class="icon-list"></em> <span>Recap</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_royal') && action?('stock_normal') %>">
-          <a href="/stock/bali/stock_royal/stock_normal" title="Normal"> <span>Normal</span> </a>
+          <a href="/stock/bali/stock_royal/stock_normal" title="Normal"> <em class="icon-check"></em> <span>Normal</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_royal') && action?('stock_clearence') %>">
-          <a href="/stock/bali/stock_royal/stock_clearence" title="Clearance"> <span>Clearance</span> </a>
+          <a href="/stock/bali/stock_royal/stock_clearence" title="Clearance"> <em class="icon-tag"></em> <span>Clearance</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_royal') && action?('stock_service') %>">
-          <a href="/stock/bali/stock_royal/stock_service" title="Return & Service"> <span>Return & Service</span> </a>
+          <a href="/stock/bali/stock_royal/stock_service" title="Return & Service"> <em class="icon-support"></em> <span>Return & Service</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_royal') && action?('stock_display') %>">
-          <a href="/stock/bali/stock_royal/stock_display" title="Display"> <span>Display</span> </a>
+          <a href="/stock/bali/stock_royal/stock_display" title="Display"> <em class="icon-screen-desktop"></em> <span>Display</span> </a>
         </li>
         <li class="<%= 'active' if controller?('stock/bali/stock_royal') && action?('stock_unnormal') %>">
-          <a href="/stock/bali/stock_royal/stock_unnormal" title="Normal"> <span>Tanggung</span> </a>
+          <a href="/stock/bali/stock_royal/stock_unnormal" title="Unnormal"> <em class="icon-info"></em> <span>Unnormal</span> </a>
         </li>
       </ul>
+    </li>
+    
+    <li class="sidebar-subnav-header">
+      Other Brands
     </li>
     <li class="<%= 'active' if controller?('stock/bali/stock_classic') && action?('stock_classic') %>">
       <a href="/stock/bali/stock_elite/stock_classic" title="Classic"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
