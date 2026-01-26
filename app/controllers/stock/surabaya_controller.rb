@@ -47,6 +47,10 @@ class Stock::SurabayaController < ApplicationController
     when 'recap'
       @recap_stock = Stock::ItemAvailability.recap_stock_report(@branch_plant, brand_code(@brand_param))
       @inner_template = "stock/template_stock/recap_stock"
+    when 'modern'
+      @stock = Stock::JdeItemAvailability.stock_real_jde_web("11061", brand_code(@brand_param))
+      @state = "MODERN MARKET"
+      @inner_template = "stock/template_stock/stock_normal"
     else
       render plain: "Category not found", status: 404
       return
