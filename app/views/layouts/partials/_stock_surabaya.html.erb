@@ -138,12 +138,40 @@
         </li>
       </ul>
     </li>
+
+    <%# CLASSIC %>
+    <li class="<%= 'active' if controller?('stock/surabaya/stock_classic') %>">
+      <a href="#stock-surabaya-classic" title="Classic" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Classic</span> </a>
+      <ul id="stock-surabaya-classic" class="nav sidebar-subnav collapse">
+        <li class="<%= 'active' if controller?('stock/surabaya') && params[:brand] == 'classic' %>">
+          <a href="/stock/surabaya/classic/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/surabaya/stock_classic') && action?('stock_buffer') %>">
+          <a href="/stock/surabaya/stock_classic/stock_buffer" title="Buffer"> <em class="icon-layers"></em> <span>Buffer</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/surabaya/stock_classic') && action?('stock_recap') %>">
+          <a href="/stock/surabaya/stock_classic/stock_recap" title="Recap"> <em class="icon-list"></em> <span>Recap</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/surabaya/stock_classic') && action?('stock_normal') %>">
+          <a href="/stock/surabaya/stock_classic/stock_normal" title="Normal"> <em class="icon-check"></em> <span>Normal</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/surabaya/stock_classic') && action?('stock_clearence') %>">
+          <a href="/stock/surabaya/stock_classic/stock_clearence" title="Clearance"> <em class="icon-tag"></em> <span>Clearance</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/surabaya/stock_classic') && action?('stock_service') %>">
+          <a href="/stock/surabaya/stock_classic/stock_service" title="Return & Service"> <em class="icon-support"></em> <span>Return & Service</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/surabaya/stock_classic') && action?('stock_display') %>">
+          <a href="/stock/surabaya/stock_classic/stock_display" title="Display"> <em class="icon-screen-desktop"></em> <span>Display</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/surabaya/stock_classic') && action?('stock_unnormal') %>">
+          <a href="/stock/surabaya/stock_classic/stock_unnormal" title="Unnormal"> <em class="icon-info"></em> <span>Unnormal</span> </a>
+        </li>
+      </ul>
+    </li>
     
     <li class="sidebar-subnav-header">
       Other Brands
-    </li>
-    <li class="<%= 'active' if controller?('stock/surabaya/stock_classic') && action?('stock_classic') %>">
-      <a href="/stock/surabaya/stock_elite/stock_classic" title="Classic"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
     </li>
     <li class="<%= 'active' if controller?('stock/surabaya/stock_elite') && action?('stock_tote') %>">
       <a href="/stock/surabaya/stock_elite/stock_tote" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
