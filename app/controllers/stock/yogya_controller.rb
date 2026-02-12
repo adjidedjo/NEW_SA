@@ -58,7 +58,11 @@ class Stock::YogyaController < ApplicationController
   private
 
   def set_branch_plant
-    @branch_plant = "12041001"
+    if params[:brand]&.upcase == 'ROYAL'
+      @branch_plant = "12041002"
+    else
+      @branch_plant = "12041001"
+    end
   end
 
   def map_brand(name)
