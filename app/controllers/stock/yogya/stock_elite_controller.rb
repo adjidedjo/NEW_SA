@@ -15,7 +15,7 @@ class Stock::Yogya::StockEliteController < ApplicationController
   end
   
   def stock_classic
-    @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "C")
+    @stock = Stock::JdeItemAvailability.stock_real_jde_web("11041", "C")
     @brand = "CLASSIC"
     @state = "NORMAL"
     render template: "stock/template_stock/stock_normal"
