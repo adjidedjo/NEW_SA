@@ -32,6 +32,10 @@ class Stock::BaliController < ApplicationController
       @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, brand_code(@brand_param))
       @state = "NORMAL"
       @inner_template = "stock/template_stock/stock_normal"
+    when 'ras'
+      @stock = Stock::JdeItemAvailability.stock_real_jde_web("11071", brand_code(@brand_param))
+      @state = "NORMAL"
+      @inner_template = "stock/template_stock/stock_normal"
     when 'display'
       @stock = Stock::ItemAvailability.stock_display_report(@branch_plant + "D", brand_code(@brand_param))
       @state = "DISPLAY"
