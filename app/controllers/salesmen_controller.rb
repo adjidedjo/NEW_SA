@@ -1,4 +1,5 @@
 class SalesmenController < ApplicationController
+  include RolesHelper
   before_action :authorize_user
   before_action :set_salesman, only: [:show, :edit, :update, :destroy]
 
