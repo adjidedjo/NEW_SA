@@ -1,6 +1,24 @@
 module ApplicationHelper
   include RolesHelper
 
+  def flash_messages
+    flash_messages = []
+    flash.each do |type, message|
+      next if message.blank?
+      
+      type = 'success' if type == 'notice'
+      type = 'danger' if type == 'alert' || type == 'error'
+      
+      flash_messages << content_tag(:div, class: "alert alert-#{type} alert-dismissible", role: "alert") do
+        button = content_tag(:button, "×", type: "button", class: "close", 
+                           "data-dismiss": "alert", "aria-label": "Close")
+        button + message
+      end
+    end
+    
+    content_tag(:div, flash_messages.join.html_safe, class: "flash-messages") if flash_messages.any?
+  end
+
   def negative(value)
     value.nil? ? value : (value.negative?() ? 0 : value)
   end
@@ -14,7 +32,7 @@ module ApplicationHelper
   end
   
   def find_area(area)
-    Area.find(area).area
+    Area.find_by_id(area).try(:area) || '-'
   end
   
   def find_branch(branch)
