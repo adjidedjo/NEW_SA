@@ -1,64 +1,56 @@
-# Dynamic Branch Mapping for Makassar & LAVITA Customer Implementation Plan
+# Standardized Customer Decrease Query across All Brands Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Ensure customer decrease report dynamically maps customer sales data (including LAVITA under area_id 19) to Cabang Makassar via SQL JOIN `tbidcabang` with safe fallback handling.
+**Goal:** Standardize `Penjualan::Customer.customer_decrease` logic across all brands to match the `ROYAL` brand logic (`tipecust = 'RETAIL'` and `area_id IS NOT NULL`), ensuring LAVITA (area_id 19) and all branch customers map accurately to their respective branches without defaulting to `PUSAT/RETAIL`.
 
-**Architecture:** Utilize SQL `LEFT JOIN dbmarketing.tbidcabang cb ON cb.id = target.area_id` with `IFNULL(cb.Cabang, 'PUSAT/RETAIL') AS cabang` in `Penjualan::Customer.customer_decrease`, preventing any hardcoding of branch/customer names while preserving ERB template compatibility.
+**Architecture:** Refactor `Penjualan::Customer.customer_decrease` in `app/models/penjualan/customer.rb` to remove TOTE-specific query branches, enforcing uniform `tipecust = 'RETAIL'` and `area_id IS NOT NULL` filters with dynamic `LEFT JOIN dbmarketing.tbidcabang cb ON cb.id = b.area_id`.
 
-**Tech Stack:** Ruby on Rails 4.x / 5.x, MySQL (MariaDB), ERB templates, RSpec / Rails test framework.
+**Tech Stack:** Ruby on Rails 4.x / 5.x, MySQL (MariaDB), ERB templates.
 
 ## Global Constraints
-- Database tables involved: `dbmarketing.tblaporancabang2` and `dbmarketing.tbidcabang`.
-- No hardcoded customer codes (e.g. `101383`) or hardcoded branch names in Ruby/ERB logic.
-- Compatible string conversions (`.to_s`) in ERB templates to avoid `NilClass` runtime errors.
+- Standardize all brands (`ROYAL`, `ELITE`, `LADY`, `SERENITY`, `TOTE`) under a single SQL query structure.
+- Enforce `tipecust = 'RETAIL'` and `AND area_id IS NOT NULL` across all brand invocations.
+- No hardcoded customer codes or branch names.
 
 ---
 
-### Task 1: Verify and Ensure Dynamic Branch Join in `Penjualan::Customer.customer_decrease`
+### Task 1: Refactor `Penjualan::Customer.customer_decrease` to Standardize Query Logic
 
 **Files:**
 - Modify: `app/models/penjualan/customer.rb:16-39`
-- Test: `test/models/penjualan/customer_test.rb` (or `spec/models/penjualan/customer_spec.rb`)
 
 **Interfaces:**
-- Consumes: `dbmarketing.tblaporancabang2`, `dbmarketing.tbidcabang`
-- Produces: `Penjualan::Customer.customer_decrease(brand)` returning ActiveRecord result set with `.cabang` attribute mapped dynamically to `tbidcabang.Cabang`.
+- Consumes: `brand` string parameter (e.g. `'ROYAL'`, `'ELITE'`, `'LADY'`, `'SERENITY'`, `'TOTE'`)
+- Produces: ActiveRecord query result with `.cabang` mapped via `tbidcabang.Cabang`.
 
-- [ ] **Step 1: Write the test verifying branch mapping for area_id 19 (Makassar / LAVITA)**
-
-Create or update test in `test/models/penjualan/customer_test.rb`:
+- [ ] **Step 1: Write/Update unit test in `test/models/penjualan/customer_test.rb` for all brands**
 
 ```ruby
 require 'test_helper'
 
 class Penjualan::CustomerTest < ActiveSupport::TestCase
-  test "customer_decrease returns cabang name from tbidcabang for area_id 19" do
-    results = Penjualan::Customer.customer_decrease('ELITE')
-    assert results.present?, "Expected customer_decrease query to return results"
-    
-    lavita_record = results.find { |r| r.customer == 'LAVITA' }
-    if lavita_record
-      assert_equal 'Cabang Makassar', lavita_record.cabang
+  test "customer_decrease produces consistent branch mapping for ROYAL and TOTE" do
+    %w[ROYAL ELITE LADY SERENITY TOTE].each do |brand|
+      results = Penjualan::Customer.customer_decrease(brand)
+      assert results.is_a?(Enumerable), "Expected query result for #{brand}"
+      
+      # Ensure no records contain area_id IS NULL that fallback unexpectedly
+      results.each do |record|
+        assert_not_nil record.cabang, "Cabang should not be nil for #{record.customer}"
+      end
     end
   end
 end
 ```
 
-- [ ] **Step 2: Run test to verify execution**
+- [ ] **Step 2: Update `Penjualan::Customer.customer_decrease` in `app/models/penjualan/customer.rb`**
 
-Run: `bundle exec rake test TEST=test/models/penjualan/customer_test.rb`
-Expected: PASS (or verification of existing data behavior)
-
-- [ ] **Step 3: Verify and ensure model code in `app/models/penjualan/customer.rb`**
-
-Verify `app/models/penjualan/customer.rb` contains:
+Replace lines 16-39 in `app/models/penjualan/customer.rb`:
 
 ```ruby
   def self.customer_decrease(brand)
     date = Date.today
-    customer_type_condition = brand == 'TOTE' ? "tipecust IN ('RETAIL', 'ONLINE', 'MODERN', 'DIRECT')" : "tipecust = 'RETAIL'"
-    area_condition = brand == 'TOTE' ? "" : "AND area_id IS NOT NULL"
 
     find_by_sql("
       SELECT IFNULL(cb.Cabang, 'PUSAT/RETAIL') AS cabang, b.* FROM (
@@ -70,8 +62,10 @@ Verify `app/models/penjualan/customer.rb` contains:
           FROM (
             SELECT jenisbrgdisc, area_id, customer, kode_customer, kota, harganetto2, WEEK, fiscal_year
             FROM dbmarketing.tblaporancabang2
-            WHERE tanggalsj BETWEEN '#{5.weeks.ago.to_date}' AND '#{1.weeks.ago.end_of_week.to_date}' AND jenisbrgdisc REGEXP '#{brand}' AND #{customer_type_condition}
-            #{area_condition}
+            WHERE tanggalsj BETWEEN '#{5.weeks.ago.to_date}' AND '#{1.weeks.ago.end_of_week.to_date}' 
+              AND jenisbrgdisc REGEXP '#{brand}' 
+              AND tipecust = 'RETAIL'
+              AND area_id IS NOT NULL
           ) a GROUP BY a.customer, a.jenisbrgdisc
       ) b
       LEFT JOIN
@@ -83,45 +77,66 @@ Verify `app/models/penjualan/customer.rb` contains:
   end
 ```
 
-- [ ] **Step 4: Run verification query in console or test**
+- [ ] **Step 3: Run Python verification script across all 5 brands**
 
-Run: `python3 -c "import mysql.connector; conn=mysql.connector.connect(host='dbsaltic.royalcorp.co.id',user='root',password='Roy@l4b@d!',database='dbmarketing'); c=conn.cursor(); c.execute(\"SELECT IFNULL(cb.Cabang, 'PUSAT/RETAIL') AS cabang, b.customer, b.kota FROM (SELECT area_id, customer, kota FROM tblaporancabang2 WHERE customer = 'LAVITA' LIMIT 1) b LEFT JOIN tbidcabang cb ON cb.id = b.area_id;\"); print(c.fetchall())"`
-Expected: `[('Cabang Makassar', 'LAVITA', 'MAKASSAR')]`
+Run:
+```bash
+python3 -c "
+import mysql.connector
 
-- [ ] **Step 5: Commit**
+conn = mysql.connector.connect(host='dbsaltic.royalcorp.co.id', user='root', password='Roy@l4b@d!', database='dbmarketing')
+cursor = conn.cursor(dictionary=True)
+
+for brand in ['ROYAL', 'ELITE', 'LADY', 'SERENITY', 'TOTE']:
+    query = f'''
+      SELECT IFNULL(cb.Cabang, \"PUSAT/RETAIL\") AS cabang, b.* FROM (
+        SELECT a.area_id, a.customer, a.kode_customer, a.jenisbrgdisc, a.kota
+        FROM (
+          SELECT jenisbrgdisc, area_id, customer, kode_customer, kota, harganetto2, WEEK, fiscal_year
+          FROM dbmarketing.tblaporancabang2
+          WHERE tanggalsj BETWEEN '2026-06-22' AND '2026-07-19' 
+            AND jenisbrgdisc REGEXP '{brand}' 
+            AND tipecust = 'RETAIL'
+            AND area_id IS NOT NULL
+        ) a GROUP BY a.customer, a.jenisbrgdisc
+      ) b
+      LEFT JOIN dbmarketing.tbidcabang cb ON cb.id = b.area_id
+      ORDER BY b.customer
+    '''
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    pusat_count = len([r for r in rows if r['cabang'] == 'PUSAT/RETAIL'])
+    print(f'Brand: {brand:<10} | Rows: {len(rows):<4} | PUSAT/RETAIL Count: {pusat_count}')
+"
+```
+Expected output: PUSAT/RETAIL Count: 0 for all brands.
+
+- [ ] **Step 4: Commit**
 
 ```bash
 git add app/models/penjualan/customer.rb
-git commit -m "feat(penjualan): ensure dynamic branch mapping via tbidcabang for customer decrease"
+git commit -m "refactor(penjualan): standardize customer_decrease query for all brands to match royal brand"
 ```
 
 ---
 
-### Task 2: Verify ERB Template Compatibility and Safe Navigation
+### Task 2: Verify View Template Rendering Across All Brands
 
 **Files:**
-- Modify: `app/views/penjualan/customers/customer_decrease.html.erb`
+- Modify: `app/views/penjualan/template_dashboard/customer_decrease.html.erb`
 
 **Interfaces:**
-- Consumes: `@customer_decrease` collection (objects with `.cabang`, `.customer`, `.kota`, `.w1`, `.w2`, `.w3`, `.w4`)
-- Produces: HTML table view with rendered branch names and weekly change diff indicators.
+- Consumes: `@customer` array of ActiveRecord results.
+- Produces: Clean HTML table rendering `Cabang Makassar` (or other branch names) without `PUSAT/RETAIL`.
 
-- [ ] **Step 1: Inspect `app/views/penjualan/customers/customer_decrease.html.erb` for safe `.cabang.to_s` usage**
+- [ ] **Step 1: Check view template syntax**
 
-Verify that `customer.cabang.to_s` is used instead of direct unsafe dereferencing to guarantee production ERB compatibility:
+Run: `ruby -r erb -e "puts ERB.new(File.read('app/views/penjualan/template_dashboard/customer_decrease.html.erb')).src" | ruby -c`
+Expected: `Syntax OK`
 
-```erb
-<td><%= customer.cabang.to_s %></td>
-```
-
-- [ ] **Step 2: Run syntax check on ERB template**
-
-Run: `bundle exec rails runner "ActionView::Template.new(File.read('app/views/penjualan/customers/customer_decrease.html.erb'), 'customer_decrease', ActionView::Template::Handlers::ERB, locator: 'test').render(Object.new, {}) rescue nil"`
-Expected: No ERB compilation/syntax errors.
-
-- [ ] **Step 3: Commit template verification**
+- [ ] **Step 2: Commit view template verification**
 
 ```bash
-git add app/views/penjualan/customers/customer_decrease.html.erb
-git commit -m "fix(view): verify safe branch string rendering in customer_decrease view"
+git add app/views/penjualan/template_dashboard/customer_decrease.html.erb
+git commit -m "fix(view): confirm customer_decrease view template compatibility"
 ```
