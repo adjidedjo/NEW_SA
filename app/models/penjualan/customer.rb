@@ -15,12 +15,10 @@ class Penjualan::Customer < Penjualan::Sale
 
   def self.customer_decrease(brand)
     date = Date.today
-    customer_type_condition = brand == 'TOTE' ? "tipecust IN ('RETAIL', 'ONLINE', 'MODERN', 'DIRECT')" : "tipecust = 'RETAIL'"
-    area_condition = brand == 'TOTE' ? "" : "AND area_id IS NOT NULL"
 
     find_by_sql("
 
-      SELECT IFNULL(cb.Cabang, 'ONLINE/PUSAT') AS cabang, b.* FROM (
+      SELECT IFNULL(cb.Cabang, 'PUSAT/RETAIL') AS cabang, b.* FROM (
         SELECT a.area_id, a.customer, a.kode_customer, a.jenisbrgdisc, a.kota,
           IFNULL(SUM(CASE WHEN a.week = '#{4.weeks.ago.to_date.cweek}' AND a.fiscal_year = '#{4.weeks.ago.to_date.year}' THEN a.harganetto2 END), 0) AS w4,
           IFNULL(SUM(CASE WHEN a.week = '#{3.weeks.ago.to_date.cweek}' AND a.fiscal_year = '#{3.weeks.ago.to_date.year}' THEN a.harganetto2 END), 0) AS w3,
@@ -29,8 +27,7 @@ class Penjualan::Customer < Penjualan::Sale
           FROM (
             SELECT jenisbrgdisc, area_id, customer, kode_customer, kota, harganetto2, WEEK, fiscal_year
             FROM dbmarketing.tblaporancabang2
-            WHERE tanggalsj BETWEEN '#{5.weeks.ago.to_date}' AND '#{1.weeks.ago.end_of_week.to_date}' AND jenisbrgdisc REGEXP '#{brand}' AND #{customer_type_condition}
-            #{area_condition}
+            WHERE tanggalsj BETWEEN '#{5.weeks.ago.to_date}' AND '#{1.weeks.ago.end_of_week.to_date}' AND jenisbrgdisc REGEXP '#{brand}' AND tipecust = 'RETAIL'
           ) a GROUP BY a.customer, a.jenisbrgdisc
       ) b
       LEFT JOIN
