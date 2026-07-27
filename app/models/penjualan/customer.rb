@@ -15,10 +15,16 @@ class Penjualan::Customer < Penjualan::Sale
 
   def self.customer_decrease(brand)
     date = Date.today
+    customer_type_condition = brand == 'TOTE' ? "tipecust IN ('RETAIL', 'ONLINE', 'MODERN', 'DIRECT')" : "tipecust = 'RETAIL'"
 
     find_by_sql("
       SELECT IFNULL(cb.Cabang, 'PUSAT/RETAIL') AS cabang, b.* FROM (
-        SELECT a.area_id, a.customer, a.kode_customer, a.jenisbrgdisc, a.kota,
+        SELECT 
+          COALESCE(
+            MAX(a.area_id),
+            (SELECT sub.area_id FROM dbmarketing.tblaporancabang2 sub WHERE sub.kode_customer = a.kode_customer AND sub.area_id IS NOT NULL AND sub.area_id != 0 ORDER BY sub.tanggalsj DESC LIMIT 1)
+          ) AS resolved_area_id,
+          a.customer, a.kode_customer, a.jenisbrgdisc, a.kota,
           IFNULL(SUM(CASE WHEN a.week = '#{4.weeks.ago.to_date.cweek}' AND a.fiscal_year = '#{4.weeks.ago.to_date.year}' THEN a.harganetto2 END), 0) AS w4,
           IFNULL(SUM(CASE WHEN a.week = '#{3.weeks.ago.to_date.cweek}' AND a.fiscal_year = '#{3.weeks.ago.to_date.year}' THEN a.harganetto2 END), 0) AS w3,
           IFNULL(SUM(CASE WHEN a.week = '#{2.weeks.ago.to_date.cweek}' AND a.fiscal_year = '#{2.weeks.ago.to_date.year}' THEN a.harganetto2 END), 0) AS w2,
@@ -28,14 +34,10 @@ class Penjualan::Customer < Penjualan::Sale
             FROM dbmarketing.tblaporancabang2
             WHERE tanggalsj BETWEEN '#{5.weeks.ago.to_date}' AND '#{1.weeks.ago.end_of_week.to_date}' 
               AND jenisbrgdisc REGEXP '#{brand}' 
-              AND tipecust = 'RETAIL'
-              AND area_id IS NOT NULL
+              AND #{customer_type_condition}
           ) a GROUP BY a.customer, a.jenisbrgdisc
       ) b
-      LEFT JOIN
-      (
-        SELECT * FROM dbmarketing.tbidcabang
-      ) cb ON cb.id = b.area_id
+      LEFT JOIN dbmarketing.tbidcabang cb ON cb.id = b.resolved_area_id
       ORDER BY b.customer
     ")
   end
