@@ -1,10 +1,10 @@
 # Design Spec: Database Area ID Cleanup & Dynamic Customer Branch Resolution
 
 ## Context & Background
-In `dbmarketing.tblaporancabang2`, several sales records for `TOTE` (and potentially other brands) have `area_id IS NULL`. This includes customers such as **LAVITA**, **PLAZA MEUBEL**, and **PT ALPINE INDO MANDIRI**. Because `area_id` is missing in these specific rows, sales reports (like `customer_decrease`) failed to map them to their appropriate branch (e.g. `Cabang Makassar`, `area_id = 19`).
+In `dbmarketing.tblaporancabang2`, several sales records for `TOTE` (and potentially other brands) have `area_id IS NULL`. This includes customers such as **LAVITA**, **PLAZA MEUBEL**, **PT ALPINE INDO MANDIRI**, and **DEPO PELITA PURWOKERTO**. Because `area_id` is missing in these specific rows, sales reports (like `customer_decrease`) failed to map them to their appropriate branch (e.g. `Cabang Makassar` for LAVITA/PLAZA MEUBEL/ALPINE, or `Cabang Semarang/Yogyakarta` for DEPO PELITA).
 
 To resolve this comprehensively across all customers and all brands, this specification establishes:
-1. A database migration/cleanup query to populate `area_id` for NULL records based on existing non-null `area_id` records for the same customer.
+1. A database cleanup query to populate `area_id` for NULL records based on existing non-null `area_id` records for the same customer (`kode_customer`).
 2. A dynamic `COALESCE` query fallback in `Penjualan::Customer.customer_decrease` to resolve `area_id` automatically even if future records are inserted with `NULL`.
 
 ## Architecture & Data Flow
@@ -37,7 +37,7 @@ WHERE t1.area_id IS NULL;
         SELECT 
           COALESCE(
             MAX(a.area_id),
-            (SELECT sub.area_id FROM dbmarketing.tblaporancabang2 sub WHERE sub.kode_customer = a.kode_customer AND sub.area_id IS NOT NULL AND sub.area_id != 0 LIMIT 1)
+            (SELECT sub.area_id FROM dbmarketing.tblaporancabang2 sub WHERE sub.kode_customer = a.kode_customer AND sub.area_id IS NOT NULL AND sub.area_id != 0 ORDER BY sub.tanggalsj DESC LIMIT 1)
           ) AS resolved_area_id,
           a.customer, a.kode_customer, a.jenisbrgdisc, a.kota,
           IFNULL(SUM(CASE WHEN a.week = '#{4.weeks.ago.to_date.cweek}' AND a.fiscal_year = '#{4.weeks.ago.to_date.year}' THEN a.harganetto2 END), 0) AS w4,
@@ -64,6 +64,6 @@ WHERE t1.area_id IS NULL;
 - `app/views/penjualan/template_dashboard/customer_decrease.html.erb`
 
 ## Verification Strategy
-1. Run the database `UPDATE` query and verify rows for LAVITA, PLAZA MEUBEL, and PT ALPINE INDO MANDIRI have `area_id = 19`.
-2. Test `customer_decrease` for `TOTE` and confirm customer records render under `Cabang Makassar` and other respective branches without returning 0 rows.
+1. Run the database `UPDATE` query and verify rows for **LAVITA**, **PLAZA MEUBEL**, **PT ALPINE INDO MANDIRI**, and **DEPO PELITA PURWOKERTO** have non-null `area_id` values.
+2. Test `customer_decrease` for `TOTE` and confirm customer records render under their respective branches without returning 0 rows.
 3. Confirm zero `PUSAT/RETAIL` fallbacks for known branch customers.
