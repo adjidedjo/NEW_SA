@@ -30,7 +30,7 @@
               <tbody>
                 <% @customer.each do |dp| %>
                 <tr class="gradeX">
-                  <td><%= dp.cabang.gsub('Cabang', '') %></td>
+                  <td><%= dp.cabang&.gsub('Cabang', '') %></td>
                   <td><%= dp.jenisbrgdisc %></td>
                   <td><%= dp.customer %></td>
                   <td><%= dp.kota %></td>
