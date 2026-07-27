@@ -1,4 +1,4 @@
-# Design Spec: Fix Empty Data in Customer Decrease Page (Strictly RETAIL)
+# Design Spec: Fix Empty Data and ERB Syntax Error on Customer Decrease Page
 
 **Date:** 2026-07-27  
 **Status:** Approved  
@@ -8,14 +8,13 @@
 
 ## 1. Overview & Problem Statement
 
-Halaman `/penjualan/nasional/nasional_tote/customer_decrease` menampilkan tabel data "CUSTOMER DECREASE". Halaman ini ditujukan **khusus untuk tipe customer RETAIL** (`tipecust = 'RETAIL'`).
+Halaman `/penjualan/nasional/nasional_tote/customer_decrease` menampilkan tabel data "CUSTOMER DECREASE" khusus tipe customer RETAIL (`tipecust = 'RETAIL'`).
 
-Saat ini data bertipe `RETAIL` untuk TOTE tampil kosong (0 baris).
-
-### Root Cause
-Di database (`dbmarketing.tblaporancabang2`), transaksi TOTE bertipe `RETAIL` dalam 4 minggu terakhir **tersedia** (4 customer: `LAVITA`, `PLAZA MEUBEL`, `PT ALPINE INDO MANDIRI`, dan `DEPO PELITA PURWOKERTO`).
-
-Penyebab tunggal data tersebut terbuang adalah klausa **`AND area_id IS NOT NULL`** pada subquery `Penjualan::Customer.customer_decrease(brand)`. Seluruh transaksi RETAIL TOTE pada periode tersebut memiliki nilai `area_id = NULL` di database.
+### Issues & Root Cause
+1. **Data RETAIL Kosong**:
+   Disebabkan oleh klausa `AND area_id IS NOT NULL` pada `Penjualan::Customer.customer_decrease(brand)`. Transaksi RETAIL TOTE pada database memiliki `area_id = NULL`.
+2. **SyntaxError di Production ERB Parser**:
+   Pemanggilan `<%= dp.cabang&.gsub('Cabang', '') %>` menggunakan operator `&.` di dalam tag ERB memicu `SyntaxError: unexpected '.'` pada ERB parser environment production.
 
 ---
 
@@ -24,34 +23,18 @@ Penyebab tunggal data tersebut terbuang adalah klausa **`AND area_id IS NOT NULL
 ### 2.1 Model: `app/models/penjualan/customer.rb`
 
 Modifikasi method `self.customer_decrease(brand)`:
-
-1. **Pertahankan `tipecust = 'RETAIL'` untuk Semua Brand**:
-   - Seluruh query tetap memfilter `tipecust = 'RETAIL'`.
-
-2. **Hapus Filter `AND area_id IS NOT NULL`**:
-   - Hapus klausa `AND area_id IS NOT NULL` dari subquery agar transaksi RETAIL yang tidak memiliki `area_id` (bernilai `NULL`) dapat ikut ditarik dan dihitung.
-
-3. **Dukungan Null Cabang**:
-   - Gunakan `IFNULL(cb.Cabang, 'PUSAT/RETAIL') AS cabang` untuk memberikan nama cabang fallback yang jelas bagi transaksi tanpa `area_id`.
+- Hapus filter `AND area_id IS NOT NULL` dari subquery.
+- Gunakan `IFNULL(cb.Cabang, 'PUSAT/RETAIL') AS cabang` sebagai fallback nama cabang.
 
 ### 2.2 View Template: `app/views/penjualan/template_dashboard/customer_decrease.html.erb`
 
-1. Tamat pengamanan safe navigation `&.` saat memproses kolom `cabang`:
-   - Gunakan `<%= dp.cabang&.gsub('Cabang', '') %>` untuk mencegah runtime error `NoMethodError` jika `cabang` bernilai `nil`.
+Ubah pemrosesan nama cabang pada baris 33:
+- Ganti `<%= dp.cabang&.gsub('Cabang', '') %>` dengan `<%= dp.cabang.to_s.gsub('Cabang', '') %>`.
+- Penggunaan `.to_s` menjamin 100% kompatibilitas dengan parser ERB di semua versi Ruby/Rails di production tanpa menyebabkan `SyntaxError` maupun `NoMethodError`.
 
 ---
 
-## 3. Data Flow & Expected Outcome
+## 3. Verification Plan
 
-1. Saat request masuk ke `Penjualan::Nasional::NasionalToteController#customer_decrease`:
-   - `Penjualan::Customer.customer_decrease("TOTE")` dipanggil.
-2. Query SQL menarik seluruh data penjualan bertipe `RETAIL` tanpa mengeliminasi data yang `area_id`-nya `NULL`.
-3. Mengembalikan 4 record customer RETAIL untuk brand TOTE.
-4. View template merender tabel dengan aman menggunakan cabang `'PUSAT/RETAIL'`.
-
----
-
-## 4. Verification Plan
-
-1. Jalankan script verification via `rails runner` (environment Ruby 2.5.8) untuk memastikan `Penjualan::Customer.customer_decrease('TOTE')` mengembalikan 4 customer RETAIL.
-2. Pastikan query brand lain (`ELITE`, `LADY`, `ROYAL`, `SERENITY`) tidak mengalami masalah regresi.
+1. Pastikan ERB template `customer_decrease.html.erb` terkompilasi dengan bersih tanpa `SyntaxError`.
+2. Jalankan verification script via `rails runner` (Ruby 2.5.8) untuk memastikan 4 customer RETAIL TOTE dapat dirender dengan cabang `"PUSAT/RETAIL"`.
