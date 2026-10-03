@@ -23,20 +23,12 @@
                   <th>City</th>
                   <th>Week <%= 4.weeks.ago.to_date.cweek %> <br /><%= week_c(4) %></th>
                   <th>Week <%= 3.weeks.ago.to_date.cweek %> <br /><%= week_c(3) %></th>
-                  <th>Selisih (W4➔W3)</th>
                   <th>Week <%= 2.weeks.ago.to_date.cweek %> <br /><%= week_c(2) %></th>
-                  <th>Selisih (W3➔W2)</th>
                   <th>Week <%= 1.weeks.ago.to_date.cweek %> <br /><%= week_c(1) %></th>
-                  <th>Selisih (W2➔W1)</th>
                 </tr>
               </thead>
               <tbody>
                 <% @customer.each do |dp| %>
-                <% 
-                  diff_34 = dp.w3.to_f - dp.w4.to_f
-                  diff_23 = dp.w2.to_f - dp.w3.to_f
-                  diff_12 = dp.w1.to_f - dp.w2.to_f
-                %>
                 <tr class="gradeX">
                   <td><%= dp.cabang.to_s.gsub('Cabang', '') %></td>
                   <td><%= dp.jenisbrgdisc %></td>
@@ -44,35 +36,8 @@
                   <td><%= dp.kota %></td>
                   <td><%= currency(dp.w4) %></td>
                   <td><%= currency(dp.w3) %></td>
-                  <td>
-                    <% if diff_34 < 0 %>
-                      <span class="text-danger"><i class="fa fa-caret-down"></i> <%= currency(diff_34) %></span>
-                    <% elsif diff_34 > 0 %>
-                      <span class="text-success"><i class="fa fa-caret-up"></i> +<%= currency(diff_34) %></span>
-                    <% else %>
-                      -
-                    <% end %>
-                  </td>
                   <td><%= currency(dp.w2) %></td>
-                  <td>
-                    <% if diff_23 < 0 %>
-                      <span class="text-danger"><i class="fa fa-caret-down"></i> <%= currency(diff_23) %></span>
-                    <% elsif diff_23 > 0 %>
-                      <span class="text-success"><i class="fa fa-caret-up"></i> +<%= currency(diff_23) %></span>
-                    <% else %>
-                      -
-                    <% end %>
-                  </td>
                   <td><%= currency(dp.w1) %></td>
-                  <td>
-                    <% if diff_12 < 0 %>
-                      <span class="text-danger"><i class="fa fa-caret-down"></i> <%= currency(diff_12) %></span>
-                    <% elsif diff_12 > 0 %>
-                      <span class="text-success"><i class="fa fa-caret-up"></i> +<%= currency(diff_12) %></span>
-                    <% else %>
-                      -
-                    <% end %>
-                  </td>
                 </tr>
                 <% end %>
               </tbody>
