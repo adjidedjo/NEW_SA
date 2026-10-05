@@ -136,8 +136,17 @@
       </ul>
     </li>
     
-    <li class="<%= 'active' if controller?('stock/kediri/stock_classic') && action?('stock_classic') %>">
-      <a href="/stock/kediri/stock_elite/stock_classic" title="Classic"> <em class="icon-basket-loaded"></em> <span>Classic</span></a>
+    <%# CLASSIC %>
+    <li class="<%= 'active' if (controller?('stock/kediri') && params[:brand] == 'classic') || (controller?('stock/kediri/stock_elite') && action?('stock_classic')) %>">
+      <a href="#stock-kediri-classic" title="Classic" data-toggle="collapse"> <em class="icon-basket-loaded"></em> <span>Classic</span> </a>
+      <ul id="stock-kediri-classic" class="nav sidebar-subnav collapse">
+        <li class="<%= 'active' if controller?('stock/kediri') && params[:brand] == 'classic' %>">
+          <a href="/stock/kediri/classic/normal" title="Manufacture"> <em class="icon-wrench"></em> <span>Manufacture</span> </a>
+        </li>
+        <li class="<%= 'active' if controller?('stock/kediri/stock_elite') && action?('stock_classic') %>">
+          <a href="/stock/kediri/stock_elite/stock_classic" title="Normal"> <em class="icon-check"></em> <span>Normal</span> </a>
+        </li>
+      </ul>
     </li>
     <li class="<%= 'active' if controller?('stock/kediri/stock_elite') && action?('stock_tote') %>">
       <a href="/stock/kediri/stock_elite/stock_tote" title="Tote"> <em class="icon-basket-loaded"></em><span>Tote</span></a>
