@@ -20,7 +20,7 @@ class Stock::BaliController < ApplicationController
       @state = "NORMAL"
       @inner_template = "stock/template_stock/stock_normal"
     when 'tote'
-      @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "O")
+      @stock = Stock::JdeItemAvailability.stock_real_jde_web("11071", "O")
       @brand = "TOTE"
       @state = "NORMAL"
       @inner_template = "stock/template_stock/stock_normal"
