@@ -15,7 +15,7 @@ class Stock::Bali::StockEliteController < ApplicationController
   end
   
   def stock_tote
-    @stock = Stock::JdeItemAvailability.stock_real_jde_web(@branch_plant, "O")
+    @stock = Stock::JdeItemAvailability.stock_real_jde_web("11071", "O")
     @brand = "TOTE" 
     @state = "NORMAL"
     render template: "stock/template_stock/stock_normal"
